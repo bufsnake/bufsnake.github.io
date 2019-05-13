@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-05-12T10:04:52.601Z</updated>
+  <updated>2019-05-13T04:23:52.606Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo推送文章出错</title>
+    <link href="https://bufsnake.github.io/2019/05/13/hexo%E6%8E%A8%E9%80%81%E6%96%87%E7%AB%A0%E5%87%BA%E9%94%99/"/>
+    <id>https://bufsnake.github.io/2019/05/13/hexo推送文章出错/</id>
+    <published>2019-05-13T04:10:13.000Z</published>
+    <updated>2019-05-13T04:23:52.606Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="今天在推送文章到博客时，出现了如下图所示问题："><a href="#今天在推送文章到博客时，出现了如下图所示问题：" class="headerlink" title="今天在推送文章到博客时，出现了如下图所示问题："></a>今天在推送文章到博客时，出现了如下图所示问题：</h3><pre><code>error: object file .git/objects/1a/0c8ed231a58347078a270dcca44611c261d419 is empty</code></pre><p><img src="/images/hexo/1.png" alt="hexo g -d"></p><h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><blockquote><p>将博客根目录的.deploy_git文件夹删除，重新运行</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure><blockquote><p>命令即可</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;今天在推送文章到博客时，出现了如下图所示问题：&quot;&gt;&lt;a href=&quot;#今天在推送文章到博客时，出现了如下图所示问题：&quot; class=&quot;headerlink&quot; title=&quot;今天在推送文章到博客时，出现了如下图所示问题：&quot;&gt;&lt;/a&gt;今天在推送文章到博客时，出现了如下
+      
+    
+    </summary>
+    
+      <category term="折腾" scheme="https://bufsnake.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="折腾" scheme="https://bufsnake.github.io/tags/%E6%8A%98%E8%85%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>PE文件之导入表</title>
