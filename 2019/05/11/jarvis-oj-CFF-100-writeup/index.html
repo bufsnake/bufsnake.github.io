@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="baidu-site-verification" content="Jga4UFfl8L">
+  <meta name="baidu-site-verification" content="QrcwXMLwVB">
+  <meta name="google-site-verification" content="UDtOo28IyLXe5wv6FxFfHH3lY6sh-26Plb5BtZ6BO6A">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>jarvis oj---CFF_100 writeup | Snake Blog</title>
+  <meta name="description" content="首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980">
+<meta name="keywords" content="CTF,Jarvis OJ,CFF_100,Android reverse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jarvis oj---CFF_100 writeup">
+<meta property="og:url" content="https://bufsnake.github.io/2019/05/11/jarvis-oj-CFF-100-writeup/index.html">
+<meta property="og:site_name" content="SNAKEのBlog">
+<meta property="og:description" content="首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bufsnake.github.io/images/1.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/2.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/3.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/4.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/5.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/6.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/7.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/8.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/9.png">
+<meta property="og:updated_time" content="2019-05-11T12:05:13.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jarvis oj---CFF_100 writeup">
+<meta name="twitter:description" content="首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://bufsnake.github.io/2019/05/11/jarvis-oj-CFF-100-writeup/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="SNAKEのBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="../images/icon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+</head>
+
+
+<body class="main-center theme-blue" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/bufsnake" target="_blank">
+          <img class="img-circle img-rotate" src="/images/favicon.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Snake</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Reverse Engineer &amp; FreeMan</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Nanjing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech>
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bufsnake" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/5278798557" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>Progress Together!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/Android/">Android</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/IDE/">IDE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PE文件/">PE文件</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/PE文件/壳/">壳</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/fuzz/">fuzz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-reverse/">Android reverse</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CFF-100/">CFF_100</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/">Jarvis OJ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PE文件/">PE文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/afl-fuzzing/">afl-fuzzing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz/">fuzz</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-blog/">github blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折腾/">折腾</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Android-reverse/" style="font-size: 13px;">Android reverse</a> <a href="/tags/CFF-100/" style="font-size: 13px;">CFF_100</a> <a href="/tags/CTF/" style="font-size: 13px;">CTF</a> <a href="/tags/Jarvis-OJ/" style="font-size: 13px;">Jarvis OJ</a> <a href="/tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="/tags/PE文件/" style="font-size: 13px;">PE文件</a> <a href="/tags/afl-fuzzing/" style="font-size: 13px;">afl-fuzzing</a> <a href="/tags/blog/" style="font-size: 13px;">blog</a> <a href="/tags/fuzz/" style="font-size: 13px;">fuzz</a> <a href="/tags/github-blog/" style="font-size: 13px;">github blog</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/折腾/" style="font-size: 13px;">折腾</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/fuzz/">fuzz</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/14/Fuzz-Test/" class="title">Fuzz Test</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-14T10:49:21.000Z" itemprop="datePublished">2019-05-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/折腾/">折腾</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/13/hexo推送文章出错/" class="title">hexo推送文章出错</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-13T04:10:13.000Z" itemprop="datePublished">2019-05-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/PE文件/">PE文件</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/PE文件/壳/">壳</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/12/PE文件之导入表/" class="title">PE文件之导入表</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-12T09:22:50.000Z" itemprop="datePublished">2019-05-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/IDE/">IDE</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/11/Markdown-语法简介/" class="title">Markdown 语法简介</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-11T13:07:41.000Z" itemprop="datePublished">2019-05-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/CTF/">CTF</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/CTF/Android/">Android</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/11/jarvis-oj-CFF-100-writeup/" class="title">jarvis oj---CFF_100 writeup</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-11T09:54:05.000Z" itemprop="datePublished">2019-05-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-jarvis-oj-CFF-100-writeup" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jarvis oj---CFF_100 writeup
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/11/jarvis-oj-CFF-100-writeup/" class="article-date">
+	  <time datetime="2019-05-11T09:54:05.000Z" itemprop="datePublished">2019-05-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/CTF/">CTF</a>►<a class="article-category-link" href="/categories/CTF/Android/">Android</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Android-reverse/">Android reverse</a>, <a class="article-tag-link" href="/tags/CFF-100/">CFF_100</a>, <a class="article-tag-link" href="/tags/CTF/">CTF</a>, <a class="article-tag-link" href="/tags/Jarvis-OJ/">Jarvis OJ</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/11/jarvis-oj-CFF-100-writeup/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="首先将题目下载下来"><a href="#首先将题目下载下来" class="headerlink" title="首先将题目下载下来"></a>首先将题目下载下来</h3><p><img src="/images/1.png" alt></p>
+<h3 id="拖入雷电模拟器-了解基本操作"><a href="#拖入雷电模拟器-了解基本操作" class="headerlink" title="拖入雷电模拟器,了解基本操作"></a>拖入雷电模拟器,了解基本操作</h3><p><img src="/images/2.png" alt></p>
+<h3 id="拖到jadx-gui分析程序流程，查看主页面代码"><a href="#拖到jadx-gui分析程序流程，查看主页面代码" class="headerlink" title="拖到jadx-gui分析程序流程，查看主页面代码"></a>拖到jadx-gui分析程序流程，查看主页面代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ctf.test.ctf_100;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Debug;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.widget.TextView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> has_gone_int;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> to_reach_int;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">get_flag</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        setContentView((<span class="keyword">int</span>) R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        ((Button) findViewById(R.id.button2)).setClickable(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.has_gone_int = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.to_reach_int = random.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.to_reach_int &lt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.to_reach_int *= -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="number">5</span> &lt; <span class="keyword">this</span>.to_reach_int) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.to_reach_int %= <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.to_reach_int *= <span class="number">16384</span>;</span><br><span class="line"></span><br><span class="line">                ((TextView) findViewById(R.id.data_to_reach)).setText(<span class="string">""</span> + <span class="keyword">this</span>.to_reach_int);</span><br><span class="line"></span><br><span class="line">                ((TextView) findViewById(R.id.tvResult)).setText(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.to_reach_int = random.nextInt();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Btn_up_onclick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.has_gone_int++;</span><br><span class="line"></span><br><span class="line">        ((TextView) findViewById(R.id.data_has_gone)).setText(<span class="string">""</span> + <span class="keyword">this</span>.has_gone_int);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.to_reach_int &lt;= <span class="keyword">this</span>.has_gone_int) &#123;</span><br><span class="line"></span><br><span class="line">            ((Button) findViewById(R.id.button2)).setClickable(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">btn2_onclick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ((TextView) findViewById(R.id.tvResult)).setText(<span class="string">"&#123;Flag:"</span> + get_flag(<span class="keyword">this</span>.to_reach_int) + <span class="string">"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!Debug.isDebuggerConnected()) &#123;</span><br><span class="line"></span><br><span class="line">            System.loadLibrary(<span class="string">"ctf"</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="发现："><a href="#发现：" class="headerlink" title="发现："></a>发现：</h3><blockquote>
+<p>楼梯数是程序启动时随机生成的，并且程序初始化的时候将getflag的按钮设置成不可操作，除非爬的楼梯数大于楼梯数才能按getflag的按钮，作为懒人，怎么可能真的点击那么多次，所以</p>
+</blockquote>
+<h3 id="拖到KALI里进行解包"><a href="#拖到KALI里进行解包" class="headerlink" title="拖到KALI里进行解包"></a>拖到KALI里进行解包</h3><p><img src="/images/3.png" alt></p>
+<blockquote>
+<p>在进行解包的时候加上-r命令，不对资源文件进行解包，因为在我打包的时候发现资源文件有问题，打包不了(知道详情的大佬可以告诉小弟)</p>
+</blockquote>
+<h3 id="接下来，我们对程序中关键跳转进行修改-此题做法不唯一-，让程序无论如何都可以按getflag按钮"><a href="#接下来，我们对程序中关键跳转进行修改-此题做法不唯一-，让程序无论如何都可以按getflag按钮" class="headerlink" title="接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮"></a>接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮<img src="/images/4.png" alt></h3><p>找到smali文件夹下的com/ctf/test/ctf_100/MainActivity.smali,直接搜索<br>Btn_up_onclick方法，找到关键跳转，修改成相反的就行<img src="/images/5.png" alt>将if-gt 修改成if-le后打包<img src="/images/6.png" alt></p>
+<h3 id="完成打包后签名"><a href="#完成打包后签名" class="headerlink" title="完成打包后签名"></a>完成打包后签名<img src="/images/7.png" alt></h3><p>当出现<img src="/images/8.png" alt><br>说明签名成功，再次拖入模拟器安装运行，爬一层，使爬到了，看flag按钮能够使用后，按爬到了，看flag按钮即可发现flag<br><img src="/images/9.png" alt></p>
+<h3 id="欢迎大佬批评指正"><a href="#欢迎大佬批评指正" class="headerlink" title="欢迎大佬批评指正"></a>欢迎大佬批评指正</h3>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://bufsnake.github.io/2019/05/11/jarvis-oj-CFF-100-writeup/" title="jarvis oj---CFF_100 writeup" target="_blank" rel="external">https://bufsnake.github.io/2019/05/11/jarvis-oj-CFF-100-writeup/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/bufsnake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/favicon.jpg" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/bufsnake" target="_blank"><span class="text-dark">Snake</span><small class="ml-1x">Reverse Engineer &amp; FreeMan</small></a></h3>
+        <div>平平无奇</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/05/11/Markdown-语法简介/" title="Markdown 语法简介"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/05/11/hexo-github搭建个人博客/" title="hexo+github搭建个人博客"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bufsnake" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/5278798557" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2019 Snake
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'b195cb714bed076a20d4',
+    clientSecret: '43aecb9c84e95bb865960b70c6ba7fe56f6516fb',
+    repo: 'BlogCommentSystem',
+    owner: 'bufsnake',
+    admin: ['bufsnake'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+    <script defer type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-140010676-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
