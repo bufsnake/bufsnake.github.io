@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-05-15T10:14:03.932Z</updated>
+  <updated>2019-05-15T10:56:14.626Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -21,9 +21,17 @@
     <link href="https://bufsnake.github.io/2019/05/15/%E6%88%91%E5%92%8Cunicorn-engine%E7%9A%84%E7%A5%9E%E5%A5%87%E4%B9%8B%E6%97%85/"/>
     <id>https://bufsnake.github.io/2019/05/15/我和unicorn-engine的神奇之旅/</id>
     <published>2019-05-15T10:12:29.000Z</published>
-    <updated>2019-05-15T10:14:03.932Z</updated>
+    <updated>2019-05-15T10:56:14.626Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="神奇之处："><a href="#神奇之处：" class="headerlink" title="神奇之处："></a>神奇之处：</h4><blockquote><p>模拟CPU去执行程序或程序中的某个片段，某个函数，并且支持多个架构(Arm, Arm64 (Armv8), M68K, Mips, Sparc, &amp; X86 (include X86_64))，也就是说，只需要用代码声明一下程序运行所需要的架构，所需要的栈空间，运行基址等，程序就可以模拟执行了</p></blockquote><blockquote><p>unicorn-engine 是不能调用syscall的，指令模拟的时候跳转的位置及相应的指令块没有被加载到模拟器中，那模拟时肯定是会有异常的</p></blockquote><blockquote><p>假设unicorn-engine是一个牢房，关押了来自不同地方的人(具有不同CPU架构的程序)，牢房对他们的信息了如指掌，提审哪一个犯人都可以，并且可以对他们执行任何酷刑(对程序执行内存读写和栈读写等操作)，但是对他们的同伴的信息却知之甚少(没加载到模拟器的指令块)。貌似这个比喻并不恰当，但是有助于我的个人理解。</p></blockquote><h4 id="安装方法："><a href="#安装方法：" class="headerlink" title="安装方法："></a>安装方法：</h4><p>Linux上的安装方法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install unicorn</span><br></pre></td></tr></table></figure></p><p>其余平台可进入<a href="http://www.unicorn-engine.org/download/" target="_blank" rel="noopener">官网</a>下载源文件编译安装</p><h4 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h4><p>可以参考看雪翻译的<a href="https://bbs.pediy.com/thread-224330.htm" target="_blank" rel="noopener">Unicorn引擎教程</a></p><h4 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h4><blockquote><p>整理了几个比较好的资料，因为我学习的时候发现基本上都是在照着<a href="http://eternal.red/2018/unicorn-engine-tutorial/" target="_blank" rel="noopener">Eternal Stories</a>的这个写的，所以整理了几篇不错的文章：</p></blockquote><ol><li><a href="https://bbs.pediy.com/thread-224330.htm" target="_blank" rel="noopener">Unicorn引擎教程</a></li><li><a href="http://galaxylab.org/%E5%9F%BA%E4%BA%8E-unicorn-%E7%9A%84%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C%E5%92%8C-fuzzer-%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener">基于-unicorn-的单个函数模拟执行和-fuzzer-实现</a></li><li><a href="https://ctf-wiki.github.io/ctf-wiki/reverse/unicorn/introduction/" target="_blank" rel="noopener">Unicorn Engine 简介</a></li></ol><blockquote><p>好的文章都要立马转成pdf存到盘里，谁知道哪天博主一生气，好文章就没了呢。</p></blockquote><blockquote><p>WC，又成功水了一篇</p></blockquote>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;神奇之处：&quot;&gt;&lt;a href=&quot;#神奇之处：&quot; class=&quot;headerlink&quot; title=&quot;神奇之处：&quot;&gt;&lt;/a&gt;神奇之处：&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;模拟CPU去执行程序或程序中的某个片段，某个函数，并且支持多个架构(Arm, Arm64 
+      
     
     </summary>
     
