@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-05-15T10:56:14.626Z</updated>
+  <updated>2019-05-27T05:34:44.582Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>近期目标</title>
+    <link href="https://bufsnake.github.io/2019/05/27/%E8%BF%91%E6%9C%9F%E7%9B%AE%E6%A0%87/"/>
+    <id>https://bufsnake.github.io/2019/05/27/近期目标/</id>
+    <published>2019-05-27T05:18:32.000Z</published>
+    <updated>2019-05-27T05:34:44.582Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="深入了解逆向的静态分析，动态分析，符号执行以及fuzzing"><a href="#深入了解逆向的静态分析，动态分析，符号执行以及fuzzing" class="headerlink" title="深入了解逆向的静态分析，动态分析，符号执行以及fuzzing"></a>深入了解逆向的静态分析，动态分析，符号执行以及fuzzing</h3><h3 id="深入了解符号执行的几大框架"><a href="#深入了解符号执行的几大框架" class="headerlink" title="深入了解符号执行的几大框架"></a>深入了解符号执行的几大框架</h3><h4 id="1-angr"><a href="#1-angr" class="headerlink" title="1. angr"></a>1. angr</h4><h4 id="2-miasm"><a href="#2-miasm" class="headerlink" title="2. miasm"></a>2. miasm</h4><h4 id="3-KLEE"><a href="#3-KLEE" class="headerlink" title="3. KLEE"></a>3. KLEE</h4><h4 id="4-intel-pin"><a href="#4-intel-pin" class="headerlink" title="4. intel pin"></a>4. intel pin</h4><h3 id="深入了解fuzzing的框架"><a href="#深入了解fuzzing的框架" class="headerlink" title="深入了解fuzzing的框架"></a>深入了解fuzzing的框架</h3><h4 id="1-afl-fuzz"><a href="#1-afl-fuzz" class="headerlink" title="1. afl-fuzz"></a>1. afl-fuzz</h4><h3 id="深入了解模拟器"><a href="#深入了解模拟器" class="headerlink" title="深入了解模拟器"></a>深入了解模拟器</h3><h4 id="QEMU"><a href="#QEMU" class="headerlink" title="QEMU"></a>QEMU</h4><h4 id="unicorn-engine"><a href="#unicorn-engine" class="headerlink" title="unicorn engine"></a>unicorn engine</h4><h3 id="深入了解插装工具"><a href="#深入了解插装工具" class="headerlink" title="深入了解插装工具"></a>深入了解插装工具</h3><h4 id="Frida"><a href="#Frida" class="headerlink" title="Frida"></a>Frida</h4><h4 id="intel-pin"><a href="#intel-pin" class="headerlink" title="intel pin"></a>intel pin</h4><h4 id="DynamoRIO"><a href="#DynamoRIO" class="headerlink" title="DynamoRIO"></a>DynamoRIO</h4><h3 id="了解常用的工具，逆向方法以及Python库"><a href="#了解常用的工具，逆向方法以及Python库" class="headerlink" title="了解常用的工具，逆向方法以及Python库"></a>了解常用的工具，逆向方法以及Python库</h3><h4 id="qira"><a href="#qira" class="headerlink" title="qira"></a>qira</h4><h4 id="污点分析"><a href="#污点分析" class="headerlink" title="污点分析"></a>污点分析</h4><h4 id="Z3"><a href="#Z3" class="headerlink" title="Z3"></a>Z3</h4><h3 id="待续…"><a href="#待续…" class="headerlink" title="待续…"></a>待续…</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;深入了解逆向的静态分析，动态分析，符号执行以及fuzzing&quot;&gt;&lt;a href=&quot;#深入了解逆向的静态分析，动态分析，符号执行以及fuzzing&quot; class=&quot;headerlink&quot; title=&quot;深入了解逆向的静态分析，动态分析，符号执行以及fuzzing&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="折腾" scheme="https://bufsnake.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="目标" scheme="https://bufsnake.github.io/tags/%E7%9B%AE%E6%A0%87/"/>
+    
+  </entry>
   
   <entry>
     <title>我和unicorn-engine的神奇之旅</title>
