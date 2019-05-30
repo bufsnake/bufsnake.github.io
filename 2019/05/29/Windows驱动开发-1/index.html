@@ -20,17 +20,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>标签: PE文件 | BufSnake</title>
-  <meta name="keywords" content="reverse engine">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SNAKEのBlog">
-<meta property="og:url" content="https://bufsnake.github.io/tags/PE文件/index.html">
+  <title>Windows驱动开发(1) | BufSnake</title>
+  <meta name="description" content="学习的内容是基于WDF框架的Windows驱动开发  基础知识 NT -&amp;gt; WDM -&amp;gt; WDF 每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发   WDF简介 WDF全称Windows驱动框架(Windows Driver Frameworks)WDF两种级别的驱动程序  用户级(UMDF–(User-Mode Driver Framework))">
+<meta name="keywords" content="Windows驱动开发,配置环境,Windows wdf驱动开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows驱动开发(1)">
+<meta property="og:url" content="https://bufsnake.github.io/2019/05/29/Windows驱动开发-1/index.html">
 <meta property="og:site_name" content="SNAKEのBlog">
+<meta property="og:description" content="学习的内容是基于WDF框架的Windows驱动开发  基础知识 NT -&amp;gt; WDM -&amp;gt; WDF 每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发   WDF简介 WDF全称Windows驱动框架(Windows Driver Frameworks)WDF两种级别的驱动程序  用户级(UMDF–(User-Mode Driver Framework))">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-30T04:19:54.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SNAKEのBlog">
+<meta name="twitter:title" content="Windows驱动开发(1)">
+<meta name="twitter:description" content="学习的内容是基于WDF框架的Windows驱动开发  基础知识 NT -&amp;gt; WDM -&amp;gt; WDF 每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发   WDF简介 WDF全称Windows驱动框架(Windows Driver Frameworks)WDF两种级别的驱动程序  用户级(UMDF–(User-Mode Driver Framework))">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://bufsnake.github.io/tags/PE文件/index.html">
+  <link rel="canonical" href="https://bufsnake.github.io/2019/05/29/Windows驱动开发-1/index.html">
   
     <link rel="alternate" href="/atom.xml" title="SNAKEのBlog" type="application/atom+xml">
   
@@ -350,86 +354,153 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-tags post-type-list" itemscope>
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签: PE文件</h1>
-      <p class="text-muted hidden-xs">共 1 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/fuzz/">fuzz</a></li>
-          
-          <li><a href="/tags/afl-fuzzing/">afl-fuzzing</a></li>
-          
-          <li><a href="/tags/Windows驱动开发/">Windows驱动开发</a></li>
-          
-          <li><a href="/tags/配置环境/">配置环境</a></li>
-          
-          <li><a href="/tags/Windows-wdf驱动开发/">Windows wdf驱动开发</a></li>
-          
-          <li><a href="/tags/Markdown/">Markdown</a></li>
-          
-          <li><a href="/tags/PE文件/">PE文件</a></li>
-          
-          <li><a href="/tags/折腾/">折腾</a></li>
-          
-          <li><a href="/tags/unicorn-engine/">unicorn-engine</a></li>
-          
-          <li><a href="/tags/reverse-tool/">reverse tool</a></li>
-          
-          <li><a href="/tags/hexo/">hexo</a></li>
-          
-          <li><a href="/tags/github-blog/">github blog</a></li>
-          
-          <li><a href="/tags/blog/">blog</a></li>
-          
-          <li><a href="/tags/CTF/">CTF</a></li>
-          
-          <li><a href="/tags/Jarvis-OJ/">Jarvis OJ</a></li>
-          
-          <li><a href="/tags/CFF-100/">CFF_100</a></li>
-          
-          <li><a href="/tags/Android-reverse/">Android reverse</a></li>
-          
-          <li><a href="/tags/目标/">目标</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="row">
-        
-<div class="col-md-6">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Windows驱动开发-1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-05-12T09:22:50.000Z" itemprop="datePublished">2019-05-12</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/05/12/PE文件之导入表/">PE文件之导入表</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/PE文件/" class="label label-default mb">PE文件</a>
-     
-     
-   </div>
-   
-</article>
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows驱动开发(1)
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/29/Windows驱动开发-1/" class="article-date">
+	  <time datetime="2019-05-29T10:52:07.000Z" itemprop="datePublished">2019-05-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Windows驱动开发/">Windows驱动开发</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Windows-wdf驱动开发/">Windows wdf驱动开发</a>, <a class="article-tag-link" href="/tags/Windows驱动开发/">Windows驱动开发</a>, <a class="article-tag-link" href="/tags/配置环境/">配置环境</a>
+  </span>
 
 
-</div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
 
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/29/Windows驱动开发-1/#comments" class="article-comment-link">评论</a></span>
+        
       </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <blockquote>
+<p>学习的内容是基于WDF框架的Windows驱动开发</p>
+</blockquote>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ol>
+<li>NT -&gt; WDM -&gt; WDF<blockquote>
+<p>每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发</p>
+</blockquote>
+</li>
+<li>WDF简介<blockquote>
+<p>WDF全称Windows驱动框架(Windows Driver Frameworks)<br>WDF两种级别的驱动程序</p>
+<blockquote>
+<p>用户级(UMDF–(User-Mode Driver Framework))</p>
+<blockquote>
+<p>是以 .dll 结尾的文件<br>内核级(KMDF–(Kernel-Mode Driver Framework))<br>是以 .sys 结尾的文件<br>可与其硬件直接会话，通常会通过HAL(硬件抽象层)访问硬件<br>所有的事物由对象表示，如Driver、Device等</p>
+<blockquote>
+<p>每个对象都有属性、方法、事件(有面向对象编程基础的都应该知道)<br>各种事件处理由事件回调函数处理<br>必须包含 DriverEntry 函数，像C语言中的 main 函数</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="附上基本的DriverEntry例子"><a href="#附上基本的DriverEntry例子" class="headerlink" title="附上基本的DriverEntry例子"></a>附上基本的DriverEntry例子</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ntddk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wdf.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DriverEntry</span><span class="params">(IN PDRIVER_OBJECT driver, IN PUNICODE_STRING reg_path)</span> </span>&#123;</span><br><span class="line">	WDF_DRIVER_CONFIG config;</span><br><span class="line">	NTSTATUS status;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化驱动对象的配置结构，设置DeviceAdd函数入口(此处为NULL)</span></span><br><span class="line">	WDF_DRIVER_CONFIG_INIT(&amp;config, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建驱动对象，没有驱动对象和驱动对象环境变量结构</span></span><br><span class="line">	status = WdfDriverCreate(</span><br><span class="line">		driver,</span><br><span class="line">		reg_path,</span><br><span class="line">		WDF_NO_OBJECT_ATTRIBUTES, <span class="comment">//驱动对象环境变量结构</span></span><br><span class="line">		&amp;config,</span><br><span class="line">		WDF_NO_HANDLE   <span class="comment">//驱动对象</span></span><br><span class="line">	);</span><br><span class="line">	<span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://bufsnake.github.io/2019/05/29/Windows驱动开发-1/" title="Windows驱动开发(1)" target="_blank" rel="external">https://bufsnake.github.io/2019/05/29/Windows驱动开发-1/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://bufsnake.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/favicon.jpg" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://bufsnake.github.io" target="_blank"><span class="text-dark">Snake</span><small class="ml-1x">星球流浪者</small></a></h3>
+        <div>星球流浪者</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/05/27/近期目标/" title="近期目标"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -482,6 +553,33 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'b195cb714bed076a20d4',
+    clientSecret: '43aecb9c84e95bb865960b70c6ba7fe56f6516fb',
+    repo: 'BlogCommentSystem',
+    owner: 'bufsnake',
+    admin: ['bufsnake'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
 
 
 

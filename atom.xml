@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-05-27T05:41:56.978Z</updated>
+  <updated>2019-05-30T04:19:54.160Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows驱动开发(1)</title>
+    <link href="https://bufsnake.github.io/2019/05/29/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-1/"/>
+    <id>https://bufsnake.github.io/2019/05/29/Windows驱动开发-1/</id>
+    <published>2019-05-29T10:52:07.000Z</published>
+    <updated>2019-05-30T04:19:54.160Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>学习的内容是基于WDF框架的Windows驱动开发</p></blockquote><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ol><li>NT -&gt; WDM -&gt; WDF<blockquote><p>每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发</p></blockquote></li><li>WDF简介<blockquote><p>WDF全称Windows驱动框架(Windows Driver Frameworks)<br>WDF两种级别的驱动程序</p><blockquote><p>用户级(UMDF–(User-Mode Driver Framework))</p><blockquote><p>是以 .dll 结尾的文件<br>内核级(KMDF–(Kernel-Mode Driver Framework))<br>是以 .sys 结尾的文件<br>可与其硬件直接会话，通常会通过HAL(硬件抽象层)访问硬件<br>所有的事物由对象表示，如Driver、Device等</p><blockquote><p>每个对象都有属性、方法、事件(有面向对象编程基础的都应该知道)<br>各种事件处理由事件回调函数处理<br>必须包含 DriverEntry 函数，像C语言中的 main 函数</p></blockquote></blockquote></blockquote></blockquote><h2 id="附上基本的DriverEntry例子"><a href="#附上基本的DriverEntry例子" class="headerlink" title="附上基本的DriverEntry例子"></a>附上基本的DriverEntry例子</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ntddk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wdf.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DriverEntry</span><span class="params">(IN PDRIVER_OBJECT driver, IN PUNICODE_STRING reg_path)</span> </span>&#123;</span><br><span class="line">WDF_DRIVER_CONFIG config;</span><br><span class="line">NTSTATUS status;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化驱动对象的配置结构，设置DeviceAdd函数入口(此处为NULL)</span></span><br><span class="line">WDF_DRIVER_CONFIG_INIT(&amp;config, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建驱动对象，没有驱动对象和驱动对象环境变量结构</span></span><br><span class="line">status = WdfDriverCreate(</span><br><span class="line">driver,</span><br><span class="line">reg_path,</span><br><span class="line">WDF_NO_OBJECT_ATTRIBUTES, <span class="comment">//驱动对象环境变量结构</span></span><br><span class="line">&amp;config,</span><br><span class="line">WDF_NO_HANDLE   <span class="comment">//驱动对象</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;学习的内容是基于WDF框架的Windows驱动开发&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;基础知识&quot;&gt;&lt;a href=&quot;#基础知识&quot; class=&quot;headerlink&quot; title=&quot;基础知识&quot;&gt;&lt;/a&gt;基础知识&lt;/h2&gt;&lt;ol&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Windows驱动开发" scheme="https://bufsnake.github.io/categories/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Windows驱动开发" scheme="https://bufsnake.github.io/tags/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="配置环境" scheme="https://bufsnake.github.io/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/"/>
+    
+      <category term="Windows wdf驱动开发" scheme="https://bufsnake.github.io/tags/Windows-wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>近期目标</title>
