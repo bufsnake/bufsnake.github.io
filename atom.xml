@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-05-30T04:22:31.086Z</updated>
+  <updated>2019-05-30T12:42:29.628Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>miasm框架安装</title>
+    <link href="https://bufsnake.github.io/2019/05/30/miasm%E6%A1%86%E6%9E%B6%E5%AE%89%E8%A3%85/"/>
+    <id>https://bufsnake.github.io/2019/05/30/miasm框架安装/</id>
+    <published>2019-05-30T12:22:31.000Z</published>
+    <updated>2019-05-30T12:42:29.628Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="miasm简介"><a href="#miasm简介" class="headerlink" title="miasm简介"></a>miasm简介</h2><blockquote><p>miasm是一个免费的开源的逆向工程框架，旨在分析、修改、生成二进制程序</p></blockquote><h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><h4 id="ubuntu-16-04"><a href="#ubuntu-16-04" class="headerlink" title="ubuntu 16.04"></a>ubuntu 16.04</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 z3</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Z3Prover/z3.git</span><br><span class="line"><span class="built_in">cd</span> z3/</span><br><span class="line">python scripts/mk_make.py --python</span><br><span class="line"><span class="built_in">cd</span> build/</span><br><span class="line">make</span><br><span class="line">sudo -H make install</span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="comment"># 安装 elfesteem</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/serpilliere/elfesteem.git elfesteem</span><br><span class="line"><span class="built_in">cd</span> elfesteem/</span><br><span class="line">python setup.py build</span><br><span class="line">sudo -H python setup.py install</span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="comment"># 安装相关套件</span></span><br><span class="line">sudo -H pip install llvmlite pyparsing</span><br><span class="line"><span class="comment"># 安装 miasm</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/cea-sec/miasm.git</span><br><span class="line"><span class="built_in">cd</span> miasm/</span><br><span class="line">python setup.py build</span><br><span class="line">sudo -H python setup.py install</span><br><span class="line"><span class="comment"># 测试安装结果</span></span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">test</span>/</span><br><span class="line">python test_all.py</span><br></pre></td></tr></table></figure><h5 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h5><p><img src="/images/miasm/miasm.png" alt></p><blockquote><p>导入包成功即可</p></blockquote><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将 pyparsing.py 拷贝到 C:\...\IDA\python\ 或者 pip install pyparsing</span><br><span class="line">将 miasm/miasm 目录拷贝到 C:\...\IDA\python\</span><br></pre></td></tr></table></figure><h5 id="测试是否成功-1"><a href="#测试是否成功-1" class="headerlink" title="测试是否成功"></a>测试是否成功</h5><p><img src="/images/miasm/miasm1.png" alt></p><blockquote><p>导入包成功即可</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;miasm简介&quot;&gt;&lt;a href=&quot;#miasm简介&quot; class=&quot;headerlink&quot; title=&quot;miasm简介&quot;&gt;&lt;/a&gt;miasm简介&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;miasm是一个免费的开源的逆向工程框架，旨在分析、修改、生成二进制程序&lt;
+      
+    
+    </summary>
+    
+      <category term="framework" scheme="https://bufsnake.github.io/categories/framework/"/>
+    
+      <category term="Tools" scheme="https://bufsnake.github.io/categories/framework/Tools/"/>
+    
+    
+      <category term="miasm install" scheme="https://bufsnake.github.io/tags/miasm-install/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows驱动开发(1)</title>
