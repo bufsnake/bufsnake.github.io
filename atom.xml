@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-05-30T12:42:29.628Z</updated>
+  <updated>2019-05-31T12:42:11.914Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>KLEE-符号执行框架</title>
+    <link href="https://bufsnake.github.io/2019/05/31/KLEE-%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E6%A1%86%E6%9E%B6/"/>
+    <id>https://bufsnake.github.io/2019/05/31/KLEE-符号执行框架/</id>
+    <published>2019-05-31T12:21:03.000Z</published>
+    <updated>2019-05-31T12:42:11.914Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h3><blockquote><p>通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出</p></blockquote><h3 id="KLEE"><a href="#KLEE" class="headerlink" title="KLEE"></a>KLEE</h3><h4 id="安装-推荐使用Docker安装-："><a href="#安装-推荐使用Docker安装-：" class="headerlink" title="安装(推荐使用Docker安装)："></a>安装(推荐使用Docker安装)：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull klee/klee:2.0</span><br><span class="line"></span><br><span class="line">持久性容器:当退出容器时，容器里面的内容不会初始化</span><br><span class="line">docker run -ti --name=namestring --ulimit='stack=-1:-1' klee/klee</span><br><span class="line"></span><br><span class="line">启动容器</span><br><span class="line">docker start -ai namestring</span><br></pre></td></tr></table></figure><h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><blockquote><p>给出的是官方实例的代码</p></blockquote><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;klee/klee.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_sign</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (x &lt; <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">else</span> </span><br><span class="line">     <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  klee_make_symbolic(&amp;a, <span class="keyword">sizeof</span>(a), <span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">return</span> get_sign(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>可以看到程序有三条路径输出</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -I ../../include/ -emit-llvm -c -g -O0 -Xclang -<span class="built_in">disable</span>-O0-optnone get_sign.c</span><br></pre></td></tr></table></figure><blockquote><p>编译生成 get_sign.bc 文件，用klee 运行一下</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klee get_sign.bc</span><br></pre></td></tr></table></figure><blockquote><p>输出如下</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">klee@2038f8489243:~/klee_src/examples/get_sign$ klee get_sign.bc </span><br><span class="line">KLEE: output directory is <span class="string">"/home/klee/klee_src/examples/get_sign/klee-out-1"</span></span><br><span class="line">KLEE: Using STP solver backend</span><br><span class="line"></span><br><span class="line">KLEE: <span class="keyword">done</span>: total instructions = 33</span><br><span class="line">KLEE: <span class="keyword">done</span>: completed paths = 3</span><br><span class="line">KLEE: <span class="keyword">done</span>: generated tests = 3</span><br></pre></td></tr></table></figure><blockquote><p>可以看到一共有33条指令,完成路径3条，产生3个测试用例</p></blockquote><blockquote><p>接下来看一下klee-last文件夹，里面存放的就是测试用例</p></blockquote><blockquote><p>输入如下命令,即可查看.ktest文件夹的内容</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ktest-tool test000001.ktest</span><br></pre></td></tr></table></figure><blockquote><p>输出如下</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ktest file : <span class="string">'test000001.ktest'</span></span><br><span class="line">args       : [<span class="string">'get_sign.bc'</span>]</span><br><span class="line">num objects: 1</span><br><span class="line">object 0: name: <span class="string">'a'</span></span><br><span class="line">object 0: size: 4</span><br><span class="line">object 0: data: b<span class="string">'\x00\x00\x00\x00'</span></span><br><span class="line">object 0: hex : 0x00000000</span><br><span class="line">object 0: int : 0</span><br><span class="line">object 0: uint: 0</span><br><span class="line">object 0: text: ....</span><br></pre></td></tr></table></figure><h3 id="明日计划"><a href="#明日计划" class="headerlink" title="明日计划"></a>明日计划</h3><p>白天：全国大学生信息安全竞赛</p><p>赛后：继续学习符号执行框架</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;符号执行&quot;&gt;&lt;a href=&quot;#符号执行&quot; class=&quot;headerlink&quot; title=&quot;符号执行&quot;&gt;&lt;/a&gt;符号执行&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出&lt;/p&gt;
+&lt;/blockqu
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>miasm框架安装</title>
