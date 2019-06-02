@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="baidu-site-verification" content="Jga4UFfl8L">
+  <meta name="baidu-site-verification" content="QrcwXMLwVB">
+  <meta name="google-site-verification" content="UDtOo28IyLXe5wv6FxFfHH3lY6sh-26Plb5BtZ6BO6A">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>WDF-helloworld | BufSnake</title>
+  <meta name="description" content="Windows WDF驱动开发简单helloworld入门  helloworld.h12345678910111213141516171819202122232425262728293031323334353637383940414243/*预处理：用来避免头文件被重复包含还可以用#pragma once 防止头文件被重复包含，保证头文件只被编译一次，可移植性差第一种：	#ifndef __S">
+<meta name="keywords" content="WDF,Windows wdf驱动开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WDF-helloworld">
+<meta property="og:url" content="https://bufsnake.github.io/2019/06/02/WDF-helloworld/index.html">
+<meta property="og:site_name" content="SNAKEのBlog">
+<meta property="og:description" content="Windows WDF驱动开发简单helloworld入门  helloworld.h12345678910111213141516171819202122232425262728293031323334353637383940414243/*预处理：用来避免头文件被重复包含还可以用#pragma once 防止头文件被重复包含，保证头文件只被编译一次，可移植性差第一种：	#ifndef __S">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-02T07:55:48.992Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WDF-helloworld">
+<meta name="twitter:description" content="Windows WDF驱动开发简单helloworld入门  helloworld.h12345678910111213141516171819202122232425262728293031323334353637383940414243/*预处理：用来避免头文件被重复包含还可以用#pragma once 防止头文件被重复包含，保证头文件只被编译一次，可移植性差第一种：	#ifndef __S">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://bufsnake.github.io/2019/06/02/WDF-helloworld/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="SNAKEのBlog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="../images/icon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+  <script type="text/javascript" src="http://tajs.qq.com/stats?sId=66416296" charset="UTF-8"></script>
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+     var hm = document.createElement("script");
+	 hm.src = "https://hm.baidu.com/hm.js?926b66e71d8f61b2a08a4f0da34fef80";
+	 var s = document.getElementsByTagName("script")[0]; 
+	 s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</head>
+
+
+<body class="main-center theme-blue" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://bufsnake.github.io" target="_blank">
+          <img class="img-circle img-rotate" src="/images/favicon.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Snake</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">星球流浪者</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Nanjing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech>
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bufsnake" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/5278798557" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>Progress Together!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/Android/">Android</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/IDE/">IDE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PE文件/">PE文件</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/PE文件/壳/">壳</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows驱动开发/">Windows驱动开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/framework/Tools/">Tools</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/fuzz/">fuzz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-reverse/">Android reverse</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CFF-100/">CFF_100</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jarvis-OJ/">Jarvis OJ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PE文件/">PE文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WDF/">WDF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows-wdf驱动开发/">Windows wdf驱动开发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows驱动开发/">Windows驱动开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/afl-fuzzing/">afl-fuzzing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz/">fuzz</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-blog/">github blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/miasm-install/">miasm install</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverse-tool/">reverse tool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicorn-engine/">unicorn-engine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折腾/">折腾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/目标/">目标</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/配置环境/">配置环境</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Android-reverse/" style="font-size: 13px;">Android reverse</a> <a href="/tags/CFF-100/" style="font-size: 13px;">CFF_100</a> <a href="/tags/CTF/" style="font-size: 13px;">CTF</a> <a href="/tags/Jarvis-OJ/" style="font-size: 13px;">Jarvis OJ</a> <a href="/tags/Markdown/" style="font-size: 13px;">Markdown</a> <a href="/tags/PE文件/" style="font-size: 13px;">PE文件</a> <a href="/tags/WDF/" style="font-size: 13px;">WDF</a> <a href="/tags/Windows-wdf驱动开发/" style="font-size: 14px;">Windows wdf驱动开发</a> <a href="/tags/Windows驱动开发/" style="font-size: 13px;">Windows驱动开发</a> <a href="/tags/afl-fuzzing/" style="font-size: 13px;">afl-fuzzing</a> <a href="/tags/blog/" style="font-size: 13px;">blog</a> <a href="/tags/fuzz/" style="font-size: 13px;">fuzz</a> <a href="/tags/github-blog/" style="font-size: 13px;">github blog</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/miasm-install/" style="font-size: 13px;">miasm install</a> <a href="/tags/reverse-tool/" style="font-size: 13px;">reverse tool</a> <a href="/tags/unicorn-engine/" style="font-size: 13px;">unicorn-engine</a> <a href="/tags/折腾/" style="font-size: 13px;">折腾</a> <a href="/tags/目标/" style="font-size: 13px;">目标</a> <a href="/tags/配置环境/" style="font-size: 13px;">配置环境</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Windows驱动开发/">Windows驱动开发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/02/WDF-helloworld/" class="title">WDF-helloworld</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-02T07:50:58.000Z" itemprop="datePublished">2019-06-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/31/KLEE-符号执行框架/" class="title">KLEE-符号执行框架</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-31T12:21:03.000Z" itemprop="datePublished">2019-05-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/framework/">framework</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/framework/Tools/">Tools</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/30/miasm框架安装/" class="title">miasm框架安装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-30T12:22:31.000Z" itemprop="datePublished">2019-05-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Windows驱动开发/">Windows驱动开发</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/29/Windows驱动开发-1/" class="title">Windows驱动开发(1)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-29T10:52:07.000Z" itemprop="datePublished">2019-05-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/折腾/">折腾</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/27/近期目标/" class="title">近期目标</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-27T05:18:32.000Z" itemprop="datePublished">2019-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-WDF-helloworld" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WDF-helloworld
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/06/02/WDF-helloworld/" class="article-date">
+	  <time datetime="2019-06-02T07:50:58.000Z" itemprop="datePublished">2019-06-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Windows驱动开发/">Windows驱动开发</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/WDF/">WDF</a>, <a class="article-tag-link" href="/tags/Windows-wdf驱动开发/">Windows wdf驱动开发</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/02/WDF-helloworld/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <blockquote>
+<p>Windows WDF驱动开发简单helloworld入门</p>
+</blockquote>
+<h2 id="helloworld-h"><a href="#helloworld-h" class="headerlink" title="helloworld.h"></a>helloworld.h</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">预处理：用来避免头文件被重复包含</span></span><br><span class="line"><span class="comment">还可以用#pragma once 防止头文件被重复包含，保证头文件只被编译一次，可移植性差</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">第一种：</span></span><br><span class="line"><span class="comment">	#ifndef __SOMEFILE_H__</span></span><br><span class="line"><span class="comment">	#define __SOMEFILE_H__</span></span><br><span class="line"><span class="comment">	... ... // 声明、定义语句</span></span><br><span class="line"><span class="comment">	#endif</span></span><br><span class="line"><span class="comment">第二种：</span></span><br><span class="line"><span class="comment">	#pragma once</span></span><br><span class="line"><span class="comment">	... ... // 声明、定义语句</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __HELLOWORLD__ <span class="comment">//预处理</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __HELLOWORLD__ <span class="comment">//预处理</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 包含驱动所需的头文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ntddk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wdf.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是一个结构体的定义，用以描述驱动程序的设备拓展。它保存了我们自定义所需的一些信息，有助于更加方便的编程。</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">DEVICE_EXTENSION</span> &#123;</span></span><br><span class="line">	PDEVICE_OBJECT DeviceObject;</span><br><span class="line">	UNICODE_STRING DeviceName;</span><br><span class="line">	UNICODE_STRING SymbolicLink;</span><br><span class="line">&#125; DEVICE_EXTENSION, *PDEVICE_EXTENSION;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 相关函数的声明，这些函数的具体实现存在于定义文件中</span></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DriverEntry</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PDRIVER_OBJECT DriverObject,</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PUNICODE_STRING RegPath</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">VOID <span class="title">DriverUnload</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PDRIVER_OBJECT DriverObject</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DefaultDispath</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PDEVICE_OBJECT DeviceObject,</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PIRP Irp</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">//预处理</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="helloworld-c"><a href="#helloworld-c" class="headerlink" title="helloworld.c"></a>helloworld.c</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 包含指定的声明文件。为每个定义文件写一个声明文件是一个不错的选择</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"helloworld.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这些是预处理。在驱动开发中，需要指定每一个函数是分页内存还是非分页内存。</span></span><br><span class="line"><span class="comment">// INIT 标识是指定函数在驱动加载时使用，是初始化相关函数，驱动成功加载以后可以从内存卸载。</span></span><br><span class="line"><span class="comment">// PAGE 标识是指此函数在驱动运行时可以被交换到磁盘上，如果不指定，编译器默认是非分页内存。</span></span><br><span class="line"><span class="comment">// 一般情况下，我们不需要考虑这些问题，但有些特殊情况，代码是不予许被交换到磁盘上的，否则导致系统蓝屏或重启。</span></span><br><span class="line"><span class="comment">// 注：函数的声明必须在这些指定内存分配的预处理器之前，否则无法通过编译。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> alloc_text(INIT,DriverEntry)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> alloc_text(PAGE,DefaultDispatch)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> alloc_text(PAGE,DriverUnload)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 是DriverEntry函数的具体实现。DriverEntry是驱动程序的入口函数。有操作系统内核的I/O管理器调用。</span></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DriverEntry</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PDRIVER_OBJECT Driver,</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PUNICODE_STRING RegPath</span></span></span><br><span class="line"><span class="function"><span class="params">)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 函数相关变量的定义</span></span><br><span class="line">	<span class="comment">// C语言中变量必须定义在函数体的开始处，否则出现编译错误。</span></span><br><span class="line">	<span class="comment">// C++ 语言没有这种限制</span></span><br><span class="line">	NTSTATUS status;</span><br><span class="line">	PDEVICE_OBJECT deviceObject;</span><br><span class="line">	PDEVICE_EXTENSION deviceExtension;</span><br><span class="line">	UNICODE_STRING symbolicLink;</span><br><span class="line">	UNICODE_STRING deviceName;</span><br><span class="line">	ULONG i;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// KdPrint 和 DbgPrint是一个函数，KdPrint 是 DbgPrint的宏定义凡是，用以打印调试信息，好处在于</span></span><br><span class="line">	<span class="comment">// 调试版本编译时，KdPrint会打印调试信息，</span></span><br><span class="line">	<span class="comment">// 发布版本编译时，KdPrint将会被全部移除。</span></span><br><span class="line">	KdPrint((<span class="string">"Enter HelloWorld DriverEntry\n"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 一个宏，经常被用来指定参数未被引用，可以避免不必要的警告</span></span><br><span class="line">	<span class="comment">// 做到开发驱动程序不出警告是基础，因为驱动程序会导致系统出现各种各样的问题</span></span><br><span class="line">	UNREFERENCED_PARAMETER(RegPath);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 对一个Unicode字符串进行初始化，Windows内核大量使用Unicode字符串，其具体操作有一系列函数(Rtl系列，微软推荐的运行时函数)</span></span><br><span class="line">	RtlInitUnicodeString(&amp;deviceName, <span class="string">L"\\Device\\helloworld"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 宏IRP_MJ_MAXIMUM_FUNCTION代表驱动程序最大的派遣函数指针数，这里使用默认的派遣函数初始化他们。然后紧跟着下面修改我们不打算使用默认的派遣函数指针。</span></span><br><span class="line">	<span class="comment">// 类似于定义数组，初始化数组</span></span><br><span class="line">	<span class="comment">// 派遣函数：又被称为回调函数。在驱动程序中这些派遣函数是我们主要工作重点</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= IRP_MJ_MAXIMUM_FUNCTION; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Driver-&gt;MajorFunction[i] = DefaultDispatch;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 卸载函数，这个派遣函数需要单独提供，如果不打算对驱动程序进行卸载，这个函数可以不用提供。</span></span><br><span class="line">	Driver-&gt;DriverUnload = DriverUnload;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 提供给操作系统的创建，关闭，读写的派遣函数，还有更多的派遣函数需要提供，这里为了简单明了用DefaultDispatch替换</span></span><br><span class="line">	Driver-&gt;MajorFunction[IRP_MJ_CREATE] = DefaultDispatch;</span><br><span class="line">	Driver-&gt;MajorFunction[IRP_MJ_CLOSE] = DefaultDispatch;</span><br><span class="line">	Driver-&gt;MajorFunction[IRP_MJ_READ] = DefaultDispatch;</span><br><span class="line">	Driver-&gt;MajorFunction[IRP_MJ_WRITE] = DefaultDispatch;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 使用IoCreateDevice函数创建一个设备对象，其名称为helloworld，其设备类型为FILE_DEVICE_UNKNOWN，是一种独占设备，在运行时，只能被一个程序所使用。</span></span><br><span class="line">	status = IoCreateDevice(Driver, <span class="keyword">sizeof</span>(DEVICE_EXTENSION), &amp;deviceName, FILE_DEVICE_UNKNOWN, <span class="number">0</span>, TRUE, &amp;deviceObject);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 判断设备是否创建成功，并进行必要的失败处理，这对于驱动程序的健壮性起着不容忽视的作用。</span></span><br><span class="line">	<span class="keyword">if</span> (!NT_SUCCESS(status)) &#123;</span><br><span class="line">		<span class="keyword">return</span> status;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 设备标识。有BUFFERED_IO 和 DO_BUFFERED_IO 两种，代表两种不同的缓冲区处理方式</span></span><br><span class="line">	deviceObject-&gt;Flags = DO_BUFFERED_IO;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 初始化了一个Unicode字符串，同时也初始化了声明文件中定义过的设备拓展的结构体，设备拓展中保存了我们自定义所需的一些信息。</span></span><br><span class="line">	deviceExtension = (PDEVICE_EXTENSION)deviceObject-&gt;DeviceExtension;</span><br><span class="line">	deviceExtension-&gt;DeviceObject = deviceObject;</span><br><span class="line">	deviceExtension-&gt;DeviceName = deviceName;</span><br><span class="line">	RtlInitUnicodeString(&amp;symbolicLink, <span class="string">L"\\??\\helloworld"</span>);</span><br><span class="line">	deviceExtension-&gt;SymbolicLink = symbolicLink;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用IoCreateSymbolicLink函数创建设备符号链接，这个符号链接名，主要用来与应用程序进行通信</span></span><br><span class="line">	status = IoCreateSymbolicLink(&amp;symbolicLink, &amp;deviceName);</span><br><span class="line">	<span class="comment">//对创建结果进行必要的失败处理，如果创建失败，就删除已创建的设备对象</span></span><br><span class="line">	<span class="keyword">if</span> (!NT_SUCCESS(status)) &#123;</span><br><span class="line">		IoDeleteDevice(deviceObject);</span><br><span class="line">		<span class="keyword">return</span> status;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	KdPrint((<span class="string">"End HelloWorld DriverEntry\n"</span>));</span><br><span class="line">	<span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DriverUnload函数的具体实现，功能是删除设备对象和设备符号链接，如果DriverEntry函数分配了其他资源，也要在这里释放</span></span><br><span class="line"><span class="function">VOID <span class="title">DriverUnload</span><span class="params">(IN PDRIVER_OBJECT DriverObject)</span> </span>&#123;</span><br><span class="line">	PDEVICE_OBJECT deviceObject;</span><br><span class="line">	UNICODE_STRING linkName;</span><br><span class="line">	KdPrint((<span class="string">"Enter HelloWorld DriverUnload\n"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 由驱动对象指针得到设备对象指针</span></span><br><span class="line">	deviceObject = DriverObject-&gt;DeviceObject;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 遍历所有已经穿件的设备对象和设备符号链接，并将其删除</span></span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">NULL</span> != deviceObject)</span><br><span class="line">	&#123;</span><br><span class="line">		PDEVICE_EXTENSION deviceExtension = (PDEVICE_EXTENSION)deviceObject-&gt;DeviceExtension;</span><br><span class="line"></span><br><span class="line">		linkName = deviceExtension-&gt;SymbolicLink;</span><br><span class="line">		IoDeleteSymbolicLink(&amp;linkName);</span><br><span class="line">		deviceObject = deviceObject-&gt;NextDevice;</span><br><span class="line">		IoDetachDevice(deviceExtension-&gt;DeviceObject);</span><br><span class="line">	&#125;</span><br><span class="line">	KdPrint((<span class="string">"End of HelloWorld DriverUnload"</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DefaultDispatch函数的具体实现，功能是直接完成IRP(Input/Output Request Package，输入输出请求包)</span></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DefaultDispatch</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PDEVICE_OBJECT DeviceObject,</span></span></span><br><span class="line"><span class="function"><span class="params">	IN PIRP Irp</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	NTSTATUS status;</span><br><span class="line">	KdPrint((<span class="string">"Enter HelloWorld DefaultDispatch"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 指定参数未被引用，避免不必要的警告</span></span><br><span class="line">	UNREFERENCED_PARAMETER(DeviceObject);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 设置IRP的状态为成功</span></span><br><span class="line">	status = STATUS_SUCCESS;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 因为打算直接完成IRP，所以操作信息的长度为空，这里将字节处理长度信息设置为0</span></span><br><span class="line">	Irp-&gt;IoStatus.Status = status;</span><br><span class="line">	Irp-&gt;IoStatus.Information = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 使用IoCompleteRequest函数直接完成IRP</span></span><br><span class="line">	IoCompleteRequest(Irp, IO_NO_INCREMENT);</span><br><span class="line"></span><br><span class="line">	KdPrint((<span class="string">"End of HelloWorld DefaultDispatch\n"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="驱动开发所需要的工具"><a href="#驱动开发所需要的工具" class="headerlink" title="驱动开发所需要的工具"></a>驱动开发所需要的工具</h2><blockquote>
+<p>Windbg：和VM配合实现双机联合调试，完成双机调试功能，可以结合《软件调试》这本书对Windbg有较为深入的认识。</p>
+</blockquote>
+<blockquote>
+<p>DebugView： 可以捕获程序中由TRACE(debug版本)和OutputDebugString输出的信息。</p>
+</blockquote>
+<blockquote>
+<p>InstDrv：安装驱动程序的软件，也可以自己编写。</p>
+</blockquote>
+<blockquote>
+<p>DriverMonitor：用于查看驱动程序中的各种打印信息，帮助我们进行相应的信息显示与具体的设计。</p>
+</blockquote>
+<blockquote>
+<p>DeviceTree：设备树，查看驱动对象和设备对象。</p>
+</blockquote>
+<blockquote>
+<p>PcHunter（XueTr）：较高权限的内核对象查看工具，相当于任务管理器的加强版。</p>
+</blockquote>
+<blockquote>
+<p>WinObj：驱动对象和设备对象的普通查看工具</p>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://bufsnake.github.io/2019/06/02/WDF-helloworld/" title="WDF-helloworld" target="_blank" rel="external">https://bufsnake.github.io/2019/06/02/WDF-helloworld/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://bufsnake.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/favicon.jpg" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://bufsnake.github.io" target="_blank"><span class="text-dark">Snake</span><small class="ml-1x">星球流浪者</small></a></h3>
+        <div>星球流浪者</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/05/31/KLEE-符号执行框架/" title="KLEE-符号执行框架"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/bufsnake" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/5278798557" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2019 Snake
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'b195cb714bed076a20d4',
+    clientSecret: '43aecb9c84e95bb865960b70c6ba7fe56f6516fb',
+    repo: 'BlogCommentSystem',
+    owner: 'bufsnake',
+    admin: ['bufsnake'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+    <script defer type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-140010676-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
