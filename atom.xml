@@ -18,8 +18,8 @@
   
   <entry>
     <title>PWN 学习—某平台ROP2 writeup</title>
-    <link href="https://bufsnake.github.io/2019/08/02/PWN-%E5%AD%A6%E4%B9%A0%E2%80%94%E6%9F%90%E5%B9%B3%E5%8F%B0ROP2-writeup/"/>
-    <id>https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/</id>
+    <link href="https://bufsnake.github.io/PWN-%E5%AD%A6%E4%B9%A0%E2%80%94%E6%9F%90%E5%B9%B3%E5%8F%B0ROP2-writeup.html"/>
+    <id>https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup.html</id>
     <published>2019-08-02T09:16:46.000Z</published>
     <updated>2019-08-09T12:01:55.730Z</updated>
     
@@ -43,8 +43,8 @@
   
   <entry>
     <title>WDF-helloworld</title>
-    <link href="https://bufsnake.github.io/2019/06/02/WDF-helloworld/"/>
-    <id>https://bufsnake.github.io/2019/06/02/WDF-helloworld/</id>
+    <link href="https://bufsnake.github.io/WDF-helloworld.html"/>
+    <id>https://bufsnake.github.io/WDF-helloworld.html</id>
     <published>2019-06-02T07:50:58.000Z</published>
     <updated>2019-06-02T07:55:48.992Z</updated>
     
@@ -73,8 +73,8 @@
   
   <entry>
     <title>KLEE-符号执行框架</title>
-    <link href="https://bufsnake.github.io/2019/05/31/KLEE-%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E6%A1%86%E6%9E%B6/"/>
-    <id>https://bufsnake.github.io/2019/05/31/KLEE-符号执行框架/</id>
+    <link href="https://bufsnake.github.io/KLEE-%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E6%A1%86%E6%9E%B6.html"/>
+    <id>https://bufsnake.github.io/KLEE-符号执行框架.html</id>
     <published>2019-05-31T12:21:03.000Z</published>
     <updated>2019-05-31T12:42:11.914Z</updated>
     
@@ -96,8 +96,8 @@
   
   <entry>
     <title>miasm框架安装</title>
-    <link href="https://bufsnake.github.io/2019/05/30/miasm%E6%A1%86%E6%9E%B6%E5%AE%89%E8%A3%85/"/>
-    <id>https://bufsnake.github.io/2019/05/30/miasm框架安装/</id>
+    <link href="https://bufsnake.github.io/miasm%E6%A1%86%E6%9E%B6%E5%AE%89%E8%A3%85.html"/>
+    <id>https://bufsnake.github.io/miasm框架安装.html</id>
     <published>2019-05-30T12:22:31.000Z</published>
     <updated>2019-05-30T12:42:29.628Z</updated>
     
@@ -124,8 +124,8 @@
   
   <entry>
     <title>Windows驱动开发(1)</title>
-    <link href="https://bufsnake.github.io/2019/05/29/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-1/"/>
-    <id>https://bufsnake.github.io/2019/05/29/Windows驱动开发-1/</id>
+    <link href="https://bufsnake.github.io/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-1.html"/>
+    <id>https://bufsnake.github.io/Windows驱动开发-1.html</id>
     <published>2019-05-29T10:52:07.000Z</published>
     <updated>2019-05-30T04:22:31.086Z</updated>
     
@@ -157,8 +157,8 @@
   
   <entry>
     <title>我和unicorn-engine的神奇之旅</title>
-    <link href="https://bufsnake.github.io/2019/05/15/%E6%88%91%E5%92%8Cunicorn-engine%E7%9A%84%E7%A5%9E%E5%A5%87%E4%B9%8B%E6%97%85/"/>
-    <id>https://bufsnake.github.io/2019/05/15/我和unicorn-engine的神奇之旅/</id>
+    <link href="https://bufsnake.github.io/%E6%88%91%E5%92%8Cunicorn-engine%E7%9A%84%E7%A5%9E%E5%A5%87%E4%B9%8B%E6%97%85.html"/>
+    <id>https://bufsnake.github.io/我和unicorn-engine的神奇之旅.html</id>
     <published>2019-05-15T10:12:29.000Z</published>
     <updated>2019-05-15T10:56:14.626Z</updated>
     
@@ -185,8 +185,8 @@
   
   <entry>
     <title>Fuzz Test</title>
-    <link href="https://bufsnake.github.io/2019/05/14/Fuzz-Test/"/>
-    <id>https://bufsnake.github.io/2019/05/14/Fuzz-Test/</id>
+    <link href="https://bufsnake.github.io/Fuzz-Test.html"/>
+    <id>https://bufsnake.github.io/Fuzz-Test.html</id>
     <published>2019-05-14T10:49:21.000Z</published>
     <updated>2019-05-14T11:15:17.046Z</updated>
     
@@ -213,8 +213,8 @@
   
   <entry>
     <title>hexo推送文章出错</title>
-    <link href="https://bufsnake.github.io/2019/05/13/hexo%E6%8E%A8%E9%80%81%E6%96%87%E7%AB%A0%E5%87%BA%E9%94%99/"/>
-    <id>https://bufsnake.github.io/2019/05/13/hexo推送文章出错/</id>
+    <link href="https://bufsnake.github.io/hexo%E6%8E%A8%E9%80%81%E6%96%87%E7%AB%A0%E5%87%BA%E9%94%99.html"/>
+    <id>https://bufsnake.github.io/hexo推送文章出错.html</id>
     <published>2019-05-13T04:10:13.000Z</published>
     <updated>2019-05-13T04:23:52.606Z</updated>
     
@@ -238,8 +238,8 @@
   
   <entry>
     <title>PE文件之导入表</title>
-    <link href="https://bufsnake.github.io/2019/05/12/PE%E6%96%87%E4%BB%B6%E4%B9%8B%E5%AF%BC%E5%85%A5%E8%A1%A8/"/>
-    <id>https://bufsnake.github.io/2019/05/12/PE文件之导入表/</id>
+    <link href="https://bufsnake.github.io/PE%E6%96%87%E4%BB%B6%E4%B9%8B%E5%AF%BC%E5%85%A5%E8%A1%A8.html"/>
+    <id>https://bufsnake.github.io/PE文件之导入表.html</id>
     <published>2019-05-12T09:22:50.000Z</published>
     <updated>2019-05-12T10:04:52.601Z</updated>
     
@@ -267,8 +267,8 @@
   
   <entry>
     <title>Markdown 语法简介</title>
-    <link href="https://bufsnake.github.io/2019/05/11/Markdown-%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/"/>
-    <id>https://bufsnake.github.io/2019/05/11/Markdown-语法简介/</id>
+    <link href="https://bufsnake.github.io/Markdown-%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B.html"/>
+    <id>https://bufsnake.github.io/Markdown-语法简介.html</id>
     <published>2019-05-11T13:07:41.000Z</published>
     <updated>2019-05-12T11:38:46.417Z</updated>
     
@@ -298,8 +298,8 @@
   
   <entry>
     <title>jarvis oj---CFF_100 writeup</title>
-    <link href="https://bufsnake.github.io/2019/05/11/jarvis-oj-CFF-100-writeup/"/>
-    <id>https://bufsnake.github.io/2019/05/11/jarvis-oj-CFF-100-writeup/</id>
+    <link href="https://bufsnake.github.io/jarvis-oj-CFF-100-writeup.html"/>
+    <id>https://bufsnake.github.io/jarvis-oj-CFF-100-writeup.html</id>
     <published>2019-05-11T09:54:05.000Z</published>
     <updated>2019-05-11T12:05:13.672Z</updated>
     
@@ -332,8 +332,8 @@
   
   <entry>
     <title>hexo+github搭建个人博客</title>
-    <link href="https://bufsnake.github.io/2019/05/11/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://bufsnake.github.io/2019/05/11/hexo-github搭建个人博客/</id>
+    <link href="https://bufsnake.github.io/hexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html"/>
+    <id>https://bufsnake.github.io/hexo-github搭建个人博客.html</id>
     <published>2019-05-11T07:52:00.000Z</published>
     <updated>2019-05-11T09:09:36.916Z</updated>
     
@@ -363,8 +363,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://bufsnake.github.io/2019/05/11/Hello-World/"/>
-    <id>https://bufsnake.github.io/2019/05/11/Hello-World/</id>
+    <link href="https://bufsnake.github.io/Hello-World.html"/>
+    <id>https://bufsnake.github.io/Hello-World.html</id>
     <published>2019-05-11T03:18:32.000Z</published>
     <updated>2019-08-09T09:21:50.120Z</updated>
     

