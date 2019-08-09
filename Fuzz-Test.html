@@ -66,7 +66,7 @@
 <meta property="og:site_name" content="bufsnake">
 <meta property="og:description" content="基本知识： Fuzz Testing(模糊测试)是一种很有效的测试方法,主要原理为构造一系列“坏”数据传入应用程序,通过判断程序是否发生异常发现和检测潜在的bug.而在安全领域引入fuzz技术,无疑可以使安全研究员效率倍增,更有效的挖掘和防护漏洞  工具：AFL-FUZZ简介： 是目前最高级的Fuzzing测试工具之一,由lcamtu开发   当需要测试的程序有源码时,AFL通过对源码重新编译时插">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-14T11:15:17.046Z">
+<meta property="og:updated_time" content="2019-08-09T15:21:52.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fuzz Test">
 <meta name="twitter:description" content="基本知识： Fuzz Testing(模糊测试)是一种很有效的测试方法,主要原理为构造一系列“坏”数据传入应用程序,通过判断程序是否发生异常发现和检测潜在的bug.而在安全领域引入fuzz技术,无疑可以使安全研究员效率倍增,更有效的挖掘和防护漏洞  工具：AFL-FUZZ简介： 是目前最高级的Fuzzing测试工具之一,由lcamtu开发   当需要测试的程序有源码时,AFL通过对源码重新编译时插">
@@ -328,11 +328,19 @@
                 
               
 
-              <time title="创建时间：2019-05-14 18:49:21 / 修改时间：19:15:17" itemprop="dateCreated datePublished" datetime="2019-05-14T18:49:21+08:00">2019-05-14</time>
+              <time title="创建时间：2019-05-14 18:49:21" itemprop="dateCreated datePublished" datetime="2019-05-14T18:49:21+08:00">2019-05-14</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-09 23:21:52" itemprop="dateModified" datetime="2019-08-09T23:21:52+08:00">2019-08-09</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -391,6 +399,7 @@
 <p>每个afl-fuzz进程占据CPU的一个核，也就是说如果是多核的主机，AFL就可以并行工作，并行模式也为AFL与其他Fuzzing工具、符号执行引擎交互提供了便利。</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Run the first one (“master”, -M) like this:</span><br><span class="line"></span><br><span class="line">$ ./afl-fuzz -i testcase_dir -o sync_dir -M fuzzer01 ./<span class="built_in">test</span>[...other stuff...]</span><br><span class="line"></span><br><span class="line">…and <span class="keyword">then</span>, start up secondary (-S) instances like this:</span><br><span class="line"></span><br><span class="line">$ ./afl-fuzz -i testcase_dir -o sync_dir -S fuzzer02 ./<span class="built_in">test</span>[...other stuff...] </span><br><span class="line">$ ./afl-fuzz -i testcase_dir -o sync_dir -S fuzzer03 ./<span class="built_in">test</span>[...other stuff...]</span><br></pre></td></tr></table></figure>
+
     </div>
     <div>
       
@@ -410,6 +419,34 @@
       <div>
             
                
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- JS库 sweetalert 可修改路径 -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span><a href="/Fuzz-Test.html">Fuzz Test</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
+    <p><span>发布时间:</span>2019年05月14日 - 18:05</p>
+    <p><span>最后更新:</span>2019年08月09日 - 23:08</p>
+    <p><span>原始链接:</span><a href="/Fuzz-Test.html" title="Fuzz Test">https://bufsnake.github.io/Fuzz-Test.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/Fuzz-Test.html" aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+       var clipboard = new Clipboard('.fa-clipboard');
+       $(".fa-clipboard").click(function(){
+       clipboard.on('success', function(){
+       swal({   
+           title: "",   
+           text: '复制成功',
+           icon: "success", 
+           showConfirmButton: true
+       });
+       });
+      });  
+</script>
+
 
             
       </div>
@@ -549,7 +586,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -606,7 +645,9 @@
         
           
         
-        <span class="site-state-item-count">17</span>
+          
+        
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
