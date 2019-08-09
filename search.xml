@@ -29,18 +29,6 @@
     <content type="text"><![CDATA[符号执行 通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出 KLEE安装(推荐使用Docker安装)：1234567docker pull klee/klee:2.0持久性容器:当退出容器时，容器里面的内容不会初始化docker run -ti --name=namestring --ulimit='stack=-1:-1' klee/klee启动容器docker start -ai namestring 简单使用 给出的是官方实例的代码 1234567891011121314151617#include &lt;klee/klee.h&gt;int get_sign(int x) &#123; if (x == 0) return 0; if (x &lt; 0) return -1; else return 1;&#125; int main() &#123; int a; klee_make_symbolic(&amp;a, sizeof(a), "a"); return get_sign(a);&#125; 可以看到程序有三条路径输出 1clang -I ../../include/ -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone get_sign.c 编译生成 get_sign.bc 文件，用klee 运行一下 1klee get_sign.bc 输出如下 1234567klee@2038f8489243:~/klee_src/examples/get_sign$ klee get_sign.bc KLEE: output directory is "/home/klee/klee_src/examples/get_sign/klee-out-1"KLEE: Using STP solver backendKLEE: done: total instructions = 33KLEE: done: completed paths = 3KLEE: done: generated tests = 3 可以看到一共有33条指令,完成路径3条，产生3个测试用例 接下来看一下klee-last文件夹，里面存放的就是测试用例 输入如下命令,即可查看.ktest文件夹的内容 1ktest-tool test000001.ktest 输出如下 12345678910ktest file : 'test000001.ktest'args : ['get_sign.bc']num objects: 1object 0: name: 'a'object 0: size: 4object 0: data: b'\x00\x00\x00\x00'object 0: hex : 0x00000000object 0: int : 0object 0: uint: 0object 0: text: .... 明日计划白天：全国大学生信息安全竞赛 赛后：继续学习符号执行框架]]></content>
   </entry>
   <entry>
-    <title><![CDATA[miasm框架安装]]></title>
-    <url>%2Fmiasm%E6%A1%86%E6%9E%B6%E5%AE%89%E8%A3%85.html</url>
-    <content type="text"><![CDATA[miasm简介 miasm是一个免费的开源的逆向工程框架，旨在分析、修改、生成二进制程序 安装方法ubuntu 16.04123456789101112131415161718192021222324# 安装 z3git clone https://github.com/Z3Prover/z3.gitcd z3/python scripts/mk_make.py --pythoncd build/makesudo -H make installcd ~# 安装 elfesteemgit clone https://github.com/serpilliere/elfesteem.git elfesteemcd elfesteem/python setup.py buildsudo -H python setup.py installcd ~# 安装相关套件sudo -H pip install llvmlite pyparsing# 安装 miasmgit clone https://github.com/cea-sec/miasm.gitcd miasm/python setup.py buildsudo -H python setup.py install# 测试安装结果cd test/python test_all.py 测试是否成功 导入包成功即可 Windows12将 pyparsing.py 拷贝到 C:\...\IDA\python\ 或者 pip install pyparsing将 miasm/miasm 目录拷贝到 C:\...\IDA\python\ 测试是否成功 导入包成功即可]]></content>
-      <categories>
-        <category>framework</category>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>miasm install</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Windows驱动开发(1)]]></title>
     <url>%2FWindows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-1.html</url>
     <content type="text"><![CDATA[学习的内容是基于WDF框架的Windows驱动开发 基础知识 NT -&gt; WDM -&gt; WDF 每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发 WDF简介 WDF全称Windows驱动框架(Windows Driver Frameworks)WDF两种级别的驱动程序 用户级(UMDF–(User-Mode Driver Framework)) 是以 .dll 结尾的文件 内核级(KMDF–(Kernel-Mode Driver Framework)) 是以 .sys 结尾的文件可与其硬件直接会话，通常会通过HAL(硬件抽象层)访问硬件所有的事物由对象表示，如Driver、Device等 每个对象都有属性、方法、事件(有面向对象编程基础的都应该知道)各种事件处理由事件回调函数处理必须包含 DriverEntry 函数，像C语言中的 main 函数 附上基本的DriverEntry例子123456789101112131415161718192021#include &lt;ntddk.h&gt;#include &lt;wdf.h&gt;NTSTATUS DriverEntry(IN PDRIVER_OBJECT driver, IN PUNICODE_STRING reg_path) &#123; WDF_DRIVER_CONFIG config; NTSTATUS status; //初始化驱动对象的配置结构，设置DeviceAdd函数入口(此处为NULL) WDF_DRIVER_CONFIG_INIT(&amp;config, NULL); //创建驱动对象，没有驱动对象和驱动对象环境变量结构 status = WdfDriverCreate( driver, reg_path, WDF_NO_OBJECT_ATTRIBUTES, //驱动对象环境变量结构 &amp;config, WDF_NO_HANDLE //驱动对象 ); return status;&#125;]]></content>
@@ -56,7 +44,7 @@
   <entry>
     <title><![CDATA[我和unicorn-engine的神奇之旅]]></title>
     <url>%2F%E6%88%91%E5%92%8Cunicorn-engine%E7%9A%84%E7%A5%9E%E5%A5%87%E4%B9%8B%E6%97%85.html</url>
-    <content type="text"><![CDATA[神奇之处： 模拟CPU去执行程序或程序中的某个片段，某个函数，并且支持多个架构(Arm, Arm64 (Armv8), M68K, Mips, Sparc, &amp; X86 (include X86_64))，也就是说，只需要用代码声明一下程序运行所需要的架构，所需要的栈空间，运行基址等，程序就可以模拟执行了 unicorn-engine 是不能调用syscall的，指令模拟的时候跳转的位置及相应的指令块没有被加载到模拟器中，那模拟时肯定是会有异常的 假设unicorn-engine是一个牢房，关押了来自不同地方的人(具有不同CPU架构的程序)，牢房对他们的信息了如指掌，提审哪一个犯人都可以，并且可以对他们执行任何酷刑(对程序执行内存读写和栈读写等操作)，但是对他们的同伴的信息却知之甚少(没加载到模拟器的指令块)。貌似这个比喻并不恰当，但是有助于我的个人理解。 安装方法：Linux上的安装方法：1pip install unicorn 其余平台可进入官网下载源文件编译安装 使用方法：可以参考看雪翻译的Unicorn引擎教程 相关资料 整理了几个比较好的资料，因为我学习的时候发现基本上都是在照着Eternal Stories的这个写的，所以整理了几篇不错的文章： Unicorn引擎教程 基于-unicorn-的单个函数模拟执行和-fuzzer-实现 Unicorn Engine 简介 好的文章都要立马转成pdf存到盘里，谁知道哪天博主一生气，好文章就没了呢。 WC，又成功水了一篇]]></content>
+    <content type="text"><![CDATA[神奇之处： 模拟CPU去执行程序或程序中的某个片段，某个函数，并且支持多个架构(Arm, Arm64 (Armv8), M68K, Mips, Sparc, &amp; X86 (include X86_64))，也就是说，只需要用代码声明一下程序运行所需要的架构，所需要的栈空间，运行基址等，程序就可以模拟执行了 unicorn-engine 是不能调用syscall的，指令模拟的时候跳转的位置及相应的指令块没有被加载到模拟器中，那模拟时肯定是会有异常的 假设unicorn-engine是一个牢房，关押了来自不同地方的人(具有不同CPU架构的程序)，牢房对他们的信息了如指掌，提审哪一个犯人都可以，并且可以对他们执行任何酷刑(对程序执行内存读写和栈读写等操作)，但是对他们的同伴的信息却知之甚少(没加载到模拟器的指令块)。貌似这个比喻并不恰当，但是有助于我的个人理解。 安装方法：Linux上的安装方法：1pip install unicorn 其余平台可进入官网下载源文件编译安装 使用方法：可以参考看雪翻译的Unicorn引擎教程 相关资料 整理了几个比较好的资料，因为我学习的时候发现基本上都是在照着Eternal Stories的这个写的，所以整理了几篇不错的文章： Unicorn引擎教程 基于-unicorn-的单个函数模拟执行和-fuzzer-实现 Unicorn Engine 简介 好的文章都要立马转成pdf存到盘里，谁知道哪天博主一生气，好文章就没了呢。]]></content>
       <categories>
         <category>Tools</category>
       </categories>
@@ -114,7 +102,7 @@
   <entry>
     <title><![CDATA[jarvis oj---CFF_100 writeup]]></title>
     <url>%2Fjarvis-oj-CFF-100-writeup.html</url>
-    <content type="text"><![CDATA[首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697package com.ctf.test.ctf_100;import android.os.Bundle;import android.os.Debug;import android.support.v7.app.AppCompatActivity;import android.view.View;import android.widget.Button;import android.widget.TextView;import java.util.Random;public class MainActivity extends AppCompatActivity &#123; public int has_gone_int; public int to_reach_int; public native String get_flag(int i); protected void onCreate(Bundle savedInstanceState) &#123; super.onCreate(savedInstanceState); setContentView((int) R.layout.activity_main); ((Button) findViewById(R.id.button2)).setClickable(false); this.has_gone_int = 0; Random random = new Random(); this.to_reach_int = random.nextInt(); while (true) &#123; if (this.to_reach_int &lt; 0) &#123; this.to_reach_int *= -1; &#125; if (5 &lt; this.to_reach_int) &#123; this.to_reach_int %= 32; this.to_reach_int *= 16384; ((TextView) findViewById(R.id.data_to_reach)).setText("" + this.to_reach_int); ((TextView) findViewById(R.id.tvResult)).setText(""); return; &#125; this.to_reach_int = random.nextInt(); &#125; &#125; public void Btn_up_onclick(View v) &#123; this.has_gone_int++; ((TextView) findViewById(R.id.data_has_gone)).setText("" + this.has_gone_int); if (this.to_reach_int &lt;= this.has_gone_int) &#123; ((Button) findViewById(R.id.button2)).setClickable(true); &#125; &#125; public void btn2_onclick(View v) &#123; ((TextView) findViewById(R.id.tvResult)).setText("&#123;Flag:" + get_flag(this.to_reach_int) + "&#125;"); &#125; static &#123; if (!Debug.isDebuggerConnected()) &#123; System.loadLibrary("ctf"); &#125; &#125;&#125; 发现： 楼梯数是程序启动时随机生成的，并且程序初始化的时候将getflag的按钮设置成不可操作，除非爬的楼梯数大于楼梯数才能按getflag的按钮，作为懒人，怎么可能真的点击那么多次，所以 拖到KALI里进行解包 在进行解包的时候加上-r命令，不对资源文件进行解包，因为在我打包的时候发现资源文件有问题，打包不了(知道详情的大佬可以告诉小弟) 接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮找到smali文件夹下的com/ctf/test/ctf_100/MainActivity.smali,直接搜索Btn_up_onclick方法，找到关键跳转，修改成相反的就行将if-gt 修改成if-le后打包 完成打包后签名当出现说明签名成功，再次拖入模拟器安装运行，爬一层，使爬到了，看flag按钮能够使用后，按爬到了，看flag按钮即可发现flag 欢迎大佬批评指正]]></content>
+    <content type="text"><![CDATA[CFF_100 writeuptags: CTF Jarvis OJ CFF_100 Android reversecategories: CTF Androiddate: 2019-05-11 17:54:05 首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697package com.ctf.test.ctf_100;import android.os.Bundle;import android.os.Debug;import android.support.v7.app.AppCompatActivity;import android.view.View;import android.widget.Button;import android.widget.TextView;import java.util.Random;public class MainActivity extends AppCompatActivity &#123; public int has_gone_int; public int to_reach_int; public native String get_flag(int i); protected void onCreate(Bundle savedInstanceState) &#123; super.onCreate(savedInstanceState); setContentView((int) R.layout.activity_main); ((Button) findViewById(R.id.button2)).setClickable(false); this.has_gone_int = 0; Random random = new Random(); this.to_reach_int = random.nextInt(); while (true) &#123; if (this.to_reach_int &lt; 0) &#123; this.to_reach_int *= -1; &#125; if (5 &lt; this.to_reach_int) &#123; this.to_reach_int %= 32; this.to_reach_int *= 16384; ((TextView) findViewById(R.id.data_to_reach)).setText("" + this.to_reach_int); ((TextView) findViewById(R.id.tvResult)).setText(""); return; &#125; this.to_reach_int = random.nextInt(); &#125; &#125; public void Btn_up_onclick(View v) &#123; this.has_gone_int++; ((TextView) findViewById(R.id.data_has_gone)).setText("" + this.has_gone_int); if (this.to_reach_int &lt;= this.has_gone_int) &#123; ((Button) findViewById(R.id.button2)).setClickable(true); &#125; &#125; public void btn2_onclick(View v) &#123; ((TextView) findViewById(R.id.tvResult)).setText("&#123;Flag:" + get_flag(this.to_reach_int) + "&#125;"); &#125; static &#123; if (!Debug.isDebuggerConnected()) &#123; System.loadLibrary("ctf"); &#125; &#125;&#125; 发现： 楼梯数是程序启动时随机生成的，并且程序初始化的时候将getflag的按钮设置成不可操作，除非爬的楼梯数大于楼梯数才能按getflag的按钮，作为懒人，怎么可能真的点击那么多次，所以 拖到KALI里进行解包 在进行解包的时候加上-r命令，不对资源文件进行解包，因为在我打包的时候发现资源文件有问题，打包不了(知道详情的大佬可以告诉小弟) 接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮找到smali文件夹下的com/ctf/test/ctf_100/MainActivity.smali,直接搜索Btn_up_onclick方法，找到关键跳转，修改成相反的就行将if-gt 修改成if-le后打包 完成打包后签名当出现说明签名成功，再次拖入模拟器安装运行，爬一层，使爬到了，看flag按钮能够使用后，按爬到了，看flag按钮即可发现flag]]></content>
       <categories>
         <category>CTF</category>
         <category>Android</category>
@@ -124,19 +112,6 @@
         <tag>Jarvis OJ</tag>
         <tag>CFF_100</tag>
         <tag>Android reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[hexo+github搭建个人博客]]></title>
-    <url>%2Fhexo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html</url>
-    <content type="text"><![CDATA[可以根据下面那个视屏来完成搭建，是个浅显易懂的视频，适合2.0速度播放 视频 如果有什么不懂得，也欢迎留言讨论 总结：博客刚搭建完成，发现Markdown语法，很多都不会，导致写博客的速度很慢，正在努力学习Markdown语法中...]]></content>
-      <categories>
-        <category>折腾</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>github blog</tag>
-        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
