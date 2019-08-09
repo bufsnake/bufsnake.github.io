@@ -20,6 +20,8 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css?v=1.0.2">
 
 
 <script id="hexo-configurations">
@@ -44,8 +46,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -71,7 +73,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190801134745690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2019080113425954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjQwMjQz,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/201908011352587.png">
-<meta property="og:updated_time" content="2019-08-02T09:18:23.384Z">
+<meta property="og:updated_time" content="2019-08-09T12:01:55.730Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PWN 学习—某平台ROP2 writeup">
 <meta name="twitter:description" content="64位栈帧学习 writeup本能反应  RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这">
@@ -234,8 +236,33 @@
     <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
 </nav>
 </div>
     </header>
@@ -290,11 +317,19 @@
                 
               
 
-              <time title="创建时间：2019-08-02 17:16:46 / 修改时间：17:18:23" itemprop="dateCreated datePublished" datetime="2019-08-02T17:16:46+08:00">2019-08-02</time>
+              <time title="创建时间：2019-08-02 17:16:46" itemprop="dateCreated datePublished" datetime="2019-08-02T17:16:46+08:00">2019-08-02</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-09 20:01:55" itemprop="dateModified" datetime="2019-08-09T20:01:55+08:00">2019-08-09</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -385,6 +420,41 @@
     
     
     
+
+      <div>
+            
+               
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- JS库 sweetalert 可修改路径 -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span><a href="/2019/08/02/PWN-学习—某平台ROP2-writeup/">PWN 学习—某平台ROP2 writeup</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
+    <p><span>发布时间:</span>2019年08月02日 - 17:08</p>
+    <p><span>最后更新:</span>2019年08月09日 - 20:08</p>
+    <p><span>原始链接:</span><a href="/2019/08/02/PWN-学习—某平台ROP2-writeup/" title="PWN 学习—某平台ROP2 writeup">https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/2019/08/02/PWN-学习—某平台ROP2-writeup/" aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+       var clipboard = new Clipboard('.fa-clipboard');
+       $(".fa-clipboard").click(function(){
+       clipboard.on('success', function(){
+       swal({   
+           title: "",   
+           text: '复制成功',
+           icon: "success", 
+           showConfirmButton: true
+       });
+       });
+      });  
+</script>
+
+
+            
+      </div>
         
       
 
@@ -744,6 +814,8 @@
 
 
 
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
 
 
 
