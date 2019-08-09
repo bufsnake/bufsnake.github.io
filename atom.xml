@@ -361,4 +361,29 @@
     
   </entry>
   
+  <entry>
+    <title>Hello World</title>
+    <link href="https://bufsnake.github.io/2019/05/11/Hello-World/"/>
+    <id>https://bufsnake.github.io/2019/05/11/Hello-World/</id>
+    <published>2019-05-11T03:18:32.000Z</published>
+    <updated>2019-08-09T09:21:50.120Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello World"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Hello-World&quot;&gt;&lt;a href=&quot;#Hello-World&quot; class=&quot;headerlink&quot; title=&quot;Hello World&quot;&gt;&lt;/a&gt;Hello World&lt;/h2&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;t
+      
+    
+    </summary>
+    
+      <category term="HelloWorld" scheme="https://bufsnake.github.io/categories/HelloWorld/"/>
+    
+    
+      <category term="Hello World" scheme="https://bufsnake.github.io/tags/Hello-World/"/>
+    
+  </entry>
+  
 </feed>
