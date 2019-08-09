@@ -1,4 +1,4 @@
-er-agent: *
+Uer-agent: *
 Allow: /
 Allow: /archives/
 Allow: /categories/
