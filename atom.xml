@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-10T05:52:08.144Z</updated>
+  <updated>2019-08-10T08:17:43.321Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Heap的学习(1)</title>
+    <link href="https://bufsnake.github.io/Heap%E7%9A%84%E5%AD%A6%E4%B9%A0-1.html"/>
+    <id>https://bufsnake.github.io/Heap的学习-1.html</id>
+    <published>2019-08-10T05:57:00.000Z</published>
+    <updated>2019-08-10T08:17:43.321Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还望斧正。</p></blockquote><h3 id="什么是堆"><a href="#什么是堆" class="headerlink" title="什么是堆"></a>什么是堆</h3><blockquote><p>栈无法满足将函数内部的数据传递到函数的外部，虽然有全局变量可以传递，但是不能动态的产生，只能在编译的时候定义，在很多情况下显得鸡肋，这时候堆(Heap)就成了一种选择。堆是一个巨大的空间，常常占据着整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的内存并自由使用，直到程序主动放弃之前都会有效。</p></blockquote><h3 id="堆管理"><a href="#堆管理" class="headerlink" title="堆管理"></a>堆管理</h3><blockquote><p>程序向操作系统申请一块适当大小的堆空间，然后有程序自己管理这块空间，具体来讲，管理着堆空间分配的往往是程序的运行库，运行库相当于从系统批发了一块较大的堆空间，然后零售给程序用，当售完或程序有大量的内存需求时，在根据实际需求再次向系统申请进货，运行库通过堆的分配算法来管理程序的对空间。</p></blockquote><h4 id="Linux下提供两种堆空间分配的方式，及两个系统调用："><a href="#Linux下提供两种堆空间分配的方式，及两个系统调用：" class="headerlink" title="Linux下提供两种堆空间分配的方式，及两个系统调用："></a>Linux下提供两种堆空间分配的方式，及两个系统调用：</h4><h5 id="brk-系统调用"><a href="#brk-系统调用" class="headerlink" title="brk()  系统调用"></a>brk()  系统调用</h5><h6 id="brk-的c语言形式声明如下："><a href="#brk-的c语言形式声明如下：" class="headerlink" title="brk()的c语言形式声明如下："></a>brk()的c语言形式声明如下：</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">brk</span><span class="params">(<span class="keyword">void</span>* end_data_segment)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">实际作用就是设置进程数据段(Linux下将数据段和BSS段合在一起统称位数据段)的结束地址，及它可以扩大或缩小数据段，达到扩大或缩小堆空间的效果。</span><br><span class="line">glibc中还有一个函数交sbrk，它是对brk函数的封装，只不过参数和返回值略有不同，sbrk以一个增量(Increment)作为参数，及需要增加(负数为减少)的空间大小，返回值是增加或减少后数据段的结束地址</span><br></pre></td></tr></table></figure><h5 id="mmap-系统调用"><a href="#mmap-系统调用" class="headerlink" title="mmap() 系统调用"></a>mmap() 系统调用</h5><h6 id="mmap-的c语言形式声明如下："><a href="#mmap-的c语言形式声明如下：" class="headerlink" title="mmap()的c语言形式声明如下："></a>mmap()的c语言形式声明如下：</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">mmap</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">void</span> *start,      指定申请空间的起始地址，如果置为<span class="number">0</span>，那么Linux会自动挑选合适的起始地址</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">size_t</span> length,    指定申请空间的长度</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> prot,         申请空间的权限(可读，可写，可执行)</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> flags,        映射类型(文件映射、匿名空间)</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> fd,           用于文件映射时指定文件描述符</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">off_t</span> offset      用于文件映射时指定文件偏移</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line">作用就是向操作系统申请一段虚拟地址空间，当然这块虚拟地址空间可以映射到某个文件(这也是这个系统跳用最初的作用)，当他不将地址空间映射到某个文件时，称这段空间为匿名空间，匿名空间可以拿来当作堆空间。</span><br></pre></td></tr></table></figure><h3 id="堆结构"><a href="#堆结构" class="headerlink" title="堆结构"></a>堆结构</h3><p>这里可以参考<a href="https://www.anquanke.com/post/id/163971#h2-2" target="_blank" rel="noopener">CTF pwn 中最通俗易懂的堆入坑指南</a>，在看博客的时候产生一个疑问，为什么malloc(8)的值为0x21，后来自己写了程序，调试查看以及在网友的帮助下知道了原因。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">64</span>位系统</span><br><span class="line"><span class="built_in">malloc</span>(<span class="number">8</span>) 由于需要内存对齐，所以<span class="number">8</span>需要对齐到<span class="number">16</span>，然后加上pre size、size以及prev_inuse的值，也就是文中的<span class="number">16</span>+<span class="number">8</span>+<span class="number">8</span>+<span class="number">1</span>=<span class="number">0x21</span>的由来，但是当<span class="built_in">malloc</span>(<span class="number">24</span>)的时候，发现系统给的空间也是<span class="number">0x21</span>，这就又产生了疑问，不是应该为<span class="number">32</span>+<span class="number">8</span>+<span class="number">8</span>+<span class="number">1</span>=<span class="number">0x31</span>吗，后来询问网友得知，内存空间复用这个神奇的操作，也就是当前的堆会占用下一个堆的pre size(前提：下一个堆的前一个chunk是使用状态)，所以<span class="built_in">malloc</span>(<span class="number">24</span>) <span class="number">24</span>&lt;<span class="number">16</span>+<span class="number">8</span> 所以，还是会分配<span class="number">0x21</span>的空间给他</span><br></pre></td></tr></table></figure></p><p><img src="/images/6/1.png" alt="64位情况"></p><blockquote><p>32位和64位原理一样，只不过，对齐的到的大小不一样，64位对齐到16，32位对齐到8</p></blockquote><p><img src="/images/6/2.png" alt></p><blockquote><p>可以观察到，程序在第一次malloc之后会产生heap，并且大小是132kb，个人测试，32位也同样是132kb，往后，如果程序再malloc的时候就会从这里面申请，132kb的空间就是arena，由于是主线程分配的，所以也叫main arena</p></blockquote><p><img src="/images/6/3.png" alt></p><blockquote><p>top chunk的size会由于每次的malloc而减小</p></blockquote><h4 id="free函数"><a href="#free函数" class="headerlink" title="free函数"></a>free函数</h4><blockquote><p>将free掉的chunk放在不同的bin中</p></blockquote><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fast bin</span><br><span class="line">small bin</span><br><span class="line">large bin</span><br><span class="line">unsorted bin</span><br></pre></td></tr></table></figure><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>对于堆，总是感觉学了一遍，两遍，都不清楚到底是干嘛的，更加谈不上如何利用</p></blockquote><h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>《程序员的自我修养》</p><p><a href="https://www.anquanke.com/post/id/163971#h2-2" target="_blank" rel="noopener">CTF pwn 中最通俗易懂的堆入坑指南</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还
+      
+    
+    </summary>
+    
+      <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
+    
+    
+      <category term="heap" scheme="https://bufsnake.github.io/tags/heap/"/>
+    
+      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>PWN 学习—某平台ROP2 writeup</title>
@@ -38,11 +66,11 @@
       <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
     
     
+      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
+    
       <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
     
       <category term="pwntools" scheme="https://bufsnake.github.io/tags/pwntools/"/>
-    
-      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
     
       <category term="rop" scheme="https://bufsnake.github.io/tags/rop/"/>
     

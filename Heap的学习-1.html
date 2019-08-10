@@ -58,30 +58,24 @@
   };
 </script>
 
-  <meta name="description" content="CFF_100 writeuptags:  CTF Jarvis OJ CFF_100 Android reversecategories: CTF Androiddate: 2019-05-11 17:54:05   首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码12345678910111213141516171819202122232425">
-<meta name="keywords" content="CTF,Jarvis OJ,CFF_100,Android reverse">
+  <meta name="description" content="前言 对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还望斧正。  什么是堆 栈无法满足将函数内部的数据传递到函数的外部，虽然有全局变量可以传递，但是不能动态的产生，只能在编译的时候定义，在很多情况下显得鸡肋，这时候堆(Heap)就成了一种选择。堆是一个巨大的空间，常常占据着整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的">
+<meta name="keywords" content="heap,pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jarvis oj---CFF_100 writeup">
-<meta property="og:url" content="https://bufsnake.github.io/jarvis-oj-CFF-100-writeup.html">
+<meta property="og:title" content="Heap的学习(1)">
+<meta property="og:url" content="https://bufsnake.github.io/Heap的学习-1.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="CFF_100 writeuptags:  CTF Jarvis OJ CFF_100 Android reversecategories: CTF Androiddate: 2019-05-11 17:54:05   首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码12345678910111213141516171819202122232425">
+<meta property="og:description" content="前言 对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还望斧正。  什么是堆 栈无法满足将函数内部的数据传递到函数的外部，虽然有全局变量可以传递，但是不能动态的产生，只能在编译的时候定义，在很多情况下显得鸡肋，这时候堆(Heap)就成了一种选择。堆是一个巨大的空间，常常占据着整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/1.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/2.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/3.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/4.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/5.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/6.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/7.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/8.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/2/9.png">
-<meta property="og:updated_time" content="2019-08-09T15:22:24.692Z">
+<meta property="og:image" content="https://bufsnake.github.io/images/6/1.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/6/2.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/6/3.png">
+<meta property="og:updated_time" content="2019-08-10T08:17:43.321Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jarvis oj---CFF_100 writeup">
-<meta name="twitter:description" content="CFF_100 writeuptags:  CTF Jarvis OJ CFF_100 Android reversecategories: CTF Androiddate: 2019-05-11 17:54:05   首先将题目下载下来 拖入雷电模拟器,了解基本操作 拖到jadx-gui分析程序流程，查看主页面代码12345678910111213141516171819202122232425">
-<meta name="twitter:image" content="https://bufsnake.github.io/images/2/1.png">
+<meta name="twitter:title" content="Heap的学习(1)">
+<meta name="twitter:description" content="前言 对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还望斧正。  什么是堆 栈无法满足将函数内部的数据传递到函数的外部，虽然有全局变量可以传递，但是不能动态的产生，只能在编译的时候定义，在很多情况下显得鸡肋，这时候堆(Heap)就成了一种选择。堆是一个巨大的空间，常常占据着整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/6/1.png">
   <link rel="alternate" href="/atom.xml" title="bufsnake" type="application/atom+xml">
-  <link rel="canonical" href="https://bufsnake.github.io/jarvis-oj-CFF-100-writeup">
+  <link rel="canonical" href="https://bufsnake.github.io/Heap的学习-1">
 
 
 <script id="page-configurations">
@@ -95,7 +89,7 @@
   };
 </script>
 
-  <title>jarvis oj---CFF_100 writeup | bufsnake</title>
+  <title>Heap的学习(1) | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -309,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/jarvis-oj-CFF-100-writeup.html">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/Heap的学习-1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="bufsnake">
@@ -323,7 +317,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">jarvis oj---CFF_100 writeup
+          <h1 class="post-title" itemprop="name headline">Heap的学习(1)
 
             
           </h1>
@@ -340,19 +334,11 @@
                 
               
 
-              <time title="创建时间：2019-05-11 17:54:00" itemprop="dateCreated datePublished" datetime="2019-05-11T17:54:00+08:00">2019-05-11</time>
+              <time title="创建时间：2019-08-10 13:57:00 / 修改时间：16:17:43" itemprop="dateCreated datePublished" datetime="2019-08-10T13:57:00+08:00">2019-08-10</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-09 23:22:24" itemprop="dateModified" datetime="2019-08-09T23:22:24+08:00">2019-08-09</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -361,14 +347,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a></span>
 
                 
                 
@@ -395,28 +374,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>CFF_100 writeup<br>tags:</p>
-<ul>
-<li>CTF</li>
-<li>Jarvis OJ</li>
-<li>CFF_100</li>
-<li>Android reverse<br>categories:</li>
-<li>CTF</li>
-<li>Android<br>date: 2019-05-11 17:54:05</li>
-</ul>
-<hr>
-<h3 id="首先将题目下载下来"><a href="#首先将题目下载下来" class="headerlink" title="首先将题目下载下来"></a>首先将题目下载下来</h3><p><img src="/images/2/1.png" alt></p>
-<h3 id="拖入雷电模拟器-了解基本操作"><a href="#拖入雷电模拟器-了解基本操作" class="headerlink" title="拖入雷电模拟器,了解基本操作"></a>拖入雷电模拟器,了解基本操作</h3><p><img src="/images/2/2.png" alt></p>
-<h3 id="拖到jadx-gui分析程序流程，查看主页面代码"><a href="#拖到jadx-gui分析程序流程，查看主页面代码" class="headerlink" title="拖到jadx-gui分析程序流程，查看主页面代码"></a>拖到jadx-gui分析程序流程，查看主页面代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ctf.test.ctf_100;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Debug;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.widget.TextView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> has_gone_int;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> to_reach_int;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">get_flag</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        setContentView((<span class="keyword">int</span>) R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        ((Button) findViewById(R.id.button2)).setClickable(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.has_gone_int = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.to_reach_int = random.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.to_reach_int &lt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.to_reach_int *= -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="number">5</span> &lt; <span class="keyword">this</span>.to_reach_int) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.to_reach_int %= <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.to_reach_int *= <span class="number">16384</span>;</span><br><span class="line"></span><br><span class="line">                ((TextView) findViewById(R.id.data_to_reach)).setText(<span class="string">""</span> + <span class="keyword">this</span>.to_reach_int);</span><br><span class="line"></span><br><span class="line">                ((TextView) findViewById(R.id.tvResult)).setText(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.to_reach_int = random.nextInt();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Btn_up_onclick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.has_gone_int++;</span><br><span class="line"></span><br><span class="line">        ((TextView) findViewById(R.id.data_has_gone)).setText(<span class="string">""</span> + <span class="keyword">this</span>.has_gone_int);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.to_reach_int &lt;= <span class="keyword">this</span>.has_gone_int) &#123;</span><br><span class="line"></span><br><span class="line">            ((Button) findViewById(R.id.button2)).setClickable(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">btn2_onclick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ((TextView) findViewById(R.id.tvResult)).setText(<span class="string">"&#123;Flag:"</span> + get_flag(<span class="keyword">this</span>.to_reach_int) + <span class="string">"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!Debug.isDebuggerConnected()) &#123;</span><br><span class="line"></span><br><span class="line">            System.loadLibrary(<span class="string">"ctf"</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="发现："><a href="#发现：" class="headerlink" title="发现："></a>发现：</h3><blockquote>
-<p>楼梯数是程序启动时随机生成的，并且程序初始化的时候将getflag的按钮设置成不可操作，除非爬的楼梯数大于楼梯数才能按getflag的按钮，作为懒人，怎么可能真的点击那么多次，所以</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还望斧正。</p>
 </blockquote>
-<h3 id="拖到KALI里进行解包"><a href="#拖到KALI里进行解包" class="headerlink" title="拖到KALI里进行解包"></a>拖到KALI里进行解包</h3><p><img src="/images/2/3.png" alt></p>
+<h3 id="什么是堆"><a href="#什么是堆" class="headerlink" title="什么是堆"></a>什么是堆</h3><blockquote>
+<p>栈无法满足将函数内部的数据传递到函数的外部，虽然有全局变量可以传递，但是不能动态的产生，只能在编译的时候定义，在很多情况下显得鸡肋，这时候堆(Heap)就成了一种选择。堆是一个巨大的空间，常常占据着整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的内存并自由使用，直到程序主动放弃之前都会有效。</p>
+</blockquote>
+<h3 id="堆管理"><a href="#堆管理" class="headerlink" title="堆管理"></a>堆管理</h3><blockquote>
+<p>程序向操作系统申请一块适当大小的堆空间，然后有程序自己管理这块空间，具体来讲，管理着堆空间分配的往往是程序的运行库，运行库相当于从系统批发了一块较大的堆空间，然后零售给程序用，当售完或程序有大量的内存需求时，在根据实际需求再次向系统申请进货，运行库通过堆的分配算法来管理程序的对空间。</p>
+</blockquote>
+<h4 id="Linux下提供两种堆空间分配的方式，及两个系统调用："><a href="#Linux下提供两种堆空间分配的方式，及两个系统调用：" class="headerlink" title="Linux下提供两种堆空间分配的方式，及两个系统调用："></a>Linux下提供两种堆空间分配的方式，及两个系统调用：</h4><h5 id="brk-系统调用"><a href="#brk-系统调用" class="headerlink" title="brk()  系统调用"></a>brk()  系统调用</h5><h6 id="brk-的c语言形式声明如下："><a href="#brk-的c语言形式声明如下：" class="headerlink" title="brk()的c语言形式声明如下："></a>brk()的c语言形式声明如下：</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">brk</span><span class="params">(<span class="keyword">void</span>* end_data_segment)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">实际作用就是设置进程数据段(Linux下将数据段和BSS段合在一起统称位数据段)的结束地址，及它可以扩大或缩小数据段，达到扩大或缩小堆空间的效果。</span><br><span class="line">glibc中还有一个函数交sbrk，它是对brk函数的封装，只不过参数和返回值略有不同，sbrk以一个增量(Increment)作为参数，及需要增加(负数为减少)的空间大小，返回值是增加或减少后数据段的结束地址</span><br></pre></td></tr></table></figure>
+<h5 id="mmap-系统调用"><a href="#mmap-系统调用" class="headerlink" title="mmap() 系统调用"></a>mmap() 系统调用</h5><h6 id="mmap-的c语言形式声明如下："><a href="#mmap-的c语言形式声明如下：" class="headerlink" title="mmap()的c语言形式声明如下："></a>mmap()的c语言形式声明如下：</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">mmap</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">void</span> *start,      指定申请空间的起始地址，如果置为<span class="number">0</span>，那么Linux会自动挑选合适的起始地址</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">size_t</span> length,    指定申请空间的长度</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> prot,         申请空间的权限(可读，可写，可执行)</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> flags,        映射类型(文件映射、匿名空间)</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">int</span> fd,           用于文件映射时指定文件描述符</span></span></span><br><span class="line"><span class="function"><span class="params">   <span class="keyword">off_t</span> offset      用于文件映射时指定文件偏移</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line">作用就是向操作系统申请一段虚拟地址空间，当然这块虚拟地址空间可以映射到某个文件(这也是这个系统跳用最初的作用)，当他不将地址空间映射到某个文件时，称这段空间为匿名空间，匿名空间可以拿来当作堆空间。</span><br></pre></td></tr></table></figure>
+<h3 id="堆结构"><a href="#堆结构" class="headerlink" title="堆结构"></a>堆结构</h3><p>这里可以参考<a href="https://www.anquanke.com/post/id/163971#h2-2" target="_blank" rel="noopener">CTF pwn 中最通俗易懂的堆入坑指南</a>，在看博客的时候产生一个疑问，为什么malloc(8)的值为0x21，后来自己写了程序，调试查看以及在网友的帮助下知道了原因。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">64</span>位系统</span><br><span class="line"><span class="built_in">malloc</span>(<span class="number">8</span>) 由于需要内存对齐，所以<span class="number">8</span>需要对齐到<span class="number">16</span>，然后加上pre size、size以及prev_inuse的值，也就是文中的<span class="number">16</span>+<span class="number">8</span>+<span class="number">8</span>+<span class="number">1</span>=<span class="number">0x21</span>的由来，但是当<span class="built_in">malloc</span>(<span class="number">24</span>)的时候，发现系统给的空间也是<span class="number">0x21</span>，这就又产生了疑问，不是应该为<span class="number">32</span>+<span class="number">8</span>+<span class="number">8</span>+<span class="number">1</span>=<span class="number">0x31</span>吗，后来询问网友得知，内存空间复用这个神奇的操作，也就是当前的堆会占用下一个堆的pre size(前提：下一个堆的前一个chunk是使用状态)，所以<span class="built_in">malloc</span>(<span class="number">24</span>) <span class="number">24</span>&lt;<span class="number">16</span>+<span class="number">8</span> 所以，还是会分配<span class="number">0x21</span>的空间给他</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/6/1.png" alt="64位情况"></p>
 <blockquote>
-<p>在进行解包的时候加上-r命令，不对资源文件进行解包，因为在我打包的时候发现资源文件有问题，打包不了(知道详情的大佬可以告诉小弟)</p>
+<p>32位和64位原理一样，只不过，对齐的到的大小不一样，64位对齐到16，32位对齐到8</p>
 </blockquote>
-<h3 id="接下来，我们对程序中关键跳转进行修改-此题做法不唯一-，让程序无论如何都可以按getflag按钮"><a href="#接下来，我们对程序中关键跳转进行修改-此题做法不唯一-，让程序无论如何都可以按getflag按钮" class="headerlink" title="接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮"></a>接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮<img src="/images/2/4.png" alt></h3><p>找到smali文件夹下的com/ctf/test/ctf_100/MainActivity.smali,直接搜索<br>Btn_up_onclick方法，找到关键跳转，修改成相反的就行<img src="/images/2/5.png" alt>将if-gt 修改成if-le后打包<img src="/images/2/6.png" alt></p>
-<h3 id="完成打包后签名"><a href="#完成打包后签名" class="headerlink" title="完成打包后签名"></a>完成打包后签名<img src="/images/2/7.png" alt></h3><p>当出现<img src="/images/2/8.png" alt><br>说明签名成功，再次拖入模拟器安装运行，爬一层，使爬到了，看flag按钮能够使用后，按爬到了，看flag按钮即可发现flag<br><img src="/images/2/9.png" alt></p>
+<p><img src="/images/6/2.png" alt></p>
+<blockquote>
+<p>可以观察到，程序在第一次malloc之后会产生heap，并且大小是132kb，个人测试，32位也同样是132kb，往后，如果程序再malloc的时候就会从这里面申请，132kb的空间就是arena，由于是主线程分配的，所以也叫main arena</p>
+</blockquote>
+<p><img src="/images/6/3.png" alt></p>
+<blockquote>
+<p>top chunk的size会由于每次的malloc而减小</p>
+</blockquote>
+<h4 id="free函数"><a href="#free函数" class="headerlink" title="free函数"></a>free函数</h4><blockquote>
+<p>将free掉的chunk放在不同的bin中</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fast bin</span><br><span class="line">small bin</span><br><span class="line">large bin</span><br><span class="line">unsorted bin</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>对于堆，总是感觉学了一遍，两遍，都不清楚到底是干嘛的，更加谈不上如何利用</p>
+</blockquote>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>《程序员的自我修养》</p>
+<p><a href="https://www.anquanke.com/post/id/163971#h2-2" target="_blank" rel="noopener">CTF pwn 中最通俗易懂的堆入坑指南</a></p>
 
     </div>
     <div>
@@ -442,12 +432,12 @@
     <!-- JS库 sweetalert 可修改路径 -->
     <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <p><span>本文标题:</span><a href="/jarvis-oj-CFF-100-writeup.html">jarvis oj---CFF_100 writeup</a></p>
+    <p><span>本文标题:</span><a href="/Heap的学习-1.html">Heap的学习(1)</a></p>
     <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
-    <p><span>发布时间:</span>2019年05月11日 - 17:05</p>
-    <p><span>最后更新:</span>2019年08月09日 - 23:08</p>
-    <p><span>原始链接:</span><a href="/jarvis-oj-CFF-100-writeup.html" title="jarvis oj---CFF_100 writeup">https://bufsnake.github.io/jarvis-oj-CFF-100-writeup.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/jarvis-oj-CFF-100-writeup.html" aria-label="复制成功！"></i></span>
+    <p><span>发布时间:</span>2019年08月10日 - 13:08</p>
+    <p><span>最后更新:</span>2019年08月10日 - 16:08</p>
+    <p><span>原始链接:</span><a href="/Heap的学习-1.html" title="Heap的学习(1)">https://bufsnake.github.io/Heap的学习-1.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/Heap的学习-1.html" aria-label="复制成功！"></i></span>
     </p>
     <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -477,13 +467,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/heap/" rel="tag"># heap</a>
             
-              <a href="/tags/Jarvis-OJ/" rel="tag"># Jarvis OJ</a>
-            
-              <a href="/tags/CFF-100/" rel="tag"># CFF_100</a>
-            
-              <a href="/tags/Android-reverse/" rel="tag"># Android reverse</a>
+              <a href="/tags/pwn/" rel="tag"># pwn</a>
             
           </div>
         
@@ -493,8 +479,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/Hello-World.html" rel="next" title="Hello World">
-                  <i class="fa fa-chevron-left"></i> Hello World
+                <a href="/PWN-学习—某平台ROP2-writeup.html" rel="next" title="PWN 学习—某平台ROP2 writeup">
+                  <i class="fa fa-chevron-left"></i> PWN 学习—某平台ROP2 writeup
                 </a>
               
             </div>
@@ -502,10 +488,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/Markdown-语法简介.html" rel="prev" title="Markdown 语法简介">
-                  Markdown 语法简介 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -753,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先将题目下载下来"><span class="nav-number">1.</span> <span class="nav-text">首先将题目下载下来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拖入雷电模拟器-了解基本操作"><span class="nav-number">2.</span> <span class="nav-text">拖入雷电模拟器,了解基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拖到jadx-gui分析程序流程，查看主页面代码"><span class="nav-number">3.</span> <span class="nav-text">拖到jadx-gui分析程序流程，查看主页面代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发现："><span class="nav-number">4.</span> <span class="nav-text">发现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拖到KALI里进行解包"><span class="nav-number">5.</span> <span class="nav-text">拖到KALI里进行解包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来，我们对程序中关键跳转进行修改-此题做法不唯一-，让程序无论如何都可以按getflag按钮"><span class="nav-number">6.</span> <span class="nav-text">接下来，我们对程序中关键跳转进行修改(此题做法不唯一)，让程序无论如何都可以按getflag按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成打包后签名"><span class="nav-number">7.</span> <span class="nav-text">完成打包后签名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是堆"><span class="nav-number">2.</span> <span class="nav-text">什么是堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆管理"><span class="nav-number">3.</span> <span class="nav-text">堆管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux下提供两种堆空间分配的方式，及两个系统调用："><span class="nav-number">3.1.</span> <span class="nav-text">Linux下提供两种堆空间分配的方式，及两个系统调用：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#brk-系统调用"><span class="nav-number">3.1.1.</span> <span class="nav-text">brk()  系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#brk-的c语言形式声明如下："><span class="nav-number">3.1.1.1.</span> <span class="nav-text">brk()的c语言形式声明如下：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mmap-系统调用"><span class="nav-number">3.1.2.</span> <span class="nav-text">mmap() 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#mmap-的c语言形式声明如下："><span class="nav-number">3.1.2.1.</span> <span class="nav-text">mmap()的c语言形式声明如下：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆结构"><span class="nav-number">4.</span> <span class="nav-text">堆结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#free函数"><span class="nav-number">4.1.</span> <span class="nav-text">free函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
