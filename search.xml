@@ -74,6 +74,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[qira安装与简单使用]]></title>
+    <url>%2Fqira%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8.html</url>
+    <content type="text"><![CDATA[简介 一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因为不小心调试过头了而忧伤 Install 需要使用Linux，官方推荐Ubuntu，一开始装在kali上，各种报错，迫不得已，装了一个Ubuntu 16.04，直接成功，这里记录一下自己安装成功的过程1234567891011121314sudo apt-get updatesudo apt-get install python2.7 python-pip python-dev git libssl-dev libffi-dev build-essentialsudo pip install --upgrade pipsudo pip install --upgrade pwntoolspip install --upgrade setuptoolssudo apt-get install gcc gdbgit clone https://github.com/longld/peda.git mv peda ~/.pedaecho "source ~/.peda/peda.py" &gt;&gt; ~/.gdbinitcd ~/git clone https://github.com/BinaryAnalysisPlatform/qira.gitcd qira/./install.shsudo apt-get install libc6-dev-i386 Usage1234567usage: qira.py [-h] [-s] [-t] [--gate-trace ADDRESS] [--flush-cache] [--pin] [--host HOST] [--web-port PORT] [--socat-port PORT] [-S] binary [args [args ...]]qira.py: error: too few arguments-S 显示流程图-s 建立socket 此时在Linux机器上开放两个端口，一个是供调试的3002端口，这个端口对外开放，可以其他机器连接进来，另一个4000端口放着该程序，在这里我们可以使用nc来连接这个端口，来使程序得到一个完整的运行，如果不用nc来连接4000端口，则3002端口的web服务是没有什么用的 pwntools 当程序所需要输入的数据不是很复杂的情况下，可以使用nc hostname 4000连接输入即可，如果需要输入的很复杂，这时候我们就可以使用pwntools来构造exp，这里就不介绍用法了 qira图例 启动qira，创建socket，等待连接 连接，及启动了程序，这里的程序没有输入输出 第一个框表示当前eip所在的行数 第二个框，没弄明白，只知道不为0时，鼠标滚动界面是不动的，有了解的老哥，烦请告知缘由 第三个框表示当前eip的地址 第四个框表示当前的内存地址，也就是最底下的那个框 总结 安装方法不难，都被大佬们给优化好了，就是平台适应性不太友好，主要还是自己太菜了]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>qira</tag>
+        <tag>usage</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[我和unicorn-engine的神奇之旅]]></title>
     <url>%2F%E6%88%91%E5%92%8Cunicorn-engine%E7%9A%84%E7%A5%9E%E5%A5%87%E4%B9%8B%E6%97%85.html</url>
     <content type="text"><![CDATA[神奇之处： 模拟CPU去执行程序或程序中的某个片段，某个函数，并且支持多个架构(Arm, Arm64 (Armv8), M68K, Mips, Sparc, &amp; X86 (include X86_64))，也就是说，只需要用代码声明一下程序运行所需要的架构，所需要的栈空间，运行基址等，程序就可以模拟执行了 unicorn-engine 是不能调用syscall的，指令模拟的时候跳转的位置及相应的指令块没有被加载到模拟器中，那模拟时肯定是会有异常的 假设unicorn-engine是一个牢房，关押了来自不同地方的人(具有不同CPU架构的程序)，牢房对他们的信息了如指掌，提审哪一个犯人都可以，并且可以对他们执行任何酷刑(对程序执行内存读写和栈读写等操作)，但是对他们的同伴的信息却知之甚少(没加载到模拟器的指令块)。貌似这个比喻并不恰当，但是有助于我的个人理解。 安装方法：Linux上的安装方法：1pip install unicorn 其余平台可进入官网下载源文件编译安装 使用方法：可以参考看雪翻译的Unicorn引擎教程 相关资料 整理了几个比较好的资料，因为我学习的时候发现基本上都是在照着Eternal Stories的这个写的，所以整理了几篇不错的文章： Unicorn引擎教程 基于-unicorn-的单个函数模拟执行和-fuzzer-实现 Unicorn Engine 简介 好的文章都要立马转成pdf存到盘里，谁知道哪天博主一生气，好文章就没了呢。]]></content>
