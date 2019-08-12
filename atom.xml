@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-12T04:38:15.740Z</updated>
+  <updated>2019-08-12T06:25:18.108Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jactf-crypto</title>
+    <link href="https://bufsnake.github.io/jactf-crypto.html"/>
+    <id>https://bufsnake.github.io/jactf-crypto.html</id>
+    <published>2019-08-12T05:00:22.000Z</published>
+    <updated>2019-08-12T06:25:18.108Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h3><p><a href="https://ctf.jasec.cn/challenges" target="_blank" rel="noopener">jactf</a></p><h3 id="crypto签到"><a href="#crypto签到" class="headerlink" title="crypto签到"></a>crypto签到</h3><p><img src="/images/pasted-19.png" alt="upload successful"></p><h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-20.png" alt="upload successful"></p><h3 id="贝斯家族三英战群魔！"><a href="#贝斯家族三英战群魔！" class="headerlink" title="贝斯家族三英战群魔！"></a>贝斯家族三英战群魔！</h3><p><img src="/images/pasted-21.png" alt="upload successful"></p><h4 id="ciphertext-txt"><a href="#ciphertext-txt" class="headerlink" title="ciphertext.txt"></a>ciphertext.txt</h4><p><img src="/images/pasted-22.png" alt="upload successful"></p><blockquote><p>base系列加解密</p></blockquote><h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-23.png" alt="upload successful"></p><blockquote><p>三种来回试吧</p></blockquote><h3 id="easy-crypto"><a href="#easy-crypto" class="headerlink" title="easy_crypto"></a>easy_crypto</h3><p><img src="/images/pasted-25.png" alt="upload successful"></p><h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-24.png" alt="upload successful"></p><h3 id="凯撒变异了，从第五天开始学起了仿射"><a href="#凯撒变异了，从第五天开始学起了仿射" class="headerlink" title="凯撒变异了，从第五天开始学起了仿射"></a>凯撒变异了，从第五天开始学起了仿射</h3><p><img src="/images/pasted-26.png" alt="upload successful"></p><blockquote><p>太难了，待做</p></blockquote><h3 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h3><p><img src="/images/pasted-27.png" alt="upload successful"></p><h4 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">e = <span class="number">65537</span></span><br><span class="line">n = <span class="number">966808932627497190635859236054960349099463975227350564265384373280336699853387254070662881265937565163000758606154308757944030571837175048514574473061401566330836334647176655282619268592560172726526643074499534129878217409046045533656897050117438496357231575999185527675071002803951800635220029015932007465117818739948903750200830856115668691007706836952244842719419452946259275251773298338162389930518838272704908887016474007051397194588396039111216708866214614779627566959335170676055025850932631053641576566165694121420546081043285806783239296799795655191121966377590175780618944910532816988143056757054052679968538901460893571204904394975714081055455240523895653305315517745729334114549756695334171142876080477105070409544777981602152762154610738540163796164295222810243309051503090866674634440359226192530724635477051576515179864461174911975667162597286769079380660782647952944808596310476973939156187472076952935728249061137481887589103973591082872988641958270285169650803792395556363304056290077801453980822097583574309682935697260204862756923865556397686696854239564541407185709940107806536773160263764483443859425726953142964148216209968437587044617613518058779287167853349364533716458676066734216877566181514607693882375533</span></span><br><span class="line">c = <span class="number">168502910088858295634315070244377409556567637139736308082186369003227771936407321783557795624279162162305200436446903976385948677897665466290852769877562167487142385308027341639816401055081820497002018908896202860342391029082581621987305533097386652183849657065952062433988387640990383623264405525144003500286531262674315900537001845043225363148359766771033899680111076181672797077410584747509581932045540801777738548872747597899965366950827505529432483779821158152928899947837196391555666165486441878183288008753561108995715961920472927844877569855940505148843530998878113722830427807926679324241141182238903567682042410145345551889442158895157875798990903715105782682083886461661307063583447696168828687126956147955886493383805513557604179029050981678755054945607866353195793654108403939242723861651919152369923904002966873994811826391080318146260416978499377182540684409790357257490816203138499369634490897553227763563553981246891677613446390134477832143175248992161641698011195968792105201847976082322786623390242470226740685822218140263182024226228692159380557661591633072091945077334191987860262448385123599459647228562137369178069072804498049463136233856337817385977990145571042231795332995523988174895432819872832170029690848</span></span><br><span class="line">p = <span class="number">31093551302922880999883020803665536616272147022877428745314830867519351013248914244880101094365815998050115415308439610066700139164376274980650005150267949853671653233491784289493988946869396093730966325659249796545878080119206283512342980854475734097108975670778836003822789405498941374798016753689377992355122774401780930185598458240894362246194248623911382284169677595864501475308194644140602272961699230282993020507668939980205079239221924230430230318076991507619960330144745307022538024878444458717587446601559546292026245318907293584609320115374632235270795633933755350928537598242214216674496409625928797450473</span></span><br><span class="line">q = <span class="number">31093551302922880999883020803665536616272147022877428745314830867519351013248914244880101094365815998050115415308439610066700139164376274980650005150267949853671653233491784289493988946869396093730966325659249796545878080119206283512342980854475734097108975670778836003822789405498941374798016753689377992355122774401780930185598458240894362246194248623911382284169677595864501475308194644140602272961699230282993020507668939980205079239221924230430230318076991507619960330144745307022538024878444458717587446601559546292026245318907293584609320115374632235270795633933755350928537598242214216674496409625928997877221</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">egcd</span><span class="params">(a, b)</span>:</span></span><br><span class="line"><span class="keyword">if</span> a == <span class="number">0</span>:</span><br><span class="line"><span class="keyword">return</span> (b, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">g, y, x = egcd(b % a, a)</span><br><span class="line"><span class="keyword">return</span> (g, x - (b // a) * y, y)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">modinv</span><span class="params">(a, m)</span>:</span></span><br><span class="line">g, x, y = egcd(a, m)</span><br><span class="line"><span class="keyword">if</span> g != <span class="number">1</span>:</span><br><span class="line"><span class="keyword">raise</span> Exception(<span class="string">'modular inverse does not exist'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line"><span class="keyword">return</span> x % m</span><br><span class="line">d=modinv(e,(p<span class="number">-1</span>)*(q<span class="number">-1</span>))</span><br><span class="line"><span class="keyword">print</span> <span class="string">'d='</span>,d</span><br><span class="line">m=pow(c,d,n)</span><br><span class="line"><span class="keyword">print</span> hex(m)[<span class="number">2</span>:len(hex(m))<span class="number">-1</span>].decode(<span class="string">'hex'</span>)</span><br></pre></td></tr></table></figure><blockquote><p>flag提交不对，不知道为什么</p></blockquote><h3 id="幂数"><a href="#幂数" class="headerlink" title="幂数"></a>幂数</h3><p><img src="/images/pasted-28.png" alt="upload successful"></p><h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">"8842101220480224404014224202480122"</span></span><br><span class="line">a=a.split(<span class="string">"0"</span>)</span><br><span class="line">flag=<span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(a)):</span><br><span class="line">     str = a[i]</span><br><span class="line">     list=[]</span><br><span class="line">     sum=<span class="number">0</span></span><br><span class="line">     <span class="keyword">for</span> j <span class="keyword">in</span> str:</span><br><span class="line">        list.append(j)</span><br><span class="line">        length = len(list)</span><br><span class="line">     <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">0</span>,length):</span><br><span class="line">        sum+=int(list[k])</span><br><span class="line">     flag += chr(sum+<span class="number">64</span>)</span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;平台&quot;&gt;&lt;a href=&quot;#平台&quot; class=&quot;headerlink&quot; title=&quot;平台&quot;&gt;&lt;/a&gt;平台&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://ctf.jasec.cn/challenges&quot; target=&quot;_blank&quot; rel=&quot;noopene
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>jactf-android</title>
@@ -60,9 +81,9 @@
     
       <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
     
-      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
-    
       <category term="pwnable.tw" scheme="https://bufsnake.github.io/tags/pwnable-tw/"/>
+    
+      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
     
   </entry>
   
@@ -88,9 +109,9 @@
       <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
     
     
-      <category term="heap" scheme="https://bufsnake.github.io/tags/heap/"/>
-    
       <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
+    
+      <category term="heap" scheme="https://bufsnake.github.io/tags/heap/"/>
     
   </entry>
   

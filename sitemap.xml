@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bufsnake.github.io/jactf-crypto.html</loc>
+    
+    <lastmod>2019-08-12T06:25:18.108Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bufsnake.github.io/jactf-android.html</loc>
     
     <lastmod>2019-08-12T04:38:15.740Z</lastmod>
