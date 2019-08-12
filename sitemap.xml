@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bufsnake.github.io/jactf-reverse2.html</loc>
+    
+    <lastmod>2019-08-12T13:54:20.850Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bufsnake.github.io/jactf-reverse.html</loc>
     
     <lastmod>2019-08-12T09:18:55.725Z</lastmod>
