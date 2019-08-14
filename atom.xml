@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-14T02:34:27.948Z</updated>
+  <updated>2019-08-14T09:24:23.400Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次简单的VM程序逆向</title>
+    <link href="https://bufsnake.github.io/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84VM%E7%A8%8B%E5%BA%8F%E9%80%86%E5%90%91.html"/>
+    <id>https://bufsnake.github.io/记一次简单的VM程序逆向.html</id>
+    <published>2019-08-14T09:19:17.000Z</published>
+    <updated>2019-08-14T09:24:23.400Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h3><p><a href="http://malwaretech.com/downloads/vm1.zip" target="_blank" rel="noopener">vm crackme</a></p><p><img src="/images/pasted-91.png" alt="upload successful"></p><blockquote><p>程序给了三个文件，主要是要求我们通过分析vm1.exe文件的虚拟机，然后自己实现虚拟机，执行ram.bin中的opcode</p></blockquote><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p><img src="/images/pasted-93.png" alt="upload successful"></p><blockquote><p>程序先申请一个堆，然后将unk_404040copy到Dst中，进而执行sub_4022e0_</p></blockquote><p><img src="/images/pasted-94.png" alt="upload successful"></p><blockquote><p>依次取出Dst中的数据，然后调用sub_402270，可知255之后的数据是opcode，255之前的数据是data</p></blockquote><p><img src="/images/pasted-95.png" alt="upload successful"></p><blockquote><p>这就是opcode执行的主要函数</p></blockquote><h3 id="实现自己的虚拟机"><a href="#实现自己的虚拟机" class="headerlink" title="实现自己的虚拟机"></a>实现自己的虚拟机</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">"./ram.bin"</span>,<span class="string">"rb"</span>)</span><br><span class="line">opcode = list(f.read())</span><br><span class="line"></span><br><span class="line">data = opcode[:<span class="number">0xff</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(data)):</span><br><span class="line">    data[i] = ord(opcode[i])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sub_402270</span><span class="params">(v0,v1,v2)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> byte</span><br><span class="line">    <span class="keyword">if</span> v0 == <span class="number">1</span>:</span><br><span class="line">        data[v1] = v2;</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"mov data[%d], 0x%x"</span>%(v1,v2)</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">2</span>:</span><br><span class="line">        byte = data[v1]</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"mov rax, data[%d]"</span>%v1</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">3</span>:</span><br><span class="line">        data[v1] = data[v1] ^ byte</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"xor data[%d], rax"</span>%v1</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(opcode)<span class="number">-257</span>,<span class="number">3</span>):</span><br><span class="line">    v0 = opcode[<span class="number">255</span>+i]</span><br><span class="line">    v1 = opcode[<span class="number">256</span>+i]</span><br><span class="line">    v2 = opcode[<span class="number">257</span>+i]</span><br><span class="line">    <span class="keyword">if</span> v0 == <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    sub_402270(ord(v0),ord(v1),ord(v2))</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">''</span>.join(chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> data)</span><br></pre></td></tr></table></figure><h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">mov data[29], 0xbd</span><br><span class="line">mov data[5], 0x53</span><br><span class="line">mov data[18], 0x48</span><br><span class="line">mov data[16], 0xe6</span><br><span class="line">mov data[19], 0x8a</span><br><span class="line">mov data[13], 0x47</span><br><span class="line">mov data[22], 0x13</span><br><span class="line">mov data[10], 0x15</span><br><span class="line">mov data[0], 0x98</span><br><span class="line">mov data[2], 0x3c</span><br><span class="line">mov data[24], 0xd9</span><br><span class="line">mov data[26], 0x57</span><br><span class="line">mov data[6], 0xab</span><br><span class="line">mov data[27], 0xc6</span><br><span class="line">mov data[1], 0x32</span><br><span class="line">mov data[23], 0x20</span><br><span class="line">mov data[21], 0x6f</span><br><span class="line">mov data[17], 0x2d</span><br><span class="line">mov data[8], 0xc9</span><br><span class="line">mov data[9], 0xe7</span><br><span class="line">mov data[3], 0x12</span><br><span class="line">mov data[12], 0x2f</span><br><span class="line">mov data[14], 0x88</span><br><span class="line">mov data[25], 0x6c</span><br><span class="line">mov data[4], 0x65</span><br><span class="line">mov data[30], 0xae</span><br><span class="line">mov data[20], 0x59</span><br><span class="line">mov data[31], 0x91</span><br><span class="line">mov data[28], 0x5d</span><br><span class="line">mov data[15], 0xae</span><br><span class="line">mov data[11], 0x15</span><br><span class="line">mov data[7], 0xcc</span><br><span class="line">mov rax, data[32]</span><br><span class="line">xor data[0], rax</span><br><span class="line">mov rax, data[33]</span><br><span class="line">xor data[1], rax</span><br><span class="line">mov rax, data[34]</span><br><span class="line">xor data[2], rax</span><br><span class="line">mov rax, data[35]</span><br><span class="line">xor data[3], rax</span><br><span class="line">mov rax, data[36]</span><br><span class="line">xor data[4], rax</span><br><span class="line">mov rax, data[37]</span><br><span class="line">xor data[5], rax</span><br><span class="line">mov rax, data[38]</span><br><span class="line">xor data[6], rax</span><br><span class="line">mov rax, data[39]</span><br><span class="line">xor data[7], rax</span><br><span class="line">mov rax, data[40]</span><br><span class="line">xor data[8], rax</span><br><span class="line">mov rax, data[41]</span><br><span class="line">xor data[9], rax</span><br><span class="line">mov rax, data[42]</span><br><span class="line">xor data[10], rax</span><br><span class="line">mov rax, data[43]</span><br><span class="line">xor data[11], rax</span><br><span class="line">mov rax, data[44]</span><br><span class="line">xor data[12], rax</span><br><span class="line">mov rax, data[45]</span><br><span class="line">xor data[13], rax</span><br><span class="line">mov rax, data[46]</span><br><span class="line">xor data[14], rax</span><br><span class="line">mov rax, data[47]</span><br><span class="line">xor data[15], rax</span><br><span class="line">mov rax, data[48]</span><br><span class="line">xor data[16], rax</span><br><span class="line">mov rax, data[49]</span><br><span class="line">xor data[17], rax</span><br><span class="line">mov rax, data[50]</span><br><span class="line">xor data[18], rax</span><br><span class="line">mov rax, data[51]</span><br><span class="line">xor data[19], rax</span><br><span class="line">mov rax, data[52]</span><br><span class="line">xor data[20], rax</span><br><span class="line">mov rax, data[53]</span><br><span class="line">xor data[21], rax</span><br><span class="line">mov rax, data[54]</span><br><span class="line">xor data[22], rax</span><br><span class="line">mov rax, data[55]</span><br><span class="line">xor data[23], rax</span><br><span class="line">mov rax, data[56]</span><br><span class="line">xor data[24], rax</span><br><span class="line">mov data[25], 0x0</span><br><span class="line">FLAG&#123;VMS-ARE-FOR-MALWARE&#125;W�]����~&#125;U��GP���`�.Ae�</span><br></pre></td></tr></table></figure><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p> 第一次逆向vm程序，初次体验了被vm虐哭的感觉</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;题目来源&quot;&gt;&lt;a href=&quot;#题目来源&quot; class=&quot;headerlink&quot; title=&quot;题目来源&quot;&gt;&lt;/a&gt;题目来源&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://malwaretech.com/downloads/vm1.zip&quot; target=&quot;_bl
+      
+    
+    </summary>
+    
+      <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
+    
+    
+      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
+    
+      <category term="vm" scheme="https://bufsnake.github.io/tags/vm/"/>
+    
+  </entry>
   
   <entry>
     <title>so库移植</title>
@@ -534,35 +561,6 @@
     
     
       <category term="折腾" scheme="https://bufsnake.github.io/tags/%E6%8A%98%E8%85%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PE文件之导入表</title>
-    <link href="https://bufsnake.github.io/PE%E6%96%87%E4%BB%B6%E4%B9%8B%E5%AF%BC%E5%85%A5%E8%A1%A8.html"/>
-    <id>https://bufsnake.github.io/PE文件之导入表.html</id>
-    <published>2019-05-12T09:22:50.000Z</published>
-    <updated>2019-08-09T15:37:47.902Z</updated>
-    
-    <content type="html"><![CDATA[<p>导入表：是一个(PE文件所需的DLL文件)DLL数组，数组中的每个元素包含20个字节，每4个字节表示一种含义，一共五种含义：</p><blockquote><p>OriginalFirstThunk | TimeDateStamp | ForwarderChain | Name | FristThunk</p></blockquote><p>其中较为重要的是以下三种：</p><blockquote><p>OriginalFirstThunk 指向INT(导入名字表)</p></blockquote><blockquote><p>Name 指向DLL name</p></blockquote><blockquote><p>FristThunk 指向IAT(导入地址表)</p></blockquote><pre><code>INT 和 IAT在程序没加载到内存时是一样的，它们指向的内容都是程序所需的函数的名字</code></pre><blockquote><p>正常情况下，当程序初始化时，程序根据INT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中</p></blockquote><blockquote><p>若是没有OriginalFirstThunk ，程序会根据IAT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中</p></blockquote><blockquote><p>程序有OriginalFirstThunk，但是INT内容被破坏了，程序会报错</p></blockquote><blockquote><p>程序有OriginalFirstThunk，INT的内容也完好，没有FristThunk或者IAT的内容被破坏了，程序依然会报错</p></blockquote><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote><p>程序初始化时会优先根据OriginalFirstThunk指向的INT得到函数的地址，填充到IAT中，如果没有OriginalFirstThunk，就会根据FirstThunk指向的IAT得到函数地址，填充到IAT中，IAT是比不可少的，INT和IAT的内容不能损坏</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;导入表：是一个(PE文件所需的DLL文件)DLL数组，数组中的每个元素包含20个字节，每4个字节表示一种含义，一共五种含义：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;OriginalFirstThunk | TimeDateStamp | ForwarderChain | 
-      
-    
-    </summary>
-    
-      <category term="PE文件" scheme="https://bufsnake.github.io/categories/PE%E6%96%87%E4%BB%B6/"/>
-    
-      <category term="壳" scheme="https://bufsnake.github.io/categories/PE%E6%96%87%E4%BB%B6/%E5%A3%B3/"/>
-    
-    
-      <category term="PE文件" scheme="https://bufsnake.github.io/tags/PE%E6%96%87%E4%BB%B6/"/>
     
   </entry>
   
