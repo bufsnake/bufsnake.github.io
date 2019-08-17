@@ -304,9 +304,9 @@
       <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
     
     
-      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
-    
       <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
+    
+      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
     
       <category term="pwnable.tw" scheme="https://bufsnake.github.io/tags/pwnable-tw/"/>
     
@@ -334,9 +334,9 @@
       <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
     
     
-      <category term="heap" scheme="https://bufsnake.github.io/tags/heap/"/>
-    
       <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
+    
+      <category term="heap" scheme="https://bufsnake.github.io/tags/heap/"/>
     
   </entry>
   
@@ -362,11 +362,11 @@
       <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
     
     
-      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
-    
       <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
     
       <category term="pwntools" scheme="https://bufsnake.github.io/tags/pwntools/"/>
+    
+      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
     
       <category term="rop" scheme="https://bufsnake.github.io/tags/rop/"/>
     

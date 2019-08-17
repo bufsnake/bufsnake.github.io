@@ -124,8 +124,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>writeup</tag>
+        <tag>pwn</tag>
         <tag>pwnable.tw</tag>
       </tags>
   </entry>
@@ -137,8 +137,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>heap</tag>
         <tag>pwn</tag>
+        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -149,9 +149,9 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>writeup</tag>
         <tag>pwntools</tag>
+        <tag>pwn</tag>
         <tag>rop</tag>
       </tags>
   </entry>
