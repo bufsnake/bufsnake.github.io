@@ -58,23 +58,23 @@
   };
 </script>
 
-  <meta name="description" content="简介 一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因为不小心调试过头了而忧伤  Install 需要使用Linux，官方推荐Ubuntu，一开始装在kali上，各种报错，迫不得已，装了一个Ubuntu 16.04，直接成功，这里记录一下自己安装成功的过程1234567891011121314sudo apt-get updates">
-<meta name="keywords" content="qira">
+  <meta name="description" content="RE_crypto ida   程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的  exp12345678910111213141516171819202122byte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,0x38,0x33,0x39,">
+<meta name="keywords" content="掘安RE_crypto writeup,writeup,jactf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="qira安装与简单使用">
-<meta property="og:url" content="https://bufsnake.github.io/qira安装与简单使用.html">
+<meta property="og:title" content="jactf-reverse3">
+<meta property="og:url" content="https://bufsnake.github.io/掘安RE_crypto.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="简介 一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因为不小心调试过头了而忧伤  Install 需要使用Linux，官方推荐Ubuntu，一开始装在kali上，各种报错，迫不得已，装了一个Ubuntu 16.04，直接成功，这里记录一下自己安装成功的过程1234567891011121314sudo apt-get updates">
+<meta property="og:description" content="RE_crypto ida   程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的  exp12345678910111213141516171819202122byte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,0x38,0x33,0x39,">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://bufsnake.github.io/images/7/1.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/7/2.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/7/3.png">
-<meta property="og:updated_time" content="2019-08-10T13:54:00.793Z">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-109.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-110.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-111.png">
+<meta property="og:updated_time" content="2019-08-17T09:35:04.462Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="qira安装与简单使用">
-<meta name="twitter:description" content="简介 一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因为不小心调试过头了而忧伤  Install 需要使用Linux，官方推荐Ubuntu，一开始装在kali上，各种报错，迫不得已，装了一个Ubuntu 16.04，直接成功，这里记录一下自己安装成功的过程1234567891011121314sudo apt-get updates">
-<meta name="twitter:image" content="https://bufsnake.github.io/images/7/1.png">
-  <link rel="canonical" href="https://bufsnake.github.io/qira安装与简单使用">
+<meta name="twitter:title" content="jactf-reverse3">
+<meta name="twitter:description" content="RE_crypto ida   程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的  exp12345678910111213141516171819202122byte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,0x38,0x33,0x39,">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/pasted-109.png">
+  <link rel="canonical" href="https://bufsnake.github.io/掘安RE_crypto">
 
 
 <script id="page-configurations">
@@ -88,7 +88,7 @@
   };
 </script>
 
-  <title>qira安装与简单使用 | bufsnake</title>
+  <title>jactf-reverse3 | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/qira安装与简单使用.html">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/掘安RE_crypto.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="bufsnake">
@@ -316,7 +316,7 @@
       <header class="post-header">
 
         
-          <h2 class="post-title" itemprop="name headline">qira安装与简单使用
+          <h2 class="post-title" itemprop="name headline">jactf-reverse3
 
             
           </h2>
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-05-17 20:29:00" itemprop="dateCreated datePublished" datetime="2019-05-17T20:29:00+08:00">2019-05-17</time>
+              <time title="创建时间：2019-08-16 19:55:57" itemprop="dateCreated datePublished" datetime="2019-08-16T19:55:57+08:00">2019-08-16</time>
             </span>
           
             
@@ -344,7 +344,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-10 21:54:00" itemprop="dateModified" datetime="2019-08-10T21:54:00+08:00">2019-08-10</time>
+                <time title="修改时间：2019-08-17 17:35:04" itemprop="dateModified" datetime="2019-08-17T17:35:04+08:00">2019-08-17</time>
               </span>
             
           
@@ -354,7 +354,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/misc/" itemprop="url" rel="index"><span itemprop="name">misc</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reverse/" itemprop="url" rel="index"><span itemprop="name">reverse</span></a></span>
 
                 
                 
@@ -381,39 +381,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
-<p>一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因为不小心调试过头了而忧伤</p>
-</blockquote>
-<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><blockquote>
-<p>需要使用Linux，官方推荐Ubuntu，一开始装在kali上，各种报错，迫不得已，装了一个Ubuntu 16.04，直接成功，这里记录一下自己安装成功的过程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python2.7 python-pip python-dev git libssl-dev libffi-dev build-essential</span><br><span class="line">sudo pip install --upgrade pip</span><br><span class="line">sudo pip install --upgrade pwntools</span><br><span class="line">pip install --upgrade setuptools</span><br><span class="line">sudo apt-get install gcc gdb</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/longld/peda.git </span><br><span class="line">mv peda ~/.peda</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source ~/.peda/peda.py"</span> &gt;&gt; ~/.gdbinit</span><br><span class="line"><span class="built_in">cd</span> ~/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/BinaryAnalysisPlatform/qira.git</span><br><span class="line"><span class="built_in">cd</span> qira/</span><br><span class="line">./install.sh</span><br><span class="line">sudo apt-get install libc6-dev-i386</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">usage: qira.py [-h] [-s] [-t] [--gate-trace ADDRESS] [--flush-cache] [--pin]</span><br><span class="line">               [--host HOST] [--web-port PORT] [--socat-port PORT] [-S]</span><br><span class="line">               binary [args [args ...]]</span><br><span class="line"></span><br><span class="line">Analyze binary. Like <span class="string">"qira /bin/ls /"</span></span><br><span class="line"></span><br><span class="line">positional arguments:</span><br><span class="line">  binary                path to the binary</span><br><span class="line">  args                  arguments to the binary</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --<span class="built_in">help</span>            show this <span class="built_in">help</span> message and <span class="built_in">exit</span></span><br><span class="line">  -s, --server          <span class="built_in">bind</span> on port 4000. like socat</span><br><span class="line">  -t, --tracelibraries  trace into all libraries</span><br><span class="line">  --gate-trace ADDRESS  <span class="keyword">do</span> not start tracing until this address is hit</span><br><span class="line">  --flush-cache         flush all QIRA caches</span><br><span class="line">  --pin                 use pin as the backend, requires ./pin_build.sh</span><br><span class="line">  --host HOST           listen address <span class="keyword">for</span> web interface and socat. 0.0.0.0 by</span><br><span class="line">                        default</span><br><span class="line">  --web-port PORT       listen port <span class="keyword">for</span> web interface. 3002 by default</span><br><span class="line">  --socat-port PORT     listen port <span class="keyword">for</span> socat. 4000 by default</span><br><span class="line">  -S, --static          <span class="built_in">enable</span> static2</span><br></pre></td></tr></table></figure>
-<h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><blockquote>
-<p>当程序所需要输入的数据不是很复杂的情况下，可以使用nc hostname 4000连接输入即可，如果需要输入的很复杂，这时候我们就可以使用pwntools来构造exp，这里就不介绍用法了</p>
-</blockquote>
-<h3 id="qira图例"><a href="#qira图例" class="headerlink" title="qira图例"></a>qira图例</h3><p><img src="/images/7/1.png" alt></p>
+        <h3 id="RE-crypto"><a href="#RE-crypto" class="headerlink" title="RE_crypto"></a>RE_crypto</h3><p><img src="/images/pasted-109.png" alt="upload successful"></p>
+<h4 id="ida"><a href="#ida" class="headerlink" title="ida"></a>ida</h4><p><img src="/images/pasted-110.png" alt="upload successful"></p>
+<p><img src="/images/pasted-111.png" alt="upload successful"></p>
 <blockquote>
-<p>启动qira，创建socket，等待连接</p>
+<p>程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的</p>
 </blockquote>
-<p><img src="/images/7/2.png" alt></p>
-<blockquote>
-<p>连接，及启动了程序，这里的程序没有输入输出</p>
-</blockquote>
-<p><img src="/images/7/3.png" alt></p>
-<blockquote>
-<p>第一个框表示当前eip所在的行数</p>
-</blockquote>
-<blockquote>
-<p>第二个框，没弄明白，只知道不为0时，鼠标滚动界面是不动的，有了解的老哥，烦请告知缘由</p>
-</blockquote>
-<blockquote>
-<p>第三个框表示当前eip的地址</p>
-</blockquote>
-<blockquote>
-<p>第四个框表示当前的内存地址，也就是最底下的那个框</p>
-</blockquote>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">byte1=[<span class="number">0x32</span>,<span class="number">0x61</span>,<span class="number">0x34</span>,<span class="number">0x39</span>,<span class="number">0x66</span>,<span class="number">0x36</span>,<span class="number">0x39</span>,<span class="number">0x63</span>,<span class="number">0x33</span>,<span class="number">0x38</span>,<span class="number">0x33</span>,<span class="number">0x39</span>,<span class="number">0x35</span>,<span class="number">0x63</span>,<span class="number">0x64</span>,<span class="number">0x65</span>,<span class="number">0x39</span>,<span class="number">0x36</span>,<span class="number">0x64</span>,<span class="number">0x36</span>,<span class="number">0x64</span>,<span class="number">0x65</span>,<span class="number">0x39</span>,<span class="number">0x36</span>,<span class="number">0x64</span>,<span class="number">0x36</span>,<span class="number">0x66</span>,<span class="number">0x34</span>,<span class="number">0x65</span>,<span class="number">0x30</span>,<span class="number">0x32</span>,<span class="number">0x35</span>,<span class="number">0x34</span>,<span class="number">0x38</span>,<span class="number">0x34</span>,<span class="number">0x39</span>,<span class="number">0x35</span>,<span class="number">0x34</span>,<span class="number">0x64</span>,<span class="number">0x36</span>,<span class="number">0x31</span>,<span class="number">0x39</span>,<span class="number">0x35</span>,<span class="number">0x34</span>,<span class="number">0x34</span>,<span class="number">0x38</span>,<span class="number">0x64</span>,<span class="number">0x65</span>,<span class="number">0x66</span>,<span class="number">0x36</span>,<span class="number">0x65</span>,<span class="number">0x32</span>,<span class="number">0x64</span>,<span class="number">0x61</span>,<span class="number">0x64</span>,<span class="number">0x36</span>,<span class="number">0x37</span>,<span class="number">0x37</span>,<span class="number">0x38</span>,<span class="number">0x36</span>,<span class="number">0x65</span>,<span class="number">0x32</span>,<span class="number">0x31</span>,<span class="number">0x64</span>,<span class="number">0x35</span>,<span class="number">0x61</span>,<span class="number">0x64</span>,<span class="number">0x61</span>,<span class="number">0x65</span>,<span class="number">0x36</span>]</span><br><span class="line"></span><br><span class="line">byte = [ <span class="number">0x63</span>, <span class="number">0x7C</span>, <span class="number">0x77</span>, <span class="number">0x7B</span>, <span class="number">0xF2</span>, <span class="number">0x6B</span>, <span class="number">0x6F</span>, <span class="number">0xC5</span>, <span class="number">0x30</span>, <span class="number">0x01</span>, <span class="number">0x67</span>, <span class="number">0x2B</span>, <span class="number">0xFE</span>, <span class="number">0xD7</span>, <span class="number">0xAB</span>, <span class="number">0x76</span>, <span class="number">0xCA</span>, <span class="number">0x82</span>, <span class="number">0xC9</span>, <span class="number">0x7D</span>, <span class="number">0xFA</span>, <span class="number">0x59</span>, <span class="number">0x47</span>, <span class="number">0xF0</span>, <span class="number">0xAD</span>, <span class="number">0xD4</span>, <span class="number">0xA2</span>, <span class="number">0xAF</span>, <span class="number">0x9C</span>, <span class="number">0xA4</span>, <span class="number">0x72</span>, <span class="number">0xC0</span>, <span class="number">0xB7</span>, <span class="number">0xFD</span>, <span class="number">0x93</span>, <span class="number">0x26</span>, <span class="number">0x36</span>, <span class="number">0x3F</span>, <span class="number">0xF7</span>, <span class="number">0xCC</span>, <span class="number">0x34</span>, <span class="number">0xA5</span>, <span class="number">0xE5</span>, <span class="number">0xF1</span>, <span class="number">0x71</span>, <span class="number">0xD8</span>, <span class="number">0x31</span>, <span class="number">0x15</span>, <span class="number">0x04</span>, <span class="number">0xC7</span>, <span class="number">0x23</span>, <span class="number">0xC3</span>, <span class="number">0x18</span>, <span class="number">0x96</span>, <span class="number">0x05</span>, <span class="number">0x9A</span>, <span class="number">0x07</span>, <span class="number">0x12</span>, <span class="number">0x80</span>, <span class="number">0xE2</span>, <span class="number">0xEB</span>, <span class="number">0x27</span>, <span class="number">0xB2</span>, <span class="number">0x75</span>, <span class="number">0x09</span>, <span class="number">0x83</span>, <span class="number">0x2C</span>, <span class="number">0x1A</span>, <span class="number">0x1B</span>, <span class="number">0x6E</span>, <span class="number">0x5A</span>, <span class="number">0xA0</span>, <span class="number">0x52</span>, <span class="number">0x3B</span>, <span class="number">0xD6</span>, <span class="number">0xB3</span>, <span class="number">0x29</span>, <span class="number">0xE3</span>, <span class="number">0x2F</span>, <span class="number">0x84</span>, <span class="number">0x53</span>, <span class="number">0xD1</span>, <span class="number">0x00</span>, <span class="number">0xED</span>, <span class="number">0x20</span>, <span class="number">0xFC</span>, <span class="number">0xB1</span>, <span class="number">0x5B</span>, <span class="number">0x6A</span>, <span class="number">0xCB</span>, <span class="number">0xBE</span>, <span class="number">0x39</span>, <span class="number">0x4A</span>, <span class="number">0x4C</span>, <span class="number">0x58</span>, <span class="number">0xCF</span>, <span class="number">0xD0</span>, <span class="number">0xEF</span>, <span class="number">0xAA</span>, <span class="number">0xFB</span>, <span class="number">0x43</span>, <span class="number">0x4D</span>, <span class="number">0x33</span>, <span class="number">0x85</span>, <span class="number">0x45</span>, <span class="number">0xF9</span>, <span class="number">0x02</span>, <span class="number">0x7F</span>, <span class="number">0x50</span>, <span class="number">0x3C</span>, <span class="number">0x9F</span>, <span class="number">0xA8</span>, <span class="number">0x51</span>, <span class="number">0xA3</span>, <span class="number">0x40</span>, <span class="number">0x8F</span>, <span class="number">0x92</span>, <span class="number">0x9D</span>, <span class="number">0x38</span>, <span class="number">0xF5</span>, <span class="number">0xBC</span>, <span class="number">0xB6</span>, <span class="number">0xDA</span>, <span class="number">0x21</span>, <span class="number">0x10</span>, <span class="number">0xFF</span>, <span class="number">0xF3</span>, <span class="number">0xD2</span>, <span class="number">0xCD</span>, <span class="number">0x0C</span>, <span class="number">0x13</span>, <span class="number">0xEC</span>, <span class="number">0x5F</span>, <span class="number">0x97</span>, <span class="number">0x44</span>, <span class="number">0x17</span>, <span class="number">0xC4</span>, <span class="number">0xA7</span>, <span class="number">0x7E</span>, <span class="number">0x3D</span>, <span class="number">0x64</span>, <span class="number">0x5D</span>, <span class="number">0x19</span>, <span class="number">0x73</span>, <span class="number">0x60</span>, <span class="number">0x81</span>, <span class="number">0x4F</span>, <span class="number">0xDC</span>, <span class="number">0x22</span>, <span class="number">0x2A</span>, <span class="number">0x90</span>, <span class="number">0x88</span>, <span class="number">0x46</span>, <span class="number">0xEE</span>, <span class="number">0xB8</span>, <span class="number">0x14</span>, <span class="number">0xDE</span>, <span class="number">0x5E</span>, <span class="number">0x0B</span>, <span class="number">0xDB</span>, <span class="number">0xE0</span>, <span class="number">0x32</span>, <span class="number">0x3A</span>, <span class="number">0x0A</span>, <span class="number">0x49</span>, <span class="number">0x06</span>, <span class="number">0x24</span>, <span class="number">0x5C</span>, <span class="number">0xC2</span>, <span class="number">0xD3</span>, <span class="number">0xAC</span>, <span class="number">0x62</span>, <span class="number">0x91</span>, <span class="number">0x95</span>, <span class="number">0xE4</span>, <span class="number">0x79</span>, <span class="number">0xE7</span>, <span class="number">0xC8</span>, <span class="number">0x37</span>, <span class="number">0x6D</span>, <span class="number">0x8D</span>, <span class="number">0xD5</span>, <span class="number">0x4E</span>, <span class="number">0xA9</span>, <span class="number">0x6C</span>, <span class="number">0x56</span>, <span class="number">0xF4</span>, <span class="number">0xEA</span>, <span class="number">0x65</span>, <span class="number">0x7A</span>, <span class="number">0xAE</span>, <span class="number">0x08</span>, <span class="number">0xBA</span>, <span class="number">0x78</span>, <span class="number">0x25</span>, <span class="number">0x2E</span>, <span class="number">0x1C</span>, <span class="number">0xA6</span>, <span class="number">0xB4</span>, <span class="number">0xC6</span>, <span class="number">0xE8</span>, <span class="number">0xDD</span>, <span class="number">0x74</span>, <span class="number">0x1F</span>, <span class="number">0x4B</span>, <span class="number">0xBD</span>, <span class="number">0x8B</span>, <span class="number">0x8A</span>, <span class="number">0x70</span>, <span class="number">0x3E</span>, <span class="number">0xB5</span>, <span class="number">0x66</span>, <span class="number">0x48</span>, <span class="number">0x03</span>, <span class="number">0xF6</span>, <span class="number">0x0E</span>, <span class="number">0x61</span>, <span class="number">0x35</span>, <span class="number">0x57</span>, <span class="number">0xB9</span>, <span class="number">0x86</span>, <span class="number">0xC1</span>, <span class="number">0x1D</span>, <span class="number">0x9E</span>, <span class="number">0xE1</span>, <span class="number">0xF8</span>, <span class="number">0x98</span>, <span class="number">0x11</span>, <span class="number">0x69</span>, <span class="number">0xD9</span>, <span class="number">0x8E</span>, <span class="number">0x94</span>, <span class="number">0x9B</span>, <span class="number">0x1E</span>, <span class="number">0x87</span>, <span class="number">0xE9</span>, <span class="number">0xCE</span>, <span class="number">0x55</span>, <span class="number">0x28</span>, <span class="number">0xDF</span>, <span class="number">0x8C</span>, <span class="number">0xA1</span>, <span class="number">0x89</span>, <span class="number">0x0D</span>, <span class="number">0xBF</span>, <span class="number">0xE6</span>, <span class="number">0x42</span>, <span class="number">0x68</span>, <span class="number">0x41</span>, <span class="number">0x99</span>, <span class="number">0x2D</span>, <span class="number">0x0F</span>, <span class="number">0xB0</span>, <span class="number">0x54</span>, <span class="number">0xBB</span>, <span class="number">0x16</span>]</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(byte1),<span class="number">2</span>):</span><br><span class="line">    v9 = <span class="number">0</span></span><br><span class="line">    v10 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> byte1[i] &lt; <span class="number">48</span> <span class="keyword">or</span> byte1[i] &gt; <span class="number">57</span>:</span><br><span class="line">        v9 = byte1[i] - <span class="number">87</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        v9 = byte1[i] - <span class="number">48</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> byte1[i+<span class="number">1</span>] &lt; <span class="number">48</span> <span class="keyword">or</span> byte1[i+<span class="number">1</span>] &gt; <span class="number">57</span>:</span><br><span class="line">        v10 = byte1[i+<span class="number">1</span>] - <span class="number">87</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        v10 = byte1[i+<span class="number">1</span>] - <span class="number">48</span></span><br><span class="line">    flag = (<span class="number">16</span>*v9+v10) ^ <span class="number">0x19</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,len(byte)):</span><br><span class="line">        <span class="keyword">if</span> flag == byte[j]:</span><br><span class="line">            ans += chr(j)</span><br><span class="line"><span class="keyword">print</span> ans</span><br></pre></td></tr></table></figure>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
-<p>安装方法不难，都被大佬们给优化好了，就是平台适应性不太友好，主要还是自己太菜了</p>
+<p>看了encrypt，只理解了一小部分，后面的部分实在不太明白到底是干嘛，还是太菜了，近几天做的逆向题目，让我深刻认识到密码学、算法(acm)在逆向中的重要地位，一步一个jio印吧……</p>
 </blockquote>
 
     </div>
@@ -440,12 +416,12 @@
     <!-- JS库 sweetalert 可修改路径 -->
     <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <p><span>本文标题:</span><a href="/qira安装与简单使用.html">qira安装与简单使用</a></p>
+    <p><span>本文标题:</span><a href="/掘安RE_crypto.html">jactf-reverse3</a></p>
     <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
-    <p><span>发布时间:</span>2019年05月17日 - 20:05</p>
-    <p><span>最后更新:</span>2019年08月10日 - 21:08</p>
-    <p><span>原始链接:</span><a href="/qira安装与简单使用.html" title="qira安装与简单使用">https://bufsnake.github.io/qira安装与简单使用.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/qira安装与简单使用.html" aria-label="复制成功！"></i></span>
+    <p><span>发布时间:</span>2019年08月16日 - 19:08</p>
+    <p><span>最后更新:</span>2019年08月17日 - 17:08</p>
+    <p><span>原始链接:</span><a href="/掘安RE_crypto.html" title="jactf-reverse3">https://bufsnake.github.io/掘安RE_crypto.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/掘安RE_crypto.html" aria-label="复制成功！"></i></span>
     </p>
     <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -475,9 +451,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/qira/" rel="tag"># qira</a>
+              <a href="/tags/writeup/" rel="tag"># writeup</a>
             
-              <a href="/tags/usage/" rel="tag"># usage</a>
+              <a href="/tags/jactf/" rel="tag"># jactf</a>
             
           </div>
         
@@ -487,8 +463,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/我和unicorn-engine的神奇之旅.html" rel="next" title="我和unicorn-engine的神奇之旅">
-                  <i class="fa fa-chevron-left"></i> 我和unicorn-engine的神奇之旅
+                <a href="/记一次控制流平坦化逆向.html" rel="next" title="记一次控制流平坦化逆向">
+                  <i class="fa fa-chevron-left"></i> 记一次控制流平坦化逆向
                 </a>
               
             </div>
@@ -496,10 +472,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/Windows驱动开发-1.html" rel="prev" title="Windows驱动开发(1)">
-                  Windows驱动开发(1) <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -774,7 +746,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install"><span class="nav-number">2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage"><span class="nav-number">3.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwntools"><span class="nav-number">4.</span> <span class="nav-text">pwntools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qira图例"><span class="nav-number">5.</span> <span class="nav-text">qira图例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RE-crypto"><span class="nav-number">1.</span> <span class="nav-text">RE_crypto</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ida"><span class="nav-number">1.1.</span> <span class="nav-text">ida</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp"><span class="nav-number">1.2.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
