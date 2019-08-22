@@ -1732,7 +1732,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #4e7f65;
+  background: #4ef1ec;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2948,10 +2948,10 @@ ul.breadcrumb li+li:last-child {
   padding: 18px 0;
 }
 body {
-  background-image: url("https://bufsnake.github.io/images/bady.jpeg");
+  background-image: url("https://bufsnake.github.io/images/9090.jpg");
   background-repeat: repeat;
   background-attachment: fixed;
-  background-position: 50% 50%;
+  background-size: 100%;
 }
 .main-inner {
   background: #fff;
@@ -2962,7 +2962,7 @@ body {
 }
 .post-block,
 #posts > article + article .post-block {
-  margin-top: 35px;
+  margin-top: 10px;
   margin-left: 3px;
   border-radius: 20px;
 }
@@ -2974,7 +2974,7 @@ body {
   }
 }
 .sub-menu {
-  margin-top: 35px;
+  margin-top: 10px;
   border-radius: 20px;
   margin-left: 3px;
 }
@@ -2998,7 +2998,7 @@ body {
   color: #fff;
 }
 .header-inner {
-  margin-top: 35px;
+  margin-top: 10px;
   border-radius: 20px;
 }
 @media (max-width: 767px) {
