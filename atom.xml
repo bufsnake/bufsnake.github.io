@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-21T07:19:06.835Z</updated>
+  <updated>2019-08-22T13:13:49.886Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次简单的条件竞争的题目</title>
+    <link href="https://bufsnake.github.io/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E7%9A%84%E9%A2%98%E7%9B%AE.html"/>
+    <id>https://bufsnake.github.io/记一次简单的条件竞争的题目.html</id>
+    <published>2019-08-22T12:50:08.000Z</published>
+    <updated>2019-08-22T13:13:49.886Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手</p></blockquote><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><img src="/images/pasted-116.png" alt="upload successful"></p><blockquote><p>我们可以控制文件的名字和文件的内容</p></blockquote><p><img src="/images/pasted-117.png" alt="upload successful"></p><p><img src="/images/pasted-118.png" alt="upload successful"></p><blockquote><p>但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了</p></blockquote><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote><p>创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件</p></blockquote><blockquote><p>这里使用burp suite进行申请创建文件，写一个死循环读取这个文件</p></blockquote><p><img src="/images/pasted-119.png" alt="upload successful"></p><p><img src="/images/pasted-120.png" alt="upload successful"></p><blockquote><p>在start attack之前需要先运行访问的脚本</p></blockquote><p><img src="/images/pasted-124.png" alt="upload successful"></p><p><img src="/images/pasted-122.png" alt="upload successful"></p><p><img src="/images/pasted-123.png" alt="upload successful"></p><p><img src="/images/pasted-125.png" alt="upload successful"></p><blockquote><p>可以得到内容，这题旨在能够访问到这个文件就能拿到flag</p></blockquote><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>Y3RmZXIldTY2MkYldTRFMEQldTY2MkYldTc3MEIldTUyMzBiYXNlJXU1QzMxJXU2MEYzJXU4OUUzJXU0RTAwJXU0RTBCJXU1NDYy</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;
+      
+    
+    </summary>
+    
+      <category term="web" scheme="https://bufsnake.github.io/categories/web/"/>
+    
+    
+      <category term="web" scheme="https://bufsnake.github.io/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>cookie欺骗 writeup</title>
@@ -230,9 +258,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
-    
       <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
+    
+      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
     
   </entry>
   
@@ -257,9 +285,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
-    
       <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
+    
+      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
     
   </entry>
   
@@ -539,34 +567,6 @@
       <category term="配置环境" scheme="https://bufsnake.github.io/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/"/>
     
       <category term="Windows wdf驱动开发" scheme="https://bufsnake.github.io/tags/Windows-wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>qira安装与简单使用</title>
-    <link href="https://bufsnake.github.io/qira%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8.html"/>
-    <id>https://bufsnake.github.io/qira安装与简单使用.html</id>
-    <published>2019-05-17T12:29:00.000Z</published>
-    <updated>2019-08-10T13:54:00.793Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote><p>一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因为不小心调试过头了而忧伤</p></blockquote><h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><blockquote><p>需要使用Linux，官方推荐Ubuntu，一开始装在kali上，各种报错，迫不得已，装了一个Ubuntu 16.04，直接成功，这里记录一下自己安装成功的过程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python2.7 python-pip python-dev git libssl-dev libffi-dev build-essential</span><br><span class="line">sudo pip install --upgrade pip</span><br><span class="line">sudo pip install --upgrade pwntools</span><br><span class="line">pip install --upgrade setuptools</span><br><span class="line">sudo apt-get install gcc gdb</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/longld/peda.git </span><br><span class="line">mv peda ~/.peda</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"source ~/.peda/peda.py"</span> &gt;&gt; ~/.gdbinit</span><br><span class="line"><span class="built_in">cd</span> ~/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/BinaryAnalysisPlatform/qira.git</span><br><span class="line"><span class="built_in">cd</span> qira/</span><br><span class="line">./install.sh</span><br><span class="line">sudo apt-get install libc6-dev-i386</span><br></pre></td></tr></table></figure></p></blockquote><h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">usage: qira.py [-h] [-s] [-t] [--gate-trace ADDRESS] [--flush-cache] [--pin]</span><br><span class="line">               [--host HOST] [--web-port PORT] [--socat-port PORT] [-S]</span><br><span class="line">               binary [args [args ...]]</span><br><span class="line"></span><br><span class="line">Analyze binary. Like <span class="string">"qira /bin/ls /"</span></span><br><span class="line"></span><br><span class="line">positional arguments:</span><br><span class="line">  binary                path to the binary</span><br><span class="line">  args                  arguments to the binary</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --<span class="built_in">help</span>            show this <span class="built_in">help</span> message and <span class="built_in">exit</span></span><br><span class="line">  -s, --server          <span class="built_in">bind</span> on port 4000. like socat</span><br><span class="line">  -t, --tracelibraries  trace into all libraries</span><br><span class="line">  --gate-trace ADDRESS  <span class="keyword">do</span> not start tracing until this address is hit</span><br><span class="line">  --flush-cache         flush all QIRA caches</span><br><span class="line">  --pin                 use pin as the backend, requires ./pin_build.sh</span><br><span class="line">  --host HOST           listen address <span class="keyword">for</span> web interface and socat. 0.0.0.0 by</span><br><span class="line">                        default</span><br><span class="line">  --web-port PORT       listen port <span class="keyword">for</span> web interface. 3002 by default</span><br><span class="line">  --socat-port PORT     listen port <span class="keyword">for</span> socat. 4000 by default</span><br><span class="line">  -S, --static          <span class="built_in">enable</span> static2</span><br></pre></td></tr></table></figure><h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><blockquote><p>当程序所需要输入的数据不是很复杂的情况下，可以使用nc hostname 4000连接输入即可，如果需要输入的很复杂，这时候我们就可以使用pwntools来构造exp，这里就不介绍用法了</p></blockquote><h3 id="qira图例"><a href="#qira图例" class="headerlink" title="qira图例"></a>qira图例</h3><p><img src="/images/7/1.png" alt></p><blockquote><p>启动qira，创建socket，等待连接</p></blockquote><p><img src="/images/7/2.png" alt></p><blockquote><p>连接，及启动了程序，这里的程序没有输入输出</p></blockquote><p><img src="/images/7/3.png" alt></p><blockquote><p>第一个框表示当前eip所在的行数</p></blockquote><blockquote><p>第二个框，没弄明白，只知道不为0时，鼠标滚动界面是不动的，有了解的老哥，烦请告知缘由</p></blockquote><blockquote><p>第三个框表示当前eip的地址</p></blockquote><blockquote><p>第四个框表示当前的内存地址，也就是最底下的那个框</p></blockquote><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>安装方法不难，都被大佬们给优化好了，就是平台适应性不太友好，主要还是自己太菜了</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;一个超时空调试器，记录了一个程序从开始到结束时候的过程，调试者可以反复查看每个寄存器或者内存里内容的变化，而不用因
-      
-    
-    </summary>
-    
-      <category term="misc" scheme="https://bufsnake.github.io/categories/misc/"/>
-    
-    
-      <category term="qira" scheme="https://bufsnake.github.io/tags/qira/"/>
-    
-      <category term="usage" scheme="https://bufsnake.github.io/tags/usage/"/>
     
   </entry>
   

