@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-22T13:13:49.886Z</updated>
+  <updated>2019-08-26T14:14:51.626Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>frida Hook神器学习-1</title>
+    <link href="https://bufsnake.github.io/frida-Hook%E7%A5%9E%E5%99%A8%E5%AD%A6%E4%B9%A0-1.html"/>
+    <id>https://bufsnake.github.io/frida-Hook神器学习-1.html</id>
+    <published>2019-08-26T14:03:48.000Z</published>
+    <updated>2019-08-26T14:14:51.626Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Android三大框架对比"><a href="#Android三大框架对比" class="headerlink" title="Android三大框架对比"></a>Android三大框架对比</h3><h4 id="Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点："><a href="#Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：" class="headerlink" title="Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点："></a>Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：</h4><h6 id="Xposed的优缺点"><a href="#Xposed的优缺点" class="headerlink" title="Xposed的优缺点"></a>Xposed的优缺点</h6><blockquote><p>优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。</p></blockquote><blockquote><p>缺点：配置安装环境繁琐，兼容性差，在Hook底层的时候就很无助了。</p></blockquote><h5 id="Frida的优缺点"><a href="#Frida的优缺点" class="headerlink" title="Frida的优缺点"></a>Frida的优缺点</h5><blockquote><p>优点：在上面我们可以看到他的优点在于配置环境很简单，操作也很便捷，对于破解者开发阶段非常好用。支持Java层和Native层hook操作，在Native层hook如果是非基本类型的话操作有点麻烦。</p></blockquote><blockquote><p>缺点：因为他只适用于破解者在开发阶段，也就是他没法像Xposed用于实践生产中，比如我写一个微信外挂用Frida写肯定不行的，因为他无法在手机端运行。也就是破解者用的比较多。</p></blockquote><h5 id="SubstrateCydia的优缺点"><a href="#SubstrateCydia的优缺点" class="headerlink" title="SubstrateCydia的优缺点"></a>SubstrateCydia的优缺点</h5><blockquote><p>优点：可以运行在手机端，和Xposed类似可以用于实践生产中。支持Java层和Native层的hook操作，但是Java层hook不怎么常用，用的比较多的是Native层hook操作，因为他也是Android工程可以引用系统api，操作更为方便</p></blockquote><blockquote><p>缺点：和Xposed一样安装配置环境繁琐，兼容性差。</p></blockquote><h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><blockquote><p>以上这三个工具可以说是现在用的最多的hook工具了，总结一句话就是写Java层Hook还是Xposed方便，写Native层Hook还是Cydia了，而对于破解者开发那还是Frida最靠谱了。写外挂最难的也是最重要的不是<br>写代码而是寻找hook点，也就是逆向分析app找到那个地方，然后写hook代码实现插件功能。</p></blockquote><h3 id="frida-install"><a href="#frida-install" class="headerlink" title="frida install"></a>frida install</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install frida-tools</span><br><span class="line">下载frida-server</span><br><span class="line">https://github.com/frida/frida/releases</span><br></pre></td></tr></table></figure><h3 id="测试是否安装成功"><a href="#测试是否安装成功" class="headerlink" title="测试是否安装成功"></a>测试是否安装成功</h3><blockquote><p>在terminal中运行cat命令</p></blockquote><p><img src="/images/pasted-126.png" alt="upload successful"></p><blockquote><p>新开terminal，运行以下代码</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_message</span><span class="params">(message, data)</span>:</span></span><br><span class="line">    print(<span class="string">"[on_message] message:"</span>, message, <span class="string">"data:"</span>, data)</span><br><span class="line"></span><br><span class="line">session = frida.attach(<span class="string">"cat"</span>)</span><br><span class="line"></span><br><span class="line">script = session.create_script(<span class="string">"""</span></span><br><span class="line"><span class="string">rpc.exports.enumerateModules = function () &#123;</span></span><br><span class="line"><span class="string">  return Process.enumerateModules();</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">"""</span>)</span><br><span class="line">script.on(<span class="string">"message"</span>, on_message)</span><br><span class="line">script.load()</span><br><span class="line"></span><br><span class="line">print([m[<span class="string">"name"</span>] <span class="keyword">for</span> m <span class="keyword">in</span> script.exports.enumerate_modules()])</span><br></pre></td></tr></table></figure><blockquote><p>输出类似如下信息,即说明安装成功</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[u<span class="string">'cat'</span>, u<span class="string">'libSystem.B.dylib'</span>, u<span class="string">'libcache.dylib'</span>, u<span class="string">'libcommonCrypto.dylib'</span>, u<span class="string">'libcompiler_rt.dylib'</span>, u<span class="string">'libcopyfile.dylib'</span>, u<span class="string">'libcorecrypto.dylib'</span>, u<span class="string">'libdispatch.dylib'</span>, u<span class="string">'libdyld.dylib'</span>, u<span class="string">'libkeymgr.dylib'</span>, u<span class="string">'liblaunch.dylib'</span>, u<span class="string">'libmacho.dylib'</span>, u<span class="string">'libquarantine.dylib'</span>, u<span class="string">'libremovefile.dylib'</span>, u<span class="string">'libsystem_asl.dylib'</span>, u<span class="string">'libsystem_blocks.dylib'</span>, u<span class="string">'libsystem_c.dylib'</span>, u<span class="string">'libsystem_configuration.dylib'</span>, u<span class="string">'libsystem_coreservices.dylib'</span>, u<span class="string">'libsystem_darwin.dylib'</span>, u<span class="string">'libsystem_dnssd.dylib'</span>, u<span class="string">'libsystem_info.dylib'</span>, u<span class="string">'libsystem_m.dylib'</span>, u<span class="string">'libsystem_malloc.dylib'</span>, u<span class="string">'libsystem_networkextension.dylib'</span>, u<span class="string">'libsystem_notify.dylib'</span>, u<span class="string">'libsystem_sandbox.dylib'</span>, u<span class="string">'libsystem_secinit.dylib'</span>, u<span class="string">'libsystem_kernel.dylib'</span>, u<span class="string">'libsystem_platform.dylib'</span>, u<span class="string">'libsystem_pthread.dylib'</span>, u<span class="string">'libsystem_symptoms.dylib'</span>, u<span class="string">'libsystem_trace.dylib'</span>, u<span class="string">'libunwind.dylib'</span>, u<span class="string">'libxpc.dylib'</span>, u<span class="string">'libobjc.A.dylib'</span>, u<span class="string">'libc++abi.dylib'</span>, u<span class="string">'libc++.1.dylib'</span>, u<span class="string">'dyld'</span>]</span><br></pre></td></tr></table></figure><h3 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h3><p><a href="https://blog.csdn.net/jiangwei0910410003/article/details/80372118" target="_blank" rel="noopener">https://blog.csdn.net/jiangwei0910410003/article/details/80372118</a></p><p><a href="https://www.frida.re/docs/home/" target="_blank" rel="noopener">https://www.frida.re/docs/home/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Android三大框架对比&quot;&gt;&lt;a href=&quot;#Android三大框架对比&quot; class=&quot;headerlink&quot; title=&quot;Android三大框架对比&quot;&gt;&lt;/a&gt;Android三大框架对比&lt;/h3&gt;&lt;h4 id=&quot;Frida，Xposed，Substrat
+      
+    
+    </summary>
+    
+      <category term="tools" scheme="https://bufsnake.github.io/categories/tools/"/>
+    
+    
+      <category term="android" scheme="https://bufsnake.github.io/tags/android/"/>
+    
+      <category term="android hook" scheme="https://bufsnake.github.io/tags/android-hook/"/>
+    
+      <category term="android frida" scheme="https://bufsnake.github.io/tags/android-frida/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次简单的条件竞争的题目</title>
@@ -95,9 +124,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
-    
       <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
+    
+      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
     
   </entry>
   
@@ -258,9 +287,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
-    
       <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
+    
+      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
     
   </entry>
   
@@ -285,9 +314,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
-    
       <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
+    
+      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
     
   </entry>
   
@@ -364,9 +393,9 @@
     
       <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
     
-      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
-    
       <category term="pwnable.tw" scheme="https://bufsnake.github.io/tags/pwnable-tw/"/>
+    
+      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
     
   </entry>
   
@@ -534,39 +563,6 @@
     
     
       <category term="klee" scheme="https://bufsnake.github.io/tags/klee/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows驱动开发(1)</title>
-    <link href="https://bufsnake.github.io/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91-1.html"/>
-    <id>https://bufsnake.github.io/Windows驱动开发-1.html</id>
-    <published>2019-05-29T10:52:07.000Z</published>
-    <updated>2019-08-09T15:21:41.064Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>学习的内容是基于WDF框架的Windows驱动开发</p></blockquote><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ol><li>NT -&gt; WDM -&gt; WDF<blockquote><p>每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发</p></blockquote></li><li>WDF简介<blockquote><p>WDF全称Windows驱动框架(Windows Driver Frameworks)<br>WDF两种级别的驱动程序</p><blockquote><p>用户级(UMDF–(User-Mode Driver Framework))</p><blockquote><p>是以 .dll 结尾的文件</p></blockquote><p>内核级(KMDF–(Kernel-Mode Driver Framework))</p><blockquote><p>是以 .sys 结尾的文件<br>可与其硬件直接会话，通常会通过HAL(硬件抽象层)访问硬件<br>所有的事物由对象表示，如Driver、Device等</p><blockquote><p>每个对象都有属性、方法、事件(有面向对象编程基础的都应该知道)<br>各种事件处理由事件回调函数处理<br>必须包含 DriverEntry 函数，像C语言中的 main 函数</p></blockquote></blockquote></blockquote></blockquote><h2 id="附上基本的DriverEntry例子"><a href="#附上基本的DriverEntry例子" class="headerlink" title="附上基本的DriverEntry例子"></a>附上基本的DriverEntry例子</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ntddk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wdf.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">NTSTATUS <span class="title">DriverEntry</span><span class="params">(IN PDRIVER_OBJECT driver, IN PUNICODE_STRING reg_path)</span> </span>&#123;</span><br><span class="line">WDF_DRIVER_CONFIG config;</span><br><span class="line">NTSTATUS status;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化驱动对象的配置结构，设置DeviceAdd函数入口(此处为NULL)</span></span><br><span class="line">WDF_DRIVER_CONFIG_INIT(&amp;config, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建驱动对象，没有驱动对象和驱动对象环境变量结构</span></span><br><span class="line">status = WdfDriverCreate(</span><br><span class="line">driver,</span><br><span class="line">reg_path,</span><br><span class="line">WDF_NO_OBJECT_ATTRIBUTES, <span class="comment">//驱动对象环境变量结构</span></span><br><span class="line">&amp;config,</span><br><span class="line">WDF_NO_HANDLE   <span class="comment">//驱动对象</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;学习的内容是基于WDF框架的Windows驱动开发&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;基础知识&quot;&gt;&lt;a href=&quot;#基础知识&quot; class=&quot;headerlink&quot; title=&quot;基础知识&quot;&gt;&lt;/a&gt;基础知识&lt;/h2&gt;&lt;ol&gt;
-
-      
-    
-    </summary>
-    
-      <category term="Windows驱动开发" scheme="https://bufsnake.github.io/categories/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="Windows驱动开发" scheme="https://bufsnake.github.io/tags/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="配置环境" scheme="https://bufsnake.github.io/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83/"/>
-    
-      <category term="Windows wdf驱动开发" scheme="https://bufsnake.github.io/tags/Windows-wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   

@@ -58,29 +58,21 @@
   };
 </script>
 
-  <meta name="description" content="前言 一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手  题目  我们可以控制文件的名字和文件的内容     但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了  概念 创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件   这里使用burp suite进行申请创建文件，写一个死循环读取这个文件     在">
-<meta name="keywords" content="web条件竞争">
+  <meta name="description" content="Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点 优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。   缺点：配置安装环境繁琐，兼容性差，在Hoo">
+<meta name="keywords" content="android,android hook,android frida">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次简单的条件竞争的题目">
-<meta property="og:url" content="https://bufsnake.github.io/记一次简单的条件竞争的题目.html">
+<meta property="og:title" content="frida Hook神器学习-1">
+<meta property="og:url" content="https://bufsnake.github.io/frida-Hook神器学习-1.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="前言 一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手  题目  我们可以控制文件的名字和文件的内容     但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了  概念 创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件   这里使用burp suite进行申请创建文件，写一个死循环读取这个文件     在">
+<meta property="og:description" content="Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点 优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。   缺点：配置安装环境繁琐，兼容性差，在Hoo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-116.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-117.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-118.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-119.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-120.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-124.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-122.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-123.png">
-<meta property="og:image" content="https://bufsnake.github.io/images/pasted-125.png">
-<meta property="og:updated_time" content="2019-08-22T13:13:49.886Z">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-126.png">
+<meta property="og:updated_time" content="2019-08-26T14:14:51.626Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一次简单的条件竞争的题目">
-<meta name="twitter:description" content="前言 一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手  题目  我们可以控制文件的名字和文件的内容     但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了  概念 创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件   这里使用burp suite进行申请创建文件，写一个死循环读取这个文件     在">
-<meta name="twitter:image" content="https://bufsnake.github.io/images/pasted-116.png">
-  <link rel="canonical" href="https://bufsnake.github.io/记一次简单的条件竞争的题目">
+<meta name="twitter:title" content="frida Hook神器学习-1">
+<meta name="twitter:description" content="Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点 优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。   缺点：配置安装环境繁琐，兼容性差，在Hoo">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/pasted-126.png">
+  <link rel="canonical" href="https://bufsnake.github.io/frida-Hook神器学习-1">
 
 
 <script id="page-configurations">
@@ -94,7 +86,7 @@
   };
 </script>
 
-  <title>记一次简单的条件竞争的题目 | bufsnake</title>
+  <title>frida Hook神器学习-1 | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -308,7 +300,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/记一次简单的条件竞争的题目.html">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/frida-Hook神器学习-1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="bufsnake">
@@ -322,7 +314,7 @@
       <header class="post-header">
 
         
-          <h2 class="post-title" itemprop="name headline">记一次简单的条件竞争的题目
+          <h2 class="post-title" itemprop="name headline">frida Hook神器学习-1
 
             
           </h2>
@@ -339,7 +331,7 @@
                 
               
 
-              <time title="创建时间：2019-08-22 20:50:08 / 修改时间：21:13:49" itemprop="dateCreated datePublished" datetime="2019-08-22T20:50:08+08:00">2019-08-22</time>
+              <time title="创建时间：2019-08-26 22:03:48 / 修改时间：22:14:51" itemprop="dateCreated datePublished" datetime="2019-08-26T22:03:48+08:00">2019-08-26</time>
             </span>
           
             
@@ -352,7 +344,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a></span>
 
                 
                 
@@ -379,39 +371,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手</p>
-</blockquote>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><img src="/images/pasted-116.png" alt="upload successful"></p>
-<blockquote>
-<p>我们可以控制文件的名字和文件的内容</p>
-</blockquote>
-<p><img src="/images/pasted-117.png" alt="upload successful"></p>
-<p><img src="/images/pasted-118.png" alt="upload successful"></p>
-<blockquote>
-<p>但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了</p>
-</blockquote>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote>
-<p>创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件</p>
+        <h3 id="Android三大框架对比"><a href="#Android三大框架对比" class="headerlink" title="Android三大框架对比"></a>Android三大框架对比</h3><h4 id="Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点："><a href="#Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：" class="headerlink" title="Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点："></a>Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：</h4><h6 id="Xposed的优缺点"><a href="#Xposed的优缺点" class="headerlink" title="Xposed的优缺点"></a>Xposed的优缺点</h6><blockquote>
+<p>优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。</p>
 </blockquote>
 <blockquote>
-<p>这里使用burp suite进行申请创建文件，写一个死循环读取这个文件</p>
+<p>缺点：配置安装环境繁琐，兼容性差，在Hook底层的时候就很无助了。</p>
 </blockquote>
-<p><img src="/images/pasted-119.png" alt="upload successful"></p>
-<p><img src="/images/pasted-120.png" alt="upload successful"></p>
+<h5 id="Frida的优缺点"><a href="#Frida的优缺点" class="headerlink" title="Frida的优缺点"></a>Frida的优缺点</h5><blockquote>
+<p>优点：在上面我们可以看到他的优点在于配置环境很简单，操作也很便捷，对于破解者开发阶段非常好用。支持Java层和Native层hook操作，在Native层hook如果是非基本类型的话操作有点麻烦。</p>
+</blockquote>
 <blockquote>
-<p>在start attack之前需要先运行访问的脚本</p>
+<p>缺点：因为他只适用于破解者在开发阶段，也就是他没法像Xposed用于实践生产中，比如我写一个微信外挂用Frida写肯定不行的，因为他无法在手机端运行。也就是破解者用的比较多。</p>
 </blockquote>
-<p><img src="/images/pasted-124.png" alt="upload successful"></p>
-<p><img src="/images/pasted-122.png" alt="upload successful"></p>
-<p><img src="/images/pasted-123.png" alt="upload successful"></p>
-<p><img src="/images/pasted-125.png" alt="upload successful"></p>
+<h5 id="SubstrateCydia的优缺点"><a href="#SubstrateCydia的优缺点" class="headerlink" title="SubstrateCydia的优缺点"></a>SubstrateCydia的优缺点</h5><blockquote>
+<p>优点：可以运行在手机端，和Xposed类似可以用于实践生产中。支持Java层和Native层的hook操作，但是Java层hook不怎么常用，用的比较多的是Native层hook操作，因为他也是Android工程可以引用系统api，操作更为方便</p>
+</blockquote>
 <blockquote>
-<p>可以得到内容，这题旨在能够访问到这个文件就能拿到flag</p>
+<p>缺点：和Xposed一样安装配置环境繁琐，兼容性差。</p>
 </blockquote>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
-<p>Y3RmZXIldTY2MkYldTRFMEQldTY2MkYldTc3MEIldTUyMzBiYXNlJXU1QzMxJXU2MEYzJXU4OUUzJXU0RTAwJXU0RTBCJXU1NDYy</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><blockquote>
+<p>以上这三个工具可以说是现在用的最多的hook工具了，总结一句话就是写Java层Hook还是Xposed方便，写Native层Hook还是Cydia了，而对于破解者开发那还是Frida最靠谱了。写外挂最难的也是最重要的不是<br>写代码而是寻找hook点，也就是逆向分析app找到那个地方，然后写hook代码实现插件功能。</p>
 </blockquote>
+<h3 id="frida-install"><a href="#frida-install" class="headerlink" title="frida install"></a>frida install</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install frida-tools</span><br><span class="line">下载frida-server</span><br><span class="line">https://github.com/frida/frida/releases</span><br></pre></td></tr></table></figure>
+<h3 id="测试是否安装成功"><a href="#测试是否安装成功" class="headerlink" title="测试是否安装成功"></a>测试是否安装成功</h3><blockquote>
+<p>在terminal中运行cat命令</p>
+</blockquote>
+<p><img src="/images/pasted-126.png" alt="upload successful"></p>
+<blockquote>
+<p>新开terminal，运行以下代码</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_message</span><span class="params">(message, data)</span>:</span></span><br><span class="line">    print(<span class="string">"[on_message] message:"</span>, message, <span class="string">"data:"</span>, data)</span><br><span class="line"></span><br><span class="line">session = frida.attach(<span class="string">"cat"</span>)</span><br><span class="line"></span><br><span class="line">script = session.create_script(<span class="string">"""</span></span><br><span class="line"><span class="string">rpc.exports.enumerateModules = function () &#123;</span></span><br><span class="line"><span class="string">  return Process.enumerateModules();</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">"""</span>)</span><br><span class="line">script.on(<span class="string">"message"</span>, on_message)</span><br><span class="line">script.load()</span><br><span class="line"></span><br><span class="line">print([m[<span class="string">"name"</span>] <span class="keyword">for</span> m <span class="keyword">in</span> script.exports.enumerate_modules()])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出类似如下信息,即说明安装成功</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[u<span class="string">'cat'</span>, u<span class="string">'libSystem.B.dylib'</span>, u<span class="string">'libcache.dylib'</span>, u<span class="string">'libcommonCrypto.dylib'</span>, u<span class="string">'libcompiler_rt.dylib'</span>, u<span class="string">'libcopyfile.dylib'</span>, u<span class="string">'libcorecrypto.dylib'</span>, u<span class="string">'libdispatch.dylib'</span>, u<span class="string">'libdyld.dylib'</span>, u<span class="string">'libkeymgr.dylib'</span>, u<span class="string">'liblaunch.dylib'</span>, u<span class="string">'libmacho.dylib'</span>, u<span class="string">'libquarantine.dylib'</span>, u<span class="string">'libremovefile.dylib'</span>, u<span class="string">'libsystem_asl.dylib'</span>, u<span class="string">'libsystem_blocks.dylib'</span>, u<span class="string">'libsystem_c.dylib'</span>, u<span class="string">'libsystem_configuration.dylib'</span>, u<span class="string">'libsystem_coreservices.dylib'</span>, u<span class="string">'libsystem_darwin.dylib'</span>, u<span class="string">'libsystem_dnssd.dylib'</span>, u<span class="string">'libsystem_info.dylib'</span>, u<span class="string">'libsystem_m.dylib'</span>, u<span class="string">'libsystem_malloc.dylib'</span>, u<span class="string">'libsystem_networkextension.dylib'</span>, u<span class="string">'libsystem_notify.dylib'</span>, u<span class="string">'libsystem_sandbox.dylib'</span>, u<span class="string">'libsystem_secinit.dylib'</span>, u<span class="string">'libsystem_kernel.dylib'</span>, u<span class="string">'libsystem_platform.dylib'</span>, u<span class="string">'libsystem_pthread.dylib'</span>, u<span class="string">'libsystem_symptoms.dylib'</span>, u<span class="string">'libsystem_trace.dylib'</span>, u<span class="string">'libunwind.dylib'</span>, u<span class="string">'libxpc.dylib'</span>, u<span class="string">'libobjc.A.dylib'</span>, u<span class="string">'libc++abi.dylib'</span>, u<span class="string">'libc++.1.dylib'</span>, u<span class="string">'dyld'</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h3><p><a href="https://blog.csdn.net/jiangwei0910410003/article/details/80372118" target="_blank" rel="noopener">https://blog.csdn.net/jiangwei0910410003/article/details/80372118</a></p>
+<p><a href="https://www.frida.re/docs/home/" target="_blank" rel="noopener">https://www.frida.re/docs/home/</a></p>
 
     </div>
     <div>
@@ -437,12 +432,12 @@
     <!-- JS库 sweetalert 可修改路径 -->
     <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <p><span>本文标题:</span><a href="/记一次简单的条件竞争的题目.html">记一次简单的条件竞争的题目</a></p>
+    <p><span>本文标题:</span><a href="/frida-Hook神器学习-1.html">frida Hook神器学习-1</a></p>
     <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
-    <p><span>发布时间:</span>2019年08月22日 - 20:08</p>
-    <p><span>最后更新:</span>2019年08月22日 - 21:08</p>
-    <p><span>原始链接:</span><a href="/记一次简单的条件竞争的题目.html" title="记一次简单的条件竞争的题目">https://bufsnake.github.io/记一次简单的条件竞争的题目.html</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/记一次简单的条件竞争的题目.html" aria-label="复制成功！"></i></span>
+    <p><span>发布时间:</span>2019年08月26日 - 22:08</p>
+    <p><span>最后更新:</span>2019年08月26日 - 22:08</p>
+    <p><span>原始链接:</span><a href="/frida-Hook神器学习-1.html" title="frida Hook神器学习-1">https://bufsnake.github.io/frida-Hook神器学习-1.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/frida-Hook神器学习-1.html" aria-label="复制成功！"></i></span>
     </p>
     <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -472,7 +467,11 @@
           
           <div class="post-tags">
             
-              <a href="/tags/web/" rel="tag"># web</a>
+              <a href="/tags/android/" rel="tag"># android</a>
+            
+              <a href="/tags/android-hook/" rel="tag"># android hook</a>
+            
+              <a href="/tags/android-frida/" rel="tag"># android frida</a>
             
           </div>
         
@@ -482,8 +481,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/cookie欺骗-writeup.html" rel="next" title="cookie欺骗 writeup">
-                  <i class="fa fa-chevron-left"></i> cookie欺骗 writeup
+                <a href="/记一次简单的条件竞争的题目.html" rel="next" title="记一次简单的条件竞争的题目">
+                  <i class="fa fa-chevron-left"></i> 记一次简单的条件竞争的题目
                 </a>
               
             </div>
@@ -491,10 +490,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/frida-Hook神器学习-1.html" rel="prev" title="frida Hook神器学习-1">
-                  frida Hook神器学习-1 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -775,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">3.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android三大框架对比"><span class="nav-number">1.</span> <span class="nav-text">Android三大框架对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点："><span class="nav-number">1.1.</span> <span class="nav-text">Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Xposed的优缺点"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Xposed的优缺点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Frida的优缺点"><span class="nav-number">1.1.1.</span> <span class="nav-text">Frida的优缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SubstrateCydia的优缺点"><span class="nav-number">1.1.2.</span> <span class="nav-text">SubstrateCydia的优缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">1.1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#frida-install"><span class="nav-number">2.</span> <span class="nav-text">frida install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试是否安装成功"><span class="nav-number">3.</span> <span class="nav-text">测试是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Refer"><span class="nav-number">4.</span> <span class="nav-text">Refer</span></a></li></ol></div>
             
 
           </div>
