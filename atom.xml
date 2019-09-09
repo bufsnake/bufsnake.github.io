@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-08-26T14:14:51.626Z</updated>
+  <updated>2019-09-09T10:55:16.766Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Xposed hook框架学习</title>
+    <link href="https://bufsnake.github.io/Xposed-hook%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0.html"/>
+    <id>https://bufsnake.github.io/Xposed-hook框架学习.html</id>
+    <published>2019-09-09T10:11:11.000Z</published>
+    <updated>2019-09-09T10:55:16.766Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Xposed-安装"><a href="#Xposed-安装" class="headerlink" title="Xposed 安装"></a>Xposed 安装</h3><p><a href="http://dl-xda.xposed.info/modules/de.robv.android.xposed.installer_v33_36570c.apk" target="_blank" rel="noopener">xposed.apk</a></p><p><img src="/images/pasted-127.png" alt="upload successful"></p><h4 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h4><p><img src="/images/pasted-128.png" alt="upload successful"></p><blockquote><p>初次运行是点击 安装/更新 就行了，后续在激活模块的时候可以点击 软重启 重启手机(模拟器)</p></blockquote><h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><p><img src="/images/pasted-129.png" alt="upload successful"></p><blockquote><p>显示已安装的模块，打勾的说明是已经激活的</p></blockquote><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p><img src="/images/pasted-130.png" alt="upload successful"></p><blockquote><p>显示网上已经有的模块，别人开发好的，可以直接拿过来用的那种</p></blockquote><h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><p><img src="/images/pasted-131.png" alt="upload successful"></p><h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><p><img src="/images/pasted-132.png" alt="upload successful"></p><blockquote><p>显示模块运行时后的日志信息，可用来显示XposedBridge.log(“”);打印出来的消息</p></blockquote><h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p><img src="/images/pasted-133.png" alt="upload successful"></p><h3 id="第一个模块学习"><a href="#第一个模块学习" class="headerlink" title="第一个模块学习"></a>第一个模块学习</h3><h4 id="在build-gradle中添加信息"><a href="#在build-gradle中添加信息" class="headerlink" title="在build.gradle中添加信息"></a>在build.gradle中添加信息</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compileOnly <span class="string">'de.robv.android.xposed:api:82'</span></span><br><span class="line">compileOnly <span class="string">'de.robv.android.xposed:api:82:sources'</span></span><br></pre></td></tr></table></figure><p><img src="/images/pasted-134.png" alt="upload successful"></p><blockquote><p>导入框架需要的依赖</p></blockquote><h4 id="AndroidManifest-xml添加如下信息"><a href="#AndroidManifest-xml添加如下信息" class="headerlink" title="AndroidManifest.xml添加如下信息"></a>AndroidManifest.xml添加如下信息</h4><p><img src="/images/pasted-135.png" alt="upload successful"></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"xposedmodule"</span>        该程序是否是<span class="attr">xposed</span>的模块</span></span><br><span class="line"><span class="tag">    <span class="attr">android:value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"xposeddescription"</span>   对本模块的功能的描述，可以自己简单的描述一下可以了</span></span><br><span class="line"><span class="tag">    <span class="attr">android:value</span>=<span class="string">"Module测试"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"xposedminversion"</span>    是本模块开发时用到的<span class="attr">Xposed</span>的<span class="attr">jar</span>包最低版本号</span></span><br><span class="line"><span class="tag">    <span class="attr">android:value</span>=<span class="string">"54"</span> /&gt;</span></span><br></pre></td></tr></table></figure><blockquote><p>注意该段代码的放置位置</p></blockquote><h4 id="添加模块的入口函数"><a href="#添加模块的入口函数" class="headerlink" title="添加模块的入口函数"></a>添加模块的入口函数</h4><p><img src="/images/pasted-136.png" alt="upload successful"></p><p><img src="/images/pasted-137.png" alt="upload successful"></p><blockquote><p>新建一个类，为Xposed模块的主类，新建一个assets目录，在目录下创建一个file xposed_init，里面添上模块入口函数的路径</p></blockquote><h4 id="编写模块的主要代码"><a href="#编写模块的主要代码" class="headerlink" title="编写模块的主要代码"></a>编写模块的主要代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.info;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.widget.TextView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodHook;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedBridge;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedHelpers;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> <span class="keyword">implements</span> <span class="title">IXposedHookLoadPackage</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam lpparam)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lpparam.packageName.equals(<span class="string">"com.example.helloworld"</span>))&#123;</span><br><span class="line"></span><br><span class="line">            XposedHelpers.findAndHookMethod(TextView.class, <span class="string">"setText"</span>,CharSequence.class, <span class="keyword">new</span> XC_MethodHook() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                    param.args[<span class="number">0</span>] = <span class="string">"isHookedbe"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                    param.args[<span class="number">0</span>] = <span class="string">"isHookedaf"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>作用是HOOK TextView的setText方法</p></blockquote><h4 id="被Hook的程序的MainActivity"><a href="#被Hook的程序的MainActivity" class="headerlink" title="被Hook的程序的MainActivity"></a>被Hook的程序的MainActivity</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.helloworld;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Button b;</span><br><span class="line">    <span class="keyword">private</span> TextView t;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        b = (Button)findViewById(R.id.button);</span><br><span class="line">        t = (TextView)findViewById(R.id.textView);</span><br><span class="line"></span><br><span class="line">        b.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">                t.setText(<span class="string">"aaaaaaaaaaaaaaa"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>在点击程序后本应该会显示aaaaaaaaaaaaaaa，hook之后会显示isHookedbe</p></blockquote><h4 id="看图"><a href="#看图" class="headerlink" title="看图"></a>看图</h4><p><img src="/images/pasted-138.png" alt="upload successful"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>先Hook成功一个案例，然后实现各种操作吧，可以看看官方的api</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Xposed-安装&quot;&gt;&lt;a href=&quot;#Xposed-安装&quot; class=&quot;headerlink&quot; title=&quot;Xposed 安装&quot;&gt;&lt;/a&gt;Xposed 安装&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://dl-xda.xposed.info/modules
+      
+    
+    </summary>
+    
+      <category term="android" scheme="https://bufsnake.github.io/categories/android/"/>
+    
+    
+      <category term="xposed框架" scheme="https://bufsnake.github.io/tags/xposed%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>frida Hook神器学习-1</title>
@@ -124,9 +149,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
-    
       <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
+    
+      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
     
   </entry>
   
@@ -287,9 +312,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
-    
       <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
+    
+      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
     
   </entry>
   
@@ -314,9 +339,9 @@
       <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
     
     
-      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
-    
       <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
+    
+      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
     
   </entry>
   
@@ -393,9 +418,9 @@
     
       <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
     
-      <category term="pwnable.tw" scheme="https://bufsnake.github.io/tags/pwnable-tw/"/>
-    
       <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
+    
+      <category term="pwnable.tw" scheme="https://bufsnake.github.io/tags/pwnable-tw/"/>
     
   </entry>
   
@@ -536,33 +561,6 @@
       <category term="Windows wdf驱动开发" scheme="https://bufsnake.github.io/tags/Windows-wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
     
       <category term="WDF" scheme="https://bufsnake.github.io/tags/WDF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KLEE-符号执行框架</title>
-    <link href="https://bufsnake.github.io/KLEE-%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%E6%A1%86%E6%9E%B6.html"/>
-    <id>https://bufsnake.github.io/KLEE-符号执行框架.html</id>
-    <published>2019-05-31T12:21:03.000Z</published>
-    <updated>2019-08-10T05:52:44.016Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a>符号执行</h3><blockquote><p>通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出</p></blockquote><h3 id="KLEE"><a href="#KLEE" class="headerlink" title="KLEE"></a>KLEE</h3><h4 id="安装-推荐使用Docker安装-："><a href="#安装-推荐使用Docker安装-：" class="headerlink" title="安装(推荐使用Docker安装)："></a>安装(推荐使用Docker安装)：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull klee/klee:2.0</span><br><span class="line"></span><br><span class="line">持久性容器:当退出容器时，容器里面的内容不会初始化</span><br><span class="line">docker run -ti --name=namestring --ulimit='stack=-1:-1' klee/klee</span><br><span class="line"></span><br><span class="line">启动容器</span><br><span class="line">docker start -ai namestring</span><br></pre></td></tr></table></figure><h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><blockquote><p>给出的是官方实例的代码</p></blockquote><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;klee/klee.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_sign</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (x &lt; <span class="number">0</span>)</span><br><span class="line">     <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">else</span> </span><br><span class="line">     <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  klee_make_symbolic(&amp;a, <span class="keyword">sizeof</span>(a), <span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">return</span> get_sign(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>可以看到程序有三条路径输出</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -I ../../include/ -emit-llvm -c -g -O0 -Xclang -<span class="built_in">disable</span>-O0-optnone get_sign.c</span><br></pre></td></tr></table></figure><blockquote><p>编译生成 get_sign.bc 文件，用klee 运行一下</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klee get_sign.bc</span><br></pre></td></tr></table></figure><blockquote><p>输出如下</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">klee@2038f8489243:~/klee_src/examples/get_sign$ klee get_sign.bc </span><br><span class="line">KLEE: output directory is <span class="string">"/home/klee/klee_src/examples/get_sign/klee-out-1"</span></span><br><span class="line">KLEE: Using STP solver backend</span><br><span class="line"></span><br><span class="line">KLEE: <span class="keyword">done</span>: total instructions = 33</span><br><span class="line">KLEE: <span class="keyword">done</span>: completed paths = 3</span><br><span class="line">KLEE: <span class="keyword">done</span>: generated tests = 3</span><br></pre></td></tr></table></figure><blockquote><p>可以看到一共有33条指令,完成路径3条，产生3个测试用例</p></blockquote><blockquote><p>接下来看一下klee-last文件夹，里面存放的就是测试用例</p></blockquote><blockquote><p>输入如下命令,即可查看.ktest文件夹的内容</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ktest-tool test000001.ktest</span><br></pre></td></tr></table></figure><blockquote><p>输出如下</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ktest file : <span class="string">'test000001.ktest'</span></span><br><span class="line">args       : [<span class="string">'get_sign.bc'</span>]</span><br><span class="line">num objects: 1</span><br><span class="line">object 0: name: <span class="string">'a'</span></span><br><span class="line">object 0: size: 4</span><br><span class="line">object 0: data: b<span class="string">'\x00\x00\x00\x00'</span></span><br><span class="line">object 0: hex : 0x00000000</span><br><span class="line">object 0: int : 0</span><br><span class="line">object 0: uint: 0</span><br><span class="line">object 0: text: ....</span><br></pre></td></tr></table></figure><h3 id="明日计划"><a href="#明日计划" class="headerlink" title="明日计划"></a>明日计划</h3><p>白天：全国大学生信息安全竞赛</p><p>赛后：继续学习符号执行框架</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;符号执行&quot;&gt;&lt;a href=&quot;#符号执行&quot; class=&quot;headerlink&quot; title=&quot;符号执行&quot;&gt;&lt;/a&gt;符号执行&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出&lt;/p&gt;
-&lt;/blockqu
-      
-    
-    </summary>
-    
-      <category term="符号执行" scheme="https://bufsnake.github.io/categories/%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C/"/>
-    
-    
-      <category term="klee" scheme="https://bufsnake.github.io/tags/klee/"/>
     
   </entry>
   

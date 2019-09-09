@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Xposed hook框架学习]]></title>
+    <url>%2FXposed-hook%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0.html</url>
+    <content type="text"><![CDATA[Xposed 安装xposed.apk 框架 初次运行是点击 安装/更新 就行了，后续在激活模块的时候可以点击 软重启 重启手机(模拟器) 模块 显示已安装的模块，打勾的说明是已经激活的 下载 显示网上已经有的模块，别人开发好的，可以直接拿过来用的那种 设置 日志 显示模块运行时后的日志信息，可用来显示XposedBridge.log(“”);打印出来的消息 关于 第一个模块学习在build.gradle中添加信息12compileOnly 'de.robv.android.xposed:api:82'compileOnly 'de.robv.android.xposed:api:82:sources' 导入框架需要的依赖 AndroidManifest.xml添加如下信息 123456789&lt;meta-data android:name="xposedmodule" 该程序是否是xposed的模块 android:value="true" /&gt;&lt;meta-data android:name="xposeddescription" 对本模块的功能的描述，可以自己简单的描述一下可以了 android:value="Module测试" /&gt;&lt;meta-data android:name="xposedminversion" 是本模块开发时用到的Xposed的jar包最低版本号 android:value="54" /&gt; 注意该段代码的放置位置 添加模块的入口函数 新建一个类，为Xposed模块的主类，新建一个assets目录，在目录下创建一个file xposed_init，里面添上模块入口函数的路径 编写模块的主要代码12345678910111213141516171819202122232425package com.example.info;import android.widget.TextView;import de.robv.android.xposed.IXposedHookLoadPackage;import de.robv.android.xposed.XC_MethodHook;import de.robv.android.xposed.XposedBridge;import de.robv.android.xposed.XposedHelpers;import de.robv.android.xposed.callbacks.XC_LoadPackage;public class Main implements IXposedHookLoadPackage &#123; public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable &#123; if(lpparam.packageName.equals("com.example.helloworld"))&#123; XposedHelpers.findAndHookMethod(TextView.class, "setText",CharSequence.class, new XC_MethodHook() &#123; protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123; param.args[0] = "isHookedbe"; &#125; protected void afterHookedMethod(MethodHookParam param) throws Throwable &#123; param.args[0] = "isHookedaf"; &#125; &#125;); &#125; &#125;&#125; 作用是HOOK TextView的setText方法 被Hook的程序的MainActivity1234567891011121314151617181920212223242526272829package com.example.helloworld;import androidx.appcompat.app.AppCompatActivity;import android.os.Bundle;import android.view.View;import android.widget.Button;import android.widget.TextView;public class MainActivity extends AppCompatActivity &#123; private Button b; private TextView t; @Override public void onCreate(Bundle savedInstanceState) &#123; super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); b = (Button)findViewById(R.id.button); t = (TextView)findViewById(R.id.textView); b.setOnClickListener(new View.OnClickListener() &#123; @Override public void onClick(View view) &#123; t.setText("aaaaaaaaaaaaaaa"); &#125; &#125;); &#125;&#125; 在点击程序后本应该会显示aaaaaaaaaaaaaaa，hook之后会显示isHookedbe 看图 总结 先Hook成功一个案例，然后实现各种操作吧，可以看看官方的api]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>xposed框架</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[frida Hook神器学习-1]]></title>
     <url>%2Ffrida-Hook%E7%A5%9E%E5%99%A8%E5%AD%A6%E4%B9%A0-1.html</url>
     <content type="text"><![CDATA[Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点 优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。 缺点：配置安装环境繁琐，兼容性差，在Hook底层的时候就很无助了。 Frida的优缺点 优点：在上面我们可以看到他的优点在于配置环境很简单，操作也很便捷，对于破解者开发阶段非常好用。支持Java层和Native层hook操作，在Native层hook如果是非基本类型的话操作有点麻烦。 缺点：因为他只适用于破解者在开发阶段，也就是他没法像Xposed用于实践生产中，比如我写一个微信外挂用Frida写肯定不行的，因为他无法在手机端运行。也就是破解者用的比较多。 SubstrateCydia的优缺点 优点：可以运行在手机端，和Xposed类似可以用于实践生产中。支持Java层和Native层的hook操作，但是Java层hook不怎么常用，用的比较多的是Native层hook操作，因为他也是Android工程可以引用系统api，操作更为方便 缺点：和Xposed一样安装配置环境繁琐，兼容性差。 总结 以上这三个工具可以说是现在用的最多的hook工具了，总结一句话就是写Java层Hook还是Xposed方便，写Native层Hook还是Cydia了，而对于破解者开发那还是Frida最靠谱了。写外挂最难的也是最重要的不是写代码而是寻找hook点，也就是逆向分析app找到那个地方，然后写hook代码实现插件功能。 frida install123pip install frida-tools下载frida-serverhttps://github.com/frida/frida/releases 测试是否安装成功 在terminal中运行cat命令 新开terminal，运行以下代码 12345678910111213141516import fridadef on_message(message, data): print("[on_message] message:", message, "data:", data)session = frida.attach("cat")script = session.create_script("""rpc.exports.enumerateModules = function () &#123; return Process.enumerateModules();&#125;;""")script.on("message", on_message)script.load()print([m["name"] for m in script.exports.enumerate_modules()]) 输出类似如下信息,即说明安装成功 1[u'cat', u'libSystem.B.dylib', u'libcache.dylib', u'libcommonCrypto.dylib', u'libcompiler_rt.dylib', u'libcopyfile.dylib', u'libcorecrypto.dylib', u'libdispatch.dylib', u'libdyld.dylib', u'libkeymgr.dylib', u'liblaunch.dylib', u'libmacho.dylib', u'libquarantine.dylib', u'libremovefile.dylib', u'libsystem_asl.dylib', u'libsystem_blocks.dylib', u'libsystem_c.dylib', u'libsystem_configuration.dylib', u'libsystem_coreservices.dylib', u'libsystem_darwin.dylib', u'libsystem_dnssd.dylib', u'libsystem_info.dylib', u'libsystem_m.dylib', u'libsystem_malloc.dylib', u'libsystem_networkextension.dylib', u'libsystem_notify.dylib', u'libsystem_sandbox.dylib', u'libsystem_secinit.dylib', u'libsystem_kernel.dylib', u'libsystem_platform.dylib', u'libsystem_pthread.dylib', u'libsystem_symptoms.dylib', u'libsystem_trace.dylib', u'libunwind.dylib', u'libxpc.dylib', u'libobjc.A.dylib', u'libc++abi.dylib', u'libc++.1.dylib', u'dyld'] Referhttps://blog.csdn.net/jiangwei0910410003/article/details/80372118 https://www.frida.re/docs/home/]]></content>
@@ -43,8 +54,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>jactf</tag>
         <tag>writeup</tag>
+        <tag>jactf</tag>
       </tags>
   </entry>
   <entry>
@@ -113,8 +124,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -125,8 +136,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -160,8 +171,8 @@
       </categories>
       <tags>
         <tag>pwn</tag>
-        <tag>pwnable.tw</tag>
         <tag>writeup</tag>
+        <tag>pwnable.tw</tag>
       </tags>
   </entry>
   <entry>
