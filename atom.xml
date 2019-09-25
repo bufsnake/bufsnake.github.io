@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bufsnake.github.io/"/>
-  <updated>2019-09-25T05:30:07.352Z</updated>
+  <updated>2019-09-25T05:50:03.260Z</updated>
   <id>https://bufsnake.github.io/</id>
   
   <author>
@@ -20,10 +20,18 @@
     <title>TODO...</title>
     <link href="https://bufsnake.github.io/TODO.html"/>
     <id>https://bufsnake.github.io/TODO.html</id>
-    <published>2019-09-25T05:30:07.000Z</published>
-    <updated>2019-09-25T05:30:07.352Z</updated>
+    <published>9999-09-09T01:09:09.000Z</published>
+    <updated>2019-09-25T05:50:03.260Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>TODO…约束自己执行想要执行的事情</strong></p><h3 id="This-is-my-TODO…"><a href="#This-is-my-TODO…" class="headerlink" title="This is my TODO…"></a>This is my TODO…</h3><p><img src="/images/pasted-144.png" alt="upload successful"></p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;TODO…约束自己执行想要执行的事情&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;This-is-my-TODO…&quot;&gt;&lt;a href=&quot;#This-is-my-TODO…&quot; class=&quot;headerlink&quot; title=&quot;This is my TODO…&quot;
+      
     
     </summary>
     
