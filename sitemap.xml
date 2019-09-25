@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bufsnake.github.io/TODO.html</loc>
+    
+    <lastmod>2019-09-25T05:30:07.352Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bufsnake.github.io/about/index.html</loc>
+    
+    <lastmod>2019-09-25T05:29:36.512Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bufsnake.github.io/PHPStudy%E5%90%8E%E9%97%A8%E7%A0%94%E7%A9%B6.html</loc>
+    
+    <lastmod>2019-09-25T05:22:17.272Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bufsnake.github.io/%E6%A8%A12%E8%BF%90%E7%AE%97.html</loc>
     
     <lastmod>2019-09-17T12:07:22.713Z</lastmod>
@@ -180,13 +201,6 @@
     <loc>https://bufsnake.github.io/categories/index.html</loc>
     
     <lastmod>2019-08-09T15:58:30.434Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bufsnake.github.io/about/index.html</loc>
-    
-    <lastmod>2019-08-09T15:57:02.286Z</lastmod>
     
   </url>
   
