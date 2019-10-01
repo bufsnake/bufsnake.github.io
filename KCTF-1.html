@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.8.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+<meta name="google-site-verification" content="UDtOo28IyLXe5wv6FxFfHH3lY6sh-26Plb5BtZ6BO6A" />
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="初世纪  输入不正确就会出现这个弹窗  ida打开程序定位WinMain函数 找到DialogBoxParam的回调函数 123456789函数原型：    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；">
+<meta name="keywords" content="web安全,逆向,ctf,pwn,crypto,misc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KCTF-1">
+<meta property="og:url" content="https://bufsnake.github.io/KCTF-1.html">
+<meta property="og:site_name" content="bufsnake">
+<meta property="og:description" content="初世纪  输入不正确就会出现这个弹窗  ida打开程序定位WinMain函数 找到DialogBoxParam的回调函数 123456789函数原型：    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-152.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-153.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-154.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-155.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-156.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-157.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-158.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-159.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-160.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-161.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-162.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-163.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-164.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-165.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-166.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-167.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-168.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-169.png">
+<meta property="og:updated_time" content="2019-10-01T14:31:48.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KCTF-1">
+<meta name="twitter:description" content="初世纪  输入不正确就会出现这个弹窗  ida打开程序定位WinMain函数 找到DialogBoxParam的回调函数 123456789函数原型：    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/pasted-152.png">
+  <link rel="canonical" href="https://bufsnake.github.io/KCTF-1">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>KCTF-1 | bufsnake</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-145389457-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?926b66e71d8f61b2a08a4f0da34fef80";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <a href="https://github.com/bufsnake" class="github-corner" aria-label="View source on GitHub">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">bufsnake</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">香香张</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/KCTF-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bufsnake">
+      <meta itemprop="description" content="专注web与binary的菜鸟">
+      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bufsnake">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">KCTF-1
+
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-01 22:01:53" itemprop="dateCreated datePublished" datetime="2019-10-01T22:01:53+08:00">2019-10-01</time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h3 id="初世纪"><a href="#初世纪" class="headerlink" title="初世纪"></a>初世纪</h3><p><img src="/images/pasted-152.png" alt="upload successful"></p>
+<blockquote>
+<p>输入不正确就会出现这个弹窗</p>
+</blockquote>
+<h4 id="ida打开程序"><a href="#ida打开程序" class="headerlink" title="ida打开程序"></a>ida打开程序</h4><h5 id="定位WinMain函数"><a href="#定位WinMain函数" class="headerlink" title="定位WinMain函数"></a>定位WinMain函数</h5><p><img src="/images/pasted-153.png" alt="upload successful"></p>
+<h5 id="找到DialogBoxParam的回调函数"><a href="#找到DialogBoxParam的回调函数" class="headerlink" title="找到DialogBoxParam的回调函数"></a>找到DialogBoxParam的回调函数</h5><p><img src="/images/pasted-154.png" alt="upload successful"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">函数原型：</span><br><span class="line">    <span class="keyword">int</span> DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；</span><br><span class="line">参数：</span><br><span class="line">hlnstance       标识一个模块的实例，该模块的可执行文件含有对话框模板。</span><br><span class="line">IpTemplateName  标识对话框模板。此参数可以指向一个以<span class="literal">NULL</span>结尾的字符串的指针,该字符串指定对话框模扳名，或是指定对话框模板的资源标识符的一个整型值。如果此参数指定了一个资源标识符，则它的高位字一定为零，且低位字一定含有标识符。一定用MAKEINTRESOURCE宏指令创建此值。</span><br><span class="line">hWndParent      指定拥有对话框的窗口。</span><br><span class="line">IpDialogFunc    指向对话框过程的指针。</span><br><span class="line">dwInitParam     指定传递到对话框过程中的 WM_INITDIALOG 消息 IParam 参数的值。</span><br><span class="line">返回值 如果函数调用成功则返回值为在对函数EndDialog的调用中的nResult参数，该EndDialog函数用于中止对话框。如果函数调用失败，则返回值为<span class="number">-1</span>。</span><br></pre></td></tr></table></figure>
+<h5 id="F5大法定位关键代码"><a href="#F5大法定位关键代码" class="headerlink" title="F5大法定位关键代码"></a>F5大法定位关键代码</h5><p><img src="/images/pasted-155.png" alt="upload successful"></p>
+<p><img src="/images/pasted-156.png" alt="upload successful"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">函数功能：该函数获取对话框中与控制有关的文本或标题。</span><br><span class="line">函数原型</span><br><span class="line">    <span class="function">UINT <span class="title">GetDlgltemText</span><span class="params">(HWND hDlg,<span class="keyword">int</span> nlDDlltem,LPTSTR IpString <span class="keyword">int</span> nMazCount)</span></span>;</span><br><span class="line">参数</span><br><span class="line">    hDlg       指向含有控制的对话框的句柄。</span><br><span class="line">    nlDDlgltem 指定标题或文本将被检索的控制的标识符。</span><br><span class="line">    IpString   指向获取标题或文本的缓冲器的指针。</span><br><span class="line">    nMaxCount  指定被复制到lpString参数指向的缓冲区的字符串的最大长度。如果字符串的字符最大长度超过范围，则该字符串被截断。</span><br><span class="line">返回值 如果函数调用成功，则返回值表示被复制缓冲区的字符串的长度，不包括以<span class="literal">NULL</span>结尾的字符串。如果函数调用失败,则返回值为零。若想获得更多错误信息，请调用GetLastError函数。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>得到注册码为6Ewi9H</p>
+</blockquote>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p><img src="/images/pasted-157.png" alt="upload successful"></p>
+<hr>
+<h3 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h3><p><img src="/images/pasted-158.png" alt="upload successful"></p>
+<h4 id="OD调试之"><a href="#OD调试之" class="headerlink" title="OD调试之"></a>OD调试之</h4><p><img src="/images/pasted-159.png" alt="upload successful"></p>
+<blockquote>
+<p>通过字符串找到关键点</p>
+</blockquote>
+<p><img src="/images/pasted-160.png" alt="upload successful"></p>
+<blockquote>
+<p>可以看出来一些流程，输入字符串，得到长度，然后判断是否在10～30之间，将字符串copy到另外一个地方，比较字符串的第八个位置是否为’A’。</p>
+</blockquote>
+<p><img src="/images/pasted-161.png" alt="upload successful"></p>
+<blockquote>
+<p>进入此函数</p>
+</blockquote>
+<p><img src="/images/pasted-162.png" alt="upload successful"></p>
+<blockquote>
+<p>该函数的逻辑是：将输入的第七个字符串换成’#’，字符串的每位都与0x1F进行xor运算。然后下面没有思路了</p>
+</blockquote>
+<h4 id="IDA查看之"><a href="#IDA查看之" class="headerlink" title="IDA查看之"></a>IDA查看之</h4><p><img src="/images/pasted-163.png" alt="upload successful"></p>
+<blockquote>
+<p>找到字符串(将字符串复制到的地址)的交叉引用，挨个扫一眼</p>
+</blockquote>
+<p><img src="/images/pasted-164.png" alt="upload successful"></p>
+<blockquote>
+<p>可以看到这一个函数</p>
+</blockquote>
+<p><img src="/images/pasted-165.png" alt="upload successful"></p>
+<blockquote>
+<p>找到该函数的交叉引用</p>
+</blockquote>
+<p><img src="/images/pasted-166.png" alt="upload successful"></p>
+<blockquote>
+<p>可以看到第二个参数就是’invalid argument’</p>
+</blockquote>
+<p><img src="/images/pasted-167.png" alt="upload successful"></p>
+<blockquote>
+<p>关键比较处，a2就是’invalid argument’ ^ 28后的结果，dword_2F3088就是我们输入字符串复制到的地址</p>
+</blockquote>
+<blockquote>
+<p>在关键部分下断点，可以得到比较的字符串</p>
+</blockquote>
+<p><img src="/images/pasted-168.png" alt="upload successful"></p>
+<blockquote>
+<p>到此，程序整体逻辑也就明了了，输入字符串，判断第八位是否为A，将第八位换成#，整体字符在与 0x1f 异或，得到的字符 和 ‘invalid argument’与28异或后的结果相比较</p>
+</blockquote>
+<h4 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [1]: flag = <span class="string">"invalid argument"</span></span><br><span class="line">In [2]: temp = <span class="string">''</span></span><br><span class="line">In [3]: <span class="keyword">for</span> i <span class="keyword">in</span> range(0,len(flag)):</span><br><span class="line">   ...:     temp += chr(ord(flag[i]) ^ 28)</span><br><span class="line">In [4]: temp</span><br><span class="line">Out[4]: <span class="string">'urj&#125;pux&lt;&#125;n&#123;iqyrh'</span></span><br><span class="line">In [5]: <span class="keyword">for</span> i <span class="keyword">in</span> range(0,len(temp)):</span><br><span class="line">   ...:     flag += chr(ord(temp[i]) ^ 0x1f)</span><br><span class="line">In [6]: flag = <span class="string">''</span></span><br><span class="line">In [7]: <span class="keyword">for</span> i <span class="keyword">in</span> range(0,len(temp)):</span><br><span class="line">   ...:     flag += chr(ord(temp[i]) ^ 0x1f)</span><br><span class="line">In [8]: flag</span><br><span class="line">Out[8]: <span class="string">'jmubojg#bqdvnfmw'</span></span><br><span class="line"><span class="comment"># 最后将#换成'A'即可</span></span><br></pre></td></tr></table></figure>
+<h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><p><img src="/images/pasted-169.png" alt="upload successful"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>KCTF的题目质量是真的好，准备把这几年的比赛题目都拿来做做，学习学习，还是有很多姿势的。。。。</p>
+</blockquote>
+
+    </div>
+    <div>
+      
+          <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+    
+    
+    
+
+      <div>
+            
+               
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- JS库 sweetalert 可修改路径 -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span><a href="/KCTF-1.html">KCTF-1</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
+    <p><span>发布时间:</span>2019年10月01日 - 22:10</p>
+    <p><span>最后更新:</span>2019年10月01日 - 22:10</p>
+    <p><span>原始链接:</span><a href="/KCTF-1.html" title="KCTF-1">https://bufsnake.github.io/KCTF-1.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/KCTF-1.html" aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+       var clipboard = new Clipboard('.fa-clipboard');
+       $(".fa-clipboard").click(function(){
+       clipboard.on('success', function(){
+       swal({   
+           title: "",   
+           text: '复制成功',
+           icon: "success", 
+           showConfirmButton: true
+       });
+       });
+      });  
+</script>
+
+
+            
+      </div>
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/MacOS-IDA-pro-致最傻的我.html" rel="next" title="MacOS IDA pro-致最傻的我 ">
+                  <i class="fa fa-chevron-left"></i> MacOS IDA pro-致最傻的我 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/TODO.html" rel="prev" title="TODO...">
+                  TODO... <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk0NS8yMjQ1Ng=="></div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" src="https://bufsnake.github.io/images/logo.jpg" alt="bufsnake">
+  <p class="site-author-name" itemprop="name">bufsnake</p>
+  <div class="site-description motion-element" itemprop="description">专注web与binary的菜鸟</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/bufsnake" title="GitHub &rarr; https://github.com/bufsnake" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zhang173896@gmail.com" title="E-Mail &rarr; mailto:zhang173896@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/00740c07860b" title="简书 &rarr; https://www.jianshu.com/u/00740c07860b" rel="noopener" target="_blank"><i class="fa fa-fw fa-heartbeat"></i>简书</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <i class="fa  fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://www.team-spider.com/" title="http://www.team-spider.com/" rel="noopener" target="_blank">team-spider</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.njcit.me/" title="https://blog.njcit.me/" rel="noopener" target="_blank">真·学长</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://login546.github.io" title="https://login546.github.io" rel="noopener" target="_blank">login546</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://delort.xyz/" title="http://delort.xyz/" rel="noopener" target="_blank">Delort</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初世纪"><span class="nav-number">1.</span> <span class="nav-text">初世纪</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ida打开程序"><span class="nav-number">1.1.</span> <span class="nav-text">ida打开程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定位WinMain函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">定位WinMain函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#找到DialogBoxParam的回调函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">找到DialogBoxParam的回调函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#F5大法定位关键代码"><span class="nav-number">1.1.3.</span> <span class="nav-text">F5大法定位关键代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">1.2.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exam"><span class="nav-number">2.</span> <span class="nav-text">Exam</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OD调试之"><span class="nav-number">2.1.</span> <span class="nav-text">OD调试之</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDA查看之"><span class="nav-number">2.2.</span> <span class="nav-text">IDA查看之</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本"><span class="nav-number">2.3.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证-1"><span class="nav-number">2.4.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bufsnake</span>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共16.7k字</span>
+</div>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<script>
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+</body>
+</html>
