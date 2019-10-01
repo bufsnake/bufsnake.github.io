@@ -1732,7 +1732,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffffc2;
+  background: #83ff28;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2943,11 +2943,12 @@ ul.breadcrumb li+li:last-child {
   content: "\e638";
 }
 .site-meta {
+  background: url("https://bufsnake.github.io/images/header.png");
   background-position: 70% 20%;
   padding: 18px 0;
 }
 body {
-  background-image: url("https://bufsnake.github.io/images/9090.jpg");
+  background-image: url("https://bufsnake.github.io/images/9090.png");
   background-repeat: repeat;
   background-attachment: fixed;
   background-size: 100%;
