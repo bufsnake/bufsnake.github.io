@@ -390,6 +390,112 @@ This is my TODO…
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/段的机制浅析.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bufsnake">
+      <meta itemprop="description" content="专注web与binary的菜鸟">
+      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bufsnake">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+              <a href="/段的机制浅析.html" class="post-title-link" itemprop="url">段的机制浅析</a>
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-13 17:07:49" itemprop="dateCreated datePublished" datetime="2019-10-13T17:07:49+08:00">2019-10-13</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/保护机制/" itemprop="url" rel="index"><span itemprop="name">保护机制</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>
+              开篇
+X86 CPU的3个模式：实模式(直接操作物理地址)、保护模式(操作虚拟内存)和虚拟8086模式(保护模式下的16位模拟)
+
+
+X64：x86是intel推出的复杂指令集，后来amd拓展了X86指令集，称为称为x86-64，后更名为AMD 64，intel也出了自己的一套64位指令集，但是不向
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/段的机制浅析.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/KCTF-1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1255,114 +1361,6 @@ from requests import *from base64 import *for i in range(0,20):    url =
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/掘安RE_crypto.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bufsnake">
-      <meta itemprop="description" content="专注web与binary的菜鸟">
-      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bufsnake">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-              
-              <a href="/掘安RE_crypto.html" class="post-title-link" itemprop="url">jactf-reverse3</a>
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-16 19:55:57" itemprop="dateCreated datePublished" datetime="2019-08-16T19:55:57+08:00">2019-08-16</time>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reverse/" itemprop="url" rel="index"><span itemprop="name">reverse</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>
-              RE_crypto
-ida
-
-
-程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的
-
-expbyte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/掘安RE_crypto.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1401,7 +1399,7 @@ expbyte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1450,7 +1448,9 @@ expbyte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,
         
           
         
-        <span class="site-state-item-count">17</span>
+          
+        
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1549,7 +1549,9 @@ expbyte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,
         
           
         
-        <span class="site-state-item-count">42</span>
+          
+        
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1638,7 +1640,7 @@ expbyte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共16.7k字</span>
+  <span class="post-count">博客全站共18.2k字</span>
 </div>
 </div>
         
