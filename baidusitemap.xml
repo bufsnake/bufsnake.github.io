@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://bufsnake.github.io/TODO.html</loc>
+    <lastmod>2019-10-16</lastmod>
+  </url>  <url>
     <loc>https://bufsnake.github.io/%E6%AE%B5%E7%9A%84%E6%9C%BA%E5%88%B6%E6%B5%85%E6%9E%90.html</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
@@ -9,9 +12,6 @@
   </url>  <url>
     <loc>https://bufsnake.github.io/MacOS-IDA-pro-%E8%87%B4%E6%9C%80%E5%82%BB%E7%9A%84%E6%88%91.html</loc>
     <lastmod>2019-09-30</lastmod>
-  </url>  <url>
-    <loc>https://bufsnake.github.io/TODO.html</loc>
-    <lastmod>2019-09-25</lastmod>
   </url>  <url>
     <loc>https://bufsnake.github.io/PHPStudy%E5%90%8E%E9%97%A8%E7%A0%94%E7%A9%B6.html</loc>
     <lastmod>2019-09-25</lastmod>

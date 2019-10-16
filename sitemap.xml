@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bufsnake.github.io/TODO.html</loc>
+    
+    <lastmod>2019-10-16T04:37:42.232Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bufsnake.github.io/tags/index.html</loc>
     
     <lastmod>2019-10-13T13:22:02.170Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>https://bufsnake.github.io/MacOS-IDA-pro-%E8%87%B4%E6%9C%80%E5%82%BB%E7%9A%84%E6%88%91.html</loc>
     
     <lastmod>2019-09-30T13:25:11.301Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bufsnake.github.io/TODO.html</loc>
-    
-    <lastmod>2019-09-25T05:54:05.784Z</lastmod>
     
   </url>
   
