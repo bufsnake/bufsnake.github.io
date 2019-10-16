@@ -385,7 +385,7 @@ body {
 }
 @media (min-width: 1600px) {
   .container .header-inner {
-    width: 60%;
+    width: 90%;
   }
 }
 .main-inner {
@@ -399,7 +399,7 @@ body {
 }
 @media (min-width: 1600px) {
   .container .main-inner {
-    width: 60%;
+    width: 90%;
   }
 }
 .footer {
@@ -417,7 +417,7 @@ body {
 }
 @media (min-width: 1600px) {
   .container .footer-inner {
-    width: 60%;
+    width: 90%;
   }
 }
 pre,
@@ -1732,7 +1732,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #774e8b;
+  background: #ffc3ed;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2392,7 +2392,7 @@ ul.breadcrumb li+li:last-child {
 }
 @media (min-width: 1600px) {
   .header {
-    width: 60%;
+    width: 90%;
   }
 }
 @media (max-width: 991px) {
