@@ -382,6 +382,134 @@ This is my TODO…
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/Sudo提权漏洞复现.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bufsnake">
+      <meta itemprop="description" content="有梦就去追，没死就别停">
+      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bufsnake">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+              <a href="/Sudo提权漏洞复现.html" class="post-title-link" itemprop="url">Sudo提权漏洞复现</a>
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-16 21:49:17" itemprop="dateCreated datePublished" datetime="2019-10-16T21:49:17+08:00">2019-10-16</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习研究/" itemprop="url" rel="index"><span itemprop="name">学习研究</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>
+              开篇
+该漏洞虽然鸡肋，但保不准哪天碰到了，还是复现一下吧
+
+Sudoer
+修改sudoer文件,如下
+
+
+
+我的低权限用户账号是admin
+
+admin
+在admin账号权限下运行
+
+
+
+在vim界面输入
+
+
+
+得到root权限
+
+
+影响版本
+sudo 1.8.28 之前的所有版本
+
+修复建议
+升级
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/Sudo提权漏洞复现.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/段的机制浅析.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1240,119 +1368,6 @@ php/ext目录下的php_xmlrpc.dll文件 。
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/cookie欺骗-writeup.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bufsnake">
-      <meta itemprop="description" content="有梦就去追，没死就别停">
-      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bufsnake">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-              
-              <a href="/cookie欺骗-writeup.html" class="post-title-link" itemprop="url">cookie欺骗 writeup</a>
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-08-21 15:08:16" itemprop="dateCreated datePublished" datetime="2019-08-21T15:08:16+08:00">2019-08-21</time>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>
-              
-Begin
-
-
-
-发现filename为keys.txt的base64加密，试着读取index.php文件
-
-
-
-发现能读到东西了，接下来读取整个文件
-
-from requests import *from base64 import *for i in range(0,20):    url =
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/cookie欺骗-writeup.html#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1391,7 +1406,7 @@ from requests import *from base64 import *for i in range(0,20):    url =
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1543,7 +1558,9 @@ from requests import *from base64 import *for i in range(0,20):    url =
         
           
         
-        <span class="site-state-item-count">43</span>
+          
+        
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

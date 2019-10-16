@@ -61,18 +61,24 @@
   };
 </script>
 
-  <meta name="description" content="有梦就去追，没死就别停">
-<meta name="keywords" content="web安全,逆向,ctf,pwn,crypto,misc,android,安卓,破解,底层">
-<meta property="og:type" content="website">
-<meta property="og:title" content="bufsnake">
-<meta property="og:url" content="https://bufsnake.github.io/categories/pwn/index.html">
+  <meta name="description" content="开篇 该漏洞虽然鸡肋，但保不准哪天碰到了，还是复现一下吧  Sudoer 修改sudoer文件,如下    我的低权限用户账号是admin  admin 在admin账号权限下运行    在vim界面输入    得到root权限   影响版本 sudo 1.8.28 之前的所有版本  修复建议 升级sudo">
+<meta name="keywords" content="sudo漏洞,CVE-2019-14287">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sudo提权漏洞复现">
+<meta property="og:url" content="https://bufsnake.github.io/Sudo提权漏洞复现.html">
 <meta property="og:site_name" content="bufsnake">
-<meta property="og:description" content="有梦就去追，没死就别停">
+<meta property="og:description" content="开篇 该漏洞虽然鸡肋，但保不准哪天碰到了，还是复现一下吧  Sudoer 修改sudoer文件,如下    我的低权限用户账号是admin  admin 在admin账号权限下运行    在vim界面输入    得到root权限   影响版本 sudo 1.8.28 之前的所有版本  修复建议 升级sudo">
 <meta property="og:locale" content="en-US">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-176.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-177.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-178.png">
+<meta property="og:image" content="https://bufsnake.github.io/images/pasted-179.png">
+<meta property="og:updated_time" content="2019-10-16T14:00:24.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bufsnake">
-<meta name="twitter:description" content="有梦就去追，没死就别停">
-  <link rel="canonical" href="https://bufsnake.github.io/categories/pwn/">
+<meta name="twitter:title" content="Sudo提权漏洞复现">
+<meta name="twitter:description" content="开篇 该漏洞虽然鸡肋，但保不准哪天碰到了，还是复现一下吧  Sudoer 修改sudoer文件,如下    我的低权限用户账号是admin  admin 在admin账号权限下运行    在vim界面输入    得到root权限   影响版本 sudo 1.8.28 之前的所有版本  修复建议 升级sudo">
+<meta name="twitter:image" content="https://bufsnake.github.io/images/pasted-176.png">
+  <link rel="canonical" href="https://bufsnake.github.io/Sudo提权漏洞复现">
 
 
 <script id="page-configurations">
@@ -80,13 +86,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Category: pwn | bufsnake</title>
+  <title>Sudo提权漏洞复现 | bufsnake</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145389457-1"></script>
   <script>
@@ -278,160 +284,215 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-          <div id="content" class="content ">
+          <div id="content" class="content page-post-detail">
             
 
-  
-  
-  
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>pwn<small>Category</small>
-        </h2>
-      </div>
-
-      
-
-  
-  
-  
-
-  
+  <div id="posts" class="posts-expand">
     
-    <div class="collection-title">
-      <h2 class="archive-year" id="archive-year-2019">2019</h2>
-    </div>
-  
-  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/Sudo提权漏洞复现.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bufsnake">
+      <meta itemprop="description" content="有梦就去追，没死就别停">
+      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bufsnake">
+    </span>
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/pwnable-tw-start.html" itemprop="url">
+          <h2 class="post-title" itemprop="name headline">Sudo提权漏洞复现
+
             
-              <span itemprop="name">pwnable.tw-start</span>
-            
-          </a>
+          </h2>
         
-      </h3>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-11T11:54:32+08:00"
-              content="2019-08-11">
-          08-11
-        </time>
-      </div>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-    </header>
-  </article>
+              
+                
+              
 
+              <time title="Created: 2019-10-16 21:49:17" itemprop="dateCreated datePublished" datetime="2019-10-16T21:49:17+08:00">2019-10-16</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习研究/" itemprop="url" rel="index"><span itemprop="name">学习研究</span></a></span>
 
+                
+                
+              
+            </span>
+          
 
-  
-  
-  
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
 
-  
-  
+        </div>
+      </header>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/Heap的学习-1.html" itemprop="url">
-            
-              <span itemprop="name">Heap的学习(1)</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-10T13:57:00+08:00"
-              content="2019-08-10">
-          08-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-  
-
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/PWN-学习—某平台ROP2-writeup.html" itemprop="url">
-            
-              <span itemprop="name">PWN 学习—某平台ROP2 writeup</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-02T17:16:46+08:00"
-              content="2019-08-02">
-          08-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><blockquote>
+<p>该漏洞虽然鸡肋，但保不准哪天碰到了，还是复现一下吧</p>
+</blockquote>
+<h3 id="Sudoer"><a href="#Sudoer" class="headerlink" title="Sudoer"></a>Sudoer</h3><blockquote>
+<p>修改sudoer文件,如下</p>
+</blockquote>
+<p><img src="/images/pasted-176.png" alt="upload successful"></p>
+<blockquote>
+<p>我的低权限用户账号是admin</p>
+</blockquote>
+<h3 id="admin"><a href="#admin" class="headerlink" title="admin"></a>admin</h3><blockquote>
+<p>在admin账号权限下运行</p>
+</blockquote>
+<p><img src="/images/pasted-177.png" alt="upload successful"></p>
+<blockquote>
+<p>在vim界面输入</p>
+</blockquote>
+<p><img src="/images/pasted-178.png" alt="upload successful"></p>
+<blockquote>
+<p>得到root权限</p>
+</blockquote>
+<p><img src="/images/pasted-179.png" alt="upload successful"></p>
+<h3 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h3><blockquote>
+<p>sudo 1.8.28 之前的所有版本</p>
+</blockquote>
+<h3 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h3><blockquote>
+<p>升级sudo</p>
+</blockquote>
 
     </div>
+    <div>
+      
+          <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
 
+      
+    </div>
+
+    
+    
+    
+
+      <div>
+            
+               
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <!-- JS库 sweetalert 可修改路径 -->
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <p><span>本文标题:</span><a href="/Sudo提权漏洞复现.html">Sudo提权漏洞复现</a></p>
+    <p><span>文章作者:</span><a href="/" title="访问 bufsnake 的个人博客">bufsnake</a></p>
+    <p><span>发布时间:</span>2019年10月16日 - 21:10</p>
+    <p><span>最后更新:</span>2019年10月16日 - 22:10</p>
+    <p><span>原始链接:</span><a href="/Sudo提权漏洞复现.html" title="Sudo提权漏洞复现">https://bufsnake.github.io/Sudo提权漏洞复现.html</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://bufsnake.github.io/Sudo提权漏洞复现.html" aria-label="复制成功！"></i></span>
+    </p>
+    <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+       var clipboard = new Clipboard('.fa-clipboard');
+       $(".fa-clipboard").click(function(){
+       clipboard.on('success', function(){
+       swal({   
+           title: "",   
+           text: '复制成功',
+           icon: "success", 
+           showConfirmButton: true
+       });
+       });
+      });  
+</script>
+
+
+            
+      </div>
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/漏洞复现/" rel="tag"># 漏洞复现</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/段的机制浅析.html" rel="next" title="段的机制浅析">
+                  <i class="fa fa-chevron-left"></i> 段的机制浅析
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/TODO.html" rel="prev" title="TODO...">
+                  TODO... <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -446,8 +507,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -684,6 +754,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#开篇"><span class="nav-number">1.</span> <span class="nav-text">开篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sudoer"><span class="nav-number">2.</span> <span class="nav-text">Sudoer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#admin"><span class="nav-number">3.</span> <span class="nav-text">admin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响版本"><span class="nav-number">4.</span> <span class="nav-text">影响版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修复建议"><span class="nav-number">5.</span> <span class="nav-text">修复建议</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -804,7 +891,29 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
     
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+    var gitalk = new Gitalk({
+      clientID: '726f172cbabb7663d898',
+      clientSecret: '8d4337be5f942f372e6f9d7c85bcc85239767cb8',
+      repo: 'blog-backup',
+      owner: 'bufsnake',
+      admin: ['bufsnake'],
+      id: '306cb4a5fca0aefd5ec3fa51ad9d456c',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>

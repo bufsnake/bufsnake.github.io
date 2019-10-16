@@ -288,6 +288,119 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/cookie欺骗-writeup.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bufsnake">
+      <meta itemprop="description" content="有梦就去追，没死就别停">
+      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bufsnake">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+              <a href="/cookie欺骗-writeup.html" class="post-title-link" itemprop="url">cookie欺骗 writeup</a>
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-08-21 15:08:16" itemprop="dateCreated datePublished" datetime="2019-08-21T15:08:16+08:00">2019-08-21</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>
+              
+Begin
+
+
+
+发现filename为keys.txt的base64加密，试着读取index.php文件
+
+
+
+发现能读到东西了，接下来读取整个文件
+
+from requests import *from base64 import *for i in range(0,20):    url =
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/cookie欺骗-writeup.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/掘安RE_crypto.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1285,122 +1398,6 @@ EXPe = 65537n = 966808932627497
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bufsnake.github.io/jactf-android.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bufsnake">
-      <meta itemprop="description" content="有梦就去追，没死就别停">
-      <meta itemprop="image" content="https://bufsnake.github.io/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bufsnake">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-              
-              <a href="/jactf-android.html" class="post-title-link" itemprop="url">jactf-android</a>
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-08-12 09:49:37" itemprop="dateCreated datePublished" datetime="2019-08-12T09:49:37+08:00">2019-08-12</time>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/android/" itemprop="url" rel="index"><span itemprop="name">android</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>
-              平台jactf
-androideasy
-jadx打开，查看主页面
-
-可以直接看到程序通过得到editText的内容和23异或和代码定义的s进行对比
-
-exp
-app1
-jadx打开，查看主页面
-
-
-通过输入和VERSION_NAME ^ VERSION_CODE相比
-
-exp
-simplecheck
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/jactf-android.html#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1439,7 +1436,7 @@ simplecheck
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1591,7 +1588,9 @@ simplecheck
         
           
         
-        <span class="site-state-item-count">43</span>
+          
+        
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
