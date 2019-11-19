@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bufsnake.github.io/Hello-World.html</loc>
+    
+    <lastmod>2019-11-19T08:41:34.436Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bufsnake.github.io/gallery/index.html</loc>
+    
+    <lastmod>2019-11-19T08:36:49.136Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bufsnake.github.io/LZW%E6%97%A0%E6%8D%9F%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95.html</loc>
     
     <lastmod>2019-11-08T14:09:29.109Z</lastmod>
@@ -278,13 +292,6 @@
     <loc>https://bufsnake.github.io/hexo%E6%8E%A8%E9%80%81%E6%96%87%E7%AB%A0%E5%87%BA%E9%94%99.html</loc>
     
     <lastmod>2019-08-09T15:22:16.676Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bufsnake.github.io/Hello-World.html</loc>
-    
-    <lastmod>2019-08-09T15:22:04.764Z</lastmod>
     
   </url>
   
