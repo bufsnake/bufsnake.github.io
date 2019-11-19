@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://bufsnake.github.io/Hello-World.html</loc>
+    <loc>https://bufsnake.github.io/gallery/index.html</loc>
     
-    <lastmod>2019-11-19T08:41:34.436Z</lastmod>
+    <lastmod>2019-11-19T09:22:31.424Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://bufsnake.github.io/gallery/index.html</loc>
+    <loc>https://bufsnake.github.io/gallery/data.json</loc>
     
-    <lastmod>2019-11-19T08:36:49.136Z</lastmod>
+    <lastmod>2019-11-19T09:17:59.628Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bufsnake.github.io/friend/index.html</loc>
+    
+    <lastmod>2019-11-19T09:15:39.932Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bufsnake.github.io/Hello-World.html</loc>
+    
+    <lastmod>2019-11-19T08:41:34.436Z</lastmod>
     
   </url>
   
