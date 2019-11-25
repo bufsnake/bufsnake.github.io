@@ -303,7 +303,7 @@
 
 	<a href="/attackworld-web2.html" itemprop="url">
 		<time datetime="2019-06-03T11:08:44.000Z" itemprop="dateUpdated">
-	  		2019-08-11
+	  		2019-11-25
 	  </time>
 	</a> 
 
@@ -335,7 +335,7 @@
 <h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Upper</span><span class="params">(ch)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> ch&gt;=<span class="string">'A'</span> <span class="keyword">and</span> ch&lt;=<span class="string">'Z'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Lower</span><span class="params">(ch)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> ch&gt;=<span class="string">'a'</span> <span class="keyword">and</span> ch&lt;=<span class="string">'z'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rot13</span><span class="params">(s)</span>:</span></span><br><span class="line">    flag = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">if</span> Upper(i) == <span class="literal">True</span>:</span><br><span class="line">             <span class="keyword">if</span> i&gt;=<span class="string">'A'</span> <span class="keyword">and</span> i&lt;=<span class="string">'M'</span>:</span><br><span class="line">                 flag += chr(ord(i)+<span class="number">13</span>)</span><br><span class="line">             <span class="keyword">else</span>:</span><br><span class="line">                 flag += chr(ord(i)<span class="number">-13</span>)</span><br><span class="line">        <span class="keyword">elif</span> Lower(i) == <span class="literal">True</span>:</span><br><span class="line">             <span class="keyword">if</span> i&gt;=<span class="string">'a'</span> <span class="keyword">and</span> i&lt;=<span class="string">'m'</span>:</span><br><span class="line">                 flag += chr(ord(i)+<span class="number">13</span>)</span><br><span class="line">             <span class="keyword">else</span>:</span><br><span class="line">                 flag += chr(ord(i)<span class="number">-13</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">             flag += i</span><br><span class="line">    <span class="keyword">return</span> flag</span><br><span class="line"></span><br><span class="line">flag = <span class="string">"a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws"</span></span><br><span class="line">flag = list(rot13(flag))</span><br><span class="line">flag.reverse()</span><br><span class="line">flag = <span class="string">''</span>.join(i <span class="keyword">for</span> i <span class="keyword">in</span> flag)</span><br><span class="line">flag = base64.b64decode(flag)</span><br><span class="line">flag = list(flag)</span><br><span class="line">strs = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(flag)):</span><br><span class="line">    strs += chr(ord(flag[i]) <span class="number">-1</span>)</span><br><span class="line">strs = list(strs)</span><br><span class="line">strs.reverse()</span><br><span class="line"><span class="keyword">print</span> <span class="string">''</span>.join(i <span class="keyword">for</span> i <span class="keyword">in</span> strs)</span><br></pre></td></tr></table></figure>	
 	</div>
 	
-	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+	<div id="current-post-cover" data-scr="https://sariay.github.io/Random-img/29.jpg"></div>
 
 	<!-- relate post, comment...-->
 	<div class="investment-container">
@@ -404,7 +404,7 @@
 						<div class="relate-post-cover">
 							<a href="/记一次简单的条件竞争的题目.html" title="记一次简单的条件竞争的题目">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="记一次简单的条件竞争的题目">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/13.jpg" alt="记一次简单的条件竞争的题目">
 							</a>
 						</div>
 					</li>											
@@ -438,7 +438,7 @@ Begin
 						<div class="relate-post-cover">
 							<a href="/cookie欺骗-writeup.html" title="cookie欺骗 writeup">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="cookie欺骗 writeup">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/9.jpg" alt="cookie欺骗 writeup">
 							</a>
 						</div>
 					</li>											
@@ -466,7 +466,7 @@ This is my TODO…
 						<div class="relate-post-cover">
 							<a href="/TODO.html" title="TODO...">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="TODO...">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/25.jpg" alt="TODO...">
 							</a>
 						</div>
 					</li>											
@@ -522,7 +522,7 @@ LZW就是通过建立一个字符串表，用较短的代码来表示较长的�
 						<div class="relate-post-cover">
 							<a href="/LZW无损压缩算法.html" title="LZW无损压缩算法">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="LZW无损压缩算法">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/27.jpg" alt="LZW无损压缩算法">
 							</a>
 						</div>
 					</li>											
@@ -546,7 +546,7 @@ LZW就是通过建立一个字符串表，用较短的代码来表示较长的�
 						<div class="relate-post-cover">
 							<a href="/目录遍历到递归.html" title="目录遍历到递归">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="目录遍历到递归">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/2.jpg" alt="目录遍历到递归">
 							</a>
 						</div>
 					</li>											
@@ -591,7 +591,7 @@ admin
 						<div class="relate-post-cover">
 							<a href="/Sudo提权漏洞复现.html" title="Sudo提权漏洞复现">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Sudo提权漏洞复现">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/10.jpg" alt="Sudo提权漏洞复现">
 							</a>
 						</div>
 					</li>											
@@ -618,7 +618,7 @@ X64：x86是intel推出的复杂指令集，后来amd拓展了X86指令集，称
 						<div class="relate-post-cover">
 							<a href="/段的机制浅析.html" title="段的机制浅析">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="段的机制浅析">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/17.jpg" alt="段的机制浅析">
 							</a>
 						</div>
 					</li>											
@@ -648,7 +648,7 @@ ida打开程序定位WinMain函数
 						<div class="relate-post-cover">
 							<a href="/KCTF-1.html" title="KCTF-1">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="KCTF-1">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/28.jpg" alt="KCTF-1">
 							</a>
 						</div>
 					</li>											
@@ -676,7 +676,7 @@ ida打开程序定位WinMain函数
 						<div class="relate-post-cover">
 							<a href="/MacOS-IDA-pro-致最傻的我.html" title="MacOS上IDA pro的小问题修复">				
 								
-								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="MacOS上IDA pro的小问题修复">
+								<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/22.jpg" alt="MacOS上IDA pro的小问题修复">
 							</a>
 						</div>
 					</li>											
