@@ -234,8 +234,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -246,8 +246,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -280,8 +280,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>writeup</tag>
         <tag>pwn</tag>
+        <tag>writeup</tag>
         <tag>pwnable.tw</tag>
       </tags>
   </entry>
@@ -293,8 +293,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>heap</tag>
+        <tag>pwn</tag>
       </tags>
   </entry>
   <entry>
@@ -305,9 +305,9 @@
         <category>pwn</category>
       </categories>
       <tags>
+        <tag>pwn</tag>
         <tag>writeup</tag>
         <tag>pwntools</tag>
-        <tag>pwn</tag>
         <tag>rop</tag>
       </tags>
   </entry>
