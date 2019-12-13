@@ -39,6 +39,32 @@
   </entry>
   
   <entry>
+    <title>phar反序列化</title>
+    <link href="https://bufsnake.github.io/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.html"/>
+    <id>https://bufsnake.github.io/phar反序列化.html</id>
+    <published>2019-12-13T01:50:20.000Z</published>
+    <updated>2019-12-13T01:59:26.878Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="漏洞作用"><a href="#漏洞作用" class="headerlink" title="漏洞作用"></a>漏洞作用</h2><p><code>在不使用unserialize()函数的情况下触发PHP反序列化漏洞</code></p><h2 id="触发条件"><a href="#触发条件" class="headerlink" title="触发条件"></a>触发条件</h2><p><code>使用phar://协议读取文件的时候，文件内容会被解析成phar对象，然后phar对象内的Meta data 信息会被反序列化 如果要生成phar文件，要在php.ini中把phar只读给关闭</code></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php.ini</span><br><span class="line">[Phar]</span><br><span class="line">phar.readonly = Off</span><br></pre></td></tr></table></figure><h2 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$phar = new Phar('test.phar');</span><br><span class="line">$phar-&gt;startBuffering();</span><br><span class="line">$phar-&gt;addFromString('test.txt', 'text');</span><br><span class="line">$phar-&gt;setStub('&lt;?php __HALT_COMPILER(); ? &gt;'); </span><br><span class="line"></span><br><span class="line"><span class="comment">// add object of any class as meta data</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnyClass</span> &#123;</span>&#125;</span><br><span class="line">$object = <span class="keyword">new</span> AnyClass;</span><br><span class="line">$object-&gt;data = 'rips';</span><br><span class="line">$phar-&gt;setMetadata($object);</span><br><span class="line">$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -c /Applications/XAMPP/xamppfiles/etc/php.ini phar.php <span class="comment">//执行生成的文件如下</span></span><br></pre></td></tr></table></figure><p><img src="/images/pasted-181.png" alt="upload successful"></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="comment">// add object of any class as meta data</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnyClass</span> &#123;</span></span><br><span class="line">    function __destruct()&#123;</span><br><span class="line">        echo $<span class="keyword">this</span>-&gt;data;</span><br><span class="line">    &#125;</span><br><span class="line">    function __sleep()&#123;</span><br><span class="line">        echo 'sleep';</span><br><span class="line">    &#125;</span><br><span class="line">   function __wakeup()&#123;</span><br><span class="line">       echo 'wakeup&lt;br&gt;';</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">include('phar://test.phar'); // 触发反序列化</span><br></pre></td></tr></table></figure><p><img src="/images/pasted-182.png" alt="upload successful"></p><h2 id="能够触发反序列化的函数有"><a href="#能够触发反序列化的函数有" class="headerlink" title="能够触发反序列化的函数有"></a>能够触发反序列化的函数有</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">include('phar://test.phar');</span><br><span class="line">var_dump(file('phar://test.phar'));</span><br><span class="line">var_dump(fopen('phar://test.phar','r'));</span><br><span class="line">var_dump(file_get_contents('phar://test.phar'));</span><br><span class="line">var_dump(file_get_contents('phar://test.jpg'));(把文件名改成jpg也有效)</span><br><span class="line">var_dump(file_exists('phar://test.phar'));</span><br><span class="line">file_exists($_GET['file']);</span><br><span class="line">md5_file($_GET['file']);</span><br><span class="line">filemtime($_GET['file']);</span><br><span class="line">filesize($_GET['file']);</span><br></pre></td></tr></table></figure><h2 id="refer"><a href="#refer" class="headerlink" title="refer"></a>refer</h2><p><a href="https://mp.weixin.qq.com/s/TNAdeBNBErYjtTGGfentFg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/TNAdeBNBErYjtTGGfentFg</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;漏洞作用&quot;&gt;&lt;a href=&quot;#漏洞作用&quot; class=&quot;headerlink&quot; title=&quot;漏洞作用&quot;&gt;&lt;/a&gt;漏洞作用&lt;/h2&gt;&lt;p&gt;&lt;code&gt;在不使用unserialize()函数的情况下触发PHP反序列化漏洞&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;触发
+      
+    
+    </summary>
+    
+      <category term="学习研究" scheme="https://bufsnake.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6/"/>
+    
+    
+      <category term="phar反序列化" scheme="https://bufsnake.github.io/tags/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C++ 符号修饰和函数签名</title>
     <link href="https://bufsnake.github.io/C-%E7%AC%A6%E5%8F%B7%E4%BF%AE%E9%A5%B0%E5%92%8C%E5%87%BD%E6%95%B0%E7%AD%BE%E5%90%8D.html"/>
     <id>https://bufsnake.github.io/C-符号修饰和函数签名.html</id>
@@ -524,32 +550,6 @@
     
     
       <category term="gametime" scheme="https://bufsnake.github.io/tags/gametime/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo next 7.xx添加背景图片</title>
-    <link href="https://bufsnake.github.io/hexo-next-7-xx%E6%B7%BB%E5%8A%A0%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87.html"/>
-    <id>https://bufsnake.github.io/hexo-next-7-xx添加背景图片.html</id>
-    <published>2019-08-13T04:35:51.000Z</published>
-    <updated>2019-11-25T09:42:53.208Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="主题配置文件-config-yml"><a href="#主题配置文件-config-yml" class="headerlink" title="主题配置文件_config.yml"></a>主题配置文件_config.yml</h3><blockquote><p>找到custom_file_path，将如图所示的代码取消注释<br><img src="/images/pasted-74.png" alt="upload successful"></p></blockquote><h3 id="站点根目录"><a href="#站点根目录" class="headerlink" title="站点根目录"></a>站点根目录</h3><blockquote><p>新建文件source/_data/style.styl<br><img src="/images/pasted-76.png" alt="upload successful"></p></blockquote><h3 id="输入相关代码"><a href="#输入相关代码" class="headerlink" title="输入相关代码"></a>输入相关代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加背景图片</span></span><br><span class="line">body &#123;</span><br><span class="line">      background: url(https:<span class="comment">//source.unsplash.com/random/1600x900?wallpapers);//自己喜欢的图片地址</span></span><br><span class="line">      background-size: cover;</span><br><span class="line">      background-repeat: no-repeat;</span><br><span class="line">      background-attachment: fixed;</span><br><span class="line">      background-position: <span class="number">50</span>% <span class="number">50</span>%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改主体透明度</span></span><br><span class="line">.main-inner &#123;</span><br><span class="line">      background: #fff;</span><br><span class="line">      opacity: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改菜单栏透明度</span></span><br><span class="line">.header-inner &#123;</span><br><span class="line">      opacity: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/images/pasted-77.png" alt="upload successful"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;主题配置文件-config-yml&quot;&gt;&lt;a href=&quot;#主题配置文件-config-yml&quot; class=&quot;headerlink&quot; title=&quot;主题配置文件_config.yml&quot;&gt;&lt;/a&gt;主题配置文件_config.yml&lt;/h3&gt;&lt;blockquote&gt;
-
-      
-    
-    </summary>
-    
-      <category term="misc" scheme="https://bufsnake.github.io/categories/misc/"/>
-    
-    
-      <category term="hexo" scheme="https://bufsnake.github.io/tags/hexo/"/>
     
   </entry>
   

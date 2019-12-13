@@ -6,6 +6,17 @@
     <content type="text"><![CDATA[TODO…约束自己执行想要执行的事情 This is my TODO… 还在学习中…]]></content>
   </entry>
   <entry>
+    <title><![CDATA[phar反序列化]]></title>
+    <url>%2Fphar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.html</url>
+    <content type="text"><![CDATA[漏洞作用在不使用unserialize()函数的情况下触发PHP反序列化漏洞 触发条件使用phar://协议读取文件的时候，文件内容会被解析成phar对象，然后phar对象内的Meta data 信息会被反序列化 如果要生成phar文件，要在php.ini中把phar只读给关闭 123php.ini[Phar]phar.readonly = Off 案例演示1234567891011121314&lt;?php$phar = new Phar('test.phar');$phar-&gt;startBuffering();$phar-&gt;addFromString('test.txt', 'text');$phar-&gt;setStub('&lt;?php __HALT_COMPILER(); ? &gt;'); // add object of any class as meta dataclass AnyClass &#123;&#125;$object = new AnyClass;$object-&gt;data = 'rips';$phar-&gt;setMetadata($object);$phar-&gt;stopBuffering(); 1php -c /Applications/XAMPP/xamppfiles/etc/php.ini phar.php //执行生成的文件如下 1234567891011121314&lt;?php// add object of any class as meta dataclass AnyClass &#123; function __destruct()&#123; echo $this-&gt;data; &#125; function __sleep()&#123; echo 'sleep'; &#125; function __wakeup()&#123; echo 'wakeup&lt;br&gt;'; &#125;&#125;include('phar://test.phar'); // 触发反序列化 能够触发反序列化的函数有12345678910include('phar://test.phar');var_dump(file('phar://test.phar'));var_dump(fopen('phar://test.phar','r'));var_dump(file_get_contents('phar://test.phar'));var_dump(file_get_contents('phar://test.jpg'));(把文件名改成jpg也有效)var_dump(file_exists('phar://test.phar'));file_exists($_GET['file']);md5_file($_GET['file']);filemtime($_GET['file']);filesize($_GET['file']); referhttps://mp.weixin.qq.com/s/TNAdeBNBErYjtTGGfentFg]]></content>
+      <categories>
+        <category>学习研究</category>
+      </categories>
+      <tags>
+        <tag>phar反序列化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[C++ 符号修饰和函数签名]]></title>
     <url>%2FC-%E7%AC%A6%E5%8F%B7%E4%BF%AE%E9%A5%B0%E5%92%8C%E5%87%BD%E6%95%B0%E7%AD%BE%E5%90%8D.html</url>
     <content type="text"><![CDATA[前言 在开始的时候，源文件与目标文件的函数的符号名是相同的。后来UNIX平台和C语言发明时，已经存在很多汇编编写的库和目标文件，一个C程序要使用他们，就不能定义这些库中定义的函数和变量的名字作为符号，否则会产生冲突。为了防止类似的符号名冲突，UNIX下的C语言就规定，C语言源代码文件中的所有全局的变量和函数经过编译以后，相对应的符号名前加上下划线”“。而Fortran语言的源代码经过编译以后，所有的符号名前加上”“，后面也加上”_”。比如一个C语言函数”foo”，那么它编译后的符号名就是”_foo”；如果是Fortran语言，就是”foo“。 这种方法能够暂时减少多种语言目标文件之间的符号冲突的概率，但还是没有从根本上解决符号冲突的问题。比如同一种语言编写的目标文件还有可能会产生符号冲突，于是像C++这样的后来设计的语言开始考虑到了这个问题，增加了名称空间（Namespace）的方法来解决多模块的符号冲突问题。 在现在的Linux下的GCC编译器中，默认情况下已经去掉了在C语言符号前加”“的这种方式；但是Windows平台下的编译器还保持的这样的传统，比如Visual C++编译器就会在C语言符号前加”“，GCC在Windows平台下的版本（cygwin、mingw）也会加”_”。GCC编译器也可以通过参数选项”-fleading-underscore”或”-fno-leading-underscore”来打开和关闭是否在C语言符号前加上下划线。 符号修饰1234567891011121314int func(int); float func(float); class C &#123; int func(int); class C2 &#123; int func(int); &#125;; &#125;; namespace N &#123; int func(int); class C &#123; int func(int); &#125;; &#125; 上面的6个函数签名在GCC编译器下，相对应的修饰后名称如下所示： 1234567函数签名 符号名int func(int) _Z4funcifloat func(float) _Z4funcfint C::func(int) _ZN1C4funcEiint C::C2::func(int) _ZN1C2C24funcEiint N::func(int) _ZN1N4funcEiint N::C::func(int) _ZN1N1C4funcEi GCC的基本C++名称修饰方法如下 所有的符号都以”_Z”开头，对于嵌套的名字（在名称空间或在类里面的），后面紧跟”N”，然后是各个名称空间和类的名字，每个名字前是名字字符串长度，再以”E”结尾。 比如N::C::func经过名称修饰以后就是_ZN1N1C4funcE。 对于一个函数来说，它的参数列表紧跟在”E”后面，对于int类型来说，就是字母”i”。 所以整个N::C::func(int)函数签名经过修饰为_ZN1N1C4funcEi。 C++中的全局变量和静态变量也有同样的机制 对于全局变量来说，它跟函数一样都是一个全局可见的名称，它也遵循上面的名称修饰机制，比如一个名称空间foo中的全局变量bar，它修饰后的名字为：_ZN3foo3barE。 变量的类型并没有被加入到修饰后名称中，所以不论这个变量是整形还是浮点型甚至是一个全局对象，它的名称都是一样的。 名称修饰机制也被用来防止静态变量的名字冲突。 比如 main() 函数里面有一个静态变量叫foo，而 func() 函数里面也有一个静态变量叫foo。 为了区分这两个变量，GCC会将它们的符号名分别修饰成两个不同的名字”_ZZ4mainE3foo”和”_ZZ4funcE3foo”.]]></content>
@@ -223,8 +234,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>jactf</tag>
         <tag>reverse</tag>
+        <tag>jactf</tag>
       </tags>
   </entry>
   <entry>
@@ -235,8 +246,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>jactf</tag>
         <tag>reverse</tag>
+        <tag>jactf</tag>
       </tags>
   </entry>
   <entry>
@@ -269,8 +280,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>writeup</tag>
+        <tag>pwn</tag>
         <tag>pwnable.tw</tag>
       </tags>
   </entry>
@@ -282,8 +293,8 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>heap</tag>
         <tag>pwn</tag>
+        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -294,9 +305,9 @@
         <category>pwn</category>
       </categories>
       <tags>
-        <tag>pwn</tag>
         <tag>writeup</tag>
         <tag>pwntools</tag>
+        <tag>pwn</tag>
         <tag>rop</tag>
       </tags>
   </entry>
