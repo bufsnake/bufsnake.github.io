@@ -1,353 +1,279 @@
-<!--
-	作者：Sariay
-	时间：2018-09-25
-	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
--->
 <!DOCTYPE html>
-<html class="html-loading">
-		
+<html lang="zh-CN">
+
+
+
+
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-  <title>
-    
-      段的机制浅析 | bufsnake
-    
-  </title>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="有梦就去追，没死就别停">
   <meta name="author" content="bufsnake">
   <meta name="keywords" content="web安全,逆向,ctf,pwn,crypto,misc,android,安卓,破解,底层">
-  <meta name="description" content="香香张">
-	<!-- favicon -->
-  <link rel="shortcut icon" href="/img/favicon.ico">
+  <title>段的机制浅析 ~ bufsnake</title>
 
-  <!-- css -->
-  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/Annie.css">
-  
-  <!-- jquery -->
-	<script src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
 
-  <!-- leancloud -->
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-<script src="/js/leancloud.js"></script>
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
 </head>
-	<body>
-		<!-- Preloader -->
 
 
-<!-- header -->
-<header class="fixbackground" data-img-mode="normal" data-normal-src="/img/bufsnake.png" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
-	<div class="mask">
-		<!-- Logo and navigation -->
-		<div class="h-header">
-			<div id="logo">
-				<a href="/">
-						
-						<img src="/images/bufsnake.png" alt="Logo">
-					
-				</a>
-			</div>
-			
-			<div id="navigation-show">
-				<ul>
-	
-		<li class="menu-home">
-			<a href="/" class="menu-item-home">主页</a>
-		</li>
-	
-		<li class="menu-archive">
-			<a href="/archives" class="menu-item-archive">归档</a>
-		</li>
-	
-		<li class="menu-categories">
-			<a href="/categories" class="menu-item-categories">分类</a>
-		</li>
-	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags">标签</a>
-		</li>
-	
-		<li class="menu-about">
-			<a href="/about" class="menu-item-about">关于</a>
-		</li>
-	
-		<li class="menu-gallery">
-			<a href="/gallery" class="menu-item-gallery">相册</a>
-		</li>
-	
-		<li class="menu-friend">
-			<a href="/friend" class="menu-item-friend">友链</a>
-		</li>
-	
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>bufsnake</strong>&nbsp;</a>
 
-	
-		<li class="menu-search">
-			<a href="javascript:;" class="popup-trigger">搜索</a>
-		</li>
-	
-</ul>
-			</div>				
-		</div>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-		<!-- motto -->
-		<div class="h-body">	
-			
-				<p class="motto"></p>
-			
-		</div>
-		
-		<!-- others: such as time... -->			
-		<div class="h-footer">
-			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
-			</a>
-
-			
-				<!-- 
-	This is only a demo, please go to "https://time.is" to set your city time! 
--->
-<style type="text/css">
-	.header-date {
-		font-size: 1.6rem;
-		color: #fff;
-		position: absolute;
-		bottom: 5px;
-		right: 1rem;
-		writing-mode: tb-rl;
-	}	
-	
-	.header-date a {
-		border-bottom: none;
-	}
-
-	@media only screen and (max-width: 768 ) {
-		.header-date {
-			font-size: 1rem;
-		}			
-	}
-</style>
-<div class="header-date">
-	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
-	<span id="Beijing_z43d"></span>
-</div>
-<script src="//widget.time.is/zh.js"></script>
-<script>
-	time_is_widget.init({
-		Beijing_z43d:{
-			template:"DATE", 
-			date_format:"year年 monthname dnum日"
-		}
-	});
-</script>
-			
-		</div>
-	</div>
-</header>
-
-<div id="navigation-hide">
-	<!-- Progress bar -->
-	<div id="progress-bar"></div>
-
-	<!-- Progress percent -->
-	<div id="progress-percentage"><h1>0.0%</h1></div>
-
-	<div class="toc-switch"><span class="switch-button">目录</span></div>
-
-	<!-- Page title -->
-	<p>
-		
-			当前文章&nbsp;:&nbsp;《段的机制浅析》
-		
-	</p>
-
-	<!-- Nav trigger for navigation-H-->
-	<a class="nav-trigger"><span></span></a>
-</div>
-
-<!-- Navigation in div(id="navigation-H") -->
-<nav class="nav-container" id="cd-nav">
-	<div class="nav-header">
-		<h3>Navigation</h3>
-		<a href="javascript:;" class="nav-close"></a>
-	</div>
-	<div class="nav-body">
-		<ul>
-	
-		<li class="menu-home">
-			<a href="/" class="menu-item-home">主页</a>
-		</li>
-	
-		<li class="menu-archive">
-			<a href="/archives" class="menu-item-archive">归档</a>
-		</li>
-	
-		<li class="menu-categories">
-			<a href="/categories" class="menu-item-categories">分类</a>
-		</li>
-	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags">标签</a>
-		</li>
-	
-		<li class="menu-about">
-			<a href="/about" class="menu-item-about">关于</a>
-		</li>
-	
-		<li class="menu-gallery">
-			<a href="/gallery" class="menu-item-gallery">相册</a>
-		</li>
-	
-		<li class="menu-friend">
-			<a href="/friend" class="menu-item-friend">友链</a>
-		</li>
-	
-
-	
-		<li class="menu-search">
-			<a href="javascript:;" class="popup-trigger">搜索</a>
-		</li>
-	
-</ul>
-	</div>
-	<div class="nav-footer">
-		<ul>
-	
-		<li>
-			<a href="http://github.com/bufsnake" target="_blank">
-				<i class="fa fa-github"></i>
-			</a>
-		</li>
-	
-		<li>
-			<a href="/atom.xml" target="_blank">
-				<i class="fa fa-rss"></i>
-			</a>
-		</li>
-			
-</ul>
-
-	</div>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 </nav>
-			
-		<!--main-->
-		<main>
-			<!--
-	时间：2018-11-17
-	描述：
-		插件名称：katelog.min.js
-		插件作者：KELEN
-		插件来源: https://github.com/KELEN/katelog
--->
 
-	
-		<div class="layout-toc">
-			<div id="layout-toc">
-				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
-			</div>
-		</div>
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-		
-		<script src="/plugin/toc/katelog.min.js"></script>
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期日, 十月 13日 2019, 5:07 下午
+                </p>
+              
 
-		
-	 
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.5k 字
+                  </span>&nbsp;
+                
 
-<div class="layout-post">
-	<div id="layout-post">
-	<div class="article-title">
-		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-		
-	<a href="/段的机制浅析.html" itemprop="url">
-		段的机制浅析
-	</a>
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      5 分钟
+                  </span>&nbsp;
+                
 
-	</div>
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
 
-	<div class="article-meta">
-		<span>
-			<i class="fa fa-calendar"></i>
-			
+          
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <main>
+    
+      
 
-	发布于
-
-	<a href="/段的机制浅析.html" itemprop="url">
-		<time datetime="2019-10-13T09:07:49.000Z" itemprop="datePublished">
-	  		2019-10-13
-	  </time>
-	</a>
-	&nbsp;
-
-
-
-
-
-			
-
-
-
-
-	更新于
-
-	<a href="/段的机制浅析.html" itemprop="url">
-		<time datetime="2019-10-13T09:07:49.000Z" itemprop="dateUpdated">
-	  		2019-11-25
-	  </time>
-	</a> 
-
-
-
-		</span>
-		<span>
-			<i class="fa fa-tags"></i>
-			
-	
-		<a href="/tags/段的机制/" class=" ">
-			段的机制
-		</a>
-	
-		
-		</span>
-		
-		
-
-
-
-	</div>
-
-	<div class="article-content" id="article-content">
-		<h2 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h2><blockquote>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h2><blockquote>
 <p>X86 CPU的3个模式：实模式(直接操作物理地址)、保护模式(操作虚拟内存)和虚拟8086模式(保护模式下的16位模拟)</p>
 </blockquote>
 <blockquote>
 <p>X64：x86是intel推出的复杂指令集，后来amd拓展了X86指令集，称为称为x86-64，后更名为AMD 64，intel也出了自己的一套64位指令集，但是不向下兼容，所以就没了，继而移植了amd 64位指令集，称为intel 64(能够兼容x86指令集的)</p>
 </blockquote>
-<h2 id="段的机制"><a href="#段的机制" class="headerlink" title="段的机制"></a>段的机制</h2><h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov dword ptr ds:[<span class="number">0x123456</span>],eax</span><br><span class="line">实际操作的是 ds.base + <span class="number">0x123456</span> 地址</span><br></pre></td></tr></table></figure>
+<h2 id="段的机制"><a href="#段的机制" class="headerlink" title="段的机制"></a>段的机制</h2><h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><pre><code class="c">mov dword ptr ds:[0x123456],eax
+实际操作的是 ds.base + 0x123456 地址
+</code></pre>
 <h4 id="段寄存器的种类"><a href="#段寄存器的种类" class="headerlink" title="段寄存器的种类"></a>段寄存器的种类</h4><blockquote>
 <p>ES(拓展段)、CS(代码段)、SS(堆栈段)、DS(数据段)、FS、GS、LDTR、TR 共8个段寄存器</p>
 </blockquote>
-<h4 id="段寄存器的读写"><a href="#段寄存器的读写" class="headerlink" title="段寄存器的读写"></a>段寄存器的读写</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读只能读<span class="number">16</span>位，写能写入<span class="number">96</span>位</span><br><span class="line">mov ax, ds	必须指定写入的地址为<span class="number">16</span>位</span><br><span class="line">mov ds, eax</span><br><span class="line">除LDTR和TR外，其余段寄存器可用MOV指令进行读写</span><br></pre></td></tr></table></figure>
-<h4 id="段寄存器的结构"><a href="#段寄存器的结构" class="headerlink" title="段寄存器的结构"></a>段寄存器的结构</h4><p><img src="/images/pasted-170.png" alt="upload successful"></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SegMent</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    WORD Selecter,   <span class="number">16b</span>it<span class="comment">//可见部分 段选择子</span></span><br><span class="line">    WROD Attribute,  <span class="number">16b</span>it<span class="comment">//属性  可读/可写/可执行</span></span><br><span class="line">    DWORD Base,      <span class="number">16b</span>it<span class="comment">//Base  段的起始地址</span></span><br><span class="line">    DWORD Limit      <span class="number">16b</span>it<span class="comment">//Limit 段的整体长度</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-171.png" alt="upload successful"></p>
-<h4 id="根据上图进行段寄存器的不可见部分探测"><a href="#根据上图进行段寄存器的不可见部分探测" class="headerlink" title="根据上图进行段寄存器的不可见部分探测"></a>根据上图进行段寄存器的不可见部分探测</h4><h5 id="探测Attribute是否存在"><a href="#探测Attribute是否存在" class="headerlink" title="探测Attribute是否存在"></a>探测Attribute是否存在</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    __asm&#123;</span><br><span class="line">        mov ax, cs</span><br><span class="line">        mov ds, ax                        <span class="comment">//ds == cs</span></span><br><span class="line">        mov dword ptr ds:[<span class="number">0x1000</span>], eax    <span class="comment">//对ds.base + 0x1000 地址进行操作就相当于对 cs.base + 0x1000 地址进行操作，但由于 cs 属性是不可写，所以编译出错。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="探测Base是否存在"><a href="#探测Base是否存在" class="headerlink" title="探测Base是否存在"></a>探测Base是否存在</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    __asm&#123;</span><br><span class="line">        mov ax, fs</span><br><span class="line">        mov ds, ax                   <span class="comment">//ds == fs</span></span><br><span class="line">        mov dword ptr ds:[<span class="number">0</span>], eax    <span class="comment">//对ds.base + 0x0 地址进行操作就相当于对 fs.base + 0x0 地址进行操作</span></span><br><span class="line">        <span class="comment">//等同 mov dword ptr [0x7FFDE000], eax ,正常情况下，我们对0地址是不能读也不能写，这里可以编译通过，是因为我们对地址 0x0x7FFDE000 进行写操作。将fs换成其余的段寄存器，就会报错</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="探测Limit是否存在"><a href="#探测Limit是否存在" class="headerlink" title="探测Limit是否存在"></a>探测Limit是否存在</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    __asm&#123;</span><br><span class="line">        mov ax, fs</span><br><span class="line">        mov ds, ax                        <span class="comment">//ds == fs</span></span><br><span class="line">        mov dword ptr ds:[<span class="number">0x1000</span>], eax    <span class="comment">//对ds.base + 0x1000 地址进行操作就相当于对 fs.base + 0x1000 地址进行操作，但由于 fs 支持的长度只是到0xFFF，0x1000 &gt; 0xFFF，所以编译出错。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="段寄存器的读写"><a href="#段寄存器的读写" class="headerlink" title="段寄存器的读写"></a>段寄存器的读写</h4><pre><code class="c">读只能读16位，写能写入96位
+mov ax, ds    必须指定写入的地址为16位
+mov ds, eax
+除LDTR和TR外，其余段寄存器可用MOV指令进行读写
+</code></pre>
+<h4 id="段寄存器的结构"><a href="#段寄存器的结构" class="headerlink" title="段寄存器的结构"></a>段寄存器的结构</h4><p><img src="/images/pasted-170.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<pre><code class="c">struct SegMent
+{
+    WORD Selecter,   16bit//可见部分 段选择子
+    WROD Attribute,  16bit//属性  可读/可写/可执行
+    DWORD Base,      16bit//Base  段的起始地址
+    DWORD Limit      16bit//Limit 段的整体长度
+};
+</code></pre>
+<p><img src="/images/pasted-171.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="根据上图进行段寄存器的不可见部分探测"><a href="#根据上图进行段寄存器的不可见部分探测" class="headerlink" title="根据上图进行段寄存器的不可见部分探测"></a>根据上图进行段寄存器的不可见部分探测</h4><h5 id="探测Attribute是否存在"><a href="#探测Attribute是否存在" class="headerlink" title="探测Attribute是否存在"></a>探测Attribute是否存在</h5><pre><code class="c">#include &lt;stdio.h&gt;
+
+int main(){
+    __asm{
+        mov ax, cs
+        mov ds, ax                        //ds == cs
+        mov dword ptr ds:[0x1000], eax    //对ds.base + 0x1000 地址进行操作就相当于对 cs.base + 0x1000 地址进行操作，但由于 cs 属性是不可写，所以编译出错。
+    }
+    return 0;
+}
+</code></pre>
+<h5 id="探测Base是否存在"><a href="#探测Base是否存在" class="headerlink" title="探测Base是否存在"></a>探测Base是否存在</h5><pre><code class="c">#include &lt;stdio.h&gt;
+
+int main(){
+    __asm{
+        mov ax, fs
+        mov ds, ax                   //ds == fs
+        mov dword ptr ds:[0], eax    //对ds.base + 0x0 地址进行操作就相当于对 fs.base + 0x0 地址进行操作
+        //等同 mov dword ptr [0x7FFDE000], eax ,正常情况下，我们对0地址是不能读也不能写，这里可以编译通过，是因为我们对地址 0x0x7FFDE000 进行写操作。将fs换成其余的段寄存器，就会报错
+    }
+    return 0;
+}
+</code></pre>
+<h5 id="探测Limit是否存在"><a href="#探测Limit是否存在" class="headerlink" title="探测Limit是否存在"></a>探测Limit是否存在</h5><pre><code class="c">#include &lt;stdio.h&gt;
+
+int main(){
+    __asm{
+        mov ax, fs
+        mov ds, ax                        //ds == fs
+        mov dword ptr ds:[0x1000], eax    //对ds.base + 0x1000 地址进行操作就相当于对 fs.base + 0x1000 地址进行操作，但由于 fs 支持的长度只是到0xFFF，0x1000 &gt; 0xFFF，所以编译出错。
+    }
+    return 0;
+}
+</code></pre>
 <h3 id="段描述符与段选择子"><a href="#段描述符与段选择子" class="headerlink" title="段描述符与段选择子"></a>段描述符与段选择子</h3><h4 id="GDT-全局描述符表-与LDT-本地描述符表"><a href="#GDT-全局描述符表-与LDT-本地描述符表" class="headerlink" title="GDT(全局描述符表)与LDT(本地描述符表)"></a>GDT(全局描述符表)与LDT(本地描述符表)</h4><blockquote>
 <p>windbg查看GDT表</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">r gdtr  <span class="comment">//查看GDT表的位置</span></span><br><span class="line">r gdtl  <span class="comment">//查看GDT表的长度</span></span><br><span class="line">dd <span class="number">0x80808080</span>(地址) <span class="comment">//查看指定地址的内容(四字节查看)</span></span><br><span class="line">dq <span class="number">0x80808080</span>(地址) <span class="comment">//查看指定地址的内容(八字节查看)</span></span><br><span class="line">dq <span class="number">0x80808080</span>(地址) L40 <span class="comment">//查看指定地址的内容(八字节查看)，显示40组</span></span><br></pre></td></tr></table></figure>
-<h4 id="段选择子结构"><a href="#段选择子结构" class="headerlink" title="段选择子结构"></a>段选择子结构</h4><p><img src="/images/pasted-172.png" alt="upload successful"></p>
-<h4 id="段描述符结构"><a href="#段描述符结构" class="headerlink" title="段描述符结构"></a>段描述符结构</h4><p><img src="/images/pasted-173.png" alt="upload successful"></p>
-<p><img src="/images/pasted-174.png" alt="upload successful"></p>
-<p><img src="/images/pasted-175.png" alt="upload successful"></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">数据 E 拓展位</span><br><span class="line">	根据D/B位可知段的上限，<span class="number">0</span>为<span class="number">64</span>kb，<span class="number">1</span>为<span class="number">4</span>GB。</span><br><span class="line">	向上拓展</span><br><span class="line">		ds.base + limit 的红色区域是可用的</span><br><span class="line">	向下拓展</span><br><span class="line">		出了红色部分，其余是可用的</span><br><span class="line">代码 C 一致位</span><br><span class="line">	非一致代码段</span><br><span class="line">	一致代码段</span><br></pre></td></tr></table></figure>
+<pre><code class="c">r gdtr  //查看GDT表的位置
+r gdtl  //查看GDT表的长度
+dd 0x80808080(地址) //查看指定地址的内容(四字节查看)
+dq 0x80808080(地址) //查看指定地址的内容(八字节查看)
+dq 0x80808080(地址) L40 //查看指定地址的内容(八字节查看)，显示40组
+</code></pre>
+<h4 id="段选择子结构"><a href="#段选择子结构" class="headerlink" title="段选择子结构"></a>段选择子结构</h4><p><img src="/images/pasted-172.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="段描述符结构"><a href="#段描述符结构" class="headerlink" title="段描述符结构"></a>段描述符结构</h4><p><img src="/images/pasted-173.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<p><img src="/images/pasted-174.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<p><img src="/images/pasted-175.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<pre><code class="c">数据 E 拓展位
+    根据D/B位可知段的上限，0为64kb，1为4GB。
+    向上拓展
+        ds.base + limit 的红色区域是可用的
+    向下拓展
+        出了红色部分，其余是可用的
+代码 C 一致位
+    非一致代码段
+    一致代码段
+</code></pre>
 <h3 id="段权限检查"><a href="#段权限检查" class="headerlink" title="段权限检查"></a>段权限检查</h3><blockquote>
 <p>CPU分为四个级别R0、R1、R2、R3(操作系统并没有使用R1、R2)，R0运行内核记驱动程序，R3运行用户层程序。</p>
 </blockquote>
 <p><code>CPL：当前特权级别</code></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">根据CS、SS的段选择子的RPL值可知道CPL的值</span><br><span class="line"></span><br><span class="line">假设CS为<span class="number">0x001B</span>（<span class="number">0000</span> <span class="number">0000</span> <span class="number">0001</span> <span class="number">1011</span>）</span><br><span class="line">RPL为<span class="number">3</span>，所以CPL为<span class="number">3</span>，所以应用程序运行在<span class="number">3</span>环，是用户层程序。</span><br><span class="line"></span><br><span class="line">数据段的权限检查</span><br><span class="line">	检查CPL权限是否大于等于DPL，RPL权限是否大于等于DPL</span><br><span class="line">	假设CPL = <span class="number">0</span></span><br><span class="line">	mov ax，<span class="number">000B</span></span><br><span class="line">	mov ds，ax       <span class="comment">//RPL = 3，指向的段描述符的DPL为0</span></span><br><span class="line">	CPL权限与DPL相同，检测通过，RPL权限比DPL权限低，检测失败</span><br><span class="line"></span><br><span class="line">代码段、系统描述符的权限检查与数据段不完全相同，后面会学习到。</span><br></pre></td></tr></table></figure>
+<pre><code class="c">根据CS、SS的段选择子的RPL值可知道CPL的值
+
+假设CS为0x001B（0000 0000 0001 1011）
+RPL为3，所以CPL为3，所以应用程序运行在3环，是用户层程序。
+
+数据段的权限检查
+    检查CPL权限是否大于等于DPL，RPL权限是否大于等于DPL
+    假设CPL = 0
+    mov ax，000B
+    mov ds，ax       //RPL = 3，指向的段描述符的DPL为0
+    CPL权限与DPL相同，检测通过，RPL权限比DPL权限低，检测失败
+
+代码段、系统描述符的权限检查与数据段不完全相同，后面会学习到。
+</code></pre>
 <h3 id="段寄存器的操作"><a href="#段寄存器的操作" class="headerlink" title="段寄存器的操作"></a>段寄存器的操作</h3><blockquote>
 <p>mov ds, ax //ds的值不能乱给，需要符合段选择子</p>
 </blockquote>
@@ -357,438 +283,379 @@
 <blockquote>
 <p>没有LCS是因为更改CS涉及到更改EIP。</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">例：</span><br><span class="line">    les ecx, fword ptr ds:[<span class="number">0x1000</span>] <span class="comment">//将ds.base + 0x1000 地址处的内容的高两个字节放入es，剩下四个字节放入ecx。fwrod（6字节）</span></span><br><span class="line"></span><br><span class="line">假设ax = <span class="number">0x001B</span>（<span class="number">0000</span> <span class="number">0000</span> <span class="number">0001</span> <span class="number">1011</span>）</span><br><span class="line">所以：RPL = <span class="number">3</span>（请求特权级别为<span class="number">3</span>，由<span class="number">11</span>给出）</span><br><span class="line">     所要查询的表是GDT表（由 <span class="number">0</span> 给出）</span><br><span class="line">     指定获取表中下标为<span class="number">3</span>的段描述符（由<span class="number">0000</span> <span class="number">0000</span> <span class="number">0001</span> <span class="number">1</span>给出,假设为 <span class="number">0x004F9AFF</span>`<span class="number">0xFFFFFFFF</span>）</span><br><span class="line">     根据段描述符可得</span><br><span class="line">     	段基地址：<span class="number">0x00FFFFFF</span></span><br><span class="line">        段极限：<span class="number">0x000FFFFF</span>(G位为<span class="number">0</span>，所以在前面填充<span class="number">12</span>个<span class="number">0</span>)</span><br><span class="line">        段的属性：<span class="number">0x4F9A</span></span><br></pre></td></tr></table></figure>
-<h3 id="回过头，在看一下段寄存器的结构"><a href="#回过头，在看一下段寄存器的结构" class="headerlink" title="回过头，在看一下段寄存器的结构"></a>回过头，在看一下段寄存器的结构</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SegMent</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    WORD Selecter,   <span class="number">16b</span>it<span class="comment">//可见部分 段选择子         指向的是段选择子结构</span></span><br><span class="line">    WROD Attribute,  <span class="number">16b</span>it<span class="comment">//属性   可读/可写/可执行   指向的是段描述符结构的 G + D/B + L + AVL + 段界限0 + P + DPL + S + TYPE</span></span><br><span class="line">    DWORD Base,      <span class="number">32b</span>it<span class="comment">//Base  段的起始地址       指向的是段描述符结构的 段基地址0 + 段基地址1 + 段基地址2</span></span><br><span class="line">    DWORD Limit      <span class="number">32b</span>it<span class="comment">//Limit 段极限             指向的是段描述符结构的 段界限0 + 段界限1 合起来是20位，根据 G 位的值，若为0，则在其前面填充12位的0，最大就为0x000FFFFF，若为1，则在其后面填充12位的1，最大就为0xFFFFFFFF</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">虽然只能可见部分只有<span class="number">16b</span>it，但是通过它去查找GDT/LDT表，就能获得其余<span class="number">80b</span>it的值</span><br></pre></td></tr></table></figure>
+<pre><code class="c">例：
+    les ecx, fword ptr ds:[0x1000] //将ds.base + 0x1000 地址处的内容的高两个字节放入es，剩下四个字节放入ecx。fwrod（6字节）
+
+假设ax = 0x001B（0000 0000 0001 1011）
+所以：RPL = 3（请求特权级别为3，由11给出）
+     所要查询的表是GDT表（由 0 给出）
+     指定获取表中下标为3的段描述符（由0000 0000 0001 1给出,假设为 0x004F9AFF`0xFFFFFFFF）
+     根据段描述符可得
+         段基地址：0x00FFFFFF
+        段极限：0x000FFFFF(G位为0，所以在前面填充12个0)
+        段的属性：0x4F9A
+</code></pre>
+<h3 id="回过头，在看一下段寄存器的结构"><a href="#回过头，在看一下段寄存器的结构" class="headerlink" title="回过头，在看一下段寄存器的结构"></a>回过头，在看一下段寄存器的结构</h3><pre><code class="c">struct SegMent
+{
+    WORD Selecter,   16bit//可见部分 段选择子         指向的是段选择子结构
+    WROD Attribute,  16bit//属性   可读/可写/可执行   指向的是段描述符结构的 G + D/B + L + AVL + 段界限0 + P + DPL + S + TYPE
+    DWORD Base,      32bit//Base  段的起始地址       指向的是段描述符结构的 段基地址0 + 段基地址1 + 段基地址2
+    DWORD Limit      32bit//Limit 段极限             指向的是段描述符结构的 段界限0 + 段界限1 合起来是20位，根据 G 位的值，若为0，则在其前面填充12位的0，最大就为0x000FFFFF，若为1，则在其后面填充12位的1，最大就为0xFFFFFFFF
+};
+
+虽然只能可见部分只有16bit，但是通过它去查找GDT/LDT表，就能获得其余80bit的值
+</code></pre>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
 <p>学习完这些，能够知道RPL、DPL、CPL分别只什么，怎么找到，段选择子与段描述符的结构以及每一位的作用，如何找到DGT/LDT表，能够按顺序背下ES、CS、SS、DS、FS、GS、LSTR、TR的名字，给一个段选择子能够分析出段的其余80bit的值。</p>
 </blockquote>
-	
-	</div>
-	
-	<div id="current-post-cover" data-scr="https://sariay.github.io/Random-img/17.jpg"></div>
 
-	<!-- relate post, comment...-->
-	<div class="investment-container">
-		<div class="investment-header">
-			<div class="investment-title-1">
-				<div class="on">相关文章</div>
-				<div>评论</div>
-				<div>分享</div>
-			</div>
-			<div class="investment-title-2">	            
-				
-	<span>
-		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
-		
-			<a href="/Sudo提权漏洞复现.html" title="Sudo提权漏洞复现" rel="prev">
-				&laquo;上一篇
-			</a>
-		
-		
-			<a href="/KCTF-1.html" title="KCTF-1" rel="next">
-				下一篇&raquo;
-			</a>
-			
-	</span>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6">保护机制</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%AE%B5%E7%9A%84%E6%9C%BA%E5%88%B6">段的机制</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
 
-
-      		
-			</div>	
-		</div>
-		
-		<div class="investment-content">
-			<div class="investment-content-list">
-				
-
-<div class="relate-post">
-	
-		<div>Please check the post_relate setting in config.yml of hexo-theme-Annie! You should make sure 'postsEnable == true' and the number of site posts greater than 1.</div>	
-	
-</div>	
-			</div>
-			<div class="investment-content-list">
-				<div class="layout-comment">
-
-	
-
-		
-
-			<!-- gitalk comment -->
-			<!-- show gitalk comment -->
-<div id="gitalk-container"></div>
-
-<!-- gitalk`s css & js -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<link rel="stylesheet" href="/css/comment.css">
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-	//Thanks O-R
-	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
-	//去除尾部匹配正则数组的字符串  
-	//Remove redundant characters
-	String.prototype.trimEnd = function(regStr) {
-		var result = this;
-		if(regStr == undefined || regStr == null || regStr == "") {
-			return result;
-		}
-		var array = regStr.split(',');
-
-		if(array.length > 0) {
-
-			var c = array.shift();
-			var str = this;
-			var i = str.length;
-			var rg = new RegExp(c);
-			var matchArr = str.match(rg);
-
-			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
-				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
-					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
-					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
-					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
-					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
-					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
-					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
-					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
-				matchStr = matchStr + '$';
-				result = str.replace(new RegExp(matchStr), "");
-			}
-
-			if(array.length > 0) {
-				return result.trimEnd(array.join())
-			} else {
-				return result;
-			}
-		}
-	};
-
-	//Create gitalk
-	var gitalk = new Gitalk({
-		clientID: '1f551117201295bb3de7',
-		clientSecret: 'cf3fde7514090c73fdf0af38b28198fce1eca222',
-		//id: window.location.pathname,
-		//id: decodeURI(window.location.pathname),
-		//id: (window.location.pathname).split("/").pop().substring(0, 49),
-		id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
-		repo: 'gitalk',
-		owner: 'bufsnake',
-		admin: 'bufsnake',
-		distractionFreeMode: 'true',
-	})
-	gitalk.render('gitalk-container');
-</script>
-
-		
-		
-	
-
-</div>
-			</div>
-			<div class="investment-content-list">
-				<div class="layout-share">
-	
-	
-
-		
-			
-			<!-- socialShare share -->
-			<div class="social-share"></div>
-
-<!--  css & js -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
-			
-		
-		
-	
+    </div>
+  </div>
 </div>
 
+<!-- custom -->
 
-			</div>
-		</div>	
-	</div>
-	</div>
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '1f551117201295bb3de7',
+      clientSecret: 'cf3fde7514090c73fdf0af38b28198fce1eca222',
+      repo: 'gitalk',
+      owner: 'bufsnake',
+      admin: 'bufsnake',
+      id: md5(location.pathname),
+      language: 'zh-CN',
+      perPage: 15,
+      pagerDirection: 'last',
+      createIssueManually: 'true',
+      distractionFreeMode: 'false'
+    });
+
+    gitalk.render('gitalk-container')
+  </script>
+
+
+    
+  </div>
 </div>
 
+    
+  </main>
 
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
 
-	<!-- leancloud -->
-	<!--
-	时间：2018-11-27
-	描述：
-		文章访问量：visitors
-		文章喜欢量：likes	
-		文章排行榜：topNPost
-		其他得说明：
-			01-Cookie相关的函数 
-				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
-			02-visitors相关的函数 
-				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
-				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
-			03-topNPost相关的函数
-				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
-			04-likes相关的函数，
-				参考了01 & 02进行简单的设计与实现
--->
-
-
-	
-
-
-<!-- show math formula -->
-
-
-
-	 
-	<script src="/plugin/clipboard/clipboard.js"></script>
-	<script>
-		// Copy code !
-	    function codePreprocessing() {
-	        $("#article-content .highlight").each(function() {
-
-	            $(this).wrap('<div id="post-code"></div>');
-
-	        })
-
-	        $("#article-content #post-code").each(function() {
-
-	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
-
-	        })
-
-	        $("#article-content .copy-nav").each(function() {
-	            var temp = $(this).next().attr('class'),
-	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
-
-	            $(this).find('.code-language').text(language);
-
-	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
-
-	        });
-	    }
-
-		function codeCopy() {
-		    $('#article-content #post-code').each(function(i) {
-		        var codeCopyId = 'codeCopy-' + i;
-
-		        var codeNode = $(this).find('.code'),
-		            copyButton = $(this).find('.copy-btn');
-
-		        codeNode.attr('id', codeCopyId);
-		        copyButton.attr('data-clipboard-target-id', codeCopyId);
-		    })
-
-		    
-			var clipboard = new ClipboardJS('.copy-btn', {
-					target: function(trigger) {
-						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
-					}
-		      	});
-
-			//pure js
-			function showTooltip(elem, msg) {		   
-				elem.setAttribute('aria-label', msg);
-				elem.setAttribute('class', 'copy-btn copy-status');
-				setTimeout(function() {
-					elem.setAttribute('class', 'copy-btn');
-				}, 2000);
-			}
-
-			clipboard.on('success', function(e) {
-			    e.clearSelection();
-			    console.info('Action:', e.action);		   
-			    console.info('Trigger:', e.trigger);
-			    showTooltip(e.trigger, 'Copied!');
-			    
-			});
-			clipboard.on('error', function(e) {
-			    console.error('Action:', e.action);
-			    console.error('Trigger:', e.trigger);
-			});
-		
-
-		}
-
-		if ($('.layout-post').length) {
-		    codePreprocessing();
-		    codeCopy();
-		} 
-	</script>
-
-
-
-
-
-<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
-<script src="/plugin/fancybox/jquery.fancybox.js"></script>
-
-<script type="text/javascript">
-	var titleID = $('.article-title a'),
-		imageID = $('.article-content img'),
-		videoID = $('.article-content video');
-
-	var postTitle = titleID.text() ? titleID.text() : "No post title!";
-
-	imageID.each(function() {
-		var imgPath = $(this).attr('src'),
-			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
-
-		//给每个匹配的<img>元素打包, 即添加父元素<a>
-		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
-	});
-
-	videoID.each(function() {
-		var videoPath = $(this).attr('src');
-
-		//给每个匹配的<img>元素打包, 即添加父元素<a>
-		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
-	});
-	//TODO：支持html5 video
-
-	if($('#layout-post').length) {
-		$('[data-fancybox="gallery"]').fancybox({
-			loop: true,
-			buttons: [
-				"zoom",
-				"share",
-				"slideShow",
-				"fullScreen",
-				//"download",
-				"thumbs",
-				"close"
-			],
-			protect: false
-		});
-	}
-</script>
-		</main>
-
-		<!--footer-->
-		
-		
-	<!-- set '1' to show motto in all pages! -->
-
-	<script src="/plugin/motto/motto.js"></script>
-	
-	<script type="text/javascript">
-		$(".motto").html( getMingYanContent() );
-	</script>	
-
-
-
-
-	<!--
-	时间：2018-10-3
-	描述：
-		插件名称：hexo-generator-search-zip
-		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
-		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
--->
-<div class="popup search-popup local-search-popup">
-	<div class="local-search-container">
-		<span class="popup-btn-close">
-      		ESC
-   		</span>
-		<div class="local-search-header">
-			<div class="input-prompt">				
-			</div>
-			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
-		</div>
-		<div class="local-search-body">
-			<div id="local-search-output"></div>
-		</div>
-		<div class="local-search-footer">
-			<div class="topN-post">				
-				
-								
-			</div>
-		</div>
-	</div>
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
+  
 
-<script src="/plugin/search/ziploader.js"></script>
-<script src="/plugin/search/search.js"></script>
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
 
-<script type="text/javascript">
-	var search_path = 'search.xml',
-		zip_Path = '/',
-		version_Path = '/',
-		input_Trigger = 'auto',
-		top_N = '2';
-
-	themeLocalSearch({
-		search_path, 
-		zip_Path, 
-		version_Path, 
-		input_Trigger, 
-		top_N
-	});
-</script>
-
-
-<!-- love effect -->
-
-	<script src="/plugin/love/love.js"></script>
-
-
-<!-- back to top -->
-
-	
-	<div id="totop">
-  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
-	</div>
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
+  
+  <br>
 
 
 
-
-<!-- site analysis -->
-
-
-	<!-- site-analysis -->
-	
-<script>
-	var _hmt = _hmt || [];
-	(function() {
-		var hm = document.createElement("script");
-		hm.src = "//hm.baidu.com/hm.js?926b66e71d8f61b2a08a4f0da34fef80";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
+    
 
 
-	
-	
-<!-- Google Analytics -->
-<script type="text/javascript">
-	(function(i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
-		a = s.createElement(o),
-			m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-	ga('create', 'UA-145389457-1', 'auto');
-	ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
+    <!-- cnzz Analytics icon -->
+    
 
-	
-	
- 
+  </div>
+</footer>
 
-<script src="/plugin/vibrant/vibrant.js"></script>
-<script src="/plugin/chinese/chinese.js"></script>
-<script src="/plugin/imgLazyLoader/yall.min.js"></script>
-<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
-<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
-<script src="/js/resizediv.js"></script>
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/popper/popper.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js"></script>
 <script src="/js/main.js"></script>
-	</body>	
+
+
+  <script src="/js/lazyload.js"></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js"></script>
+  
+  <script src="/js/post.js"></script>
+
+
+
+  <script src="/lib/smoothscroll/SmoothScroll.min.js"></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?926b66e71d8f61b2a08a4f0da34fef80";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-145389457-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js"></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "段的机制浅析&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 50,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "false",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+</body>
 </html>

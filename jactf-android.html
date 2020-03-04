@@ -1,793 +1,681 @@
-<!--
-	作者：Sariay
-	时间：2018-09-25
-	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
--->
 <!DOCTYPE html>
-<html class="html-loading">
-		
+<html lang="zh-CN">
+
+
+
+
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-  <title>
-    
-      jactf-android | bufsnake
-    
-  </title>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="有梦就去追，没死就别停">
   <meta name="author" content="bufsnake">
   <meta name="keywords" content="web安全,逆向,ctf,pwn,crypto,misc,android,安卓,破解,底层">
-  <meta name="description" content="香香张">
-	<!-- favicon -->
-  <link rel="shortcut icon" href="/img/favicon.ico">
+  <title>jactf-android ~ bufsnake</title>
 
-  <!-- css -->
-  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/Annie.css">
-  
-  <!-- jquery -->
-	<script src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
 
-  <!-- leancloud -->
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-<script src="/js/leancloud.js"></script>
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
 </head>
-	<body>
-		<!-- Preloader -->
 
 
-<!-- header -->
-<header class="fixbackground" data-img-mode="normal" data-normal-src="/img/bufsnake.png" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
-	<div class="mask">
-		<!-- Logo and navigation -->
-		<div class="h-header">
-			<div id="logo">
-				<a href="/">
-						
-						<img src="/images/bufsnake.png" alt="Logo">
-					
-				</a>
-			</div>
-			
-			<div id="navigation-show">
-				<ul>
-	
-		<li class="menu-home">
-			<a href="/" class="menu-item-home">主页</a>
-		</li>
-	
-		<li class="menu-archive">
-			<a href="/archives" class="menu-item-archive">归档</a>
-		</li>
-	
-		<li class="menu-categories">
-			<a href="/categories" class="menu-item-categories">分类</a>
-		</li>
-	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags">标签</a>
-		</li>
-	
-		<li class="menu-about">
-			<a href="/about" class="menu-item-about">关于</a>
-		</li>
-	
-		<li class="menu-gallery">
-			<a href="/gallery" class="menu-item-gallery">相册</a>
-		</li>
-	
-		<li class="menu-friend">
-			<a href="/friend" class="menu-item-friend">友链</a>
-		</li>
-	
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>bufsnake</strong>&nbsp;</a>
 
-	
-		<li class="menu-search">
-			<a href="javascript:;" class="popup-trigger">搜索</a>
-		</li>
-	
-</ul>
-			</div>				
-		</div>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-		<!-- motto -->
-		<div class="h-body">	
-			
-				<p class="motto"></p>
-			
-		</div>
-		
-		<!-- others: such as time... -->			
-		<div class="h-footer">
-			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
-			</a>
-
-			
-				<!-- 
-	This is only a demo, please go to "https://time.is" to set your city time! 
--->
-<style type="text/css">
-	.header-date {
-		font-size: 1.6rem;
-		color: #fff;
-		position: absolute;
-		bottom: 5px;
-		right: 1rem;
-		writing-mode: tb-rl;
-	}	
-	
-	.header-date a {
-		border-bottom: none;
-	}
-
-	@media only screen and (max-width: 768 ) {
-		.header-date {
-			font-size: 1rem;
-		}			
-	}
-</style>
-<div class="header-date">
-	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
-	<span id="Beijing_z43d"></span>
-</div>
-<script src="//widget.time.is/zh.js"></script>
-<script>
-	time_is_widget.init({
-		Beijing_z43d:{
-			template:"DATE", 
-			date_format:"year年 monthname dnum日"
-		}
-	});
-</script>
-			
-		</div>
-	</div>
-</header>
-
-<div id="navigation-hide">
-	<!-- Progress bar -->
-	<div id="progress-bar"></div>
-
-	<!-- Progress percent -->
-	<div id="progress-percentage"><h1>0.0%</h1></div>
-
-	<div class="toc-switch"><span class="switch-button">目录</span></div>
-
-	<!-- Page title -->
-	<p>
-		
-			当前文章&nbsp;:&nbsp;《jactf-android》
-		
-	</p>
-
-	<!-- Nav trigger for navigation-H-->
-	<a class="nav-trigger"><span></span></a>
-</div>
-
-<!-- Navigation in div(id="navigation-H") -->
-<nav class="nav-container" id="cd-nav">
-	<div class="nav-header">
-		<h3>Navigation</h3>
-		<a href="javascript:;" class="nav-close"></a>
-	</div>
-	<div class="nav-body">
-		<ul>
-	
-		<li class="menu-home">
-			<a href="/" class="menu-item-home">主页</a>
-		</li>
-	
-		<li class="menu-archive">
-			<a href="/archives" class="menu-item-archive">归档</a>
-		</li>
-	
-		<li class="menu-categories">
-			<a href="/categories" class="menu-item-categories">分类</a>
-		</li>
-	
-		<li class="menu-tags">
-			<a href="/tags" class="menu-item-tags">标签</a>
-		</li>
-	
-		<li class="menu-about">
-			<a href="/about" class="menu-item-about">关于</a>
-		</li>
-	
-		<li class="menu-gallery">
-			<a href="/gallery" class="menu-item-gallery">相册</a>
-		</li>
-	
-		<li class="menu-friend">
-			<a href="/friend" class="menu-item-friend">友链</a>
-		</li>
-	
-
-	
-		<li class="menu-search">
-			<a href="javascript:;" class="popup-trigger">搜索</a>
-		</li>
-	
-</ul>
-	</div>
-	<div class="nav-footer">
-		<ul>
-	
-		<li>
-			<a href="http://github.com/bufsnake" target="_blank">
-				<i class="fa fa-github"></i>
-			</a>
-		</li>
-	
-		<li>
-			<a href="/atom.xml" target="_blank">
-				<i class="fa fa-rss"></i>
-			</a>
-		</li>
-			
-</ul>
-
-	</div>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 </nav>
-			
-		<!--main-->
-		<main>
-			<!--
-	时间：2018-11-17
-	描述：
-		插件名称：katelog.min.js
-		插件作者：KELEN
-		插件来源: https://github.com/KELEN/katelog
--->
 
-	
-		<div class="layout-toc">
-			<div id="layout-toc">
-				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
-			</div>
-		</div>
+    <div class="view intro-2" id="background" false
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-		
-		<script src="/plugin/toc/katelog.min.js"></script>
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 八月 12日 2019, 9:49 上午
+                </p>
+              
 
-		
-	 
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.2k 字
+                  </span>&nbsp;
+                
 
-<div class="layout-post">
-	<div id="layout-post">
-	<div class="article-title">
-		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-		
-	<a href="/jactf-android.html" itemprop="url">
-		jactf-android
-	</a>
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
 
-	</div>
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
 
-	<div class="article-meta">
-		<span>
-			<i class="fa fa-calendar"></i>
-			
+          
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <main>
+    
+      
 
-	发布于
-
-	<a href="/jactf-android.html" itemprop="url">
-		<time datetime="2019-08-12T01:49:37.000Z" itemprop="datePublished">
-	  		2019-08-12
-	  </time>
-	</a>
-	&nbsp;
-
-
-
-
-
-			
-
-
-
-
-	更新于
-
-	<a href="/jactf-android.html" itemprop="url">
-		<time datetime="2019-08-12T01:49:37.000Z" itemprop="dateUpdated">
-	  		2019-11-25
-	  </time>
-	</a> 
-
-
-
-		</span>
-		<span>
-			<i class="fa fa-tags"></i>
-			
-	
-		<a href="/tags/android/" class=" ">
-			android
-		</a>
-	
-		
-		</span>
-		
-		
-
-
-
-	</div>
-
-	<div class="article-content" id="article-content">
-		<h3 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h3><p><a href="https://ctf.jasec.cn/challenges" target="_blank" rel="noopener">jactf</a></p>
-<h3 id="androideasy"><a href="#androideasy" class="headerlink" title="androideasy"></a>androideasy</h3><p><img src="/images/pasted-5.png" alt="upload successful"></p>
-<h4 id="jadx打开，查看主页面"><a href="#jadx打开，查看主页面" class="headerlink" title="jadx打开，查看主页面"></a>jadx打开，查看主页面</h4><p><img src="/images/pasted-4.png" alt="upload successful"></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h3 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h3><p><a href="https://ctf.jasec.cn/challenges" target="_blank" rel="noopener">jactf</a></p>
+<h3 id="androideasy"><a href="#androideasy" class="headerlink" title="androideasy"></a>androideasy</h3><p><img src="/images/pasted-5.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="jadx打开，查看主页面"><a href="#jadx打开，查看主页面" class="headerlink" title="jadx打开，查看主页面"></a>jadx打开，查看主页面</h4><p><img src="/images/pasted-4.png" srcset="/img/loading.gif" alt="upload successful"></p>
 <blockquote>
 <p>可以直接看到程序通过得到editText的内容和23异或和代码定义的s进行对比</p>
 </blockquote>
-<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-6.png" alt="upload successful"></p>
-<h3 id="app1"><a href="#app1" class="headerlink" title="app1"></a>app1</h3><p><img src="/images/pasted-7.png" alt="upload successful"></p>
-<h4 id="jadx打开，查看主页面-1"><a href="#jadx打开，查看主页面-1" class="headerlink" title="jadx打开，查看主页面"></a>jadx打开，查看主页面</h4><p><img src="/images/pasted-8.png" alt="upload successful"></p>
-<p><img src="/images/pasted-9.png" alt="upload successful"></p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-6.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h3 id="app1"><a href="#app1" class="headerlink" title="app1"></a>app1</h3><p><img src="/images/pasted-7.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="jadx打开，查看主页面-1"><a href="#jadx打开，查看主页面-1" class="headerlink" title="jadx打开，查看主页面"></a>jadx打开，查看主页面</h4><p><img src="/images/pasted-8.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<p><img src="/images/pasted-9.png" srcset="/img/loading.gif" alt="upload successful"></p>
 <blockquote>
 <p>通过输入和VERSION_NAME ^ VERSION_CODE相比</p>
 </blockquote>
-<h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-10.png" alt="upload successful"></p>
-<h3 id="simplecheck"><a href="#simplecheck" class="headerlink" title="simplecheck"></a>simplecheck</h3><p><img src="/images/pasted-11.png" alt="upload successful"></p>
-<h4 id="JEB"><a href="#JEB" class="headerlink" title="JEB"></a>JEB</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.a.simplecheck;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.c;</span><br><span class="line"><span class="keyword">import</span> android.view.View$OnClickListener;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Toast;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">c</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MainActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle arg4)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(arg4);</span><br><span class="line">        <span class="keyword">this</span>.setContentView(<span class="number">0x7F04001B</span>);</span><br><span class="line">        <span class="keyword">this</span>.findViewById(<span class="number">0x7F0B005F</span>).setOnClickListener(<span class="keyword">new</span> View$OnClickListener(<span class="keyword">this</span>.findViewById(<span class="number">0x7F0B005E</span>), ((Context)<span class="keyword">this</span>)) &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View arg4)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(a.a(<span class="keyword">this</span>.a.getText().toString())) &#123;</span><br><span class="line">                    Toast.makeText(<span class="keyword">this</span>.b, <span class="string">"You get it~"</span>, <span class="number">1</span>).show();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    Toast.makeText(<span class="keyword">this</span>.b, <span class="string">"Sorry its wrong"</span>, <span class="number">1</span>).show();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><p><img src="/images/pasted-10.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h3 id="simplecheck"><a href="#simplecheck" class="headerlink" title="simplecheck"></a>simplecheck</h3><p><img src="/images/pasted-11.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="JEB"><a href="#JEB" class="headerlink" title="JEB"></a>JEB</h4><pre><code class="java">package com.a.simplecheck;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.c;
+import android.view.View$OnClickListener;
+import android.view.View;
+import android.widget.Toast;
+
+public class MainActivity extends c {
+    public MainActivity() {
+        super();
+    }
+
+    protected void onCreate(Bundle arg4) {
+        super.onCreate(arg4);
+        this.setContentView(0x7F04001B);
+        this.findViewById(0x7F0B005F).setOnClickListener(new View$OnClickListener(this.findViewById(0x7F0B005E), ((Context)this)) {
+            public void onClick(View arg4) {
+                if(a.a(this.a.getText().toString())) {
+                    Toast.makeText(this.b, &quot;You get it~&quot;, 1).show();
+                }
+                else {
+                    Toast.makeText(this.b, &quot;Sorry its wrong&quot;, 1).show();
+                }
+            }
+        });
+    }
+}
+</code></pre>
 <blockquote>
 <p>主页得到输入内容调用a类的a方法</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.a.simplecheck;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">a</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] a;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] b;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] c;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] d;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        a.a = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>, <span class="number">0x8BBD6FE</span>, <span class="number">205327308</span>, <span class="number">0x59E0C2D</span>, <span class="number">138810487</span>, <span class="number">408218567</span>, <span class="number">0x4A42485</span>, <span class="number">0x443BE85</span>, <span class="number">0x21929A0A</span>, <span class="number">559010506</span>, <span class="number">449018203</span>, <span class="number">576200653</span>, <span class="number">307283021</span>, <span class="number">0x1BDF218B</span>, <span class="number">314806739</span>, <span class="number">0x1459AAFB</span>, <span class="number">0x1459AAFB</span>, <span class="number">0x1C039BBC</span>, <span class="number">0x18E61B76</span>, <span class="number">342206934</span>, <span class="number">392460324</span>, <span class="number">382290309</span>, <span class="number">0xB0F0211</span>, <span class="number">364788505</span>, <span class="number">210058699</span>, <span class="number">0xBCF56CF</span>, <span class="number">0x1580960D</span>, <span class="number">440064477</span>, <span class="number">0x1310B245</span>, <span class="number">0x284EE4B3</span>, <span class="number">0x1732EFAB</span>, <span class="number">0x3175430D</span>, <span class="number">0x1FE113C4</span>, <span class="number">0x197B593C</span>, <span class="number">0x33806C28</span>&#125;;</span><br><span class="line">        a.b = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">13710</span>, <span class="number">0xB539</span>, <span class="number">0xBFFF</span>, <span class="number">36900</span>, <span class="number">0xE8AC</span>, <span class="number">0x8C2B</span>, <span class="number">0xDBD</span>, <span class="number">0xCEDD</span>, <span class="number">1509</span>, <span class="number">0xEF17</span>, <span class="number">0xF72A</span>, <span class="number">0x6C2E</span>, <span class="number">20932</span>, <span class="number">0x946D</span>, <span class="number">22069</span>, <span class="number">0x20F6</span>, <span class="number">0x84CB</span>, <span class="number">0xD032</span>, <span class="number">0x420C</span>, <span class="number">30902</span>, <span class="number">0xFC5A</span>, <span class="number">0xFA1C</span>, <span class="number">0x73BD</span>, <span class="number">0x67A9</span>, <span class="number">0x2EFA</span>, <span class="number">31610</span>, <span class="number">0xBDFF</span>, <span class="number">0x4E00</span>, <span class="number">0xB256</span>, <span class="number">0xCB04</span>, <span class="number">0xFDBC</span>, <span class="number">0xB0ED</span>, <span class="number">0xFCF0</span>, <span class="number">0x90F4</span>&#125;;</span><br><span class="line">        a.c = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0x94F1</span>, <span class="number">0xE00B</span>, <span class="number">0x580A</span>, <span class="number">0xBA97</span>, <span class="number">8940</span>, <span class="number">0x136F</span>, <span class="number">27050</span>, <span class="number">56102</span>, <span class="number">0x5524</span>, <span class="number">0xA0D6</span>, <span class="number">0xF7D5</span>, <span class="number">0xD0CE</span>, <span class="number">0x705A</span>, <span class="number">0xE74F</span>, <span class="number">0x4017</span>, <span class="number">0xFB54</span>, <span class="number">0x930C</span>, <span class="number">0xE9F8</span>, <span class="number">0xA13C</span>, <span class="number">0x6528</span>, <span class="number">27501</span>, <span class="number">0x9820</span>, <span class="number">0x90AF</span>, <span class="number">0x9545</span>, <span class="number">0xF192</span>, <span class="number">0xA9E9</span>, <span class="number">0x2405</span>, <span class="number">9879</span>, <span class="number">0x3864</span>, <span class="number">60468</span>, <span class="number">0x4DD6</span>, <span class="number">0xB85E</span>, <span class="number">8406</span>, <span class="number">0xFC9A</span>&#125;;</span><br><span class="line">        a.d = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>, <span class="number">0xEB9D9218</span>, -<span class="number">370404060</span>, <span class="number">0xF0A59DD2</span>, -<span class="number">494024809</span>, <span class="number">0xF7EFFC3F</span>, <span class="number">54930974</span>, <span class="number">0xF6B60C82</span>, <span class="number">0x203630EA</span>, <span class="number">0xF99AF01A</span>, <span class="number">0xF85E01A6</span>, <span class="number">0xFCF9241</span>, <span class="number">0x1072E161</span>, <span class="number">119059597</span>, <span class="number">202392013</span>, <span class="number">0x10E88ED9</span>, <span class="number">0x786F15C</span>, -<span class="number">68971076</span>, <span class="number">0xF91DD26</span>, <span class="number">0xBC673D6</span>, <span class="number">0xFF3B4367</span>, -<span class="number">10293675</span>, <span class="number">0x598502B</span>, <span class="number">0x7406995</span>, <span class="number">0x9FB416F</span>, <span class="number">0x758311F</span>, <span class="number">221507</span>, <span class="number">0xF6EB9D4</span>, <span class="number">180963987</span>, <span class="number">107841171</span>, <span class="number">41609001</span>, <span class="number">0x107B88B5</span>, <span class="number">0xA21BFA2</span>, <span class="number">0x1075D862</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">a</span><span class="params">(String arg8)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> v1 = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(arg8.length() == a.b.length) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] v4 = <span class="keyword">new</span> <span class="keyword">int</span>[a.a.length];</span><br><span class="line">            v4[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">byte</span>[] v5 = arg8.getBytes();</span><br><span class="line">            <span class="keyword">int</span> v6 = v5.length;</span><br><span class="line">            <span class="keyword">int</span> v0 = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> v3 = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(v0 &lt; v6) &#123;</span><br><span class="line">                v4[v3] = v5[v0];</span><br><span class="line">                ++v3;</span><br><span class="line">                ++v0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            v0 = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(v0 &gt;= a.c.length) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(a.a[v0] == a.b[v0] * v4[v0] * v4[v0] + a.c[v0] * v4[v0] + a.d[v0] &amp;&amp; a.a[v0 + <span class="number">1</span>] == a.b[v0] * v4[v0 + <span class="number">1</span>] * v4[v0 + <span class="number">1</span>] + a.c[v0] * v4[v0 + <span class="number">1</span>] + a.d[v0]) &#123;</span><br><span class="line">                    ++v0;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> v1;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            v1 = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> v1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package com.a.simplecheck;
+
+public class a {
+    private static int[] a;
+    private static int[] b;
+    private static int[] c;
+    private static int[] d;
+
+    static {
+        a.a = new int[]{0, 0x8BBD6FE, 205327308, 0x59E0C2D, 138810487, 408218567, 0x4A42485, 0x443BE85, 0x21929A0A, 559010506, 449018203, 576200653, 307283021, 0x1BDF218B, 314806739, 0x1459AAFB, 0x1459AAFB, 0x1C039BBC, 0x18E61B76, 342206934, 392460324, 382290309, 0xB0F0211, 364788505, 210058699, 0xBCF56CF, 0x1580960D, 440064477, 0x1310B245, 0x284EE4B3, 0x1732EFAB, 0x3175430D, 0x1FE113C4, 0x197B593C, 0x33806C28};
+        a.b = new int[]{13710, 0xB539, 0xBFFF, 36900, 0xE8AC, 0x8C2B, 0xDBD, 0xCEDD, 1509, 0xEF17, 0xF72A, 0x6C2E, 20932, 0x946D, 22069, 0x20F6, 0x84CB, 0xD032, 0x420C, 30902, 0xFC5A, 0xFA1C, 0x73BD, 0x67A9, 0x2EFA, 31610, 0xBDFF, 0x4E00, 0xB256, 0xCB04, 0xFDBC, 0xB0ED, 0xFCF0, 0x90F4};
+        a.c = new int[]{0x94F1, 0xE00B, 0x580A, 0xBA97, 8940, 0x136F, 27050, 56102, 0x5524, 0xA0D6, 0xF7D5, 0xD0CE, 0x705A, 0xE74F, 0x4017, 0xFB54, 0x930C, 0xE9F8, 0xA13C, 0x6528, 27501, 0x9820, 0x90AF, 0x9545, 0xF192, 0xA9E9, 0x2405, 9879, 0x3864, 60468, 0x4DD6, 0xB85E, 8406, 0xFC9A};
+        a.d = new int[]{0, 0xEB9D9218, -370404060, 0xF0A59DD2, -494024809, 0xF7EFFC3F, 54930974, 0xF6B60C82, 0x203630EA, 0xF99AF01A, 0xF85E01A6, 0xFCF9241, 0x1072E161, 119059597, 202392013, 0x10E88ED9, 0x786F15C, -68971076, 0xF91DD26, 0xBC673D6, 0xFF3B4367, -10293675, 0x598502B, 0x7406995, 0x9FB416F, 0x758311F, 221507, 0xF6EB9D4, 180963987, 107841171, 41609001, 0x107B88B5, 0xA21BFA2, 0x1075D862};
+    }
+
+    public static boolean a(String arg8) {
+        boolean v1 = false;
+        if(arg8.length() == a.b.length) {
+            int[] v4 = new int[a.a.length];
+            v4[0] = 0;
+            byte[] v5 = arg8.getBytes();
+            int v6 = v5.length;
+            int v0 = 0;
+            int v3 = 1;
+            while(v0 &lt; v6) {
+                v4[v3] = v5[v0];
+                ++v3;
+                ++v0;
+            }
+
+            v0 = 0;
+            while(true) {
+                if(v0 &gt;= a.c.length) {
+                    break;
+                }
+                else if(a.a[v0] == a.b[v0] * v4[v0] * v4[v0] + a.c[v0] * v4[v0] + a.d[v0] &amp;&amp; a.a[v0 + 1] == a.b[v0] * v4[v0 + 1] * v4[v0 + 1] + a.c[v0] * v4[v0 + 1] + a.d[v0]) {
+                    ++v0;
+                    continue;
+                }
+
+                return v1;
+            }
+
+            v1 = true;
+        }
+
+        return v1;
+    }
+}
+</code></pre>
 <blockquote>
 <p>a.b[v0] <em> v4[v0] </em> v4[v0] + a.c[v0] <em> v4[v0] + a.d[v0] &amp;&amp; a.a[v0 + 1] == a.b[v0] </em> v4[v0 + 1] <em> v4[v0 + 1] + a.c[v0] </em> v4[v0 + 1] + a.d[v0] 可以将这句话改进一下进行爆破</p>
 </blockquote>
-<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>, <span class="number">146527998</span>, <span class="number">205327308</span>, <span class="number">94243885</span>, <span class="number">138810487</span>, <span class="number">408218567</span>, <span class="number">77866117</span>, <span class="number">71548549</span>, <span class="number">563255818</span>, <span class="number">559010506</span>, <span class="number">449018203</span>, <span class="number">576200653</span>, <span class="number">307283021</span>, <span class="number">467607947</span>, <span class="number">314806739</span>, <span class="number">341420795</span>, <span class="number">341420795</span>, <span class="number">469998524</span>, <span class="number">417733494</span>, <span class="number">342206934</span>, <span class="number">392460324</span>, <span class="number">382290309</span>, <span class="number">185532945</span>, <span class="number">364788505</span>, <span class="number">210058699</span>, <span class="number">198137551</span>, <span class="number">360748557</span>, <span class="number">440064477</span>, <span class="number">319861317</span>, <span class="number">676258995</span>, <span class="number">389214123</span>, <span class="number">829768461</span>, <span class="number">534844356</span>, <span class="number">427514172</span>, <span class="number">864054312</span>]</span><br><span class="line">b = [<span class="number">13710</span>, <span class="number">46393</span>, <span class="number">49151</span>, <span class="number">36900</span>, <span class="number">59564</span>, <span class="number">35883</span>, <span class="number">3517</span>, <span class="number">52957</span>, <span class="number">1509</span>, <span class="number">61207</span>, <span class="number">63274</span>, <span class="number">27694</span>, <span class="number">20932</span>, <span class="number">37997</span>, <span class="number">22069</span>, <span class="number">8438</span>, <span class="number">33995</span>, <span class="number">53298</span>, <span class="number">16908</span>, <span class="number">30902</span>, <span class="number">64602</span>, <span class="number">64028</span>, <span class="number">29629</span>, <span class="number">26537</span>, <span class="number">12026</span>, <span class="number">31610</span>, <span class="number">48639</span>, <span class="number">19968</span>, <span class="number">45654</span>, <span class="number">51972</span>, <span class="number">64956</span>, <span class="number">45293</span>, <span class="number">64752</span>, <span class="number">37108</span>]</span><br><span class="line">c = [<span class="number">38129</span>, <span class="number">57355</span>, <span class="number">22538</span>, <span class="number">47767</span>, <span class="number">8940</span>, <span class="number">4975</span>, <span class="number">27050</span>, <span class="number">56102</span>, <span class="number">21796</span>, <span class="number">41174</span>, <span class="number">63445</span>, <span class="number">53454</span>, <span class="number">28762</span>, <span class="number">59215</span>, <span class="number">16407</span>, <span class="number">64340</span>, <span class="number">37644</span>, <span class="number">59896</span>, <span class="number">41276</span>, <span class="number">25896</span>, <span class="number">27501</span>, <span class="number">38944</span>, <span class="number">37039</span>, <span class="number">38213</span>, <span class="number">61842</span>, <span class="number">43497</span>, <span class="number">9221</span>, <span class="number">9879</span>, <span class="number">14436</span>, <span class="number">60468</span>, <span class="number">19926</span>, <span class="number">47198</span>, <span class="number">8406</span>, <span class="number">64666</span>]</span><br><span class="line">d = [<span class="number">0</span>, <span class="number">-341994984</span>, <span class="number">-370404060</span>, <span class="number">-257581614</span>, <span class="number">-494024809</span>, <span class="number">-135267265</span>, <span class="number">54930974</span>, <span class="number">-155841406</span>, <span class="number">540422378</span>, <span class="number">-107286502</span>, <span class="number">-128056922</span>, <span class="number">265261633</span>, <span class="number">275964257</span>, <span class="number">119059597</span>, <span class="number">202392013</span>, <span class="number">283676377</span>, <span class="number">126284124</span>, <span class="number">-68971076</span>, <span class="number">261217574</span>, <span class="number">197555158</span>, <span class="number">-12893337</span>, <span class="number">-10293675</span>, <span class="number">93868075</span>, <span class="number">121661845</span>, <span class="number">167461231</span>, <span class="number">123220255</span>, <span class="number">221507</span>, <span class="number">258914772</span>, <span class="number">180963987</span>, <span class="number">107841171</span>, <span class="number">41609001</span>, <span class="number">276531381</span>, <span class="number">169983906</span>, <span class="number">276158562</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> v0 <span class="keyword">in</span> range(<span class="number">1</span>,len(c)):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">255</span>):</span><br><span class="line">        <span class="keyword">if</span> a[v0] == b[v0] * i * i + c[v0] * i + d[v0] <span class="keyword">and</span> a[v0] == b[v0<span class="number">-1</span>] * i * i + c[v0<span class="number">-1</span>] * i +d[v0<span class="number">-1</span>]:</span><br><span class="line">            s += chr(i)</span><br><span class="line"><span class="keyword">print</span> s</span><br><span class="line"></span><br><span class="line"><span class="comment">#a[v0] == b[v0] * v4[v0] * v4[v0] + c[v0] * v4[v0] + d[v0]</span></span><br><span class="line"><span class="comment">#a[v0] == b[v0-1] * v4[v0] * v4[v0] + c[v0-1] * v4[v0] +d[v0-1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## flag&#123;MAth_i&amp;_GOOd_DON7_90V_7hInK?&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="DDCTF-Easy"><a href="#DDCTF-Easy" class="headerlink" title="DDCTF-Easy"></a>DDCTF-Easy</h3><p><img src="/images/pasted-12.png" alt="upload successful"></p>
-<h4 id="jadx定位关键代码"><a href="#jadx定位关键代码" class="headerlink" title="jadx定位关键代码"></a>jadx定位关键代码</h4><p><img src="/images/pasted-13.png" alt="upload successful"></p>
+<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">a = [0, 146527998, 205327308, 94243885, 138810487, 408218567, 77866117, 71548549, 563255818, 559010506, 449018203, 576200653, 307283021, 467607947, 314806739, 341420795, 341420795, 469998524, 417733494, 342206934, 392460324, 382290309, 185532945, 364788505, 210058699, 198137551, 360748557, 440064477, 319861317, 676258995, 389214123, 829768461, 534844356, 427514172, 864054312]
+b = [13710, 46393, 49151, 36900, 59564, 35883, 3517, 52957, 1509, 61207, 63274, 27694, 20932, 37997, 22069, 8438, 33995, 53298, 16908, 30902, 64602, 64028, 29629, 26537, 12026, 31610, 48639, 19968, 45654, 51972, 64956, 45293, 64752, 37108]
+c = [38129, 57355, 22538, 47767, 8940, 4975, 27050, 56102, 21796, 41174, 63445, 53454, 28762, 59215, 16407, 64340, 37644, 59896, 41276, 25896, 27501, 38944, 37039, 38213, 61842, 43497, 9221, 9879, 14436, 60468, 19926, 47198, 8406, 64666]
+d = [0, -341994984, -370404060, -257581614, -494024809, -135267265, 54930974, -155841406, 540422378, -107286502, -128056922, 265261633, 275964257, 119059597, 202392013, 283676377, 126284124, -68971076, 261217574, 197555158, -12893337, -10293675, 93868075, 121661845, 167461231, 123220255, 221507, 258914772, 180963987, 107841171, 41609001, 276531381, 169983906, 276158562]
+
+
+s = &#39;&#39;
+for v0 in range(1,len(c)):
+    for i in range(0,255):
+        if a[v0] == b[v0] * i * i + c[v0] * i + d[v0] and a[v0] == b[v0-1] * i * i + c[v0-1] * i +d[v0-1]:
+            s += chr(i)
+print s
+
+#a[v0] == b[v0] * v4[v0] * v4[v0] + c[v0] * v4[v0] + d[v0]
+#a[v0] == b[v0-1] * v4[v0] * v4[v0] + c[v0-1] * v4[v0] +d[v0-1]
+
+## flag{MAth_i&amp;_GOOd_DON7_90V_7hInK?}
+</code></pre>
+<h3 id="DDCTF-Easy"><a href="#DDCTF-Easy" class="headerlink" title="DDCTF-Easy"></a>DDCTF-Easy</h3><p><img src="/images/pasted-12.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="jadx定位关键代码"><a href="#jadx定位关键代码" class="headerlink" title="jadx定位关键代码"></a>jadx定位关键代码</h4><p><img src="/images/pasted-13.png" srcset="/img/loading.gif" alt="upload successful"></p>
 <blockquote>
 <p>输入的字符与i()函数返回的字符串相比较</p>
 </blockquote>
-<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="string">"com.didi_ctf.flagapp.FlagActivity"</span></span><br><span class="line">p = [<span class="number">-40</span>, <span class="number">-62</span>, <span class="number">107</span>, <span class="number">66</span>, <span class="number">-126</span>, <span class="number">103</span>, <span class="number">-56</span>, <span class="number">77</span>, <span class="number">122</span>, <span class="number">-107</span>, <span class="number">-24</span>, <span class="number">-127</span>, <span class="number">72</span>, <span class="number">-63</span>, <span class="number">-98</span>, <span class="number">64</span>, <span class="number">-24</span>, <span class="number">-5</span>, <span class="number">-49</span>, <span class="number">-26</span>, <span class="number">79</span>, <span class="number">-70</span>, <span class="number">-26</span>, <span class="number">-81</span>, <span class="number">120</span>, <span class="number">25</span>, <span class="number">111</span>, <span class="number">-100</span>, <span class="number">-23</span>, <span class="number">-9</span>, <span class="number">122</span>, <span class="number">-35</span>, <span class="number">66</span>, <span class="number">-50</span>, <span class="number">-116</span>, <span class="number">3</span>, <span class="number">-72</span>, <span class="number">102</span>, <span class="number">-45</span>, <span class="number">-85</span>, <span class="number">0</span>, <span class="number">126</span>, <span class="number">-34</span>, <span class="number">62</span>, <span class="number">83</span>, <span class="number">-34</span>, <span class="number">48</span>, <span class="number">-111</span>, <span class="number">61</span>, <span class="number">-9</span>, <span class="number">-51</span>, <span class="number">114</span>, <span class="number">20</span>, <span class="number">81</span>, <span class="number">-126</span>, <span class="number">-18</span>, <span class="number">27</span>, <span class="number">-115</span>, <span class="number">-76</span>, <span class="number">-116</span>, <span class="number">-48</span>, <span class="number">-118</span>, <span class="number">-10</span>, <span class="number">-102</span>, <span class="number">-106</span>, <span class="number">113</span>, <span class="number">-104</span>, <span class="number">98</span>, <span class="number">-109</span>, <span class="number">74</span>, <span class="number">48</span>, <span class="number">47</span>, <span class="number">-100</span>, <span class="number">-88</span>, <span class="number">121</span>, <span class="number">22</span>, <span class="number">-63</span>, <span class="number">-32</span>, <span class="number">-20</span>, <span class="number">-41</span>, <span class="number">-27</span>, <span class="number">-20</span>, <span class="number">-118</span>, <span class="number">100</span>, <span class="number">-76</span>, <span class="number">70</span>, <span class="number">-49</span>, <span class="number">-39</span>, <span class="number">-27</span>, <span class="number">-106</span>, <span class="number">-13</span>, <span class="number">-108</span>, <span class="number">115</span>, <span class="number">-87</span>, <span class="number">-1</span>, <span class="number">-22</span>, <span class="number">-53</span>, <span class="number">21</span>, <span class="number">-100</span>, <span class="number">124</span>, <span class="number">-95</span>, <span class="number">-40</span>, <span class="number">62</span>, <span class="number">-69</span>, <span class="number">29</span>, <span class="number">56</span>, <span class="number">-53</span>, <span class="number">85</span>, <span class="number">-48</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">-78</span>, <span class="number">11</span>, <span class="number">-110</span>, <span class="number">-24</span>, <span class="number">-120</span>, <span class="number">-82</span>, <span class="number">6</span>, <span class="number">-94</span>, <span class="number">-101</span>]</span><br><span class="line">q = [<span class="number">-57</span>, <span class="number">-90</span>, <span class="number">53</span>, <span class="number">-71</span>, <span class="number">-117</span>, <span class="number">98</span>, <span class="number">62</span>, <span class="number">98</span>, <span class="number">101</span>, <span class="number">-96</span>, <span class="number">36</span>, <span class="number">110</span>, <span class="number">77</span>, <span class="number">-83</span>, <span class="number">-121</span>, <span class="number">2</span>, <span class="number">-48</span>, <span class="number">94</span>, <span class="number">-106</span>, <span class="number">-56</span>, <span class="number">-49</span>, <span class="number">-80</span>, <span class="number">-1</span>, <span class="number">83</span>, <span class="number">75</span>, <span class="number">66</span>, <span class="number">-44</span>, <span class="number">74</span>, <span class="number">2</span>, <span class="number">-36</span>, <span class="number">-42</span>, <span class="number">-103</span>, <span class="number">6</span>, <span class="number">-115</span>, <span class="number">-40</span>, <span class="number">69</span>, <span class="number">-107</span>, <span class="number">85</span>, <span class="number">-78</span>, <span class="number">-49</span>, <span class="number">54</span>, <span class="number">78</span>, <span class="number">-26</span>, <span class="number">15</span>, <span class="number">98</span>, <span class="number">-70</span>, <span class="number">8</span>, <span class="number">-90</span>, <span class="number">94</span>, <span class="number">-61</span>, <span class="number">-84</span>, <span class="number">64</span>, <span class="number">112</span>, <span class="number">51</span>, <span class="number">-29</span>, <span class="number">-34</span>, <span class="number">126</span>, <span class="number">-21</span>, <span class="number">-126</span>, <span class="number">-71</span>, <span class="number">-31</span>, <span class="number">-24</span>, <span class="number">-60</span>, <span class="number">-2</span>, <span class="number">-81</span>, <span class="number">66</span>, <span class="number">-84</span>, <span class="number">85</span>, <span class="number">-91</span>, <span class="number">10</span>, <span class="number">84</span>, <span class="number">70</span>, <span class="number">-8</span>, <span class="number">-63</span>, <span class="number">26</span>, <span class="number">126</span>, <span class="number">-76</span>, <span class="number">-104</span>, <span class="number">-123</span>, <span class="number">-71</span>, <span class="number">-126</span>, <span class="number">-62</span>, <span class="number">-23</span>, <span class="number">11</span>, <span class="number">-39</span>, <span class="number">70</span>, <span class="number">14</span>, <span class="number">59</span>, <span class="number">-101</span>, <span class="number">-39</span>, <span class="number">-124</span>, <span class="number">91</span>, <span class="number">-109</span>, <span class="number">102</span>, <span class="number">-49</span>, <span class="number">21</span>, <span class="number">105</span>, <span class="number">0</span>, <span class="number">37</span>,<span class="number">-127</span>, <span class="number">-57</span>, <span class="number">117</span>, <span class="number">110</span>, <span class="number">-115</span>, <span class="number">-86</span>, <span class="number">56</span>, <span class="number">25</span>, <span class="number">-46</span>, <span class="number">-55</span>, <span class="number">7</span>, <span class="number">-125</span>, <span class="number">109</span>, <span class="number">76</span>, <span class="number">104</span>, <span class="number">-15</span>, <span class="number">82</span>, <span class="number">-53</span>, <span class="number">18</span>, <span class="number">-28</span>, <span class="number">-24</span>]</span><br><span class="line"></span><br><span class="line">bArr = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(p))]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(bArr)):</span><br><span class="line">    bArr[i] = p[i] ^ q[i]</span><br><span class="line">b = bArr[<span class="number">0</span>]</span><br><span class="line">i2 = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> bArr[b+i2] != <span class="number">0</span>:</span><br><span class="line">    i2 += <span class="number">1</span></span><br><span class="line">bArr2 = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,i2)]</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,i2):</span><br><span class="line">    bArr2[j] = bArr[b+j]</span><br><span class="line"><span class="keyword">print</span> <span class="string">''</span>.join(chr(i) <span class="keyword">for</span> i <span class="keyword">in</span> bArr2)</span><br><span class="line"></span><br><span class="line">flag:DDCTF<span class="number">-3</span>ad60811d87c4a2dba0ef651b2d93476@didichuxing.com</span><br></pre></td></tr></table></figure>
-<h3 id="app2"><a href="#app2" class="headerlink" title="app2"></a>app2</h3><p><img src="/images/pasted-14.png" alt="upload successful"></p>
-<h4 id="jadx"><a href="#jadx" class="headerlink" title="jadx"></a>jadx</h4><p><img src="/images/pasted-15.png" alt="upload successful"></p>
+<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">m = &quot;com.didi_ctf.flagapp.FlagActivity&quot;
+p = [-40, -62, 107, 66, -126, 103, -56, 77, 122, -107, -24, -127, 72, -63, -98, 64, -24, -5, -49, -26, 79, -70, -26, -81, 120, 25, 111, -100, -23, -9, 122, -35, 66, -50, -116, 3, -72, 102, -45, -85, 0, 126, -34, 62, 83, -34, 48, -111, 61, -9, -51, 114, 20, 81, -126, -18, 27, -115, -76, -116, -48, -118, -10, -102, -106, 113, -104, 98, -109, 74, 48, 47, -100, -88, 121, 22, -63, -32, -20, -41, -27, -20, -118, 100, -76, 70, -49, -39, -27, -106, -13, -108, 115, -87, -1, -22, -53, 21, -100, 124, -95, -40, 62, -69, 29, 56, -53, 85, -48, 25, 37, -78, 11, -110, -24, -120, -82, 6, -94, -101]
+q = [-57, -90, 53, -71, -117, 98, 62, 98, 101, -96, 36, 110, 77, -83, -121, 2, -48, 94, -106, -56, -49, -80, -1, 83, 75, 66, -44, 74, 2, -36, -42, -103, 6, -115, -40, 69, -107, 85, -78, -49, 54, 78, -26, 15, 98, -70, 8, -90, 94, -61, -84, 64, 112, 51, -29, -34, 126, -21, -126, -71, -31, -24, -60, -2, -81, 66, -84, 85, -91, 10, 84, 70, -8, -63, 26, 126, -76, -104, -123, -71, -126, -62, -23, 11, -39, 70, 14, 59, -101, -39, -124, 91, -109, 102, -49, 21, 105, 0, 37,-127, -57, 117, 110, -115, -86, 56, 25, -46, -55, 7, -125, 109, 76, 104, -15, 82, -53, 18, -28, -24]
+
+bArr = [i for i in range(0,len(p))]
+for i in range(0,len(bArr)):
+    bArr[i] = p[i] ^ q[i]
+b = bArr[0]
+i2 = 0
+while bArr[b+i2] != 0:
+    i2 += 1
+bArr2 = [i for i in range(0,i2)]
+for j in range(0,i2):
+    bArr2[j] = bArr[b+j]
+print &#39;&#39;.join(chr(i) for i in bArr2)
+
+flag:DDCTF-3ad60811d87c4a2dba0ef651b2d93476@didichuxing.com
+</code></pre>
+<h3 id="app2"><a href="#app2" class="headerlink" title="app2"></a>app2</h3><p><img src="/images/pasted-14.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h4 id="jadx"><a href="#jadx" class="headerlink" title="jadx"></a>jadx</h4><p><img src="/images/pasted-15.png" srcset="/img/loading.gif" alt="upload successful"></p>
 <blockquote>
 <p>这题是有脑洞的，之前做过所以很快定位到了需要解密的字符串</p>
 </blockquote>
-<p><img src="/images/pasted-16.png" alt="upload successful"></p>
-<p><img src="/images/pasted-17.png" alt="upload successful"></p>
+<p><img src="/images/pasted-16.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<p><img src="/images/pasted-17.png" srcset="/img/loading.gif" alt="upload successful"></p>
 <blockquote>
 <p>AES_128_ECB_PKCS5Padding_Decrypt加密，密钥为thisisatestkey==</p>
 </blockquote>
-<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><p><img src="/images/pasted-18.png" alt="upload successful"></p>
+<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><p><img src="/images/pasted-18.png" srcset="/img/loading.gif" alt="upload successful"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
 <p>总体来说不算太难，除了最后第一是个坑之外，基本没涉及到so层的概念，是些入门很好的题目，感谢平台提供的练习机会</p>
 </blockquote>
-	
-	</div>
-	
-	<div id="current-post-cover" data-scr="https://sariay.github.io/Random-img/39.jpg"></div>
 
-	<!-- relate post, comment...-->
-	<div class="investment-container">
-		<div class="investment-header">
-			<div class="investment-title-1">
-				<div class="on">相关文章</div>
-				<div>评论</div>
-				<div>分享</div>
-			</div>
-			<div class="investment-title-2">	            
-				
-	<span>
-		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
-		
-			<a href="/jactf-crypto.html" title="jactf-crypto" rel="prev">
-				&laquo;上一篇
-			</a>
-		
-		
-			<a href="/pwnable-tw-start.html" title="pwnable.tw-start" rel="next">
-				下一篇&raquo;
-			</a>
-			
-	</span>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/android">android</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/android">android</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
 
-
-      		
-			</div>	
-		</div>
-		
-		<div class="investment-content">
-			<div class="investment-content-list">
-				
-
-<div class="relate-post">
-	
-		<div>Please check the post_relate setting in config.yml of hexo-theme-Annie! You should make sure 'postsEnable == true' and the number of site posts greater than 1.</div>	
-	
-</div>	
-			</div>
-			<div class="investment-content-list">
-				<div class="layout-comment">
-
-	
-
-		
-
-			<!-- gitalk comment -->
-			<!-- show gitalk comment -->
-<div id="gitalk-container"></div>
-
-<!-- gitalk`s css & js -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<link rel="stylesheet" href="/css/comment.css">
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<script type="text/javascript">
-	//Thanks O-R
-	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
-	//去除尾部匹配正则数组的字符串  
-	//Remove redundant characters
-	String.prototype.trimEnd = function(regStr) {
-		var result = this;
-		if(regStr == undefined || regStr == null || regStr == "") {
-			return result;
-		}
-		var array = regStr.split(',');
-
-		if(array.length > 0) {
-
-			var c = array.shift();
-			var str = this;
-			var i = str.length;
-			var rg = new RegExp(c);
-			var matchArr = str.match(rg);
-
-			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
-				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
-					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
-					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
-					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
-					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
-					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
-					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
-					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
-				matchStr = matchStr + '$';
-				result = str.replace(new RegExp(matchStr), "");
-			}
-
-			if(array.length > 0) {
-				return result.trimEnd(array.join())
-			} else {
-				return result;
-			}
-		}
-	};
-
-	//Create gitalk
-	var gitalk = new Gitalk({
-		clientID: '1f551117201295bb3de7',
-		clientSecret: 'cf3fde7514090c73fdf0af38b28198fce1eca222',
-		//id: window.location.pathname,
-		//id: decodeURI(window.location.pathname),
-		//id: (window.location.pathname).split("/").pop().substring(0, 49),
-		id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
-		repo: 'gitalk',
-		owner: 'bufsnake',
-		admin: 'bufsnake',
-		distractionFreeMode: 'true',
-	})
-	gitalk.render('gitalk-container');
-</script>
-
-		
-		
-	
-
-</div>
-			</div>
-			<div class="investment-content-list">
-				<div class="layout-share">
-	
-	
-
-		
-			
-			<!-- socialShare share -->
-			<div class="social-share"></div>
-
-<!--  css & js -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
-			
-		
-		
-	
+    </div>
+  </div>
 </div>
 
+<!-- custom -->
 
-			</div>
-		</div>	
-	</div>
-	</div>
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '1f551117201295bb3de7',
+      clientSecret: 'cf3fde7514090c73fdf0af38b28198fce1eca222',
+      repo: 'gitalk',
+      owner: 'bufsnake',
+      admin: 'bufsnake',
+      id: md5(location.pathname),
+      language: 'zh-CN',
+      perPage: 15,
+      pagerDirection: 'last',
+      createIssueManually: 'true',
+      distractionFreeMode: 'false'
+    });
+
+    gitalk.render('gitalk-container')
+  </script>
+
+
+    
+  </div>
 </div>
 
+    
+  </main>
 
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
 
-	<!-- leancloud -->
-	<!--
-	时间：2018-11-27
-	描述：
-		文章访问量：visitors
-		文章喜欢量：likes	
-		文章排行榜：topNPost
-		其他得说明：
-			01-Cookie相关的函数 
-				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
-			02-visitors相关的函数 
-				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
-				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
-			03-topNPost相关的函数
-				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
-			04-likes相关的函数，
-				参考了01 & 02进行简单的设计与实现
--->
-
-
-	
-
-
-<!-- show math formula -->
-
-
-
-	 
-	<script src="/plugin/clipboard/clipboard.js"></script>
-	<script>
-		// Copy code !
-	    function codePreprocessing() {
-	        $("#article-content .highlight").each(function() {
-
-	            $(this).wrap('<div id="post-code"></div>');
-
-	        })
-
-	        $("#article-content #post-code").each(function() {
-
-	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
-
-	        })
-
-	        $("#article-content .copy-nav").each(function() {
-	            var temp = $(this).next().attr('class'),
-	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
-
-	            $(this).find('.code-language').text(language);
-
-	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
-
-	        });
-	    }
-
-		function codeCopy() {
-		    $('#article-content #post-code').each(function(i) {
-		        var codeCopyId = 'codeCopy-' + i;
-
-		        var codeNode = $(this).find('.code'),
-		            copyButton = $(this).find('.copy-btn');
-
-		        codeNode.attr('id', codeCopyId);
-		        copyButton.attr('data-clipboard-target-id', codeCopyId);
-		    })
-
-		    
-			var clipboard = new ClipboardJS('.copy-btn', {
-					target: function(trigger) {
-						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
-					}
-		      	});
-
-			//pure js
-			function showTooltip(elem, msg) {		   
-				elem.setAttribute('aria-label', msg);
-				elem.setAttribute('class', 'copy-btn copy-status');
-				setTimeout(function() {
-					elem.setAttribute('class', 'copy-btn');
-				}, 2000);
-			}
-
-			clipboard.on('success', function(e) {
-			    e.clearSelection();
-			    console.info('Action:', e.action);		   
-			    console.info('Trigger:', e.trigger);
-			    showTooltip(e.trigger, 'Copied!');
-			    
-			});
-			clipboard.on('error', function(e) {
-			    console.error('Action:', e.action);
-			    console.error('Trigger:', e.trigger);
-			});
-		
-
-		}
-
-		if ($('.layout-post').length) {
-		    codePreprocessing();
-		    codeCopy();
-		} 
-	</script>
-
-
-
-
-
-<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
-<script src="/plugin/fancybox/jquery.fancybox.js"></script>
-
-<script type="text/javascript">
-	var titleID = $('.article-title a'),
-		imageID = $('.article-content img'),
-		videoID = $('.article-content video');
-
-	var postTitle = titleID.text() ? titleID.text() : "No post title!";
-
-	imageID.each(function() {
-		var imgPath = $(this).attr('src'),
-			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
-
-		//给每个匹配的<img>元素打包, 即添加父元素<a>
-		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
-	});
-
-	videoID.each(function() {
-		var videoPath = $(this).attr('src');
-
-		//给每个匹配的<img>元素打包, 即添加父元素<a>
-		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
-	});
-	//TODO：支持html5 video
-
-	if($('#layout-post').length) {
-		$('[data-fancybox="gallery"]').fancybox({
-			loop: true,
-			buttons: [
-				"zoom",
-				"share",
-				"slideShow",
-				"fullScreen",
-				//"download",
-				"thumbs",
-				"close"
-			],
-			protect: false
-		});
-	}
-</script>
-		</main>
-
-		<!--footer-->
-		
-		
-	<!-- set '1' to show motto in all pages! -->
-
-	<script src="/plugin/motto/motto.js"></script>
-	
-	<script type="text/javascript">
-		$(".motto").html( getMingYanContent() );
-	</script>	
-
-
-
-
-	<!--
-	时间：2018-10-3
-	描述：
-		插件名称：hexo-generator-search-zip
-		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
-		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
--->
-<div class="popup search-popup local-search-popup">
-	<div class="local-search-container">
-		<span class="popup-btn-close">
-      		ESC
-   		</span>
-		<div class="local-search-header">
-			<div class="input-prompt">				
-			</div>
-			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
-		</div>
-		<div class="local-search-body">
-			<div id="local-search-output"></div>
-		</div>
-		<div class="local-search-footer">
-			<div class="topN-post">				
-				
-								
-			</div>
-		</div>
-	</div>
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
+  
 
-<script src="/plugin/search/ziploader.js"></script>
-<script src="/plugin/search/search.js"></script>
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
 
-<script type="text/javascript">
-	var search_path = 'search.xml',
-		zip_Path = '/',
-		version_Path = '/',
-		input_Trigger = 'auto',
-		top_N = '2';
-
-	themeLocalSearch({
-		search_path, 
-		zip_Path, 
-		version_Path, 
-		input_Trigger, 
-		top_N
-	});
-</script>
-
-
-<!-- love effect -->
-
-	<script src="/plugin/love/love.js"></script>
-
-
-<!-- back to top -->
-
-	
-	<div id="totop">
-  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
-	</div>
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv"></span>总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv"></span>总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人&nbsp;
+  
+  <br>
 
 
 
-
-<!-- site analysis -->
-
-
-	<!-- site-analysis -->
-	
-<script>
-	var _hmt = _hmt || [];
-	(function() {
-		var hm = document.createElement("script");
-		hm.src = "//hm.baidu.com/hm.js?926b66e71d8f61b2a08a4f0da34fef80";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
+    
 
 
-	
-	
-<!-- Google Analytics -->
-<script type="text/javascript">
-	(function(i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
-		a = s.createElement(o),
-			m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-	ga('create', 'UA-145389457-1', 'auto');
-	ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
+    <!-- cnzz Analytics icon -->
+    
 
-	
-	
- 
+  </div>
+</footer>
 
-<script src="/plugin/vibrant/vibrant.js"></script>
-<script src="/plugin/chinese/chinese.js"></script>
-<script src="/plugin/imgLazyLoader/yall.min.js"></script>
-<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
-<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
-<script src="/js/resizediv.js"></script>
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/popper/popper.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js"></script>
 <script src="/js/main.js"></script>
-	</body>	
+
+
+  <script src="/js/lazyload.js"></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js"></script>
+  
+  <script src="/js/post.js"></script>
+
+
+
+  <script src="/lib/smoothscroll/SmoothScroll.min.js"></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?926b66e71d8f61b2a08a4f0da34fef80";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-145389457-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js"></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "jactf-android&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 50,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js"></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "false",
+      
+      icon: "❡"
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js"></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+</body>
 </html>
