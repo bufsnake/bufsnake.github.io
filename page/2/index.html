@@ -36,17 +36,6 @@
 	<body>
 		<!-- Preloader -->
 
-	<div id="preloader">
-		<div class="pre-container">
-			
-				<div class="spinner">
-					<div class="double-bounce1"></div>
-					<div class="double-bounce2"></div>
-				</div>
-						
-		</div>
-	</div>
-
 
 <!-- header -->
 <header class="fixbackground" data-img-mode="normal" data-normal-src="/img/bufsnake.png" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
@@ -247,37 +236,62 @@
 
 
 
-	<!--cart style-->
-	<div class="layout-cart">
-	<div id="layout-cart">
-		
+	<!--pure style-->
+	<div class="layout-pure">
+	<div id="layout-pure">	
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/MacOS-IDA-pro-致最傻的我.html" title=" MacOS上IDA pro的小问题修复 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/22.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					九月 30日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/MacOS-IDA-pro-致最傻的我.html" title="MacOS上IDA pro的小问题修复">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/MacOS-IDA-pro-致最傻的我.html" itemprop="url">
 		MacOS上IDA pro的小问题修复
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						前言
-每次打开ida32位版本的，都会出现卡顿几秒的情况，之前也想办法解决了，但是没能成功，趁着国庆的喜气，搞了一下，才知道是个啥情况，这里简单记录一下。...
+每次打开ida32位版本的，都会出现卡顿几秒的情况，之前也想办法解决了，但是没能成功，趁着国庆的喜气，搞了一下，才知道是个啥情况，这里简单记录一下。
+
+权限问题
+
+第一次遇到文件权限后门带@的，以为是这个问题，然后就疯狂Google，才得知这是Mac OS X文件系统的附加属性
+
+
+文件的读写权限中被加上了一个@符号，这就是 Mac OS X 文件系统的附加属性（extended attributes）
+
+
+这个属性下，打开文件显示错误为：项目“XXX”已被OS X 使用，不能打开
+
+xattr1xattr -c filename # 可以清除这个附加属性
+
+天真的以为清除附加属性...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/MacOS-IDA-pro-致最傻的我.html" itemprop="url">
+		<time datetime="2019-09-30T13:04:55.000Z" itemprop="datePublished">
+	  		2019-09-30
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -306,41 +320,71 @@
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/MacOS-IDA-pro-致最傻的我.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/PHPStudy后门研究.html" title=" PHPStudy后门研究 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/38.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					九月 25日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/PHPStudy后门研究.html" title="PHPStudy后门研究">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/PHPStudy后门研究.html" itemprop="url">
 		PHPStudy后门研究
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						
 声明：分析文章仅限用于学习和研究目的,不得将学习成果用于商业或者非法用途,否则,一切后果请用户自负.
 
 
 PHPStudy 后门文件
-php/ext目录...
+php/ext目录下的php_xmlrpc.dll文件 。
+
+
+检测是否存在后门
+记事本打开文件，查看是否存在如下所示的字符串，如果有说明存在后门，可升级官方最新版。
+
+
+IDA分析后门文件
+根据字符串信息，快速定位关键函数
+
+
+
+
+
+根据判断请求头的Accept-Encoding是否为gzip,deflate进行判断Accept-Charset的值base64解密是否成功，如果成功就对它进行gzcompress压缩，然后执行@eval(gzuncomp...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/PHPStudy后门研究.html" itemprop="url">
+		<time datetime="2019-09-25T04:07:14.000Z" itemprop="datePublished">
+	  		2019-09-25
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -369,39 +413,56 @@ php/ext目录...
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/PHPStudy后门研究.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/模2运算.html" title=" 模2运算 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/36.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					九月 17日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/模2运算.html" title="模2运算">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/模2运算.html" itemprop="url">
 		模2运算
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						模2运算
 简介：将数字换算成二进制的形式进行运算，无进位也无借位。
 
-模2加法12345678910111213141516171 + 1 = 01 + ...
+模2加法12345678910111213141516171 + 1 = 01 + 0 = 10 + 1 = 10 + 0 = 0    1010101+   1000101————————————    0010000     10101011+   10100111+   11100010————————————    11101110奇数个1相加得1，偶数个1相加得0
+模2减法1234567891011121314151 - 1 = 01 - 0 = 10 - 1 = 10 - 0 = 0    1010101-...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/模2运算.html" itemprop="url">
+		<time datetime="2019-09-17T10:13:39.000Z" itemprop="datePublished">
+	  		2019-09-17
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -430,31 +491,27 @@ php/ext目录...
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/模2运算.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/Xposed-hook框架学习.html" title=" Xposed hook框架学习 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/1.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					九月 9日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/Xposed-hook框架学习.html" title="Xposed hook框架学习">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/Xposed-hook框架学习.html" itemprop="url">
 		Xposed hook框架学习
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						Xposed 安装xposed.apk
 
@@ -464,10 +521,42 @@ php/ext目录...
 
 模块
 
-...
+显示已安装的模块，打勾的说明是已经激活的
+
+下载
+
+显示网上已经有的模块，别人开发好的，可以直接拿过来用的那种
+
+设置
+日志
+
+显示模块运行时后的日志信息，可用来显示XposedBridge.log(“”);打印出来的消息
+
+关于
+第一个模块学习在build.gradle中添加信息12compileOnly 'de.robv.android.xposed:api:82'compileOnly 'de.robv.android.xpose...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/Xposed-hook框架学习.html" itemprop="url">
+		<time datetime="2019-09-09T10:11:11.000Z" itemprop="datePublished">
+	  		2019-09-09
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -496,37 +585,59 @@ php/ext目录...
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/Xposed-hook框架学习.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/frida-Hook神器学习-1.html" title=" frida Hook神器学习-1 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/images/pasted-126.png">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					八月 26日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/frida-Hook神器学习-1.html" title="frida Hook神器学习-1">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/frida-Hook神器学习-1.html" itemprop="url">
 		frida Hook神器学习-1
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点
-优点：在编写Jav...
+优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。
+
+
+缺点：配置安装环境繁琐，兼容性差，在Hook底层的时候就很无助了。
+
+Frida的优缺点
+优点：在上面我们可以看到他的优点在于配置环境很简单，操作也很便捷，对于破解者开发阶段非常好用。支持Java层和Native层hook操作，在Nat...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/frida-Hook神器学习-1.html" itemprop="url">
+		<time datetime="2019-08-26T14:03:48.000Z" itemprop="datePublished">
+	  		2019-08-26
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -555,31 +666,27 @@ php/ext目录...
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/frida-Hook神器学习-1.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/记一次简单的条件竞争的题目.html" title=" 记一次简单的条件竞争的题目 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/13.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					八月 22日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/记一次简单的条件竞争的题目.html" title="记一次简单的条件竞争的题目">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/记一次简单的条件竞争的题目.html" itemprop="url">
 		记一次简单的条件竞争的题目
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						前言
 一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手
@@ -591,10 +698,51 @@ php/ext目录...
 
 
 
-但是当我们访问的时...
+但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了
+
+概念
+创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件
+
+
+这里使用burp suite进行申请创建文件，写一个死循环读取这个文件
+
+
+
+
+在start attack之前需要先运行访问的脚本
+
+
+
+
+
+
+可以得到内容，这题旨在能够访问到这个文件就能拿到flag
+
+总结
+Y3RmZXIldTY2MkYldTRFMEQldTY2MkYld...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/记一次简单的条件竞争的题目.html" itemprop="url">
+		<time datetime="2019-08-22T12:50:08.000Z" itemprop="datePublished">
+	  		2019-08-22
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -623,31 +771,27 @@ php/ext目录...
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/记一次简单的条件竞争的题目.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/cookie欺骗-writeup.html" title=" cookie欺骗 writeup ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="/images/pasted-113.png">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					八月 21日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/cookie欺骗-writeup.html" title="cookie欺骗 writeup">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/cookie欺骗-writeup.html" itemprop="url">
 		cookie欺骗 writeup
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						
 Begin
@@ -659,10 +803,32 @@ Begin
 
 
 发现能读到东西了，接下来读取整个文件
-...
+
+1234567from requests import *from base64 import *for i in range(0,20):    url = "http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=aW5kZXgucGhw"%i    respone = get(url=url)    print respone.text
+1234567891...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/cookie欺骗-writeup.html" itemprop="url">
+		<time datetime="2019-08-21T07:08:16.000Z" itemprop="datePublished">
+	  		2019-08-21
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -691,40 +857,58 @@ Begin
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/cookie欺骗-writeup.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/掘安RE_crypto.html" title=" jactf-reverse3 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/40.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					八月 16日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/掘安RE_crypto.html" title="jactf-reverse3">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/掘安RE_crypto.html" itemprop="url">
 		jactf-reverse3
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						RE_crypto
 ida
 
 
-程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19...
+程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的
+
+exp12345678910111213141516171819202122byte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,0x38,0x33,0x39,0x35,0x63,0x64,0x65,0x39,0x36,0x64,0x36,0x64,0x65,0x39,0x36,0x64,0x36,0x66,0x34,0x65,0x30,0x32,0x...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/掘安RE_crypto.html" itemprop="url">
+		<time datetime="2019-08-16T11:55:57.000Z" itemprop="datePublished">
+	  		2019-08-16
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -753,31 +937,27 @@ ida
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/掘安RE_crypto.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/记一次控制流平坦化逆向.html" title=" 记一次控制流平坦化逆向 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/24.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					八月 15日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/记一次控制流平坦化逆向.html" title="记一次控制流平坦化逆向">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/记一次控制流平坦化逆向.html" itemprop="url">
 		记一次控制流平坦化逆向
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						flat
 
@@ -790,10 +970,54 @@ ida
 
 
 fun_check1(char *a1) 主要作用是检查输入字符串长度
-...
+
+
+
+fun_check1(char *a1) 主要作用是检查输入前五个字节是否为flag{
+
+
+
+fun_check3(char *a1) 主要作用是检查输入的最后一个字节是否为}
+
+
+
+fun_check4(char *a1) 主要作用是检查输入的几个特殊部位的值是否为—
+
+
+
+
+
+输入的字符串进行加密后与字符串进行比较
+
+
+
+这就是比较的那个字符串 J2261C63-3I2I-EGE4-IBCC-IE41A5I5F4HB
+
+
+循环...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/记一次控制流平坦化逆向.html" itemprop="url">
+		<time datetime="2019-08-15T13:47:56.000Z" itemprop="datePublished">
+	  		2019-08-15
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -822,39 +1046,69 @@ fun_check1(char *a1) 主要作用是检查输入字符串长度
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/记一次控制流平坦化逆向.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
+	
 		<div class="post" id="post">
-			<a class="post-cover" href="/记一次简单的VM程序逆向.html" title=" 记一次简单的VM程序逆向 ">
-				
-				<img class="lazy" src="/img/placeholder.jpg" data-src="https://sariay.github.io/Random-img/37.jpg">
-			</a>
-
 			<div class="post-text">
-				<p class="post-time">
-					八月 14日, 2019
-				</p>	
-				<h3 class="post-title" id="post-title-index">
-					<a href="/记一次简单的VM程序逆向.html" title="记一次简单的VM程序逆向">
-						<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-						
+				<div class="post-title" id="post-title-index">			
+					<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+					
 	<a href="/记一次简单的VM程序逆向.html" itemprop="url">
 		记一次简单的VM程序逆向
 	</a>
 
-					</a>
-				</h3>
-				<p class="post-content">
+				</div>
+
+				<div class="post-content">
 					
 						题目来源vm crackme
 
 
-程序给了三个文件，主要是要求我们通过分析vm1.exe文件的虚拟机，然后自己实现虚拟机，执行ram.bin中的opcod...
+程序给了三个文件，主要是要求我们通过分析vm1.exe文件的虚拟机，然后自己实现虚拟机，执行ram.bin中的opcode
+
+ida分析
+
+程序先申请一个堆，然后将unk_404040copy到Dst中，进而执行sub_4022e0_
+
+
+
+依次取出Dst中的数据，然后调用sub_402270，可知255之后的数据是opcode，255之前的数据是data
+
+
+
+这就是opcode执行的主要函数
+
+实现自己的虚拟机1234567891011121314151617181920212223242526272829f = open("./ram.bin","...
 					
-				</p>
-				<p class="post-meta">
+				</div>
+				
+				<div class="post-meta">
+					<span>
+						发布于
+						<i>
+							
+
+
+
+
+
+
+	<a href="/记一次简单的VM程序逆向.html" itemprop="url">
+		<time datetime="2019-08-14T09:19:17.000Z" itemprop="datePublished">
+	  		2019-08-14
+	  </time>
+	</a> 
+
+						</i>
+					</span>
+					
 					
 
 
@@ -883,12 +1137,17 @@ fun_check1(char *a1) 主要作用是检查输入字符串长度
 
 	
 
-				</p>
+					
+						<span class="right">      	
+							<a href="/记一次简单的VM程序逆向.html" title="阅读全文">阅读全文</a>	
+						</span>
+					
+				</div>
 			</div>
 		</div>
-		
-	</div>
 	
+	</div>
+
 	
 	<div id="pagination">
 		
@@ -899,67 +1158,12 @@ fun_check1(char *a1) 主要作用是检查输入字符串长度
 	
 
 </div>
-	
+
 
 		</main>
 
 		<!--footer-->
-		<footer>
-	<div class="social">
-		<ul>
-	
-		<li>
-			<a href="http://github.com/bufsnake" target="_blank">
-				<i class="fa fa-github"></i>
-			</a>
-		</li>
-	
-		<li>
-			<a href="/atom.xml" target="_blank">
-				<i class="fa fa-rss"></i>
-			</a>
-		</li>
-			
-</ul>
-
-	</div>
 		
-	<div class="copyright">
-		<p>
-			 
-				&copy;2019 - 2020, content by bufsnake. All Rights Reserved.
-			
-			
-			
-
-	<!-- busuanzi -->
-	<!-- busuanzi -->
-
-		
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	
-
-		<span id="busuanzi_container_site_pv">
-	    	本站总访问量<span id="busuanzi_value_site_pv"></span>次
-		</span>
-
-		<span id="busuanzi_container_site_uv">
-	  		本站访客数<span id="busuanzi_value_site_uv"></span>人次
-		</span>
-		
-	
-
-
-
-
-		</p>
-		<p>
-			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
-			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
-			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
-		</p>
-	</div>		
-</footer>
 		
 	<!-- set '1' to show motto in all pages! -->
 
