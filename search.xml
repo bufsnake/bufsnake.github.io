@@ -444,7 +444,6 @@
     <content type="text"><![CDATA[导入表：是一个(PE文件所需的DLL文件)DLL数组，数组中的每个元素包含20个字节，每4个字节表示一种含义，一共五种含义： OriginalFirstThunk | TimeDateStamp | ForwarderChain | Name | FristThunk 其中较为重要的是以下三种： OriginalFirstThunk 指向INT(导入名字表) Name 指向DLL name FristThunk 指向IAT(导入地址表) INT 和 IAT在程序没加载到内存时是一样的，它们指向的内容都是程序所需的函数的名字 正常情况下，当程序初始化时，程序根据INT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中 若是没有OriginalFirstThunk ，程序会根据IAT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中 程序有OriginalFirstThunk，但是INT内容被破坏了，程序会报错 程序有OriginalFirstThunk，INT的内容也完好，没有FristThunk或者IAT的内容被破坏了，程序依然会报错 总结 程序初始化时会优先根据OriginalFirstThunk指向的INT得到函数的地址，填充到IAT中，如果没有OriginalFirstThunk，就会根据FirstThunk指向的IAT得到函数地址，填充到IAT中，IAT是比不可少的，INT和IAT的内容不能损坏]]></content>
       <categories>
         <category>PE文件</category>
-        <category>壳</category>
       </categories>
       <tags>
         <tag>PE文件</tag>
