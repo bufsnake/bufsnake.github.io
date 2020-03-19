@@ -145,6 +145,69 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/PE文件之导入表.html">
+        <p class="h4 index-header">PE文件之导入表</p>
+      </a>
+
+      <a href="/PE文件之导入表.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">导入表：是一个(PE文件所需的DLL文件)DLL数组，数组中的每个元素包含20个字节，每4个字节表示一种含义，一共五种含义：
+
+OriginalFirstThunk | TimeDateStamp | ForwarderChain | Name | FristThunk
+
+其中较为重要的是以下三种：
+
+OriginalFirstThunk 指向INT(导入名字表)
+
+
+Name 指向DLL name
+
+
+FristThunk 指向IAT(导入地址表)
+
+INT 和 IAT在程序没加载到内存时是一样的，它们指向的内容都是程序所需的函数的名字
+
+正常情况下，当程序初始化时，程序根据INT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中
+
+
+若是没有OriginalFirstThunk ，程序会根据IAT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中
+
+
+程序有OriginalFirstThunk，但是INT内容被破坏了，程序会报错
+
+
+程序有OriginalFi</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/PE%E6%96%87%E4%BB%B6">PE文件</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/PE%E6%96%87%E4%BB%B6">PE文件</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Markdown-语法简介.html">
         <p class="h4 index-header">Markdown 语法简介</p>
       </a>

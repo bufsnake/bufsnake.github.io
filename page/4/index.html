@@ -145,6 +145,70 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/PWN-学习—某平台ROP2-writeup.html">
+        <p class="h4 index-header">PWN 学习—某平台ROP2 writeup</p>
+      </a>
+
+      <a href="/PWN-学习—某平台ROP2-writeup.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">64位栈帧学习
+writeup本能反应
+
+RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这个保护开启就是意味着栈中数据没有执行权限，以前的经常用的call esp或者jmp esp的方法就不能使用，但是可以利用rop这种方法绕过PIE：PIE enabled如果程序开启这个地址随机化选项就意味着程序每次运行的时候地址都会变化，而如果没有开PIE的话那么No PIE (0x400000)，括号内的数据就是程序的基地址 
+
+执行程序
+
+发现输入一定的长度，程序就崩溃了
+
+ida打开程序
+
+查看要程序逻辑发现存在栈溢出漏洞输入长度大于 0xC (0x4 + 0x8) 面就是我们的天下了
+
+查看函数表
+发现函数joke
+
+似乎用不到的函数
+
+接下来查看字符串
+
+我无敌的/bin/sh字符串</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-02&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/writeup">writeup</a>&nbsp;
+          
+            <a href="/tags/pwntools">pwntools</a>&nbsp;
+          
+            <a href="/tags/rop">rop</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/git学习小记.html">
         <p class="h4 index-header">git学习小记</p>
       </a>
@@ -676,69 +740,6 @@ hexo g -d
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/%E6%8A%98%E8%85%BE">折腾</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/PE文件之导入表.html">
-        <p class="h4 index-header">PE文件之导入表</p>
-      </a>
-
-      <a href="/PE文件之导入表.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">导入表：是一个(PE文件所需的DLL文件)DLL数组，数组中的每个元素包含20个字节，每4个字节表示一种含义，一共五种含义：
-
-OriginalFirstThunk | TimeDateStamp | ForwarderChain | Name | FristThunk
-
-其中较为重要的是以下三种：
-
-OriginalFirstThunk 指向INT(导入名字表)
-
-
-Name 指向DLL name
-
-
-FristThunk 指向IAT(导入地址表)
-
-INT 和 IAT在程序没加载到内存时是一样的，它们指向的内容都是程序所需的函数的名字
-
-正常情况下，当程序初始化时，程序根据INT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中
-
-
-若是没有OriginalFirstThunk ，程序会根据IAT所指向的函数名字，利用系统函数GetProcAddress()(或是其他一些方法)得到地址，将地址填充到IAT中
-
-
-程序有OriginalFirstThunk，但是INT内容被破坏了，程序会报错
-
-
-程序有OriginalFi</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-12&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/PE%E6%96%87%E4%BB%B6">PE文件</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/PE%E6%96%87%E4%BB%B6">PE文件</a>&nbsp;
           
         
       </div>

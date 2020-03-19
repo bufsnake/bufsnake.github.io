@@ -178,6 +178,64 @@ This is my TODO…
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Mac-PHP调试环境搭建.html">
+        <p class="h4 index-header">Mac PHP调试环境搭建</p>
+      </a>
+
+      <a href="/Mac-PHP调试环境搭建.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言需要的工具MxSrvs、PHPStorm、Xdebug helper
+配置MxSrvs
+启动软件
+
+
+打开配置编辑，编辑php.ini
+
+
+配置Xdebug
+MxSrvs默认自带Xdebug，不需要去下载，配置如下图:
+
+[xdebug]
+zend_extension = &quot;/Applications/MxSrvs/bin/php/ext/xdebug.so&quot;
+xdebug.remote_enable=1
+xdebug.remote_connect_back=1
+xdebug.var_display_max_depth = 512
+xdebug.profiler_append = 1
+xdebug.profiler_enable_trigger = 1
+xdebug.max_nesting_level = 200
+xdebug.profiler_output_dir = &quot;/Applications/MxSrvs/logs/xdebug&quot;
+xdebug.profiler_output_name = &quot;cachegrind.out.%</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/php%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">php调试环境搭建</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/CVE-2019-19781-Citrix路径遍历复现.html">
         <p class="h4 index-header">CVE-2019-19781:Citrix路径遍历复现</p>
       </a>
@@ -661,48 +719,6 @@ struct SegMent
           
             <a href="/tags/%E6%AE%B5%E7%9A%84%E6%9C%BA%E5%88%B6">段的机制</a>&nbsp;
           
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/KCTF-1.html">
-        <p class="h4 index-header">KCTF-1</p>
-      </a>
-
-      <a href="/KCTF-1.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">
-初世纪
-
-输入不正确就会出现这个弹窗
-
-ida打开程序定位WinMain函数
-找到DialogBoxParam的回调函数
-函数原型：
-    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；
-参数：
-hlnstance       标识一个模块的实例，该模块的可执行文件含有对话框模板。
-IpTemplateName  标识对话框模板。此参数可以指向一个以NULL结尾的字符串的指针,该字符串指定对话框模扳名，或是指定对话框模板的资源标识符的一个整型值。如果此参数指定了一个资源标识符，则它的高位字一定为零，且低位字一定含有标识符。一定用MAKEINTRESOURCE宏指令创建此值。
-hWndParent      指定拥有对话框的窗口。
-IpDialogFunc    指向对话框过程的指针。
-dwInitParam     指定传递到对话框过程中的 WM_INITDIALOG 消息 IParam 参</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-01&nbsp;&nbsp;
-        
-        
         
       </div>
     </div>

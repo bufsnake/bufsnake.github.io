@@ -39,6 +39,31 @@
   </entry>
   
   <entry>
+    <title>Mac PHP调试环境搭建</title>
+    <link href="https://bufsnake.github.io/Mac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html"/>
+    <id>https://bufsnake.github.io/Mac-PHP调试环境搭建.html</id>
+    <published>2020-03-19T01:22:03.000Z</published>
+    <updated>2020-03-19T01:54:38.316Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>需要的工具<code>MxSrvs</code>、<code>PHPStorm</code>、<code>Xdebug helper</code></p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="MxSrvs"><a href="#MxSrvs" class="headerlink" title="MxSrvs"></a>MxSrvs</h3><ol><li><p>启动软件</p><p><img src="/images/pasted-209.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>打开配置编辑，编辑php.ini</p><p><img src="/images/pasted-210.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>配置Xdebug</p><p><code>MxSrvs</code>默认自带Xdebug，不需要去下载，配置如下图:</p><p><img src="/images/pasted-211.png" srcset="/img/loading.gif" alt="upload successful"></p><pre><code class="bash">[xdebug]zend_extension = &quot;/Applications/MxSrvs/bin/php/ext/xdebug.so&quot;xdebug.remote_enable=1xdebug.remote_connect_back=1xdebug.var_display_max_depth = 512xdebug.profiler_append = 1xdebug.profiler_enable_trigger = 1xdebug.max_nesting_level = 200xdebug.profiler_output_dir = &quot;/Applications/MxSrvs/logs/xdebug&quot;xdebug.profiler_output_name = &quot;cachegrind.out.%t.%p&quot;xdebug.idekey=&#39;PHPSTORM&#39;  # sessionkeyxdebug.remote_port=9000   #</code></pre></li><li><p>查看phpinfo信息</p><p><img src="/images/pasted-216.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol><h3 id="PHPStorm"><a href="#PHPStorm" class="headerlink" title="PHPStorm"></a>PHPStorm</h3><p><code>设置PHPStorm的Xdebug端口，端口由xdebug.remote_port决定</code></p><p><img src="/images/pasted-212.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-213.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="Xdebug-helper-Chrome插件"><a href="#Xdebug-helper-Chrome插件" class="headerlink" title="Xdebug helper(Chrome插件)"></a>Xdebug helper(Chrome插件)</h3><ol><li><p>在Chrome插件商店下载安装即可</p><p><img src="/images/pasted-214.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>配置Xdebug Helper</p><p><code>IDE key由xdebug.idekey决定</code></p><p><img src="/images/pasted-215.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol><li><p>在网站根目录添加一个PHP文件</p><p><img src="/images/pasted-217.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>开启监听</p><p><img src="/images/pasted-218.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>开启Xdebug Helper</p><p><img src="/images/pasted-219.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>刷新网页，phpstorm会提示以下内容，同意即可：</p><p><img src="/images/pasted-220.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>提示Debug session was finished without being paused</p><p>需要设置断点，然后刷新网页，就会显示如下界面。</p><p><img src="/images/pasted-221.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;需要的工具&lt;code&gt;MxSrvs&lt;/code&gt;、&lt;code&gt;PHPStorm&lt;/code&gt;、&lt;code&gt;Xdebug helper&lt;/co
+      
+    
+    </summary>
+    
+      <category term="web" scheme="https://bufsnake.github.io/categories/web/"/>
+    
+    
+      <category term="php调试环境搭建" scheme="https://bufsnake.github.io/tags/php%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CVE-2019-19781:Citrix路径遍历复现</title>
     <link href="https://bufsnake.github.io/CVE-2019-19781-Citrix%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E5%A4%8D%E7%8E%B0.html"/>
     <id>https://bufsnake.github.io/CVE-2019-19781-Citrix路径遍历复现.html</id>
@@ -522,33 +547,6 @@
       <category term="flat" scheme="https://bufsnake.github.io/tags/flat/"/>
     
       <category term="ollvm" scheme="https://bufsnake.github.io/tags/ollvm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记一次简单的VM程序逆向</title>
-    <link href="https://bufsnake.github.io/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84VM%E7%A8%8B%E5%BA%8F%E9%80%86%E5%90%91.html"/>
-    <id>https://bufsnake.github.io/记一次简单的VM程序逆向.html</id>
-    <published>2019-08-14T09:19:17.000Z</published>
-    <updated>2019-11-25T09:42:53.208Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h3><p><a href="http://malwaretech.com/downloads/vm1.zip" target="_blank" rel="noopener">vm crackme</a></p><p><img src="/images/pasted-91.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>程序给了三个文件，主要是要求我们通过分析vm1.exe文件的虚拟机，然后自己实现虚拟机，执行ram.bin中的opcode</p></blockquote><h3 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h3><p><img src="/images/pasted-93.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>程序先申请一个堆，然后将unk_404040copy到Dst中，进而执行sub_4022e0_</p></blockquote><p><img src="/images/pasted-94.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>依次取出Dst中的数据，然后调用sub_402270，可知255之后的数据是opcode，255之前的数据是data</p></blockquote><p><img src="/images/pasted-95.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>这就是opcode执行的主要函数</p></blockquote><h3 id="实现自己的虚拟机"><a href="#实现自己的虚拟机" class="headerlink" title="实现自己的虚拟机"></a>实现自己的虚拟机</h3><pre><code class="python">f = open(&quot;./ram.bin&quot;,&quot;rb&quot;)opcode = list(f.read())data = opcode[:0xff]for i in range(0,len(data)):    data[i] = ord(opcode[i])def sub_402270(v0,v1,v2):    global byte    if v0 == 1:        data[v1] = v2;        print &quot;mov data[%d], 0x%x&quot;%(v1,v2)    elif v0 == 2:        byte = data[v1]        print &quot;mov rax, data[%d]&quot;%v1    elif v0 == 3:        data[v1] = data[v1] ^ byte        print &quot;xor data[%d], rax&quot;%v1for i in range(0,len(opcode)-257,3):    v0 = opcode[255+i]    v1 = opcode[256+i]    v2 = opcode[257+i]    if v0 == 4:        break    sub_402270(ord(v0),ord(v1),ord(v2))print &#39;&#39;.join(chr(i) for i in data)</code></pre><h3 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h3><pre><code class="bash">mov data[29], 0xbdmov data[5], 0x53mov data[18], 0x48mov data[16], 0xe6mov data[19], 0x8amov data[13], 0x47mov data[22], 0x13mov data[10], 0x15mov data[0], 0x98mov data[2], 0x3cmov data[24], 0xd9mov data[26], 0x57mov data[6], 0xabmov data[27], 0xc6mov data[1], 0x32mov data[23], 0x20mov data[21], 0x6fmov data[17], 0x2dmov data[8], 0xc9mov data[9], 0xe7mov data[3], 0x12mov data[12], 0x2fmov data[14], 0x88mov data[25], 0x6cmov data[4], 0x65mov data[30], 0xaemov data[20], 0x59mov data[31], 0x91mov data[28], 0x5dmov data[15], 0xaemov data[11], 0x15mov data[7], 0xccmov rax, data[32]xor data[0], raxmov rax, data[33]xor data[1], raxmov rax, data[34]xor data[2], raxmov rax, data[35]xor data[3], raxmov rax, data[36]xor data[4], raxmov rax, data[37]xor data[5], raxmov rax, data[38]xor data[6], raxmov rax, data[39]xor data[7], raxmov rax, data[40]xor data[8], raxmov rax, data[41]xor data[9], raxmov rax, data[42]xor data[10], raxmov rax, data[43]xor data[11], raxmov rax, data[44]xor data[12], raxmov rax, data[45]xor data[13], raxmov rax, data[46]xor data[14], raxmov rax, data[47]xor data[15], raxmov rax, data[48]xor data[16], raxmov rax, data[49]xor data[17], raxmov rax, data[50]xor data[18], raxmov rax, data[51]xor data[19], raxmov rax, data[52]xor data[20], raxmov rax, data[53]xor data[21], raxmov rax, data[54]xor data[22], raxmov rax, data[55]xor data[23], raxmov rax, data[56]xor data[24], raxmov data[25], 0x0FLAG{VMS-ARE-FOR-MALWARE}W�]����~}U��GP���`    �.Ae�</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p> 第一次逆向vm程序，初次体验了被vm虐哭的感觉</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;题目来源&quot;&gt;&lt;a href=&quot;#题目来源&quot; class=&quot;headerlink&quot; title=&quot;题目来源&quot;&gt;&lt;/a&gt;题目来源&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://malwaretech.com/downloads/vm1.zip&quot; target=&quot;_bl
-      
-    
-    </summary>
-    
-      <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
-    
-    
-      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
-    
-      <category term="vm" scheme="https://bufsnake.github.io/tags/vm/"/>
     
   </entry>
   

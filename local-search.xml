@@ -17,6 +17,31 @@
   
   
   <entry>
+    <title>Mac PHP调试环境搭建</title>
+    <link href="/Mac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html"/>
+    <url>/Mac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>需要的工具<code>MxSrvs</code>、<code>PHPStorm</code>、<code>Xdebug helper</code></p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="MxSrvs"><a href="#MxSrvs" class="headerlink" title="MxSrvs"></a>MxSrvs</h3><ol><li><p>启动软件</p><p><img src="/images/pasted-209.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>打开配置编辑，编辑php.ini</p><p><img src="/images/pasted-210.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>配置Xdebug</p><p><code>MxSrvs</code>默认自带Xdebug，不需要去下载，配置如下图:</p><p><img src="/images/pasted-211.png" srcset="/img/loading.gif" alt="upload successful"></p><pre><code class="bash">[xdebug]zend_extension = &quot;/Applications/MxSrvs/bin/php/ext/xdebug.so&quot;xdebug.remote_enable=1xdebug.remote_connect_back=1xdebug.var_display_max_depth = 512xdebug.profiler_append = 1xdebug.profiler_enable_trigger = 1xdebug.max_nesting_level = 200xdebug.profiler_output_dir = &quot;/Applications/MxSrvs/logs/xdebug&quot;xdebug.profiler_output_name = &quot;cachegrind.out.%t.%p&quot;xdebug.idekey=&#39;PHPSTORM&#39;  # sessionkeyxdebug.remote_port=9000   #</code></pre></li><li><p>查看phpinfo信息</p><p><img src="/images/pasted-216.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol><h3 id="PHPStorm"><a href="#PHPStorm" class="headerlink" title="PHPStorm"></a>PHPStorm</h3><p><code>设置PHPStorm的Xdebug端口，端口由xdebug.remote_port决定</code></p><p><img src="/images/pasted-212.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-213.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="Xdebug-helper-Chrome插件"><a href="#Xdebug-helper-Chrome插件" class="headerlink" title="Xdebug helper(Chrome插件)"></a>Xdebug helper(Chrome插件)</h3><ol><li><p>在Chrome插件商店下载安装即可</p><p><img src="/images/pasted-214.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>配置Xdebug Helper</p><p><code>IDE key由xdebug.idekey决定</code></p><p><img src="/images/pasted-215.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol><li><p>在网站根目录添加一个PHP文件</p><p><img src="/images/pasted-217.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>开启监听</p><p><img src="/images/pasted-218.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>开启Xdebug Helper</p><p><img src="/images/pasted-219.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>刷新网页，phpstorm会提示以下内容，同意即可：</p><p><img src="/images/pasted-220.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>提示Debug session was finished without being paused</p><p>需要设置断点，然后刷新网页，就会显示如下界面。</p><p><img src="/images/pasted-221.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>web</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>php调试环境搭建</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CVE-2019-19781:Citrix路径遍历复现</title>
     <link href="/CVE-2019-19781-Citrix%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E5%A4%8D%E7%8E%B0.html"/>
     <url>/CVE-2019-19781-Citrix%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E5%A4%8D%E7%8E%B0.html</url>

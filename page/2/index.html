@@ -145,6 +145,48 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/KCTF-1.html">
+        <p class="h4 index-header">KCTF-1</p>
+      </a>
+
+      <a href="/KCTF-1.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">
+初世纪
+
+输入不正确就会出现这个弹窗
+
+ida打开程序定位WinMain函数
+找到DialogBoxParam的回调函数
+函数原型：
+    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；
+参数：
+hlnstance       标识一个模块的实例，该模块的可执行文件含有对话框模板。
+IpTemplateName  标识对话框模板。此参数可以指向一个以NULL结尾的字符串的指针,该字符串指定对话框模扳名，或是指定对话框模板的资源标识符的一个整型值。如果此参数指定了一个资源标识符，则它的高位字一定为零，且低位字一定含有标识符。一定用MAKEINTRESOURCE宏指令创建此值。
+hWndParent      指定拥有对话框的窗口。
+IpDialogFunc    指向对话框过程的指针。
+dwInitParam     指定传递到对话框过程中的 WM_INITDIALOG 消息 IParam 参</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-01&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/MacOS-IDA-pro-致最傻的我.html">
         <p class="h4 index-header">MacOS上IDA pro的小问题修复</p>
       </a>
@@ -747,75 +789,6 @@ f</div>
             <a href="/tags/flat">flat</a>&nbsp;
           
             <a href="/tags/ollvm">ollvm</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/记一次简单的VM程序逆向.html">
-        <p class="h4 index-header">记一次简单的VM程序逆向</p>
-      </a>
-
-      <a href="/记一次简单的VM程序逆向.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">题目来源vm crackme
-
-
-程序给了三个文件，主要是要求我们通过分析vm1.exe文件的虚拟机，然后自己实现虚拟机，执行ram.bin中的opcode
-
-ida分析
-
-程序先申请一个堆，然后将unk_404040copy到Dst中，进而执行sub_4022e0_
-
-
-
-依次取出Dst中的数据，然后调用sub_402270，可知255之后的数据是opcode，255之前的数据是data
-
-
-
-这就是opcode执行的主要函数
-
-实现自己的虚拟机f = open(&quot;./ram.bin&quot;,&quot;rb&quot;)
-opcode = list(f.read())
-
-data = opcode[:0xff]
-
-for i in range(0,len(data)):
-    data[i] = ord(opcode[i])
-
-def sub_402270(v0,v1,v2):
-    global byte
-    if v0 == 1:
-        data[v1] = v2;
-        print &quot;mov data[%d], 0x%x&q</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-14&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/reverse">reverse</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/reverse">reverse</a>&nbsp;
-          
-            <a href="/tags/vm">vm</a>&nbsp;
           
         
       </div>

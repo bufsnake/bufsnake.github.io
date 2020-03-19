@@ -145,6 +145,75 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/记一次简单的VM程序逆向.html">
+        <p class="h4 index-header">记一次简单的VM程序逆向</p>
+      </a>
+
+      <a href="/记一次简单的VM程序逆向.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">题目来源vm crackme
+
+
+程序给了三个文件，主要是要求我们通过分析vm1.exe文件的虚拟机，然后自己实现虚拟机，执行ram.bin中的opcode
+
+ida分析
+
+程序先申请一个堆，然后将unk_404040copy到Dst中，进而执行sub_4022e0_
+
+
+
+依次取出Dst中的数据，然后调用sub_402270，可知255之后的数据是opcode，255之前的数据是data
+
+
+
+这就是opcode执行的主要函数
+
+实现自己的虚拟机f = open(&quot;./ram.bin&quot;,&quot;rb&quot;)
+opcode = list(f.read())
+
+data = opcode[:0xff]
+
+for i in range(0,len(data)):
+    data[i] = ord(opcode[i])
+
+def sub_402270(v0,v1,v2):
+    global byte
+    if v0 == 1:
+        data[v1] = v2;
+        print &quot;mov data[%d], 0x%x&q</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/reverse">reverse</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/reverse">reverse</a>&nbsp;
+          
+            <a href="/tags/vm">vm</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/so库移植.html">
         <p class="h4 index-header">so库移植</p>
       </a>
@@ -702,70 +771,6 @@ Linux下提供两种堆空间分配的方式，及两个系统调用：brk()  �
             <a href="/tags/heap">heap</a>&nbsp;
           
             <a href="/tags/pwn">pwn</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/PWN-学习—某平台ROP2-writeup.html">
-        <p class="h4 index-header">PWN 学习—某平台ROP2 writeup</p>
-      </a>
-
-      <a href="/PWN-学习—某平台ROP2-writeup.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">64位栈帧学习
-writeup本能反应
-
-RELRO：RELRO会有Partial RELRO和FULL RELRO，如果开启FULL RELRO，意味着我们无法修改got表Stack：如果栈中开启Canary found，那么就不能用直接用溢出的方法覆盖栈中返回地址，而且要通过改写指针与局部变量、leak canary、overwrite canary的方法来绕过NX：NX enabled如果这个保护开启就是意味着栈中数据没有执行权限，以前的经常用的call esp或者jmp esp的方法就不能使用，但是可以利用rop这种方法绕过PIE：PIE enabled如果程序开启这个地址随机化选项就意味着程序每次运行的时候地址都会变化，而如果没有开PIE的话那么No PIE (0x400000)，括号内的数据就是程序的基地址 
-
-执行程序
-
-发现输入一定的长度，程序就崩溃了
-
-ida打开程序
-
-查看要程序逻辑发现存在栈溢出漏洞输入长度大于 0xC (0x4 + 0x8) 面就是我们的天下了
-
-查看函数表
-发现函数joke
-
-似乎用不到的函数
-
-接下来查看字符串
-
-我无敌的/bin/sh字符串</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-02&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/pwn">pwn</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/writeup">writeup</a>&nbsp;
-          
-            <a href="/tags/pwntools">pwntools</a>&nbsp;
-          
-            <a href="/tags/rop">rop</a>&nbsp;
           
         
       </div>
