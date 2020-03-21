@@ -17,6 +17,31 @@
   
   
   <entry>
+    <title>Mac 自动操作的极致体验</title>
+    <link href="/Mac-%E8%87%AA%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%9E%81%E8%87%B4%E4%BD%93%E9%AA%8C.html"/>
+    <url>/Mac-%E8%87%AA%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%9E%81%E8%87%B4%E4%BD%93%E9%AA%8C.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>常用的jar包常常需要用掉一个终端页面，或是<code>&amp;&gt;&gt;/dev/null &amp;</code>后台运行，但是当前页面一但关闭，程序也就随之关闭，很是苦恼。</p></blockquote><blockquote><p>使用burpsuite的时候，发现<a href="https://www.sqlsec.com/2019/11/macbp.html" target="_blank" rel="noopener">国光</a>大佬发的一篇有趣的文章，遂尝试了一下。成果图如下</p></blockquote><p><img src="/images/pasted-222.png" srcset="/img/loading.gif" alt="upload successful"></p><p>按照操作，出现了点问题，如下：</p><p><img src="/images/pasted-223.png" srcset="/img/loading.gif" alt="upload successful"></p><pre><code class="php">操作“运行 Shell 脚本”遇到了错误：“Error: Unable to access jarfile burp-loader-keygen-2020_2.jar”Error: Unable to access jarfile burp-loader-keygen-2020_2.jar</code></pre><p>Google了一波，都说是内存分配原因，但是在iterm2中运行却没事，想到会不会是环境的问题，然后就在终端运行了</p><pre><code class="bash">➜  burpsuite2020.02 export |grep &quot;JAVA&quot;JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home</code></pre><p>，唯一和java相关的环境变量，写到 <code>运行Shell脚本</code></p><pre><code class="bash">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home &amp;&amp; cd /Users/bufsnake/Web-Pentest/burpsuite2020.02 &amp;&amp; java -noverify -Xbootclasspath/p:burp-loader-keygen-2020_2.jar -jar burpsuite_pro_v2020.2.jar</code></pre><p>运行后发现成功了</p><p><img src="/images/pasted-224.png" srcset="/img/loading.gif" alt="upload successful"></p><h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><ol><li>在之前，macos运行goby的时候，由于macos权限控制的比较狗，所以goby申请一些权限不过就会会卡住，如下图<br><img src="/images/pasted-225.png" srcset="/img/loading.gif" alt="upload successful"></li><li>iterm2中用sudo运行goby就可以进去(root权限)<br><img src="/images/pasted-226.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-227.png" srcset="/img/loading.gif" alt="upload successful"></li><li><p>然后就用了 自动操作 制作了一个app，发现goby真香</p><ul><li><p>设置sudo不需要输入密码</p><pre><code class="bash">➜  MacOS sudo cat /etc/sudoers...# root and users in group wheel can run anything on any machine as any userroot        ALL = (ALL) ALL%admin        ALL = (ALL) NOPASSWD:ALL...</code></pre><ul><li><p>注意点</p><p>a. 使用超级权限编辑/etc/sudoers，vim编辑后，然后键入:wq!，保存</p><p>b. 如果配置错误，sudo命令就会报错</p><pre><code class="bash">➜  MacOS sudo&gt;&gt;&gt; /etc/sudoers: syntax error near line 2 &lt;&lt;&lt;sudo: parse error in /etc/sudoers near line 2sudo: no valid sudoers sources found, quittingsudo: unable to initialize policy plugin</code></pre><ul><li>解决方法如下<br><img src="/images/pasted-228.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-229.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-230.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-231.png" srcset="/img/loading.gif" alt="upload successful"><br>重新编辑/etc/sudoers文件，当前权限就行，更改完之后，记得，将文件的权限还原，否则如下:<pre><code class="bash">➜  MacOS sudo vimsudo: /etc/sudoers is world writablesudo: no valid sudoers sources found, quittingsudo: unable to initialize policy plugin         </code></pre></li></ul></li></ul></li><li>设置 <code>运行 Shell 脚本</code><br><img src="/images/pasted-232.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-233.png" srcset="/img/loading.gif" alt="upload successful"><br>这样设置，很是舒服，有个小问题<br><img src="/images/pasted-234.png" srcset="/img/loading.gif" alt="upload successful"><br>可以在脚本后面键入<code>&amp;&gt;&gt;/dev/null &amp;</code>，就非常完美了<br><img src="/images/pasted-235.png" srcset="/img/loading.gif" alt="upload successful"></li><li>图标可以从goby.app中直接获取<br><img src="/images/pasted-236.png" srcset="/img/loading.gif" alt="upload successful"></li><li>成品图<br><img src="/images/pasted-237.png" srcset="/img/loading.gif" alt="upload successful"></li><li><p>测试扫描</p><p><code>注:</code>需要指定网卡<br><img src="/images/pasted-238.png" srcset="/img/loading.gif" alt="upload successful"><br><code>真香</code></p></li></ul></li></ol><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>通过此方法，又设置了几个软件，不用每次都依赖终端了，需要注意的是，文件的路径不要轻易改变，不然会打不开，还要重新制作，浪费时间。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>misc</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>mac</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Mac PHP调试环境搭建</title>
     <link href="/Mac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html"/>
     <url>/Mac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html</url>

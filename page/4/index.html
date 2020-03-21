@@ -145,6 +145,57 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Heap的学习-1.html">
+        <p class="h4 index-header">Heap的学习(1)</p>
+      </a>
+
+      <a href="/Heap的学习-1.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+对于堆方面的内容，在没有别人帮助的情况下，学起来就很吃力，不像栈那么好理解，本篇记录我对堆的一些了解，不足之处，还望斧正。
+
+什么是堆
+栈无法满足将函数内部的数据传递到函数的外部，虽然有全局变量可以传递，但是不能动态的产生，只能在编译的时候定义，在很多情况下显得鸡肋，这时候堆(Heap)就成了一种选择。堆是一个巨大的空间，常常占据着整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的内存并自由使用，直到程序主动放弃之前都会有效。
+
+堆管理
+程序向操作系统申请一块适当大小的堆空间，然后有程序自己管理这块空间，具体来讲，管理着堆空间分配的往往是程序的运行库，运行库相当于从系统批发了一块较大的堆空间，然后零售给程序用，当售完或程序有大量的内存需求时，在根据实际需求再次向系统申请进货，运行库通过堆的分配算法来管理程序的对空间。
+
+Linux下提供两种堆空间分配的方式，及两个系统调用：brk()  系统调用brk()的c语言形式声明如下：int brk(void* end_data_segment)
+
+实际作用就是设置进程数据段(Linux下将数据段和BSS段合在一起统称位数据段)</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-10&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/heap">heap</a>&nbsp;
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/PWN-学习—某平台ROP2-writeup.html">
         <p class="h4 index-header">PWN 学习—某平台ROP2 writeup</p>
       </a>
@@ -692,54 +743,6 @@ tar -xzvf afl-latest.tgz &amp;&amp; cd afl-2.52b &amp;&amp; mak</div>
             <a href="/tags/fuzz">fuzz</a>&nbsp;
           
             <a href="/tags/afl-fuzzing">afl-fuzzing</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/hexo推送文章出错.html">
-        <p class="h4 index-header">hexo推送文章出错</p>
-      </a>
-
-      <a href="/hexo推送文章出错.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">今天在推送文章到博客时，出现了如下图所示问题：error: object file .git/objects/1a/0c8ed231a58347078a270dcca44611c261d419 is empty
-
-解决方法：
-将博客根目录的.deploy_git文件夹删除，重新运行
-
-hexo g -d
-
-
-命令即可
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E6%8A%98%E8%85%BE">折腾</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%8A%98%E8%85%BE">折腾</a>&nbsp;
           
         
       </div>

@@ -6,6 +6,17 @@
     <content type="text"><![CDATA[TODO…约束自己执行想要执行的事情 This is my TODO… 还在学习中…]]></content>
   </entry>
   <entry>
+    <title><![CDATA[Mac 自动操作的极致体验]]></title>
+    <url>%2FMac-%E8%87%AA%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%9E%81%E8%87%B4%E4%BD%93%E9%AA%8C.html</url>
+    <content type="text"><![CDATA[前言 常用的jar包常常需要用掉一个终端页面，或是&amp;&gt;&gt;/dev/null &amp;后台运行，但是当前页面一但关闭，程序也就随之关闭，很是苦恼。 使用burpsuite的时候，发现国光大佬发的一篇有趣的文章，遂尝试了一下。成果图如下 按照操作，出现了点问题，如下： 操作“运行 Shell 脚本”遇到了错误：“Error: Unable to access jarfile burp-loader-keygen-2020_2.jar” Error: Unable to access jarfile burp-loader-keygen-2020_2.jar Google了一波，都说是内存分配原因，但是在iterm2中运行却没事，想到会不会是环境的问题，然后就在终端运行了 ➜ burpsuite2020.02 export |grep &quot;JAVA&quot; JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home ，唯一和java相关的环境变量，写到 运行Shell脚本 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home &amp;&amp; cd /Users/bufsnake/Web-Pentest/burpsuite2020.02 &amp;&amp; java -noverify -Xbootclasspath/p:burp-loader-keygen-2020_2.jar -jar burpsuite_pro_v2020.2.jar 运行后发现成功了 拓展 在之前，macos运行goby的时候，由于macos权限控制的比较狗，所以goby申请一些权限不过就会会卡住，如下图 iterm2中用sudo运行goby就可以进去(root权限) 然后就用了 自动操作 制作了一个app，发现goby真香 设置sudo不需要输入密码 ➜ MacOS sudo cat /etc/sudoers ... # root and users in group wheel can run anything on any machine as any user root ALL = (ALL) ALL %admin ALL = (ALL) NOPASSWD:ALL ... 注意点 a. 使用超级权限编辑/etc/sudoers，vim编辑后，然后键入:wq!，保存 b. 如果配置错误，sudo命令就会报错 ➜ MacOS sudo &gt;&gt;&gt; /etc/sudoers: syntax error near line 2 &lt;&lt;&lt; sudo: parse error in /etc/sudoers near line 2 sudo: no valid sudoers sources found, quitting sudo: unable to initialize policy plugin 解决方法如下重新编辑/etc/sudoers文件，当前权限就行，更改完之后，记得，将文件的权限还原，否则如下:➜ MacOS sudo vim sudo: /etc/sudoers is world writable sudo: no valid sudoers sources found, quitting sudo: unable to initialize policy plugin 设置 运行 Shell 脚本这样设置，很是舒服，有个小问题可以在脚本后面键入&amp;&gt;&gt;/dev/null &amp;，就非常完美了 图标可以从goby.app中直接获取 成品图 测试扫描 注:需要指定网卡真香 后续通过此方法，又设置了几个软件，不用每次都依赖终端了，需要注意的是，文件的路径不要轻易改变，不然会打不开，还要重新制作，浪费时间。]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Mac PHP调试环境搭建]]></title>
     <url>%2FMac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html</url>
     <content type="text"><![CDATA[前言需要的工具MxSrvs、PHPStorm、Xdebug helper 配置MxSrvs 启动软件 打开配置编辑，编辑php.ini 配置Xdebug MxSrvs默认自带Xdebug，不需要去下载，配置如下图: [xdebug] zend_extension = &quot;/Applications/MxSrvs/bin/php/ext/xdebug.so&quot; xdebug.remote_enable=1 xdebug.remote_connect_back=1 xdebug.var_display_max_depth = 512 xdebug.profiler_append = 1 xdebug.profiler_enable_trigger = 1 xdebug.max_nesting_level = 200 xdebug.profiler_output_dir = &quot;/Applications/MxSrvs/logs/xdebug&quot; xdebug.profiler_output_name = &quot;cachegrind.out.%t.%p&quot; xdebug.idekey=&#39;PHPSTORM&#39; # sessionkey xdebug.remote_port=9000 # 查看phpinfo信息 PHPStorm设置PHPStorm的Xdebug端口，端口由xdebug.remote_port决定 Xdebug helper(Chrome插件) 在Chrome插件商店下载安装即可 配置Xdebug Helper IDE key由xdebug.idekey决定 测试 在网站根目录添加一个PHP文件 开启监听 开启Xdebug Helper 刷新网页，phpstorm会提示以下内容，同意即可： 提示Debug session was finished without being paused 需要设置断点，然后刷新网页，就会显示如下界面。]]></content>

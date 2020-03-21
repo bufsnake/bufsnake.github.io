@@ -39,6 +39,32 @@
   </entry>
   
   <entry>
+    <title>Mac 自动操作的极致体验</title>
+    <link href="https://bufsnake.github.io/Mac-%E8%87%AA%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%9E%81%E8%87%B4%E4%BD%93%E9%AA%8C.html"/>
+    <id>https://bufsnake.github.io/Mac-自动操作的极致体验.html</id>
+    <published>2020-03-19T02:24:51.000Z</published>
+    <updated>2020-03-21T01:37:05.752Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>常用的jar包常常需要用掉一个终端页面，或是<code>&amp;&gt;&gt;/dev/null &amp;</code>后台运行，但是当前页面一但关闭，程序也就随之关闭，很是苦恼。</p></blockquote><blockquote><p>使用burpsuite的时候，发现<a href="https://www.sqlsec.com/2019/11/macbp.html" target="_blank" rel="noopener">国光</a>大佬发的一篇有趣的文章，遂尝试了一下。成果图如下</p></blockquote><p><img src="/images/pasted-222.png" srcset="/img/loading.gif" alt="upload successful"></p><p>按照操作，出现了点问题，如下：</p><p><img src="/images/pasted-223.png" srcset="/img/loading.gif" alt="upload successful"></p><pre><code class="php">操作“运行 Shell 脚本”遇到了错误：“Error: Unable to access jarfile burp-loader-keygen-2020_2.jar”Error: Unable to access jarfile burp-loader-keygen-2020_2.jar</code></pre><p>Google了一波，都说是内存分配原因，但是在iterm2中运行却没事，想到会不会是环境的问题，然后就在终端运行了</p><pre><code class="bash">➜  burpsuite2020.02 export |grep &quot;JAVA&quot;JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home</code></pre><p>，唯一和java相关的环境变量，写到 <code>运行Shell脚本</code></p><pre><code class="bash">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home &amp;&amp; cd /Users/bufsnake/Web-Pentest/burpsuite2020.02 &amp;&amp; java -noverify -Xbootclasspath/p:burp-loader-keygen-2020_2.jar -jar burpsuite_pro_v2020.2.jar</code></pre><p>运行后发现成功了</p><p><img src="/images/pasted-224.png" srcset="/img/loading.gif" alt="upload successful"></p><h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><ol><li>在之前，macos运行goby的时候，由于macos权限控制的比较狗，所以goby申请一些权限不过就会会卡住，如下图<br><img src="/images/pasted-225.png" srcset="/img/loading.gif" alt="upload successful"></li><li>iterm2中用sudo运行goby就可以进去(root权限)<br><img src="/images/pasted-226.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-227.png" srcset="/img/loading.gif" alt="upload successful"></li><li><p>然后就用了 自动操作 制作了一个app，发现goby真香</p><ul><li><p>设置sudo不需要输入密码</p><pre><code class="bash">➜  MacOS sudo cat /etc/sudoers...# root and users in group wheel can run anything on any machine as any userroot        ALL = (ALL) ALL%admin        ALL = (ALL) NOPASSWD:ALL...</code></pre><ul><li><p>注意点</p><p>a. 使用超级权限编辑/etc/sudoers，vim编辑后，然后键入:wq!，保存</p><p>b. 如果配置错误，sudo命令就会报错</p><pre><code class="bash">➜  MacOS sudo&gt;&gt;&gt; /etc/sudoers: syntax error near line 2 &lt;&lt;&lt;sudo: parse error in /etc/sudoers near line 2sudo: no valid sudoers sources found, quittingsudo: unable to initialize policy plugin</code></pre><ul><li>解决方法如下<br><img src="/images/pasted-228.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-229.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-230.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-231.png" srcset="/img/loading.gif" alt="upload successful"><br>重新编辑/etc/sudoers文件，当前权限就行，更改完之后，记得，将文件的权限还原，否则如下:<pre><code class="bash">➜  MacOS sudo vimsudo: /etc/sudoers is world writablesudo: no valid sudoers sources found, quittingsudo: unable to initialize policy plugin         </code></pre></li></ul></li></ul></li><li>设置 <code>运行 Shell 脚本</code><br><img src="/images/pasted-232.png" srcset="/img/loading.gif" alt="upload successful"><br><img src="/images/pasted-233.png" srcset="/img/loading.gif" alt="upload successful"><br>这样设置，很是舒服，有个小问题<br><img src="/images/pasted-234.png" srcset="/img/loading.gif" alt="upload successful"><br>可以在脚本后面键入<code>&amp;&gt;&gt;/dev/null &amp;</code>，就非常完美了<br><img src="/images/pasted-235.png" srcset="/img/loading.gif" alt="upload successful"></li><li>图标可以从goby.app中直接获取<br><img src="/images/pasted-236.png" srcset="/img/loading.gif" alt="upload successful"></li><li>成品图<br><img src="/images/pasted-237.png" srcset="/img/loading.gif" alt="upload successful"></li><li><p>测试扫描</p><p><code>注:</code>需要指定网卡<br><img src="/images/pasted-238.png" srcset="/img/loading.gif" alt="upload successful"><br><code>真香</code></p></li></ul></li></ol><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>通过此方法，又设置了几个软件，不用每次都依赖终端了，需要注意的是，文件的路径不要轻易改变，不然会打不开，还要重新制作，浪费时间。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;常用的jar包常常需要用掉一个终端页面，或是&lt;code&gt;&amp;amp;&amp;gt;&amp;gt;/dev/null &amp;amp;&lt;
+      
+    
+    </summary>
+    
+      <category term="misc" scheme="https://bufsnake.github.io/categories/misc/"/>
+    
+    
+      <category term="mac" scheme="https://bufsnake.github.io/tags/mac/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac PHP调试环境搭建</title>
     <link href="https://bufsnake.github.io/Mac-PHP%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html"/>
     <id>https://bufsnake.github.io/Mac-PHP调试环境搭建.html</id>
@@ -518,35 +544,6 @@
       <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
     
       <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记一次控制流平坦化逆向</title>
-    <link href="https://bufsnake.github.io/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%8E%A7%E5%88%B6%E6%B5%81%E5%B9%B3%E5%9D%A6%E5%8C%96%E9%80%86%E5%90%91.html"/>
-    <id>https://bufsnake.github.io/记一次控制流平坦化逆向.html</id>
-    <published>2019-08-15T13:47:56.000Z</published>
-    <updated>2019-11-25T09:42:53.188Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="flat"><a href="#flat" class="headerlink" title="flat"></a>flat</h3><p><img src="/images/pasted-97.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>是控制流平坦化的题目</p></blockquote><h3 id="ida"><a href="#ida" class="headerlink" title="ida"></a>ida</h3><p><img src="/images/pasted-98.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>可以分析出函数的5个主要函数</p></blockquote><p><img src="/images/pasted-99.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>fun_check1(char *a1) 主要作用是检查输入字符串长度</p></blockquote><p><img src="/images/pasted-100.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>fun_check1(char *a1) 主要作用是检查输入前五个字节是否为flag{</p></blockquote><p><img src="/images/pasted-101.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>fun_check3(char *a1) 主要作用是检查输入的最后一个字节是否为}</p></blockquote><p><img src="/images/pasted-102.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>fun_check4(char *a1) 主要作用是检查输入的几个特殊部位的值是否为—</p></blockquote><p><img src="/images/pasted-103.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-104.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-105.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>输入的字符串进行加密后与字符串进行比较</p></blockquote><p><img src="/images/pasted-106.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>这就是比较的那个字符串 J2261C63-3I2I-EGE4-IBCC-IE41A5I5F4HB</p></blockquote><blockquote><p>循环判断输入的每一位是否小于’0’或者大于’9’，如果满足条件，就判断是否等于’-‘，如果等于这个位置的字符就不变，如果大于’a’并且小于’z’，这个位置的字符串就减去48，其余的所有情况都进行将本位置的字符加上17</p></blockquote><h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre><code class="python">flag = &quot;J2261C63-3I2I-EGE4-IBCC-IE41A5I5F4HB&quot;print len(flag)strs = &quot;&quot;for i in range(0,len(flag)):    for j in range(0,255):        temp = &quot;&quot;        if j &lt; ord(&quot;0&quot;) or j &gt; ord(&quot;9&quot;):            if j == ord(&quot;-&quot;):                temp = chr(j)            elif j &gt;= ord(&#39;a&#39;) and j &lt;= ord(&quot;z&quot;):                temp = chr(j-48)        else:            temp = chr(j+17)        if temp == flag[i]:            strs += chr(j)            breakprint strs</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;flat&quot;&gt;&lt;a href=&quot;#flat&quot; class=&quot;headerlink&quot; title=&quot;flat&quot;&gt;&lt;/a&gt;flat&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/pasted-97.png&quot; srcset=&quot;/img/loading.gif&quot; alt
-      
-    
-    </summary>
-    
-      <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
-    
-    
-      <category term="reverse" scheme="https://bufsnake.github.io/tags/reverse/"/>
-    
-      <category term="flat" scheme="https://bufsnake.github.io/tags/flat/"/>
-    
-      <category term="ollvm" scheme="https://bufsnake.github.io/tags/ollvm/"/>
     
   </entry>
   

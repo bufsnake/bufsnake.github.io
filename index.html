@@ -178,6 +178,60 @@ This is my TODO…
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Mac-自动操作的极致体验.html">
+        <p class="h4 index-header">Mac 自动操作的极致体验</p>
+      </a>
+
+      <a href="/Mac-自动操作的极致体验.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+常用的jar包常常需要用掉一个终端页面，或是&amp;&gt;&gt;/dev/null &amp;后台运行，但是当前页面一但关闭，程序也就随之关闭，很是苦恼。
+
+
+使用burpsuite的时候，发现国光大佬发的一篇有趣的文章，遂尝试了一下。成果图如下
+
+
+按照操作，出现了点问题，如下：
+
+操作“运行 Shell 脚本”遇到了错误：“Error: Unable to access jarfile burp-loader-keygen-2020_2.jar”
+Error: Unable to access jarfile burp-loader-keygen-2020_2.jar
+
+Google了一波，都说是内存分配原因，但是在iterm2中运行却没事，想到会不会是环境的问题，然后就在终端运行了
+➜  burpsuite2020.02 export |grep &quot;JAVA&quot;
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
+
+，唯一和java相关的环境变量，写到 </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/misc">misc</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/mac">mac</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Mac-PHP调试环境搭建.html">
         <p class="h4 index-header">Mac PHP调试环境搭建</p>
       </a>
@@ -659,65 +713,6 @@ sudo 1.8.28 之前的所有版本
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0">漏洞复现</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/段的机制浅析.html">
-        <p class="h4 index-header">段的机制浅析</p>
-      </a>
-
-      <a href="/段的机制浅析.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">开篇
-X86 CPU的3个模式：实模式(直接操作物理地址)、保护模式(操作虚拟内存)和虚拟8086模式(保护模式下的16位模拟)
-
-
-X64：x86是intel推出的复杂指令集，后来amd拓展了X86指令集，称为称为x86-64，后更名为AMD 64，intel也出了自己的一套64位指令集，但是不向下兼容，所以就没了，继而移植了amd 64位指令集，称为intel 64(能够兼容x86指令集的)
-
-段的机制段寄存器mov dword ptr ds:[0x123456],eax
-实际操作的是 ds.base + 0x123456 地址
-
-段寄存器的种类
-ES(拓展段)、CS(代码段)、SS(堆栈段)、DS(数据段)、FS、GS、LDTR、TR 共8个段寄存器
-
-段寄存器的读写读只能读16位，写能写入96位
-mov ax, ds    必须指定写入的地址为16位
-mov ds, eax
-除LDTR和TR外，其余段寄存器可用MOV指令进行读写
-
-段寄存器的结构
-struct SegMent
-{
-    WORD Selecter,   16bit//可见部分 段选择子
-    WROD At</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-13&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6">保护机制</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%AE%B5%E7%9A%84%E6%9C%BA%E5%88%B6">段的机制</a>&nbsp;
           
         
       </div>
