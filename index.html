@@ -178,6 +178,61 @@ This is my TODO…
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Padding-Oracle-Attack.html">
+        <p class="h4 index-header">Padding Oracle Attack</p>
+      </a>
+
+      <a href="/Padding-Oracle-Attack.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言1、在ECB模式的基础上，增强了块与块之间的联系。
+2、明文块先与IV XOR运算后，在进行加密，得到的密文充当下一个明文区块的IV...
+3、明文块填充方式，如果明文为abcd，长度为4，则需要填充12位，12的十六进制为\x0C，在最后加密的明文为abcd\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C\x0C
+
+加密
+解密
+利用padding Oracle attack密文最后一个区块通过block cipher encryption解密，得到中间密文，中间密文与IV异或得到明文。
+如果输入错误的IV，也是可以解密的，但是中间密文和错误的IV异或后得到的填充值可能出现错误，那程序就会抛出(Padding Error)。
+
+第一步：填充错误
+
+
+
+第二步：填充正确，填充为01
+
+
+
+第三步：填充为0202
+
+
+
+后续
+正确的padding值只可能为：1个字节的padding为0x012个字节的padding为0x02,0x023个字节的padding为0x03,0x03,0x034个字节的padding为0x04,0x04,0x04,0x</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-23&nbsp;&nbsp;
+        
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/padding%20oracle%20attack">padding oracle attack</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Mac-自动操作的极致体验.html">
         <p class="h4 index-header">Mac 自动操作的极致体验</p>
       </a>
@@ -647,72 +702,6 @@ func listDir(dir string, level int) {
             <a href="/tags/golang">golang</a>&nbsp;
           
             <a href="/tags/go">go</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/Sudo提权漏洞复现.html">
-        <p class="h4 index-header">Sudo提权漏洞复现</p>
-      </a>
-
-      <a href="/Sudo提权漏洞复现.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">开篇
-该漏洞虽然鸡肋，但保不准哪天碰到了，还是复现一下吧
-
-Sudoer
-修改sudoer文件,如下
-
-
-
-我的低权限用户账号是admin
-
-admin
-在admin账号权限下运行
-
-
-
-在vim界面输入
-
-
-
-得到root权限
-
-
-影响版本
-sudo 1.8.28 之前的所有版本
-
-修复建议
-升级sudo
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-16&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6">学习研究</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0">漏洞复现</a>&nbsp;
           
         
       </div>

