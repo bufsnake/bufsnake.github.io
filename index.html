@@ -178,6 +178,76 @@ This is my TODO…
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/CBC加密模式攻击-集成题目.html">
+        <p class="h4 index-header">CBC加密模式攻击-集成题目</p>
+      </a>
+
+      <a href="/CBC加密模式攻击-集成题目.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言题目来源：[NPUCTF2020]web BUU已经有了
+第一关打开链接得到源码
+测试加密
+得到
+IV:6666666666666666
+ly7auKVQCZWum/W/4osuPA==
+
+测试解密，得到 1这里的
+return openssl_decrypt(base64_decode($data),METHOD,SECRET_KEY,OPENSSL_RAW_DATA,$iv) or die(&#39;False&#39;);
+
+运用短路运算，要么返回 1 要么返回 False
+所以利用点为padding oracle attack
+
+脚本如下
+
+结果如下
+
+得到第二关的地址：FlagIsHere.php
+
+第二关访问FlagIsHere.php得到源码
+
+由源码可知
+$lalala = &#39;piapiapiapia&#39;;
+$iv = base64_decode(&#39;JwaFITevixiv4BbxHCph7A==&#39;);
+$tmp_id = &#39;weber&#39;;
+
+所以可以得到下面公式：
+
+脚本如下：
+
+结果如下：
+
+由于得到的连接失效了，所</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-04-27&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/web">web</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Padding-Oracle-Attack.html">
         <p class="h4 index-header">Padding Oracle Attack</p>
       </a>
@@ -627,81 +697,6 @@ P+C不在字典里，将P的记号输出；在字典中为P+C建立一个记号�
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/LZW%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95">LZW压缩算法</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/目录遍历到递归.html">
-        <p class="h4 index-header">目录遍历到递归</p>
-      </a>
-
-      <a href="/目录遍历到递归.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">前言
-半个月感觉没收获多少，主要学习了加密解密、编译原理、Windows内核相关基础教程、Golang的学习，并没有学完，一直在坚持和学校一样的教学体系，每天的课程是不一样的，不会导致学习疲劳，三分热度，一直抱着一本书看下去，几天就失了兴趣，比如编译原理…
-
-
-一步一jo印
-
-中序
-之前学习Java时，没有想到写一个遍历指定目录的程序，最近在学习Golang，想着用GO语言实现以下。
-
-
-思路
-
-
-指定需要遍历的目录
-列出目录下的所有文件以及文件夹
-打印文件名或文件夹名
-判断是否为文件夹，是则去第1步，否则去第5步
-退出
-
-后续
-用递归的方式实现该程序
-
-package main
-
-import (
-    &quot;fmt&quot;
-    &quot;io/ioutil&quot;
-)
-
-func main() {
-    listDir(&quot;/Users/bufsnake&quot;, 0)
-}
-
-func listDir(dir string, level int) {
-    s := &quot;&quot;
-    for i := 0; i &lt; lev</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-30&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/Go">Go</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/golang">golang</a>&nbsp;
-          
-            <a href="/tags/go">go</a>&nbsp;
           
         
       </div>

