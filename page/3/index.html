@@ -145,6 +145,77 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/记一次简单的条件竞争的题目.html">
+        <p class="h4 index-header">记一次简单的条件竞争的题目</p>
+      </a>
+
+      <a href="/记一次简单的条件竞争的题目.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手
+
+题目
+
+我们可以控制文件的名字和文件的内容
+
+
+
+
+但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了
+
+概念
+创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件
+
+
+这里使用burp suite进行申请创建文件，写一个死循环读取这个文件
+
+
+
+
+在start attack之前需要先运行访问的脚本
+
+
+
+
+
+
+可以得到内容，这题旨在能够访问到这个文件就能拿到flag
+
+总结
+Y3RmZXIldTY2MkYldTRFMEQldTY2MkYldTc3MEIldTUyMzBiYXNlJXU1QzMxJXU2MEYzJXU4OUUzJXU0RTAwJXU0RTBCJXU1NDYy
+
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-22&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/web">web</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/cookie欺骗-writeup.html">
         <p class="h4 index-header">cookie欺骗 writeup</p>
       </a>
@@ -651,9 +722,9 @@ GEV\odzchpc03#
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/reverse">reverse</a>&nbsp;
-          
             <a href="/tags/jactf">jactf</a>&nbsp;
+          
+            <a href="/tags/reverse">reverse</a>&nbsp;
           
         
       </div>
@@ -722,67 +793,9 @@ expflag = [102,</div>
         
           <i class="iconfont icon-tag"></i>
           
-            <a href="/tags/reverse">reverse</a>&nbsp;
-          
             <a href="/tags/jactf">jactf</a>&nbsp;
           
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/jactf-crypto.html">
-        <p class="h4 index-header">jactf-crypto</p>
-      </a>
-
-      <a href="/jactf-crypto.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">平台jactf
-crypto签到
-exp
-贝斯家族三英战群魔！
-ciphertext.txt
-
-base系列加解密
-
-exp
-
-三种来回试吧
-
-easy_crypto
-exp
-凯撒变异了，从第五天开始学起了仿射
-
-太难了，待做
-
-RSA
-EXPe = 65537
-n = 9668089326274971906358592360549603490994639752273505642653843732803366998533872540706628812659375651630007586061543087579440305718371750485145744730614015663308363346471766552826192685925601727265266430744995341298782174090460455336568970501174384963572315759991855276750710028039518006352200290159320074651178187399489037502008308561156686910077068369522448427194</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-12&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/misc">misc</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/crypto">crypto</a>&nbsp;
+            <a href="/tags/reverse">reverse</a>&nbsp;
           
         
       </div>

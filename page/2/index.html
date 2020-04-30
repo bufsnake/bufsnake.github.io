@@ -145,6 +145,76 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/LZW无损压缩算法.html">
+        <p class="h4 index-header">LZW无损压缩算法</p>
+      </a>
+
+      <a href="/LZW无损压缩算法.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+在看writeup的时候，题目含有base64和lzw算法，由于不了解lzw算法，遂学习一下。
+
+
+简介
+LZW就是通过建立一个字符串表，用较短的代码来表示较长的字符串来实现压缩。
+
+
+加密
+从原字符串不断地读入新的字符，并试图将单个字符或字符串编码为记号 (Symbol)。
+
+
+维护两个变量，一个是P (Previous)，表示手头已有的，还没有被编码的字符串，一个是C (current)，表示当前新读进来的字符。
+
+
+初始状态，字典里只有所有的默认项，例如0-&gt;a，1-&gt;b，2-&gt;c。此时P和C都是空的。
+读入新的字符C，与P合并形成字符串P+C。
+在字典里查找P+C，如果:
+
+P+C在字典里，P=P+C。
+
+P+C不在字典里，将P的记号输出；在字典中为P+C建立一个记号映射；更新P=C。
+
+
+
+返回步骤2重复，直至读完原字符串中所有字符。
+
+
+
+以上表示的是编码中间的一般过程，在收尾的时候有一些特殊的处理，即步骤2中，如果到达字符串尾部，没有新的C读入了，则将手头的P对应的记号输出，结束。
+
+
+编码过程的核心就在于第3步，需要理解P究竟是什么。P是当前维护</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-08&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/LZW%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95">LZW压缩算法</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/目录遍历到递归.html">
         <p class="h4 index-header">目录遍历到递归</p>
       </a>
@@ -725,77 +795,6 @@ SubstrateCydia的优缺点
             <a href="/tags/android%20hook">android hook</a>&nbsp;
           
             <a href="/tags/android%20frida">android frida</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/记一次简单的条件竞争的题目.html">
-        <p class="h4 index-header">记一次简单的条件竞争的题目</p>
-      </a>
-
-      <a href="/记一次简单的条件竞争的题目.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">前言
-一直对这个漏洞只有概念上的认知，没有做过相关的题目，就找了一个入门的练练手
-
-题目
-
-我们可以控制文件的名字和文件的内容
-
-
-
-
-但是当我们访问的时候去发现访问不到，猜想应该是被删了，这就要利用条件竞争这个漏洞了
-
-概念
-创建一个多线程程序不断的向服务器发起请求创建一个文件，在创建一个程序循环读取这个文件
-
-
-这里使用burp suite进行申请创建文件，写一个死循环读取这个文件
-
-
-
-
-在start attack之前需要先运行访问的脚本
-
-
-
-
-
-
-可以得到内容，这题旨在能够访问到这个文件就能拿到flag
-
-总结
-Y3RmZXIldTY2MkYldTRFMEQldTY2MkYldTc3MEIldTUyMzBiYXNlJXU1QzMxJXU2MEYzJXU4OUUzJXU0RTAwJXU0RTBCJXU1NDYy
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-22&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/web">web</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/web">web</a>&nbsp;
           
         
       </div>
