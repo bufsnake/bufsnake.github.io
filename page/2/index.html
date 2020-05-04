@@ -145,6 +145,45 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/C-符号修饰和函数签名.html">
+        <p class="h4 index-header">C++ 符号修饰和函数签名</p>
+      </a>
+
+      <a href="/C-符号修饰和函数签名.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+在开始的时候，源文件与目标文件的函数的符号名是相同的。后来UNIX平台和C语言发明时，已经存在很多汇编编写的库和目标文件，一个C程序要使用他们，就不能定义这些库中定义的函数和变量的名字作为符号，否则会产生冲突。为了防止类似的符号名冲突，UNIX下的C语言就规定，C语言源代码文件中的所有全局的变量和函数经过编译以后，相对应的符号名前加上下划线”“。而Fortran语言的源代码经过编译以后，所有的符号名前加上”“，后面也加上”_”。比如一个C语言函数”foo”，那么它编译后的符号名就是”_foo”；如果是Fortran语言，就是”foo“。 这种方法能够暂时减少多种语言目标文件之间的符号冲突的概率，但还是没有从根本上解决符号冲突的问题。比如同一种语言编写的目标文件还有可能会产生符号冲突，于是像C++这样的后来设计的语言开始考虑到了这个问题，增加了名称空间（Namespace）的方法来解决多模块的符号冲突问题。 在现在的Linux下的GCC编译器中，默认情况下已经去掉了在C语言符号前加”“的这种方式；但是Windows平台下的编译器还保持的这样的传统，比如Visual C++编译器就会</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-11-19&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/C%E8%AF%AD%E8%A8%80">C语言</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/C++%E7%AC%A6%E5%8F%B7%E4%BF%AE%E9%A5%B0">C++符号修饰</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/LZW无损压缩算法.html">
         <p class="h4 index-header">LZW无损压缩算法</p>
       </a>
@@ -740,61 +779,6 @@ AndroidManifest.xml添加如下信息
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/xposed%E6%A1%86%E6%9E%B6">xposed框架</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/frida-Hook神器学习-1.html">
-        <p class="h4 index-header">frida Hook神器学习-1</p>
-      </a>
-
-      <a href="/frida-Hook神器学习-1.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点
-优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。
-
-
-缺点：配置安装环境繁琐，兼容性差，在Hook底层的时候就很无助了。
-
-Frida的优缺点
-优点：在上面我们可以看到他的优点在于配置环境很简单，操作也很便捷，对于破解者开发阶段非常好用。支持Java层和Native层hook操作，在Native层hook如果是非基本类型的话操作有点麻烦。
-
-
-缺点：因为他只适用于破解者在开发阶段，也就是他没法像Xposed用于实践生产中，比如我写一个微信外挂用Frida写肯定不行的，因为他无法在手机端运行。也就是破解者用的比较多。
-
-SubstrateCydia的优缺点
-优点：可以运行在手机端，和Xposed类似可以用于实践生产中。支持Java层和Native层的hook操作，但是Java层hook不怎</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-26&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/tools">tools</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/android">android</a>&nbsp;
-          
-            <a href="/tags/android%20hook">android hook</a>&nbsp;
-          
-            <a href="/tags/android%20frida">android frida</a>&nbsp;
           
         
       </div>

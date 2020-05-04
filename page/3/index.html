@@ -145,6 +145,61 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/frida-Hook神器学习-1.html">
+        <p class="h4 index-header">frida Hook神器学习-1</p>
+      </a>
+
+      <a href="/frida-Hook神器学习-1.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">Android三大框架对比Frida，Xposed，SubstrateCydia这三个Hook神器的区别和优缺点：Xposed的优缺点
+优点：在编写Java层hook插件的时候非常好用，这一点完全优越于Frida和SubstrateCydia，因为他也是Android项目，可以直接编写Java代码调用各类api进行操作。而且可以安装到手机上直接使用。
+
+
+缺点：配置安装环境繁琐，兼容性差，在Hook底层的时候就很无助了。
+
+Frida的优缺点
+优点：在上面我们可以看到他的优点在于配置环境很简单，操作也很便捷，对于破解者开发阶段非常好用。支持Java层和Native层hook操作，在Native层hook如果是非基本类型的话操作有点麻烦。
+
+
+缺点：因为他只适用于破解者在开发阶段，也就是他没法像Xposed用于实践生产中，比如我写一个微信外挂用Frida写肯定不行的，因为他无法在手机端运行。也就是破解者用的比较多。
+
+SubstrateCydia的优缺点
+优点：可以运行在手机端，和Xposed类似可以用于实践生产中。支持Java层和Native层的hook操作，但是Java层hook不怎</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-26&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/tools">tools</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/android">android</a>&nbsp;
+          
+            <a href="/tags/android%20hook">android hook</a>&nbsp;
+          
+            <a href="/tags/android%20frida">android frida</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/记一次简单的条件竞争的题目.html">
         <p class="h4 index-header">记一次简单的条件竞争的题目</p>
       </a>
@@ -706,77 +761,6 @@ GEV\odzchpc03#
 
 解密网站
 真假f</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-12&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/reverse">reverse</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/jactf">jactf</a>&nbsp;
-          
-            <a href="/tags/reverse">reverse</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/jactf-reverse.html">
-        <p class="h4 index-header">jactf-reverse</p>
-      </a>
-
-      <a href="/jactf-reverse.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">平台jactf
-reverse签到
-签到无情，亦有情
-re_easy
-分析
-expIn [1]: import angr
-
-In [2]: pro = angr.Project(&quot;re1&quot;)
-
-In [3]: pro = angr.Project(&quot;re1&quot;,auto_load_libs=False)
-
-In [4]: sm = pro.factory.simulation_manager(pro.factory.entry_state())
-
-In [5]: sm.explore(find=0x40091D,avoid=0x4008FA)
-Out[5]: &lt;SimulationManager with 1 found, 324 avoid&gt;
-
-In [6]: sm.found[0].posix.dumps(0)
-Out[6]: &#39;bdctf{YOU_CRAKE_THE_RC4}&#39;
-
-In [7]: 
-
-simplere
-分析
-
-我们输入的字符串加密之后与str2比较
-
-
-关键函数
-
-
-
-expflag = [102,</div>
         </div>
       </a>
 

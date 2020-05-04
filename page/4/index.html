@@ -145,6 +145,77 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/jactf-reverse.html">
+        <p class="h4 index-header">jactf-reverse</p>
+      </a>
+
+      <a href="/jactf-reverse.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">平台jactf
+reverse签到
+签到无情，亦有情
+re_easy
+分析
+expIn [1]: import angr
+
+In [2]: pro = angr.Project(&quot;re1&quot;)
+
+In [3]: pro = angr.Project(&quot;re1&quot;,auto_load_libs=False)
+
+In [4]: sm = pro.factory.simulation_manager(pro.factory.entry_state())
+
+In [5]: sm.explore(find=0x40091D,avoid=0x4008FA)
+Out[5]: &lt;SimulationManager with 1 found, 324 avoid&gt;
+
+In [6]: sm.found[0].posix.dumps(0)
+Out[6]: &#39;bdctf{YOU_CRAKE_THE_RC4}&#39;
+
+In [7]: 
+
+simplere
+分析
+
+我们输入的字符串加密之后与str2比较
+
+
+关键函数
+
+
+
+expflag = [102,</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-12&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/reverse">reverse</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/jactf">jactf</a>&nbsp;
+          
+            <a href="/tags/reverse">reverse</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/jactf-crypto.html">
         <p class="h4 index-header">jactf-crypto</p>
       </a>
@@ -699,76 +770,6 @@ int main() {
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/klee">klee</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/Windows驱动开发-1.html">
-        <p class="h4 index-header">Windows驱动开发(1)</p>
-      </a>
-
-      <a href="/Windows驱动开发-1.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">
-学习的内容是基于WDF框架的Windows驱动开发
-
-基础知识
-NT -&gt; WDM -&gt; WDF
-每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发
-
-
-WDF简介
-WDF全称Windows驱动框架(Windows Driver Frameworks)WDF两种级别的驱动程序
-
-用户级(UMDF–(User-Mode Driver Framework))
-
-是以 .dll 结尾的文件
-
-内核级(KMDF–(Kernel-Mode Driver Framework))
-
-是以 .sys 结尾的文件可与其硬件直接会话，通常会通过HAL(硬件抽象层)访问硬件所有的事物由对象表示，如Driver、Device等
-
-每个对象都有属性、方法、事件(有面向对象编程基础的都应该知道)各种事件处理由事件回调函数处理必须包含 DriverEntry 函数，像C语言中的 main 函数
-
-
-
-
-附上基本的DriverEntry例子`c
-
-#include &lt;ntddk.h&gt;
-#include &lt;wdf.h&gt;
-NTSTATUS DriverE</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-29&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows驱动开发</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows驱动开发</a>&nbsp;
-          
-            <a href="/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83">配置环境</a>&nbsp;
-          
-            <a href="/tags/Windows%20wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows wdf驱动开发</a>&nbsp;
           
         
       </div>

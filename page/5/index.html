@@ -145,6 +145,76 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Windows驱动开发-1.html">
+        <p class="h4 index-header">Windows驱动开发(1)</p>
+      </a>
+
+      <a href="/Windows驱动开发-1.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">
+学习的内容是基于WDF框架的Windows驱动开发
+
+基础知识
+NT -&gt; WDM -&gt; WDF
+每个框架都是由其上一个框架发展而来的，主要原因是因为其上一个框架不易理解难于开发
+
+
+WDF简介
+WDF全称Windows驱动框架(Windows Driver Frameworks)WDF两种级别的驱动程序
+
+用户级(UMDF–(User-Mode Driver Framework))
+
+是以 .dll 结尾的文件
+
+内核级(KMDF–(Kernel-Mode Driver Framework))
+
+是以 .sys 结尾的文件可与其硬件直接会话，通常会通过HAL(硬件抽象层)访问硬件所有的事物由对象表示，如Driver、Device等
+
+每个对象都有属性、方法、事件(有面向对象编程基础的都应该知道)各种事件处理由事件回调函数处理必须包含 DriverEntry 函数，像C语言中的 main 函数
+
+
+
+
+附上基本的DriverEntry例子`c
+
+#include &lt;ntddk.h&gt;
+#include &lt;wdf.h&gt;
+NTSTATUS DriverE</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-29&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows驱动开发</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows驱动开发</a>&nbsp;
+          
+            <a href="/tags/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83">配置环境</a>&nbsp;
+          
+            <a href="/tags/Windows%20wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows wdf驱动开发</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/qira安装与简单使用.html">
         <p class="h4 index-header">qira安装与简单使用</p>
       </a>
