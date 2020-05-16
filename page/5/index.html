@@ -145,6 +145,78 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/KLEE-符号执行框架.html">
+        <p class="h4 index-header">KLEE-符号执行框架</p>
+      </a>
+
+      <a href="/KLEE-符号执行框架.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">符号执行
+通俗的解释就是，给定程序的输出，分析程序可以通过哪些路径达到给定的输出
+
+KLEE安装(推荐使用Docker安装)：docker pull klee/klee:2.0
+
+持久性容器:当退出容器时，容器里面的内容不会初始化
+docker run -ti --name=namestring --ulimit=&#39;stack=-1:-1&#39; klee/klee
+
+启动容器
+docker start -ai namestring
+
+
+简单使用
+给出的是官方实例的代码
+
+#include &lt;klee/klee.h&gt;
+
+int get_sign(int x) {
+  if (x == 0)
+     return 0;
+
+  if (x &lt; 0)
+     return -1;
+  else 
+     return 1;
+} 
+
+int main() {
+  int a;
+  klee_make_symbolic(&amp;a, sizeof(a), &quot;a&quot;);
+  return get_sign(a);
+}
+
+
+可以看到程序有三条路径</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-31&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C">符号执行</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/klee">klee</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Windows驱动开发-1.html">
         <p class="h4 index-header">Windows驱动开发(1)</p>
       </a>

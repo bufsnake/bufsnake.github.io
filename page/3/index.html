@@ -145,6 +145,75 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Xposed-hook框架学习.html">
+        <p class="h4 index-header">Xposed hook框架学习</p>
+      </a>
+
+      <a href="/Xposed-hook框架学习.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">Xposed 安装xposed.apk
+
+框架
+
+初次运行是点击 安装/更新 就行了，后续在激活模块的时候可以点击 软重启 重启手机(模拟器)
+
+模块
+
+显示已安装的模块，打勾的说明是已经激活的
+
+下载
+
+显示网上已经有的模块，别人开发好的，可以直接拿过来用的那种
+
+设置
+日志
+
+显示模块运行时后的日志信息，可用来显示XposedBridge.log(“”);打印出来的消息
+
+关于
+第一个模块学习在build.gradle中添加信息compileOnly &#39;de.robv.android.xposed:api:82&#39;
+compileOnly &#39;de.robv.android.xposed:api:82:sources&#39;
+
+
+
+导入框架需要的依赖
+
+AndroidManifest.xml添加如下信息
+&lt;meta-data
+    android:name=&quot;xposedmodule&quot;        该程序是否是xposed的模块
+    android:value=&quot;true&quot; /&gt;
+&lt;meta-d</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-09&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/android">android</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/xposed%E6%A1%86%E6%9E%B6">xposed框架</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/frida-Hook神器学习-1.html">
         <p class="h4 index-header">frida Hook神器学习-1</p>
       </a>
@@ -704,82 +773,6 @@ body {
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/hexo">hexo</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/jactf-reverse2.html">
-        <p class="h4 index-header">jactf-reverse2</p>
-      </a>
-
-      <a href="/jactf-reverse2.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">简单的逻辑
-ida
-
-关键函数
-
-expIn [5]: flag = list(&quot;GEV\odzchpc03&quot;)
-
-In [6]: s = &quot;&quot;
-   ...: for i in range(0,len(flag)):
-   ...:     if i%3 == 0:
-   ...:         s += chr(ord(flag[i])^3)
-   ...:     elif i%3 == 1:
-   ...:         s += chr((ord(flag[i])^3)-1)
-   ...:     elif i%3 == 2:
-   ...:         s += chr((ord(flag[i])^3)-2)
-   ...: print s
-   ...:
-DES_key_is_10
-
-snake~:./re
-Please input your flag:
-DES_key_is_10
-you got it!
-GEV\odzchpc03#
-
-
-可以得到是des加密，key为10
-
-
-查看密文是啥
-
-
-
-解密
-
-解密网站
-真假f</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-12&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/reverse">reverse</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/jactf">jactf</a>&nbsp;
-          
-            <a href="/tags/reverse">reverse</a>&nbsp;
           
         
       </div>
