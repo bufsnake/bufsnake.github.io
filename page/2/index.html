@@ -145,6 +145,74 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/2019领航杯WP.html">
+        <p class="h4 index-header">2019领航杯WP</p>
+      </a>
+
+      <a href="/2019领航杯WP.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">1.编码编码base64解码即可得到flag!
+
+flag:welcometothepilotcup
+2.取证分析
+利用脚本得到flag.png，用winhex删除开头多余数据，png文件头为89 50 开头
+
+结尾是AE 42 60 82
+去除掉无用信息，得到flag，b91011fc
+3.stegano l打开查看源码，得到flag就是passwd：后面字符 steganoI
+
+flag:steganol
+4.steganobinwalk查看文件
+
+foremost分离文件
+
+得到flag
+
+flag:EORDFFOMFPMA
+5.lsb用StegSolve打开图片，调制Red pane 3 即可得到flag
+
+flag:ONPGRAMBCICM
+6.恢复与解密下载附件,将其中的xty.img使用Diskgenius打开.
+选择恢复文件
+
+打开其中的INode00000010,可以看到密文 aWdxNDs3NDFSOzFpa1I1MWliT08waWdx
+使用脚本对密文进行解密
+import string
+
+from base64 import *
+
+b=b64decode(&qu</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-14&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/CTF">CTF</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/wp">wp</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/phar反序列化.html">
         <p class="h4 index-header">phar反序列化</p>
       </a>
@@ -685,97 +753,11 @@ github已经有大佬上传了，需要研究学习的朋友，可以自己搜�
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/模2运算.html">
-        <p class="h4 index-header">模2运算</p>
-      </a>
-
-      <a href="/模2运算.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">模2运算
-简介：将数字换算成二进制的形式进行运算，无进位也无借位。
-
-模2加法1 + 1 = 0
-1 + 0 = 1
-0 + 1 = 1
-0 + 0 = 0
-
-    1010101
-+   1000101
-————————————
-    0010000
-
-    10101011
-+   10100111
-+   11100010
-————————————
-    11101110
-
-奇数个1相加得1，偶数个1相加得0    
-
-模2减法1 - 1 = 0
-1 - 0 = 1
-0 - 1 = 1
-0 - 0 = 0
-
-    1010101
--   1000101
-————————————
-    0010000
-
-    10101011
--   10100111
--   11100010
-————————————
-    11101110    
-
-模2乘法1 x 1 = 1
-1 x 0 = 0
-0 x 1 = 0
-0 x 0 = 0
-
-    1010101
-x   1000101
-————————————
-    1000101
-
-模2除法运算的时候每位都进行xor运算
-规</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-17&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/crypto">crypto</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/misc">misc</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

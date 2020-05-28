@@ -174,6 +174,64 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/ISCC-逆向-WP.html">
+        <p class="h4 index-header">ISCC 逆向 WP</p>
+      </a>
+
+      <a href="/ISCC-逆向-WP.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">无标点日记void __cdecl __noreturn sub_401190(char *a1)
+{
+  int v1; // [esp+4Ch] [ebp-Ch]
+  signed int i; // [esp+54h] [ebp-4h]
+
+  if ( strlen(a1) == 16 )
+  {
+    for ( i = 0; i &lt; 16; ++i )
+    {
+      v1 = i + a1[i] - unk_432A60[i] + 19;      // i + input[i] - byte[i] + 19
+      if ( v1 &lt;= 0 )
+      {
+        sub_40100F(OhhMywifewaslost);           // OhhMywifewaslost
+      }
+      else if ( OhhMywifewaslost[i] != unk_432A73[v1] )
+      {
+        sub_40100F(OhhMywifewaslost);
+      }
+    }
+  }
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-05-28&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/ctf">ctf</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/iscc%20re">iscc re</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/网鼎杯-朱雀组-逆向-WP.html">
         <p class="h4 index-header">网鼎杯 朱雀组 逆向 WP</p>
       </a>
@@ -664,79 +722,11 @@ Citrix Gateway
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/2019领航杯WP.html">
-        <p class="h4 index-header">2019领航杯WP</p>
-      </a>
-
-      <a href="/2019领航杯WP.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">1.编码编码base64解码即可得到flag!
-
-flag:welcometothepilotcup
-2.取证分析
-利用脚本得到flag.png，用winhex删除开头多余数据，png文件头为89 50 开头
-
-结尾是AE 42 60 82
-去除掉无用信息，得到flag，b91011fc
-3.stegano l打开查看源码，得到flag就是passwd：后面字符 steganoI
-
-flag:steganol
-4.steganobinwalk查看文件
-
-foremost分离文件
-
-得到flag
-
-flag:EORDFFOMFPMA
-5.lsb用StegSolve打开图片，调制Red pane 3 即可得到flag
-
-flag:ONPGRAMBCICM
-6.恢复与解密下载附件,将其中的xty.img使用Diskgenius打开.
-选择恢复文件
-
-打开其中的INode00000010,可以看到密文 aWdxNDs3NDFSOzFpa1I1MWliT08waWdx
-使用脚本对密文进行解密
-import string
-
-from base64 import *
-
-b=b64decode(&qu</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-14&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/CTF">CTF</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/wp">wp</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   

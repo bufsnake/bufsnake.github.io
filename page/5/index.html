@@ -145,6 +145,72 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/WDF-helloworld.html">
+        <p class="h4 index-header">WDF-helloworld</p>
+      </a>
+
+      <a href="/WDF-helloworld.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">
+Windows WDF驱动开发简单helloworld入门
+
+helloworld.h/*
+预处理：用来避免头文件被重复包含
+还可以用#pragma once 防止头文件被重复包含，保证头文件只被编译一次，可移植性差
+
+第一种：
+    #ifndef __SOMEFILE_H__
+    #define __SOMEFILE_H__
+    ... ... // 声明、定义语句
+    #endif
+第二种：
+    #pragma once
+    ... ... // 声明、定义语句
+*/
+#ifndef __HELLOWORLD__ //预处理
+#define __HELLOWORLD__ //预处理
+
+// 包含驱动所需的头文件
+#include &lt;ntddk.h&gt;
+#include &lt;wdf.h&gt;
+
+// 这是一个结构体的定义，用以描述驱动程序的设备拓展。它保存了我们自定义所需的一些信息，有助于更加方便的编程。
+typedef struct _DEVICE_EXTENSION {
+    PDEVICE_OBJECT DeviceObject;
+ </div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-02&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/Windows%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows驱动开发</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/Windows%20wdf%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91">Windows wdf驱动开发</a>&nbsp;
+          
+            <a href="/tags/WDF">WDF</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/KLEE-符号执行框架.html">
         <p class="h4 index-header">KLEE-符号执行框架</p>
       </a>
@@ -746,57 +812,11 @@ public class MainActivity extends AppCompatActivity {
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/Hello-World.html">
-        <p class="h4 index-header">Hello World</p>
-      </a>
-
-      <a href="/Hello-World.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">Hello World#include &lt;stdio.h&gt;
-
-int main()
-{
-    printf(&quot;Hello World&quot;);
-    return 0;
-}
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-05-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/HelloWorld">HelloWorld</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/Hello%20World">Hello World</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
 
 
   <nav aria-label="index posts navigation">
     <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+      <a class="extend prev" rel="prev" href="/page/4/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fas fa-angle-double-right"></i></a>
     </span>
   </nav>
   
