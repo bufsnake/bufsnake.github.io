@@ -15,7 +15,7 @@
   <meta name="description" content="有梦就去追，没死就别停">
   <meta name="author" content="bufsnake">
   <meta name="keywords" content="web安全,逆向,ctf,pwn,crypto,misc,android,安卓,破解,底层">
-  <title>标签 - golang ~ bufsnake</title>
+  <title>Golang多核 并行 ~ bufsnake</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>bufsnake</strong>&nbsp;</a>
@@ -107,7 +107,7 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="view intro-2" id="background" false
          style="background: url('/img/default.webp')no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
@@ -117,6 +117,41 @@
               
             </span>
 
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期五, 八月 7日 2020, 10:02 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    524 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      2 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
             
           </div>
 
@@ -128,45 +163,166 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前学习过程中写的一些工具几乎都是单线程跑，一个程序跑下来很费时间，故而学习了并发并行。</p>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>程序中的多个线程在同一CPU单核下被CPU时间片的分配管理。</p>
+<p>假设存在三个线程A、B、C。</p>
+<p>线程A运行到一半的时候，CPU分配的时间片到期(CPU保存当前线程A的上下文)，就会强行执行其他的线程(其他线程同理)。</p>
+<h3 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h3><p>程序中的多个线程在多个CPU的多个核心下运行。</p>
+<p>假设存在三个线程A、B、C。</p>
+<p>线程A运行在CPU的第一个线程上，同时线程B运行在CPU的第二个线程上(线程C同理)。</p>
+<h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><h4 id="单线程-默认使用CPU一个核心"><a href="#单线程-默认使用CPU一个核心" class="headerlink" title="单线程(默认使用CPU一个核心)"></a>单线程(默认使用CPU一个核心)</h4><pre><code class="golang">package main
+
+import (
+    &quot;time&quot;
+    &quot;fmt&quot;
+)
+
+func main() {
+    start := time.Now()
+    for i:=0;i&lt;100000000;i++ {
+        fmt.Println(i)
+    }
+    fmt.Println(time.Now().Sub(start))
+}
+</code></pre>
+<h4 id="多线程-由runtime-GOMAXPROCS-num-指定"><a href="#多线程-由runtime-GOMAXPROCS-num-指定" class="headerlink" title="多线程(由runtime.GOMAXPROCS(num)指定)"></a>多线程(由runtime.GOMAXPROCS(num)指定)</h4><pre><code class="golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;runtime&quot;
+    &quot;strconv&quot;
+    &quot;sync&quot;
+    &quot;time&quot;
+)
+
+var wait sync.WaitGroup
+func main() {
+    start := time.Now()
+    runtime.GOMAXPROCS(runtime.NumCPU()/4 * 3)
+    var test int64 = 100000000
+    ch := make(chan int64,1000)
+    var i int64 = 0
+    for ;i&lt;test;i += 100000 {
+        wait.Add(1)
+        go Factory(i,ch)
+    }
+    wait.Wait()
+    fmt.Println(time.Now().Sub(start))
+}
+
+func Factory(input int64, ch chan int64) {
+    var i int64 = input
+    for ;i&lt;input + 100000;i++ {
+        fmt.Println(i)
+    }
+    wait.Done()
+}
+</code></pre>
+<h4 id="对比结果"><a href="#对比结果" class="headerlink" title="对比结果"></a>对比结果</h4><ol>
+<li><p>单线程</p>
+<p><img src="/images/pasted-260.png" srcset="/img/loading.gif" alt="upload successful"></p>
+</li>
+<li><p>多线程</p>
+<p><img src="/images/pasted-261.png" srcset="/img/loading.gif" alt="upload successful"></p>
+</li>
+</ol>
+<p>时间上两者耗时差不多，这是为啥?</p>
+<h4 id="打印函数的耗时"><a href="#打印函数的耗时" class="headerlink" title="打印函数的耗时"></a>打印函数的耗时</h4><pre><code class="golang">package main
+
+import (
+    &quot;time&quot;
+    &quot;fmt&quot;
+)
+
+func main() {
+    start := time.Now()
+    for i:=0;i&lt;100000000;i++ {
+        //fmt.Println(i)
+    }
+    fmt.Println(time.Now().Sub(start))
+}
+</code></pre>
+<p><img src="/images/pasted-262.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<p>虽然单线程和多线程所用的CPU线程数量是有很大差别的，但是整体的程序调用Println函数的次数是相同的(浅显的理解)。</p>
+<h4 id="再次运行多线程"><a href="#再次运行多线程" class="headerlink" title="再次运行多线程"></a>再次运行多线程</h4><ol>
+<li>CPU单线程</li>
+</ol>
+<p><img src="/images/pasted-263.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<ol start="2">
+<li>CPU2线程</li>
+</ol>
+<p><img src="/images/pasted-264.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<ol start="3">
+<li>CPU3线程</li>
+</ol>
+<p><img src="/images/pasted-265.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<ol start="4">
+<li>CPU4线程</li>
+</ol>
+<p><img src="/images/pasted-266.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<p>可见，随着CPU线程数的增多，消耗的时间也在慢慢减少。</p>
+<h4 id="CPU线程数设置多少合适"><a href="#CPU线程数设置多少合适" class="headerlink" title="CPU线程数设置多少合适?"></a>CPU线程数设置多少合适?</h4><p>经测试，在多台机器下，CPU线程数设置为CPU总线程数的四分之三即可。</p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
                 
-
-<div class="list-group">
-<!--  <p class="h4">共计 2 篇文章</p>-->
-  <hr>
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/Golang多核-并行.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Golang多核 并行</span>
-      <span style="float: right;">08-07</span>
-    </a>
-  
-    
-      
-      <p class="h5">2019</p>
-    
-    <a href="/目录遍历到递归.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">目录遍历到递归</span>
-      <span style="float: right;">10-30</span>
-    </a>
-  
-</div>
-
-
-
-              </div>
-            </div>
+                  <a class="hover-with-bg" href="/categories/golang">golang</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/golang">golang</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -228,6 +384,11 @@
   <script src="/js/lazyload.js"></script>
 
 
+
+  
+    <script src="/lib/tocbot/tocbot.min.js"></script>
+  
+  <script src="/js/post.js"></script>
 
 
 
@@ -298,7 +459,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - golang&nbsp;",
+        "Golang多核 并行&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 50,

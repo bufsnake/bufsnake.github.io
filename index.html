@@ -174,6 +174,66 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Golang多核-并行.html">
+        <p class="h4 index-header">Golang多核 并行</p>
+      </a>
+
+      <a href="/Golang多核-并行.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言之前学习过程中写的一些工具几乎都是单线程跑，一个程序跑下来很费时间，故而学习了并发并行。
+并发程序中的多个线程在同一CPU单核下被CPU时间片的分配管理。
+假设存在三个线程A、B、C。
+线程A运行到一半的时候，CPU分配的时间片到期(CPU保存当前线程A的上下文)，就会强行执行其他的线程(其他线程同理)。
+并行程序中的多个线程在多个CPU的多个核心下运行。
+假设存在三个线程A、B、C。
+线程A运行在CPU的第一个线程上，同时线程B运行在CPU的第二个线程上(线程C同理)。
+程序单线程(默认使用CPU一个核心)package main
+
+import (
+    &quot;time&quot;
+    &quot;fmt&quot;
+)
+
+func main() {
+    start := time.Now()
+    for i:=0;i&lt;100000000;i++ {
+        fmt.Println(i)
+    }
+    fmt.Println(time.Now().Sub(start))
+}
+
+多线程(由runtime.GOMAXPROCS(num)指定)</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-07&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/golang">golang</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/golang">golang</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/ISCC-逆向-WP.html">
         <p class="h4 index-header">ISCC 逆向 WP</p>
       </a>
@@ -656,66 +716,6 @@ xdebug.profiler_output_name = &quot;cachegrind.out.%</div>
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/php%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">php调试环境搭建</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/CVE-2019-19781-Citrix路径遍历复现.html">
-        <p class="h4 index-header">CVE-2019-19781:Citrix路径遍历复现</p>
-      </a>
-
-      <a href="/CVE-2019-19781-Citrix路径遍历复现.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">前言
-下班刚到家，发现了某平台的漏洞提示，然后就趁热复现了一波
-
-利用
-twitter上的一位大佬公布的poc
-
-
-
-NetScaler Gateway
-
-
-
-Citrix Gateway
-
-
-
-修复后的效果(官方修复建议:https://support.citrix.com/article/CTX267679)
-
-
-后续
-利用的复杂度不是很大。
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-09&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6">学习研究</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/CVE-2019-19781">CVE-2019-19781</a>&nbsp;
           
         
       </div>

@@ -38,6 +38,32 @@
   </entry>
   
   <entry>
+    <title>Golang多核 并行</title>
+    <link href="https://bufsnake.github.io/Golang%E5%A4%9A%E6%A0%B8-%E5%B9%B6%E8%A1%8C.html"/>
+    <id>https://bufsnake.github.io/Golang多核-并行.html</id>
+    <published>2020-08-07T02:02:38.000Z</published>
+    <updated>2020-08-07T02:57:22.121Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前学习过程中写的一些工具几乎都是单线程跑，一个程序跑下来很费时间，故而学习了并发并行。</p><h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>程序中的多个线程在同一CPU单核下被CPU时间片的分配管理。</p><p>假设存在三个线程A、B、C。</p><p>线程A运行到一半的时候，CPU分配的时间片到期(CPU保存当前线程A的上下文)，就会强行执行其他的线程(其他线程同理)。</p><h3 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h3><p>程序中的多个线程在多个CPU的多个核心下运行。</p><p>假设存在三个线程A、B、C。</p><p>线程A运行在CPU的第一个线程上，同时线程B运行在CPU的第二个线程上(线程C同理)。</p><h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><h4 id="单线程-默认使用CPU一个核心"><a href="#单线程-默认使用CPU一个核心" class="headerlink" title="单线程(默认使用CPU一个核心)"></a>单线程(默认使用CPU一个核心)</h4><pre><code class="golang">package mainimport (    &quot;time&quot;    &quot;fmt&quot;)func main() {    start := time.Now()    for i:=0;i&lt;100000000;i++ {        fmt.Println(i)    }    fmt.Println(time.Now().Sub(start))}</code></pre><h4 id="多线程-由runtime-GOMAXPROCS-num-指定"><a href="#多线程-由runtime-GOMAXPROCS-num-指定" class="headerlink" title="多线程(由runtime.GOMAXPROCS(num)指定)"></a>多线程(由runtime.GOMAXPROCS(num)指定)</h4><pre><code class="golang">package mainimport (    &quot;fmt&quot;    &quot;runtime&quot;    &quot;strconv&quot;    &quot;sync&quot;    &quot;time&quot;)var wait sync.WaitGroupfunc main() {    start := time.Now()    runtime.GOMAXPROCS(runtime.NumCPU()/4 * 3)    var test int64 = 100000000    ch := make(chan int64,1000)    var i int64 = 0    for ;i&lt;test;i += 100000 {        wait.Add(1)        go Factory(i,ch)    }    wait.Wait()    fmt.Println(time.Now().Sub(start))}func Factory(input int64, ch chan int64) {    var i int64 = input    for ;i&lt;input + 100000;i++ {        fmt.Println(i)    }    wait.Done()}</code></pre><h4 id="对比结果"><a href="#对比结果" class="headerlink" title="对比结果"></a>对比结果</h4><ol><li><p>单线程</p><p><img src="/images/pasted-260.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>多线程</p><p><img src="/images/pasted-261.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol><p>时间上两者耗时差不多，这是为啥?</p><h4 id="打印函数的耗时"><a href="#打印函数的耗时" class="headerlink" title="打印函数的耗时"></a>打印函数的耗时</h4><pre><code class="golang">package mainimport (    &quot;time&quot;    &quot;fmt&quot;)func main() {    start := time.Now()    for i:=0;i&lt;100000000;i++ {        //fmt.Println(i)    }    fmt.Println(time.Now().Sub(start))}</code></pre><p><img src="/images/pasted-262.png" srcset="/img/loading.gif" alt="upload successful"></p><p>虽然单线程和多线程所用的CPU线程数量是有很大差别的，但是整体的程序调用Println函数的次数是相同的(浅显的理解)。</p><h4 id="再次运行多线程"><a href="#再次运行多线程" class="headerlink" title="再次运行多线程"></a>再次运行多线程</h4><ol><li>CPU单线程</li></ol><p><img src="/images/pasted-263.png" srcset="/img/loading.gif" alt="upload successful"></p><ol start="2"><li>CPU2线程</li></ol><p><img src="/images/pasted-264.png" srcset="/img/loading.gif" alt="upload successful"></p><ol start="3"><li>CPU3线程</li></ol><p><img src="/images/pasted-265.png" srcset="/img/loading.gif" alt="upload successful"></p><ol start="4"><li>CPU4线程</li></ol><p><img src="/images/pasted-266.png" srcset="/img/loading.gif" alt="upload successful"></p><p>可见，随着CPU线程数的增多，消耗的时间也在慢慢减少。</p><h4 id="CPU线程数设置多少合适"><a href="#CPU线程数设置多少合适" class="headerlink" title="CPU线程数设置多少合适?"></a>CPU线程数设置多少合适?</h4><p>经测试，在多台机器下，CPU线程数设置为CPU总线程数的四分之三即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前学习过程中写的一些工具几乎都是单线程跑，一个程序跑下来很费时间，故而学习了并发并行。&lt;/p&gt;
+&lt;h3 id=&quot;并发&quot;&gt;&lt;a href=&quot;
+      
+    
+    </summary>
+    
+      <category term="golang" scheme="https://bufsnake.github.io/categories/golang/"/>
+    
+    
+      <category term="golang" scheme="https://bufsnake.github.io/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ISCC 逆向 WP</title>
     <link href="https://bufsnake.github.io/ISCC-%E9%80%86%E5%90%91-WP.html"/>
     <id>https://bufsnake.github.io/ISCC-逆向-WP.html</id>
@@ -500,35 +526,6 @@
     
     
       <category term="MacOS IDA" scheme="https://bufsnake.github.io/tags/MacOS-IDA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHPStudy后门研究</title>
-    <link href="https://bufsnake.github.io/PHPStudy%E5%90%8E%E9%97%A8%E7%A0%94%E7%A9%B6.html"/>
-    <id>https://bufsnake.github.io/PHPStudy后门研究.html</id>
-    <published>2019-09-25T04:07:14.000Z</published>
-    <updated>2019-11-25T09:42:53.212Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>声明：分析文章仅限用于学习和研究目的,不得将学习成果用于商业或者非法用途,否则,一切后果请用户自负.</p></blockquote><hr><h3 id="PHPStudy-后门文件"><a href="#PHPStudy-后门文件" class="headerlink" title="PHPStudy 后门文件"></a>PHPStudy 后门文件</h3><blockquote><p>php/ext目录下的php_xmlrpc.dll文件 。</p></blockquote><p><img src="/images/pasted-139.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="检测是否存在后门"><a href="#检测是否存在后门" class="headerlink" title="检测是否存在后门"></a>检测是否存在后门</h3><blockquote><p>记事本打开文件，查看是否存在如下所示的字符串，如果有说明存在后门，可升级官方最新版。</p></blockquote><p><img src="/images/pasted-140.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="IDA分析后门文件"><a href="#IDA分析后门文件" class="headerlink" title="IDA分析后门文件"></a>IDA分析后门文件</h3><blockquote><p>根据字符串信息，快速定位关键函数</p></blockquote><p><img src="/images/pasted-141.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-142.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-143.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>根据判断请求头的Accept-Encoding是否为gzip,deflate进行判断Accept-Charset的值base64解密是否成功，如果成功就对它进行gzcompress压缩，然后执行@eval(gzuncompress(data));</p></blockquote><h3 id="相关检测脚本"><a href="#相关检测脚本" class="headerlink" title="相关检测脚本"></a>相关检测脚本</h3><blockquote><p>github已经有大佬上传了，需要研究学习的朋友，可以自己搜索</p></blockquote><hr><blockquote><p>声明：分析文章仅限用于学习和研究目的,不得将学习成果用于商业或者非法用途,否则,一切后果请用户自负.</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;声明：分析文章仅限用于学习和研究目的,不得将学习成果用于商业或者非法用途,否则,一切后果请用户自负.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;PHPStudy-后门文件&quot;&gt;&lt;a href=&quot;#PHPStudy-后门文件&quot; cl
-      
-    
-    </summary>
-    
-      <category term="学习研究" scheme="https://bufsnake.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6/"/>
-    
-    
-      <category term="phpstudy后门" scheme="https://bufsnake.github.io/tags/phpstudy%E5%90%8E%E9%97%A8/"/>
     
   </entry>
   

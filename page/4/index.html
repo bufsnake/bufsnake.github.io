@@ -145,6 +145,67 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/attackworld-gametime.html">
+        <p class="h4 index-header">attackworld-gametime</p>
+      </a>
+
+      <a href="/attackworld-gametime.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">gametime
+ida
+定位主函数
+
+
+
+打开程序看看
+
+
+
+玩几局发现，程序这游戏就行天天炫舞一样，只不过，我们输错了，它就会退出
+
+破解
+既然我们输入的不对就会退出，那不如，我们输入对的就会退出，修改代码sub_1381435sub_1381507两函数虽然一样，但是是不同的函数，只修改一个达不到效果
+
+运行破解之后的程序
+在需要输入的地方按下回车键就行了
+
+C:\Users\TideSec\Desktop\ctf&gt;gametime.exe
+        ZOMGZOMGOZMGZOMGZOMGOZMGZOMGZOMGOZMGZOMGZOMGOZMG
+        ZOMGZOMG                                ZOMGZOMG
+        ZOMGZOMG     TAP TAP REVOLUTION!!!!!!!  ZOMGZOMG
+        ZOMGZOMG                                ZOMGZOMG
+        ZOMGZOMGOZMGZOMGZOMGOZMGZOMGZOMGOZM</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-13&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/reverse">reverse</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/gametime">gametime</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/hexo-next-7-xx添加背景图片.html">
         <p class="h4 index-header">hexo next 7.xx添加背景图片</p>
       </a>
@@ -711,68 +772,6 @@ gi</div>
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/git">git</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/attackworld-web2.html">
-        <p class="h4 index-header">attackworld-web2</p>
-      </a>
-
-      <a href="/attackworld-web2.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">源码&lt;?php 
-$miwen=&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;; 
-
-function encode($str){ 
-    $_o=strrev($str); 
-    // echo $_o; 
-
-    for($_0=0;$_0&lt;strlen($_o);$_0++){ 
-
-        $_c=substr($_o,$_0,1); 
-        $__=ord($_c)+1; 
-        $_c=chr($__); 
-        $_=$_.$_c;    
-    }  
-    return str_rot13(strrev(base64_encode($_))); 
-} 
-
-highlight_file(__FILE__); 
-/* 
-   逆向加密算法，解密$miwen就是flag 
-*/ 
-?&gt; 
-
-分析
-源码：反转字符-每位字符加一-base64-字符反转-rot13解码：rot13-字符反转-base64-每位字符减一</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-06-03&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/web">web</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/web">web</a>&nbsp;
           
         
       </div>

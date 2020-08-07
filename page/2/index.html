@@ -145,6 +145,66 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/CVE-2019-19781-Citrix路径遍历复现.html">
+        <p class="h4 index-header">CVE-2019-19781:Citrix路径遍历复现</p>
+      </a>
+
+      <a href="/CVE-2019-19781-Citrix路径遍历复现.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+下班刚到家，发现了某平台的漏洞提示，然后就趁热复现了一波
+
+利用
+twitter上的一位大佬公布的poc
+
+
+
+NetScaler Gateway
+
+
+
+Citrix Gateway
+
+
+
+修复后的效果(官方修复建议:https://support.citrix.com/article/CTX267679)
+
+
+后续
+利用的复杂度不是很大。
+
+</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-09&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6">学习研究</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/CVE-2019-19781">CVE-2019-19781</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/2019领航杯WP.html">
         <p class="h4 index-header">2019领航杯WP</p>
       </a>
@@ -681,72 +741,6 @@ xattrxattr -c filename # 可以清除这个附加属性
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/MacOS%20IDA">MacOS IDA</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/PHPStudy后门研究.html">
-        <p class="h4 index-header">PHPStudy后门研究</p>
-      </a>
-
-      <a href="/PHPStudy后门研究.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">
-声明：分析文章仅限用于学习和研究目的,不得将学习成果用于商业或者非法用途,否则,一切后果请用户自负.
-
-
-PHPStudy 后门文件
-php/ext目录下的php_xmlrpc.dll文件 。
-
-
-检测是否存在后门
-记事本打开文件，查看是否存在如下所示的字符串，如果有说明存在后门，可升级官方最新版。
-
-
-IDA分析后门文件
-根据字符串信息，快速定位关键函数
-
-
-
-
-
-根据判断请求头的Accept-Encoding是否为gzip,deflate进行判断Accept-Charset的值base64解密是否成功，如果成功就对它进行gzcompress压缩，然后执行@eval(gzuncompress(data));
-
-相关检测脚本
-github已经有大佬上传了，需要研究学习的朋友，可以自己搜索
-
-
-
-声明：分析文章仅限用于学习和研究目的,不得将学习成果用于商业或者非法用途,否则,一切后果请用户自负.
-
-</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-25&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6">学习研究</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/phpstudy%E5%90%8E%E9%97%A8">phpstudy后门</a>&nbsp;
           
         
       </div>

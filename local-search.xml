@@ -17,6 +17,31 @@
   
   
   <entry>
+    <title>Golang多核 并行</title>
+    <link href="/Golang%E5%A4%9A%E6%A0%B8-%E5%B9%B6%E8%A1%8C.html"/>
+    <url>/Golang%E5%A4%9A%E6%A0%B8-%E5%B9%B6%E8%A1%8C.html</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前学习过程中写的一些工具几乎都是单线程跑，一个程序跑下来很费时间，故而学习了并发并行。</p><h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>程序中的多个线程在同一CPU单核下被CPU时间片的分配管理。</p><p>假设存在三个线程A、B、C。</p><p>线程A运行到一半的时候，CPU分配的时间片到期(CPU保存当前线程A的上下文)，就会强行执行其他的线程(其他线程同理)。</p><h3 id="并行"><a href="#并行" class="headerlink" title="并行"></a>并行</h3><p>程序中的多个线程在多个CPU的多个核心下运行。</p><p>假设存在三个线程A、B、C。</p><p>线程A运行在CPU的第一个线程上，同时线程B运行在CPU的第二个线程上(线程C同理)。</p><h3 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h3><h4 id="单线程-默认使用CPU一个核心"><a href="#单线程-默认使用CPU一个核心" class="headerlink" title="单线程(默认使用CPU一个核心)"></a>单线程(默认使用CPU一个核心)</h4><pre><code class="golang">package mainimport (    &quot;time&quot;    &quot;fmt&quot;)func main() {    start := time.Now()    for i:=0;i&lt;100000000;i++ {        fmt.Println(i)    }    fmt.Println(time.Now().Sub(start))}</code></pre><h4 id="多线程-由runtime-GOMAXPROCS-num-指定"><a href="#多线程-由runtime-GOMAXPROCS-num-指定" class="headerlink" title="多线程(由runtime.GOMAXPROCS(num)指定)"></a>多线程(由runtime.GOMAXPROCS(num)指定)</h4><pre><code class="golang">package mainimport (    &quot;fmt&quot;    &quot;runtime&quot;    &quot;strconv&quot;    &quot;sync&quot;    &quot;time&quot;)var wait sync.WaitGroupfunc main() {    start := time.Now()    runtime.GOMAXPROCS(runtime.NumCPU()/4 * 3)    var test int64 = 100000000    ch := make(chan int64,1000)    var i int64 = 0    for ;i&lt;test;i += 100000 {        wait.Add(1)        go Factory(i,ch)    }    wait.Wait()    fmt.Println(time.Now().Sub(start))}func Factory(input int64, ch chan int64) {    var i int64 = input    for ;i&lt;input + 100000;i++ {        fmt.Println(i)    }    wait.Done()}</code></pre><h4 id="对比结果"><a href="#对比结果" class="headerlink" title="对比结果"></a>对比结果</h4><ol><li><p>单线程</p><p><img src="/images/pasted-260.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>多线程</p><p><img src="/images/pasted-261.png" srcset="/img/loading.gif" alt="upload successful"></p></li></ol><p>时间上两者耗时差不多，这是为啥?</p><h4 id="打印函数的耗时"><a href="#打印函数的耗时" class="headerlink" title="打印函数的耗时"></a>打印函数的耗时</h4><pre><code class="golang">package mainimport (    &quot;time&quot;    &quot;fmt&quot;)func main() {    start := time.Now()    for i:=0;i&lt;100000000;i++ {        //fmt.Println(i)    }    fmt.Println(time.Now().Sub(start))}</code></pre><p><img src="/images/pasted-262.png" srcset="/img/loading.gif" alt="upload successful"></p><p>虽然单线程和多线程所用的CPU线程数量是有很大差别的，但是整体的程序调用Println函数的次数是相同的(浅显的理解)。</p><h4 id="再次运行多线程"><a href="#再次运行多线程" class="headerlink" title="再次运行多线程"></a>再次运行多线程</h4><ol><li>CPU单线程</li></ol><p><img src="/images/pasted-263.png" srcset="/img/loading.gif" alt="upload successful"></p><ol start="2"><li>CPU2线程</li></ol><p><img src="/images/pasted-264.png" srcset="/img/loading.gif" alt="upload successful"></p><ol start="3"><li>CPU3线程</li></ol><p><img src="/images/pasted-265.png" srcset="/img/loading.gif" alt="upload successful"></p><ol start="4"><li>CPU4线程</li></ol><p><img src="/images/pasted-266.png" srcset="/img/loading.gif" alt="upload successful"></p><p>可见，随着CPU线程数的增多，消耗的时间也在慢慢减少。</p><h4 id="CPU线程数设置多少合适"><a href="#CPU线程数设置多少合适" class="headerlink" title="CPU线程数设置多少合适?"></a>CPU线程数设置多少合适?</h4><p>经测试，在多台机器下，CPU线程数设置为CPU总线程数的四分之三即可。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>golang</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>golang</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ISCC 逆向 WP</title>
     <link href="/ISCC-%E9%80%86%E5%90%91-WP.html"/>
     <url>/ISCC-%E9%80%86%E5%90%91-WP.html</url>
