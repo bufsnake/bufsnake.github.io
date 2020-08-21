@@ -38,6 +38,32 @@
   </entry>
   
   <entry>
+    <title>如何申请Xray高级版</title>
+    <link href="https://bufsnake.github.io/%E5%A6%82%E4%BD%95%E7%94%B3%E8%AF%B7Xray%E9%AB%98%E7%BA%A7%E7%89%88.html"/>
+    <id>https://bufsnake.github.io/如何申请Xray高级版.html</id>
+    <published>2020-08-21T04:21:55.000Z</published>
+    <updated>2020-08-21T06:05:40.978Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="找一个Nday"><a href="#找一个Nday" class="headerlink" title="找一个Nday"></a>找一个Nday</h3><ol><li><p><a href="https://www.exploit-db.com/" target="_blank" rel="noopener">https://www.exploit-db.com/</a></p></li><li><p>零组资料库</p></li><li><p>CNVD</p></li><li><p>…</p></li></ol><h3 id="编写POC"><a href="#编写POC" class="headerlink" title="编写POC"></a>编写POC</h3><p>示例:</p><pre><code class="yml">name: poc-漏洞产品-[CVE编号]-描述[rce/weakpasswd...]set:  r: randomInt(800000000, 1000000000)rules:  - method: GET    path: /index.php?m=vod-search&amp;wd={if-A:printf(md5({{r}}))}{endif-A}    follow_redirects: false    expression: |      response.body.bcontains(bytes(md5(string(r))))detail:  Affected Version: &quot;maccms8.x&quot;  author: hanxiansheng26(https://github.com/hanxiansheng26)  links:    - https://www.cnblogs.com/test404/p/7397755.html</code></pre><p>具体的语法可参考官方文档</p><p><a href="https://docs.xray.cool/#/guide/poc" target="_blank" rel="noopener">https://docs.xray.cool/#/guide/poc</a></p><h3 id="验证POC"><a href="#验证POC" class="headerlink" title="验证POC"></a>验证POC</h3><pre><code class="bash">./xray webscan --poc xray/pocs/poc.yml --url http://127.0.0.1/</code></pre><p>如需要查看发包详情，可以在配置文件中设置http代理为burpsuite</p><p><img src="/images/pasted-276.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="提交POC"><a href="#提交POC" class="headerlink" title="提交POC"></a>提交POC</h3><ol><li><p>fork xray</p><p><img src="/images/pasted-267.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>clone到本地(个人仓库中的xray)</p><p><img src="/images/pasted-268.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>进入xray文件夹，新建分支(可以在主分支上提交)</p><pre><code class="bash">┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://master ✗]-└&gt; git branch test┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://master ✗]-└&gt; git checkout testM    pocs/glassfish-cve-2017-1000028-lfi.ymlSwitched to branch &#39;test&#39;</code></pre></li><li><p>将编辑好的POC文件移动到pocs文件夹后提交</p><pre><code class="bash">┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://test ✗]-└&gt; git add .┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://test ✗]-└&gt; git commit -m &quot;`date`&quot;[test 63dfa7b] modify jupyter-notebook-unauthorized-access1 file changed, 1 insertion(+), 1 deletion(-)┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://test ✔]-└&gt; git push --set-upstream origin test</code></pre></li><li><p>选择test分支，提交pull request</p><p><img src="/images/pasted-269.png" srcset="/img/loading.gif" alt="upload successful"></p><p>填写相应的内容后点击创建</p><p><img src="/images/pasted-270.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>查看是否通过CI测试</p><p>打√的说明已经通过CI测试<br>打×的需要查看报错详情</p><p><img src="/images/pasted-271.png" srcset="/img/loading.gif" alt="upload successful"></p><p>举个例子</p><p><img src="/images/pasted-272.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-273.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-274.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>根据报错内容修改poc文件，然后在提交</p></li><li><p>等待长亭的师傅审核</p></li></ol><h3 id="领取奖励"><a href="#领取奖励" class="headerlink" title="领取奖励"></a>领取奖励</h3><p><img src="/images/pasted-275.png" srcset="/img/loading.gif" alt="upload successful"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;找一个Nday&quot;&gt;&lt;a href=&quot;#找一个Nday&quot; class=&quot;headerlink&quot; title=&quot;找一个Nday&quot;&gt;&lt;/a&gt;找一个Nday&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://www.exploit-db.com/&quot; tar
+      
+    
+    </summary>
+    
+      <category term="web" scheme="https://bufsnake.github.io/categories/web/"/>
+    
+    
+      <category term="xray" scheme="https://bufsnake.github.io/tags/xray/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Golang多核 并行</title>
     <link href="https://bufsnake.github.io/Golang%E5%A4%9A%E6%A0%B8-%E5%B9%B6%E8%A1%8C.html"/>
     <id>https://bufsnake.github.io/Golang多核-并行.html</id>
@@ -500,32 +526,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>MacOS上IDA pro的小问题修复</title>
-    <link href="https://bufsnake.github.io/MacOS-IDA-pro-%E8%87%B4%E6%9C%80%E5%82%BB%E7%9A%84%E6%88%91.html"/>
-    <id>https://bufsnake.github.io/MacOS-IDA-pro-致最傻的我.html</id>
-    <published>2019-09-30T13:04:55.000Z</published>
-    <updated>2019-11-25T09:42:53.184Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>每次打开ida32位版本的，都会出现卡顿几秒的情况，之前也想办法解决了，但是没能成功，趁着国庆的喜气，搞了一下，才知道是个啥情况，这里简单记录一下。</p></blockquote><h3 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h3><p><img src="/images/pasted-145.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>第一次遇到文件权限后门带@的，以为是这个问题，然后就疯狂Google，才得知这是Mac OS X文件系统的附加属性</p></blockquote><blockquote><p>文件的读写权限中被加上了一个@符号，这就是 Mac OS X 文件系统的附加属性（extended attributes）</p></blockquote><blockquote><p>这个属性下，打开文件显示错误为：项目“XXX”已被OS X 使用，不能打开</p></blockquote><h4 id="xattr"><a href="#xattr" class="headerlink" title="xattr"></a>xattr</h4><pre><code class="bash">xattr -c filename # 可以清除这个附加属性</code></pre><blockquote><p>天真的以为清除附加属性后，打开就没有问题了，然而，我错了。还是没能解决</p></blockquote><h3 id="查看系统日志"><a href="#查看系统日志" class="headerlink" title="查看系统日志"></a>查看系统日志</h3><p><img src="/images/pasted-146.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-147.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>出现签名的问题，然后又是一番疯狂Google</p></blockquote><p><img src="/images/pasted-148.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>允许应用控制电脑，所以每次打开应用Mac OS X都会检测程序的签名问题。可能是因为我的IDA补丁的问题。</p></blockquote><p><img src="/images/pasted-149.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>取消勾选 允许应用控制电脑 即可解决问题。</p></blockquote><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>困扰了有两个月了，搞得我都对那个程序有些恐惧，都不想打开它，今天终于解决了。学到姿势了。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;每次打开ida32位版本的，都会出现卡顿几秒的情况，之前也想办法解决了，但是没能成功，趁着国庆的喜气，搞了一下，才
-      
-    
-    </summary>
-    
-      <category term="misc" scheme="https://bufsnake.github.io/categories/misc/"/>
-    
-    
-      <category term="MacOS IDA" scheme="https://bufsnake.github.io/tags/MacOS-IDA/"/>
     
   </entry>
   

