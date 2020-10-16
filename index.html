@@ -174,6 +174,55 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/配电终端测试细则.html">
+        <p class="h4 index-header">配电终端测试细则</p>
+      </a>
+
+      <a href="/配电终端测试细则.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言请勿在未经允许的情况下对配电终端(电箱)进行测试，否则后果自负。
+简单记录一下在工作中是如何对电箱进行渗透测试的，如有错误，还请师傅们批评指正。
+测试
+查看是否存在多余的开放的端口，如果存在，直接插入网线测试即可。
+
+未存在可用端口时，需要将电箱与模块之间的网线拔掉。
+
+对终端进行测试，查看开放的端口，记录一下Mac地址，IP地址，开放的端口信息，方便后面进行伪造，其次根据端口开放的情况进行测试。
+arp 192.168.1.1
+sudo nmap -sn 192.168.1.1 # 需要管理员权限
+
+
+
+连接到模块上(或交换机)对主站进行测试(需要注意 有的需要配置网关)，测试与主站的连通性(ping arp nmap等方式进行探活)。
+
+连通后探测主战的端口开放情况，nmap直接扫描，在未探测到存活的情况下进行伪造终端IP、Mac地址、端口(可直接使用nmap进行伪造)。
+nmap -g 80 --spoof-mac xx:xx:xx:xx:xx:xx -S 192.168.1.1 -Pn --disable-arp-ping --top-port 1000 -n 192.16</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-10-16&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/work">work</a>&nbsp;
+          &nbsp;
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/如何申请Xray高级版.html">
         <p class="h4 index-header">如何申请Xray高级版</p>
       </a>
@@ -666,60 +715,6 @@ $tmp_id = &#39;weber&#39;;
           <i class="iconfont icon-tag"></i>
           
             <a href="/tags/padding%20oracle%20attack">padding oracle attack</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/Mac-自动操作的极致体验.html">
-        <p class="h4 index-header">Mac 自动操作的极致体验</p>
-      </a>
-
-      <a href="/Mac-自动操作的极致体验.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">前言
-常用的jar包常常需要用掉一个终端页面，或是&amp;&gt;&gt;/dev/null &amp;后台运行，但是当前页面一但关闭，程序也就随之关闭，很是苦恼。
-
-
-使用burpsuite的时候，发现国光大佬发的一篇有趣的文章，遂尝试了一下。成果图如下
-
-
-按照操作，出现了点问题，如下：
-
-操作“运行 Shell 脚本”遇到了错误：“Error: Unable to access jarfile burp-loader-keygen-2020_2.jar”
-Error: Unable to access jarfile burp-loader-keygen-2020_2.jar
-
-Google了一波，都说是内存分配原因，但是在iterm2中运行却没事，想到会不会是环境的问题，然后就在终端运行了
-➜  burpsuite2020.02 export |grep &quot;JAVA&quot;
-JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
-
-，找到唯一和java相关的环境变量，写</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-20&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/misc">misc</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/mac">mac</a>&nbsp;
           
         
       </div>

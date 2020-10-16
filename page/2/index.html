@@ -145,6 +145,60 @@
     
     
     <div class="col-12 col-md-8 mx-auto index-info">
+      <a href="/Mac-自动操作的极致体验.html">
+        <p class="h4 index-header">Mac 自动操作的极致体验</p>
+      </a>
+
+      <a href="/Mac-自动操作的极致体验.html">
+        
+        
+          
+        
+        <div class="index-excerpt">
+          <div class="index-text mb-1">前言
+常用的jar包常常需要用掉一个终端页面，或是&amp;&gt;&gt;/dev/null &amp;后台运行，但是当前页面一但关闭，程序也就随之关闭，很是苦恼。
+
+
+使用burpsuite的时候，发现国光大佬发的一篇有趣的文章，遂尝试了一下。成果图如下
+
+
+按照操作，出现了点问题，如下：
+
+操作“运行 Shell 脚本”遇到了错误：“Error: Unable to access jarfile burp-loader-keygen-2020_2.jar”
+Error: Unable to access jarfile burp-loader-keygen-2020_2.jar
+
+Google了一波，都说是内存分配原因，但是在iterm2中运行却没事，想到会不会是环境的问题，然后就在终端运行了
+➜  burpsuite2020.02 export |grep &quot;JAVA&quot;
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
+
+，找到唯一和java相关的环境变量，写</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-20&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/misc">misc</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/mac">mac</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
       <a href="/Mac-PHP调试环境搭建.html">
         <p class="h4 index-header">Mac PHP调试环境搭建</p>
       </a>
@@ -686,48 +740,6 @@ struct SegMent
           
             <a href="/tags/%E6%AE%B5%E7%9A%84%E6%9C%BA%E5%88%B6">段的机制</a>&nbsp;
           
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a href="/KCTF-1.html">
-        <p class="h4 index-header">KCTF-1</p>
-      </a>
-
-      <a href="/KCTF-1.html">
-        
-        
-          
-        
-        <div class="index-excerpt">
-          <div class="index-text mb-1">
-初世纪
-
-输入不正确就会出现这个弹窗
-
-ida打开程序定位WinMain函数
-找到DialogBoxParam的回调函数
-函数原型：
-    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；
-参数：
-hlnstance       标识一个模块的实例，该模块的可执行文件含有对话框模板。
-IpTemplateName  标识对话框模板。此参数可以指向一个以NULL结尾的字符串的指针,该字符串指定对话框模扳名，或是指定对话框模板的资源标识符的一个整型值。如果此参数指定了一个资源标识符，则它的高位字一定为零，且低位字一定含有标识符。一定用MAKEINTRESOURCE宏指令创建此值。
-hWndParent      指定拥有对话框的窗口。
-IpDialogFunc    指向对话框过程的指针。
-dwInitParam     指定传递到对话框过程中的 WM_INITDIALOG 消息 IParam 参</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-10-01&nbsp;&nbsp;
-        
-        
         
       </div>
     </div>

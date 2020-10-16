@@ -38,6 +38,30 @@
   </entry>
   
   <entry>
+    <title>配电终端测试细则</title>
+    <link href="https://bufsnake.github.io/%E9%85%8D%E7%94%B5%E7%BB%88%E7%AB%AF%E6%B5%8B%E8%AF%95%E7%BB%86%E5%88%99.html"/>
+    <id>https://bufsnake.github.io/配电终端测试细则.html</id>
+    <published>2020-10-16T10:54:10.000Z</published>
+    <updated>2020-10-16T11:08:28.513Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>请勿在未经允许的情况下对配电终端(电箱)进行测试，否则后果自负。</code></p><p>简单记录一下在工作中是如何对电箱进行渗透测试的，如有错误，还请师傅们批评指正。</p><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol><li><p>查看是否存在<code>多余的开放的</code>端口，如果存在，直接插入网线测试即可。</p></li><li><p>未存在可用端口时，需要将电箱与模块之间的网线拔掉。</p></li><li><p>对终端进行测试，查看开放的端口，记录一下Mac地址，IP地址，开放的端口信息，方便后面进行伪造，其次根据端口开放的情况进行测试。</p><pre><code class="bash">arp 192.168.1.1sudo nmap -sn 192.168.1.1 # 需要管理员权限</code></pre><p><img src="/images/pasted-277.png" srcset="/img/loading.gif" alt="upload successful"></p></li><li><p>连接到模块上(或交换机)对主站进行测试(需要注意 有的需要配置网关)，测试与主站的连通性(ping arp nmap等方式进行探活)。</p></li><li><p>连通后探测主战的端口开放情况，nmap直接扫描，在未探测到存活的情况下进行伪造终端IP、Mac地址、端口(可直接使用nmap进行伪造)。</p><pre><code class="bash">nmap -g 80 --spoof-mac xx:xx:xx:xx:xx:xx -S 192.168.1.1 -Pn --disable-arp-ping --top-port 1000 -n 192.168.1.2 -e en0-g 指定源端口--spoof-mac 指定源Mac地址-S 指定源IP-e 指定网卡</code></pre></li></ol><h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>以上简单记录了配电终端测试方法，还是那句话，<code>未经授权，禁止测试，如若胆大，牢底坐穿</code>。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;&lt;code&gt;请勿在未经允许的情况下对配电终端(电箱)进行测试，否则后果自负。&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;简单记录一下在工作中是如何对电箱进
+      
+    
+    </summary>
+    
+      <category term="work" scheme="https://bufsnake.github.io/categories/work/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>如何申请Xray高级版</title>
     <link href="https://bufsnake.github.io/%E5%A6%82%E4%BD%95%E7%94%B3%E8%AF%B7Xray%E9%AB%98%E7%BA%A7%E7%89%88.html"/>
     <id>https://bufsnake.github.io/如何申请Xray高级版.html</id>
@@ -504,28 +528,6 @@
     
     
       <category term="段的机制" scheme="https://bufsnake.github.io/tags/%E6%AE%B5%E7%9A%84%E6%9C%BA%E5%88%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KCTF-1</title>
-    <link href="https://bufsnake.github.io/KCTF-1.html"/>
-    <id>https://bufsnake.github.io/KCTF-1.html</id>
-    <published>2019-10-01T14:01:53.000Z</published>
-    <updated>2019-11-25T09:42:53.196Z</updated>
-    
-    <content type="html"><![CDATA[<hr><h3 id="初世纪"><a href="#初世纪" class="headerlink" title="初世纪"></a>初世纪</h3><p><img src="/images/pasted-152.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>输入不正确就会出现这个弹窗</p></blockquote><h4 id="ida打开程序"><a href="#ida打开程序" class="headerlink" title="ida打开程序"></a>ida打开程序</h4><h5 id="定位WinMain函数"><a href="#定位WinMain函数" class="headerlink" title="定位WinMain函数"></a>定位WinMain函数</h5><p><img src="/images/pasted-153.png" srcset="/img/loading.gif" alt="upload successful"></p><h5 id="找到DialogBoxParam的回调函数"><a href="#找到DialogBoxParam的回调函数" class="headerlink" title="找到DialogBoxParam的回调函数"></a>找到DialogBoxParam的回调函数</h5><p><img src="/images/pasted-154.png" srcset="/img/loading.gif" alt="upload successful"></p><pre><code class="c">函数原型：    int DialogBoxParam（HINSTANCE hInstance，LPCTSTR IpTemplateName,HWND hWndParent， DLGPROC IPDialogFunc,LPARAM dwlnitParam）；参数：hlnstance       标识一个模块的实例，该模块的可执行文件含有对话框模板。IpTemplateName  标识对话框模板。此参数可以指向一个以NULL结尾的字符串的指针,该字符串指定对话框模扳名，或是指定对话框模板的资源标识符的一个整型值。如果此参数指定了一个资源标识符，则它的高位字一定为零，且低位字一定含有标识符。一定用MAKEINTRESOURCE宏指令创建此值。hWndParent      指定拥有对话框的窗口。IpDialogFunc    指向对话框过程的指针。dwInitParam     指定传递到对话框过程中的 WM_INITDIALOG 消息 IParam 参数的值。返回值 如果函数调用成功则返回值为在对函数EndDialog的调用中的nResult参数，该EndDialog函数用于中止对话框。如果函数调用失败，则返回值为-1。</code></pre><h5 id="F5大法定位关键代码"><a href="#F5大法定位关键代码" class="headerlink" title="F5大法定位关键代码"></a>F5大法定位关键代码</h5><p><img src="/images/pasted-155.png" srcset="/img/loading.gif" alt="upload successful"></p><p><img src="/images/pasted-156.png" srcset="/img/loading.gif" alt="upload successful"></p><pre><code class="c">函数功能：该函数获取对话框中与控制有关的文本或标题。函数原型    UINT GetDlgltemText(HWND hDlg,int nlDDlltem,LPTSTR IpString int nMazCount);参数    hDlg       指向含有控制的对话框的句柄。    nlDDlgltem 指定标题或文本将被检索的控制的标识符。    IpString   指向获取标题或文本的缓冲器的指针。    nMaxCount  指定被复制到lpString参数指向的缓冲区的字符串的最大长度。如果字符串的字符最大长度超过范围，则该字符串被截断。返回值 如果函数调用成功，则返回值表示被复制缓冲区的字符串的长度，不包括以NULL结尾的字符串。如果函数调用失败,则返回值为零。若想获得更多错误信息，请调用GetLastError函数。</code></pre><blockquote><p>得到注册码为6Ewi9H</p></blockquote><h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p><img src="/images/pasted-157.png" srcset="/img/loading.gif" alt="upload successful"></p><hr><h3 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h3><p><img src="/images/pasted-158.png" srcset="/img/loading.gif" alt="upload successful"></p><h4 id="OD调试之"><a href="#OD调试之" class="headerlink" title="OD调试之"></a>OD调试之</h4><p><img src="/images/pasted-159.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>通过字符串找到关键点</p></blockquote><p><img src="/images/pasted-160.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>可以看出来一些流程，输入字符串，得到长度，然后判断是否在10～30之间，将字符串copy到另外一个地方，比较字符串的第八个位置是否为’A’。</p></blockquote><p><img src="/images/pasted-161.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>进入此函数</p></blockquote><p><img src="/images/pasted-162.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>该函数的逻辑是：将输入的第七个字符串换成’#’，字符串的每位都与0x1F进行xor运算。然后下面没有思路了</p></blockquote><h4 id="IDA查看之"><a href="#IDA查看之" class="headerlink" title="IDA查看之"></a>IDA查看之</h4><p><img src="/images/pasted-163.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>找到字符串(将字符串复制到的地址)的交叉引用，挨个扫一眼</p></blockquote><p><img src="/images/pasted-164.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>可以看到这一个函数</p></blockquote><p><img src="/images/pasted-165.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>找到该函数的交叉引用</p></blockquote><p><img src="/images/pasted-166.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>可以看到第二个参数就是’invalid argument’</p></blockquote><p><img src="/images/pasted-167.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>关键比较处，a2就是’invalid argument’ ^ 28后的结果，dword_2F3088就是我们输入字符串复制到的地址</p></blockquote><blockquote><p>在关键部分下断点，可以得到比较的字符串</p></blockquote><p><img src="/images/pasted-168.png" srcset="/img/loading.gif" alt="upload successful"></p><blockquote><p>到此，程序整体逻辑也就明了了，输入字符串，判断第八位是否为A，将第八位换成#，整体字符在与 0x1f 异或，得到的字符 和 ‘invalid argument’与28异或后的结果相比较</p></blockquote><h4 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h4><pre><code class="bash">In [1]: flag = &quot;invalid argument&quot;In [2]: temp = &#39;&#39;In [3]: for i in range(0,len(flag)):   ...:     temp += chr(ord(flag[i]) ^ 28)In [4]: tempOut[4]: &#39;urj}pux&lt;}n{iqyrh&#39;In [5]: for i in range(0,len(temp)):   ...:     flag += chr(ord(temp[i]) ^ 0x1f)In [6]: flag = &#39;&#39;In [7]: for i in range(0,len(temp)):   ...:     flag += chr(ord(temp[i]) ^ 0x1f)In [8]: flagOut[8]: &#39;jmubojg#bqdvnfmw&#39;# 最后将#换成&#39;A&#39;即可</code></pre><h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><p><img src="/images/pasted-169.png" srcset="/img/loading.gif" alt="upload successful"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><p>KCTF的题目质量是真的好，准备把这几年的比赛题目都拿来做做，学习学习，还是有很多姿势的。。。。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;hr&gt;
-&lt;h3 id=&quot;初世纪&quot;&gt;&lt;a href=&quot;#初世纪&quot; class=&quot;headerlink&quot; title=&quot;初世纪&quot;&gt;&lt;/a&gt;初世纪&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/pasted-152.png&quot; srcset=&quot;/img/loading.gif&quot; a
-      
-    
-    </summary>
-    
     
   </entry>
   

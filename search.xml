@@ -6,6 +6,14 @@
     <content type="text"><![CDATA[This is my TODO…时间管理]]></content>
   </entry>
   <entry>
+    <title><![CDATA[配电终端测试细则]]></title>
+    <url>%2F%E9%85%8D%E7%94%B5%E7%BB%88%E7%AB%AF%E6%B5%8B%E8%AF%95%E7%BB%86%E5%88%99.html</url>
+    <content type="text"><![CDATA[前言请勿在未经允许的情况下对配电终端(电箱)进行测试，否则后果自负。 简单记录一下在工作中是如何对电箱进行渗透测试的，如有错误，还请师傅们批评指正。 测试 查看是否存在多余的开放的端口，如果存在，直接插入网线测试即可。 未存在可用端口时，需要将电箱与模块之间的网线拔掉。 对终端进行测试，查看开放的端口，记录一下Mac地址，IP地址，开放的端口信息，方便后面进行伪造，其次根据端口开放的情况进行测试。 arp 192.168.1.1 sudo nmap -sn 192.168.1.1 # 需要管理员权限 连接到模块上(或交换机)对主站进行测试(需要注意 有的需要配置网关)，测试与主站的连通性(ping arp nmap等方式进行探活)。 连通后探测主战的端口开放情况，nmap直接扫描，在未探测到存活的情况下进行伪造终端IP、Mac地址、端口(可直接使用nmap进行伪造)。 nmap -g 80 --spoof-mac xx:xx:xx:xx:xx:xx -S 192.168.1.1 -Pn --disable-arp-ping --top-port 1000 -n 192.168.1.2 -e en0 -g 指定源端口 --spoof-mac 指定源Mac地址 -S 指定源IP -e 指定网卡 结束以上简单记录了配电终端测试方法，还是那句话，未经授权，禁止测试，如若胆大，牢底坐穿。]]></content>
+      <categories>
+        <category>work</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[如何申请Xray高级版]]></title>
     <url>%2F%E5%A6%82%E4%BD%95%E7%94%B3%E8%AF%B7Xray%E9%AB%98%E7%BA%A7%E7%89%88.html</url>
     <content type="text"><![CDATA[找一个Nday https://www.exploit-db.com/ 零组资料库 CNVD … 编写POC示例: name: poc-漏洞产品-[CVE编号]-描述[rce/weakpasswd...] set: r: randomInt(800000000, 1000000000) rules: - method: GET path: /index.php?m=vod-search&amp;wd={if-A:printf(md5({{r}}))}{endif-A} follow_redirects: false expression: | response.body.bcontains(bytes(md5(string(r)))) detail: Affected Version: &quot;maccms8.x&quot; author: hanxiansheng26(https://github.com/hanxiansheng26) links: - https://www.cnblogs.com/test404/p/7397755.html 具体的语法可参考官方文档 https://docs.xray.cool/#/guide/poc 验证POC./xray webscan --poc xray/pocs/poc.yml --url http://127.0.0.1/ 如需要查看发包详情，可以在配置文件中设置http代理为burpsuite 提交POC fork xray clone到本地(个人仓库中的xray) 进入xray文件夹，新建分支(可以在主分支上提交) ┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://master ✗]- └&gt; git branch test ┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://master ✗]- └&gt; git checkout test M pocs/glassfish-cve-2017-1000028-lfi.yml Switched to branch &#39;test&#39; 将编辑好的POC文件移动到pocs文件夹后提交 ┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://test ✗]- └&gt; git add . ┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://test ✗]- └&gt; git commit -m &quot;`date`&quot; [test 63dfa7b] modify jupyter-notebook-unauthorized-access 1 file changed, 1 insertion(+), 1 deletion(-) ┌[bufsnakeのMacBook Pro]-(~/Web-Pentest/xray/xray-dir)-[git://test ✔]- └&gt; git push --set-upstream origin test 选择test分支，提交pull request 填写相应的内容后点击创建 查看是否通过CI测试 打√的说明已经通过CI测试打×的需要查看报错详情 举个例子 根据报错内容修改poc文件，然后在提交 等待长亭的师傅审核 领取奖励]]></content>
@@ -363,8 +371,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -375,8 +383,8 @@
         <category>reverse</category>
       </categories>
       <tags>
-        <tag>reverse</tag>
         <tag>jactf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
